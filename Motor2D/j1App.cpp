@@ -3,6 +3,7 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 
+#include "j1Player.h"
 #include "j1Window.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -19,12 +20,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	want_to_save = want_to_load = false;
 
 	input = new j1Input();
-	win = new j1Window();
-	render = new j1Render();
+	win = new j1Window();	
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
+	player = new j1Player();
+	render = new j1Render();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -34,6 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(player);
 
 	// render last to swap buffer
 	AddModule(render);
