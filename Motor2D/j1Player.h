@@ -39,18 +39,4 @@ public:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif // __j1PLAYER_H__

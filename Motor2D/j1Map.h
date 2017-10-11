@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1App.h"
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
