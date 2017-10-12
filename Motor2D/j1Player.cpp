@@ -48,33 +48,46 @@ j1Player::j1Player() : j1Module()
 	walk.PushBack({ 1800, 500, 178, 249 });
 	walk.loop = true;
 	walk.speed = 0.1f;
+
+	
 }
 
 j1Player::~j1Player()
 {}
 
-bool j1Player::Awake(pugi::xml_node& conf) {
-
+bool j1Player::Start() {
+	bool ret = true;
 	LOG("Loading player");
 
-	//graphics = App->tex->Load("game/textures/Character Sprites.png");
+	graphics = App->tex->Load("textures/character_spritesheet.png");
+	if (graphics == nullptr) {
+		LOG("Error loading player textures");
+		ret = false;
 	
+	}
 	
+	position = { 0,0 };
 
-	return true;
+	current_animation = &idle;
+
+	return ret;
 }
 
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
 
-	//App->tex->UnLoad(graphics);
+	App->tex->UnLoad(graphics);
 
 	return true;
 
 }
 bool j1Player::Update()
 {
+
+	// Draw everything --------------------------------------
+
+	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
 	return true;
 }

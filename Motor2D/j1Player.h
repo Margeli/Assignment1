@@ -6,7 +6,7 @@
 #include "j1Animation.h"
 #include "j1Collisions.h"
 
-class SDL_Texture;
+struct SDL_Texture;
 
 class j1Player : public j1Module
 {
@@ -17,8 +17,9 @@ public:
 	// Destructor
 	virtual ~j1Player();
 
-	// Called before render is available
-	bool Awake(pugi::xml_node& conf);
+	
+
+	bool Start();
 
 	// Called each loop iteration
 	bool Update();
@@ -27,6 +28,9 @@ public:
 	bool CleanUp();
 
 public:
+
+	iPoint position;
+
 	SDL_Texture* graphics = nullptr;
 
 	Animation* current_animation = nullptr;
