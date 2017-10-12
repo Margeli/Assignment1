@@ -3,7 +3,8 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
-#include "Animation.h"
+#include "j1Animation.h"
+#include "j1Collisions.h"
 
 class SDL_Texture;
 
@@ -33,7 +34,7 @@ public:
 	Animation walk;
 	Animation jump;
 
-	Collider * player_collider;
+	//Collider * player_collider;
 };
 
 

@@ -1,5 +1,5 @@
-#ifndef __ANIMATION_H__
-#define __ANIMATION_H__
+#ifndef __j1ANIMATION_H__
+#define __j1ANIMATION_H__
 
 #include "SDL/include/SDL_rect.h"
 #define MAX_FRAMES 200

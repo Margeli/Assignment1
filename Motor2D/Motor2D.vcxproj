@@ -91,7 +91,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
+    <ClInclude Include="j1Animation.h" />
     <ClInclude Include="j1Collisions.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Player.h" />
@@ -114,6 +114,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\hello2.tmx" />
+    <None Include="..\Game\maps\Map1.tmx" />
+    <None Include="..\Game\maps\Map2.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

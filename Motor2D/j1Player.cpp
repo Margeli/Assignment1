@@ -1,10 +1,10 @@
-	#include "j1Player.h"
+#include "j1Player.h"
 #include "p2Defs.h"
 #include "j1Render.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
-#include "Animation.h"
+#include "j1Animation.h"
 
 j1Player::j1Player() : j1Module()
 {
@@ -57,7 +57,7 @@ bool j1Player::Awake(pugi::xml_node& conf) {
 
 	LOG("Loading player");
 
-	graphics = App->tex->Load("game/textures/Character Sprites.png");
+	//graphics = App->tex->Load("game/textures/Character Sprites.png");
 	
 	
 
@@ -68,7 +68,7 @@ bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
 
-	App->tex->UnLoad(graphics);
+	//App->tex->UnLoad(graphics);
 
 	return true;
 

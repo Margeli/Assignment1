@@ -33,9 +33,9 @@ void j1Map::Draw()
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 
-	int tile_num=0;
+	int tile_num;
 	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next) {
-
+		tile_num = 0;
 		for (int row = 0; row < layer_iterator->data->height; row++) {
 			for (int column = 0; column < layer_iterator->data->width; column++) {
 
@@ -156,6 +156,7 @@ bool j1Map::Load(const char* file_name)
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
+		
 		Layer* map_layer = new Layer();
 
 		
@@ -341,10 +342,12 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 	layer->data= new uint[data_size];
 
 	memset(layer->data, 0, data_size*sizeof(uint));
+
+
 	
 	pugi::xml_node tile_node_iterator = node.child("data").child("tile");
-	for (int i = 0; i < data_size; i++) {
-		layer->data[i] = tile_node_iterator.attribute("gid").as_int();
+	for (uint i = 0; i < data_size; i++) {
+		layer->data[i] = tile_node_iterator.attribute("gid").as_uint();
 		tile_node_iterator = tile_node_iterator.next_sibling();
 	}
 	return true;
