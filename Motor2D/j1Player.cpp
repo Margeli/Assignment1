@@ -59,6 +59,7 @@ j1Player::~j1Player()
 {}
 
 
+
 bool j1Player::Awake(pugi::xml_node& conf)
 {
 	return true;
@@ -68,18 +69,23 @@ bool j1Player::Awake(pugi::xml_node& conf)
 
 
 bool j1Player::Start() {
+
+
 	bool ret = true;
-	LOG("Loading player");
+	LOG("Loading player.");
 
 	graphics = App->tex->Load("textures/character_spritesheet.png");
-	if (graphics == nullptr) {
+
+	if (!graphics)
+	{
 		LOG("Error loading player textures");
 		ret = false;
-	
 	}
 	
 	position = { 0,0 };
+
 	speed = 1.0f;
+
 
 	current_animation = &idle;
 
@@ -88,7 +94,7 @@ bool j1Player::Start() {
 
 bool j1Player::CleanUp()
 {
-	LOG("Unloading player");
+	LOG("Unloading player.");
 
 	App->tex->UnLoad(graphics);
 
@@ -97,6 +103,7 @@ bool j1Player::CleanUp()
 }
 bool j1Player::Update(float dt)
 {
+
 
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
@@ -125,7 +132,9 @@ bool j1Player::Update(float dt)
 
 
 
-	// Draw everything --------------------------------------
+
+	// Draw everything
+
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 

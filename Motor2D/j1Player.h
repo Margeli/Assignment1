@@ -14,8 +14,8 @@ public:
 
 	j1Player();
 
-	// Destructor
 	virtual ~j1Player();
+
 	
 	// Called each loop iteration
 	bool Awake(pugi::xml_node& conf);
@@ -28,6 +28,8 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+
 
 public:
 

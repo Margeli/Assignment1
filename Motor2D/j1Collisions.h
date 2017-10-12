@@ -2,18 +2,21 @@
 #define __MODULECOLLISION_H__
 
 #include "j1Module.h"
+
 #include "p2Point.h"
 
-#define MAX_COLLIDERS 200
 
+#include "SDL\include\SDL_rect.h"
 
-struct SDL_Texture;
+#define MAX_COLLIDERS 300
 
 enum COLLIDER_TYPE
 {
-	COLLIDER_NONE = -1,
+	COLLIDER_NONE = 1,
+	COLLIDER_PLAYER,
+	COLLIDER_GROUND,
 
-	COLLIDER_MAX=1
+	COLLIDER_MAX
 };
 
 
@@ -25,24 +28,18 @@ struct Collider
 
 	j1Module* callback = nullptr;
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback) :
-		rect(rectangle),
-		type(type),
-		callback(callback)
-	{}
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) : rect(rectangle), type(type), callback(callback) {}
 
-	void SetPos(int x, int y)
-	{
-		rect.x = x;
-		rect.y = y;
-	}
-
+	void SetPos(int x, int y) {rect.x = x; rect.y = y;}
 	bool CheckCollision(const SDL_Rect& r) const;
+
+
 };
 
 class j1Collisions : public j1Module
 {
 public:
+
 
 	j1Collisions();
 
@@ -57,14 +54,26 @@ public:
 	// Called each loop iteration
 	bool CleanUp();
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback);
+	bool EraseCollider(Collider* collider);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
+	
+	bool CheckCollision(const SDL_Rect& r);
+
 
 private:
 
 	Collider* colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
 	bool debug = false;
+
+
+
+	
+	
+
+	
+
 
 };
 

@@ -1,14 +1,25 @@
 #include "j1Collisions.h"
 #include "p2Defs.h"
-#include "j1Render.h"
-#include "p2Log.h"
+#include "j1Module.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "j1Render.h"
+#include "j1Player.h"
+#include "p2Log.h"
+
+
+#include "SDL\include\SDL.h"
 
 
 j1Collisions::j1Collisions(): j1Module()
 {
 	name.create("collisions");
+
+	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+
+	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_GROUND][COLLIDER_PLAYER] = true;
 }
 
 j1Collisions::~j1Collisions(){}
@@ -24,7 +35,7 @@ bool j1Collisions::PreUpdate() {
 			colliders[i] = nullptr;
 		}
 	}
-
+	return true;
 }
 
 
@@ -42,7 +53,6 @@ bool j1Collisions::CleanUp() {
 
 	return true;
 }
-
 
 bool j1Collisions::Update(float dt) {
 
@@ -83,25 +93,9 @@ bool j1Collisions::Update(float dt) {
 
 }
 
-Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback) {
-
-	Collider* ret = nullptr;
-
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
-	{
-		if (colliders[i] == nullptr)
-		{
-			ret = colliders[i] = new Collider(rect, type, callback);
-			break;
-		}
-	}
-
-	return ret;
-
-}
 
 void j1Collisions::DebugDraw() {
-	
+
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
@@ -119,12 +113,48 @@ void j1Collisions::DebugDraw() {
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
-		
+		}
+	}
+}
+
+
+
+
+
+Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
+{
+	Collider* ret = nullptr;
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] == nullptr)
+		{
+			ret = colliders[i] = new Collider(rect, type, callback);
+			break;
 		}
 	}
 
-
+	return ret;
 }
+
+bool j1Collisions::EraseCollider(Collider* collider)
+{
+	if (collider != nullptr)
+	{
+		for (uint i = 0; i < MAX_COLLIDERS; ++i)
+		{
+			if (colliders[i] == collider)
+			{
+				collider->to_delete = true;
+				break;
+			}
+		}
+	}
+	return false;
+}
+
+
+
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
