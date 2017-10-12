@@ -1,4 +1,4 @@
-#include "j1Player.h"
+	#include "j1Player.h"
 #include "p2Defs.h"
 #include "j1Render.h"
 #include "p2Log.h"
@@ -17,6 +17,9 @@ j1Player::~j1Player()
 
 bool j1Player::Awake(pugi::xml_node& conf) {
 
+	LOG("Loading player");
+
+	graphics = App->tex->Load("game/textures/Character Sprites.png");
 
 	return true;
 }

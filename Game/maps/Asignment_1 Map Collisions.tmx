@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="20" tilewidth="32" tileheight="32" nextobjectid="40">
+ <tileset firstgid="1" name="stage1tile1" tilewidth="32" tileheight="32" tilecount="192" columns="8">
+  <image source="mylevel1_tiles.png" width="256" height="768"/>
+  <terraintypes>
+   <terrain name="back" tile="105"/>
+  </terraintypes>
+  <tile id="8">
+   <objectgroup draworder="index">
+    <object id="1" x="23.4545" y="0.181818" width="8.54545" height="11.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="9">
+   <objectgroup draworder="index">
+    <object id="1" x="-0.363636" y="0" width="32.1818" height="8.72727"/>
+   </objectgroup>
+  </tile>
+  <tile id="10">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0.181818" width="32" height="7.81818"/>
+   </objectgroup>
+  </tile>
+  <tile id="11">
+   <objectgroup draworder="index">
+    <object id="3" x="-0.181818" y="0" width="31.8182" height="9.63636"/>
+   </objectgroup>
+  </tile>
+  <tile id="12">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0.363636" width="32" height="7.27273"/>
+   </objectgroup>
+  </tile>
+  <tile id="13">
+   <objectgroup draworder="index">
+    <object id="1" x="0.363636" y="0.363636" width="31.0909" height="8.54545"/>
+   </objectgroup>
+  </tile>
+  <tile id="14">
+   <objectgroup draworder="index">
+    <object id="1" x="-0.181818" y="0.181818" width="7.27273" height="9.45455"/>
+   </objectgroup>
+  </tile>
+  <tile id="16">
+   <objectgroup draworder="index">
+    <object id="1" x="7.45455" y="0.909091" width="20" height="30.5455"/>
+   </objectgroup>
+  </tile>
+  <tile id="17">
+   <objectgroup draworder="index">
+    <object id="1" x="0.545455" y="0.181818" width="31.2727" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="18">
+   <objectgroup draworder="index">
+    <object id="1" x="0.545455" y="0.727273" width="31.0909" height="30.7273"/>
+   </objectgroup>
+  </tile>
+  <tile id="19">
+   <objectgroup draworder="index">
+    <object id="1" x="0.545455" y="0" width="31.2727" height="31.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="20">
+   <objectgroup draworder="index">
+    <object id="1" x="0.545455" y="0.727273" width="31.2727" height="30.5455"/>
+   </objectgroup>
+  </tile>
+  <tile id="21">
+   <objectgroup draworder="index">
+    <object id="1" x="0.545455" y="0.181818" width="31.2727" height="31.2727"/>
+   </objectgroup>
+  </tile>
+  <tile id="24">
+   <objectgroup draworder="index">
+    <object id="1" x="6.36364" y="0.181818" width="20.9091" height="32.1818"/>
+    <object id="2" x="0.363636" y="14.9091" width="5.27273" height="17.0909"/>
+    <object id="4" x="27.6364" y="14" width="4.36364" height="18"/>
+   </objectgroup>
+  </tile>
+  <tile id="25">
+   <objectgroup draworder="index">
+    <object id="1" x="0.363636" y="0" width="32" height="31.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="26">
+   <objectgroup draworder="index">
+    <object id="3" x="0.363636" y="0.181818" width="31.6364" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="27">
+   <objectgroup draworder="index">
+    <object id="1" x="0.181818" y="0" width="32" height="32"/>
+   </objectgroup>
+  </tile>
+  <tile id="28">
+   <objectgroup draworder="index">
+    <object id="1" x="0.181818" y="0" width="31.6364" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="29">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0" width="31.8182" height="32"/>
+   </objectgroup>
+  </tile>
+  <tile id="32">
+   <objectgroup draworder="index">
+    <object id="1" x="5.27273" y="1.45455" width="18.7273" height="30.3636"/>
+   </objectgroup>
+  </tile>
+  <tile id="33">
+   <objectgroup draworder="index">
+    <object id="1" x="0.181818" y="0" width="32" height="32"/>
+   </objectgroup>
+  </tile>
+  <tile id="34">
+   <objectgroup draworder="index">
+    <object id="1" x="0.363636" y="0.363636" width="31.6364" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="35">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0" width="31.8182" height="31.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="36">
+   <objectgroup draworder="index">
+    <object id="1" x="0.181818" y="0" width="31.6364" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="37">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0.181818" width="31.8182" height="31.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="40">
+   <objectgroup draworder="index">
+    <object id="1" x="4.54545" y="0.363636" width="21.4545" height="31.4545"/>
+   </objectgroup>
+  </tile>
+  <tile id="41">
+   <objectgroup draworder="index">
+    <object id="2" x="0.181818" y="0.181818" width="31.6364" height="26.3636"/>
+    <object id="3" x="7.27273" y="26.5455" width="24.5455" height="4.90909"/>
+    <object id="4" x="2.18182" y="26.7273" width="4.90909" height="3.09091"/>
+   </objectgroup>
+  </tile>
+  <tile id="42">
+   <objectgroup draworder="index">
+    <object id="1" x="0.181818" y="0" width="31.2727" height="31.2727"/>
+   </objectgroup>
+  </tile>
+  <tile id="43">
+   <objectgroup draworder="index">
+    <object id="1" x="0.727273" y="0.181818" width="31.2727" height="31.2727"/>
+   </objectgroup>
+  </tile>
+  <tile id="44">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0.181818" width="31.6364" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="45">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0.181818" width="21.8182" height="31.4545"/>
+    <object id="3" x="22" y="0" width="5.63636" height="31.0909"/>
+    <object id="4" x="27.8182" y="0" width="4" height="25.8182"/>
+   </objectgroup>
+  </tile>
+  <tile id="48">
+   <objectgroup draworder="index">
+    <object id="1" x="24.3636" y="0.181818" width="7.09091" height="11.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="49">
+   <objectgroup draworder="index">
+    <object id="1" x="0.363636" y="0.545455" width="31.4545" height="31.2727"/>
+   </objectgroup>
+  </tile>
+  <tile id="50">
+   <objectgroup draworder="index">
+    <object id="1" x="0" y="0.181818" width="32.1818" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="51">
+   <objectgroup draworder="index">
+    <object id="1" x="0.181818" y="0" width="31.4545" height="31.6364"/>
+   </objectgroup>
+  </tile>
+  <tile id="52">
+   <objectgroup draworder="index">
+    <object id="1" x="0.363636" y="0.363636" width="31.6364" height="31.2727"/>
+   </objectgroup>
+  </tile>
+  <tile id="53">
+   <objectgroup draworder="index">
+    <object id="1" x="0.363636" y="0.363636" width="27.6364" height="31.2727"/>
+    <object id="2" x="27.6364" y="0.545455" width="3.81818" height="25.4545"/>
+   </objectgroup>
+  </tile>
+  <tile id="54">
+   <objectgroup draworder="index">
+    <object id="1" x="0.181818" y="0.363636" width="6.54545" height="9.45455"/>
+   </objectgroup>
+  </tile>
+  <tile id="65">
+   <objectgroup draworder="index">
+    <object id="9" x="0.181818" y="0" width="16.3636" height="15.8182">
+     <ellipse/>
+    </object>
+    <object id="11" x="16" y="0.909091" width="16.5455" height="16.9091">
+     <ellipse/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="66">
+   <objectgroup draworder="index">
+    <object id="1" x="-0.363636" y="2.18182" width="17.2727" height="16.1818">
+     <ellipse/>
+    </object>
+    <object id="2" x="16.5455" y="2.90909" width="16.1818" height="15.6364">
+     <ellipse/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="67">
+   <objectgroup draworder="index">
+    <object id="1" x="-0.363636" y="1.27273" width="17.2727" height="16">
+     <ellipse/>
+    </object>
+    <object id="2" x="16" y="-0.727273" width="16.3636" height="16.1818">
+     <ellipse/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="96" terrain="0,0,0,0"/>
+  <tile id="97" terrain="0,0,0,0"/>
+  <tile id="98" terrain="0,0,0,0"/>
+  <tile id="104" terrain="0,0,0,0"/>
+  <tile id="106" terrain="0,0,0,0"/>
+  <tile id="112" terrain="0,0,0,0"/>
+  <tile id="113" terrain="0,0,0,0"/>
+  <tile id="114" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="193" name="cwpVW12" tilewidth="32" tileheight="32" tilecount="192" columns="16">
+  <image source="cwpVW12.png" width="512" height="384"/>
+  <tile id="110">
+   <animation>
+    <frame tileid="111" duration="100"/>
+    <frame tileid="110" duration="100"/>
+    <frame tileid="126" duration="100"/>
+    <frame tileid="127" duration="100"/>
+    <frame tileid="142" duration="100"/>
+    <frame tileid="143" duration="100"/>
+    <frame tileid="143" duration="100"/>
+    <frame tileid="110" duration="100"/>
+    <frame tileid="126" duration="100"/>
+    <frame tileid="142" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="111">
+   <animation>
+    <frame tileid="111" duration="100"/>
+    <frame tileid="127" duration="100"/>
+    <frame tileid="143" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="150">
+   <animation>
+    <frame tileid="150" duration="100"/>
+    <frame tileid="151" duration="100"/>
+    <frame tileid="166" duration="100"/>
+    <frame tileid="167" duration="100"/>
+    <frame tileid="182" duration="100"/>
+    <frame tileid="183" duration="100"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer name="Fons blau" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztlssKwyAQRe0HFfJLTVZtVmn+H6qUAZEx9XHVUbu4MBCdkDnJMZtS6hGQVWcD1svtm5D1V9dHS+hzvXR2nWdmbRjsFg/K1V5fv5RnzY0UHm+dU+fIrM3sT4YHhdvr64eYb8mU5IHyFTnKx4Pb6+snPT37isLtRfFw+6TOSwKPlr5Cfp92XYpZTmLuK81XKB6tGaTykOYrZP1rRtLOD5PRfBXCQ+p5bq8dxVe985jRV7XPl5j7zOir2mxies/oq9pcYnrO6KvabP6+wrzXqJ5SfLWqfnwVM6uSPEr5itb06Ct0WviKvOQ6qmdfteCB8hV5yf2nGslXNXiQQyiuV0J9RV6a3Vd3Jh/IcvFm
+  </data>
+ </layer>
+ <layer name="Fons negre" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztV+0OgyAMdC+2+UuNX/P9n2YskaTrDqggWjd+XGIILXe98mFbVVVbcEncDR4G9Yb5NYmjsVtzFc3faAxuBp2Qf7POtXE01o6Nyn3RrFmSj/KXcKPjKf2DYvfoRw2a6V6jmEA+HjdVn9xGFufjFupFexagWqO60bGQJ1o1ozgXeA7eEyiPhJurFxsQb2vtyxfSq0lzCjdbC9u3e3Gj+fkeQPVHsbn8yK05hZvlNzn0p3JzxdC5vcFyoB+5NaMzlJ+Z0n18hh/SfL47SZNmdC/F4Eg/6H2Z4odGzTH79Ww/YvIhPzRq1syt+KGLG4+ZDYbiRxDojRPD7V3vJ8DCePbr+HCiH7k0W250nPegpE94DvQGdc3lNQ+9SzvH91Y/rqKZxyGuvSCvj1ssZrIe/U79/9CsGa1BzwjpGuj8kfZEjE98Hd67v6KZ92TOumrBP2ouKNCOF8AshIU=
+  </data>
+ </layer>
+ <layer name="Terreny" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzlWdtOwzAMTR/HVRsXCRg8IOCBbUjAAHF7Af7/m/CRYskzSZqk6ZoJS0eLujY5juNjr5saY2aEOWFR6XhqUQufvsbw8djUbxOzGTy7WGNxMTSRCDs1m8GzqyEeN0OTiLBLUz/PptActesAOPr06p7wQHgkbBN2CLtqvEfY75Gf5AAsCU+B8TPhxTMX61VKbHn9trm7mvQTda5Nryb2vgPCIeFIfK4zPikmfUS8wHFq6uQqLUavUGNiezB5XmvyGX7CB+Z513G+cWdGbuOzH8rJ3BqDOA5xHpEbW3ZN9gd++nQgR5dOEjnxnCPLzbcnMf1Vbk/MecVwceC9KK3PmjO4lOpb2uKntVLXuVCOxupVTk98a1a1jONSOlf4zMladm1W/YKftfdXMOyZK0665rtiltqHynzJjYkvn3Ts9fljXZYxw/r8W3Fk/vaPQ/QqzCdkOvdzNUbumT4DrjlLahmfBakVjYKO6czE1f+SPGPikapXuvfoqxdJsU3QK9ZdoGR/pXuP1F6kDwv1V33YK+GN8E74CIw/1XOx/RV+C/q0dR3jlGe4Lmg/U/sr1iH0RfKsuvoHOcYn6s0X4ZvwExjreXy1Wq55ZoF7zyse433BlXHXXtarEu/CYFxrcuqNnqft2UbcO7eQ99fyn4YeMzfpD9dHvN+R/RXnXKhn0vV+qDo4dnCp3TRfyRv7D71C/si8Yg12wZVjQ9VBrOvzj330XTeB711xjb3WZr71EAtoGPRqkQBXP7xMBNccWYdC1/8D5gK/U3dkEQ==
+  </data>
+ </layer>
+ <layer name="layer1" width="100" height="20" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztVVsOgCAMQ+9/aOMHCSE+9mJrjU32o4G2lI29tbb/BVXoYNHpBYtPFp1esPhk0ekFi88nnQjzOOp9sOrN8qo5V9b3kklrR3QeqJ6RtY2QaIzo9Wz/M6d0nmXP4Lt/kvUeXq8GK/cqDukd1s6PijxW3ME3HuQZNUKTcRSXd7+r9dI80N9Ca39YNFp6ddVdiM4jWmcGVyVYPEjuAIuXju3iG4sHTX+wVEYeqz1UcH49D88+Vk7EmvOIOrNKWHRXY8xDkwmDRyatHdYeQc4GWZsHp48Dwo0EdA==
+  </data>
+ </layer>
+</map>

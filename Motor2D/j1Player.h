@@ -28,15 +28,7 @@ public:
 
 	SDL_Texture* graphics = nullptr;
 
-
 };
-
-
-
-
-
-
-
 
 
 #endif // __j1PLAYER_H__
