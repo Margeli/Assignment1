@@ -33,7 +33,7 @@ public:
 	Animation walk;
 	Animation jump;
 
-
+	Collider * player_collider;
 };
 
 

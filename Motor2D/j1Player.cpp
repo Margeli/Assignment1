@@ -59,7 +59,7 @@ bool j1Player::Awake(pugi::xml_node& conf) {
 
 	graphics = App->tex->Load("game/textures/Character Sprites.png");
 	
-
+	
 
 	return true;
 }
