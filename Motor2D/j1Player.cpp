@@ -55,19 +55,20 @@ j1Player::j1Player() : j1Module()
 j1Player::~j1Player()
 {}
 
-bool j1Player::Start() {
+bool j1Player::Start()
+{
 	bool ret = true;
-	LOG("Loading player");
+	LOG("Loading player.");
 
 	graphics = App->tex->Load("textures/character_spritesheet.png");
-	if (graphics == nullptr) {
+
+	if (!graphics)
+	{
 		LOG("Error loading player textures");
 		ret = false;
-	
 	}
 	
 	position = { 0,0 };
-
 	current_animation = &idle;
 
 	return ret;
@@ -75,7 +76,7 @@ bool j1Player::Start() {
 
 bool j1Player::CleanUp()
 {
-	LOG("Unloading player");
+	LOG("Unloading player.");
 
 	App->tex->UnLoad(graphics);
 
@@ -84,8 +85,7 @@ bool j1Player::CleanUp()
 }
 bool j1Player::Update()
 {
-
-	// Draw everything --------------------------------------
+	// Draw everything
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 

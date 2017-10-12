@@ -14,18 +14,13 @@ public:
 
 	j1Player();
 
-	// Destructor
 	virtual ~j1Player();
 
-	
-
 	bool Start();
-
-	// Called each loop iteration
-	bool Update();
-
-	// Called before quitting
-	bool CleanUp();
+	
+	bool Update();		// Called each loop iteration
+	
+	bool CleanUp();		// Called before quitting
 
 public:
 
