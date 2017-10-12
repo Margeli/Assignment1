@@ -16,19 +16,22 @@ public:
 
 	// Destructor
 	virtual ~j1Player();
-
 	
+	// Called each loop iteration
+	bool Awake(pugi::xml_node& conf);
 
+	// Called each loop iteration
 	bool Start();
 
 	// Called each loop iteration
-	bool Update();
+	bool Update(float dt);
 
 	// Called before quitting
 	bool CleanUp();
 
 public:
 
+	float speed;
 	iPoint position;
 
 	SDL_Texture* graphics = nullptr;
