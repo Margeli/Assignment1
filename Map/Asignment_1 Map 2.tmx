@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="20" tilewidth="32" tileheight="32" nextobjectid="40">
+ <tileset firstgid="1" name="stage1tile1" tilewidth="32" tileheight="32" tilecount="192" columns="8">
+  <image source="mylevel1_tiles.png" width="256" height="768"/>
+  <terraintypes>
+   <terrain name="back" tile="105"/>
+  </terraintypes>
+  <tile id="96" terrain="0,0,0,0"/>
+  <tile id="97" terrain="0,0,0,0"/>
+  <tile id="98" terrain="0,0,0,0"/>
+  <tile id="104" terrain="0,0,0,0"/>
+  <tile id="106" terrain="0,0,0,0"/>
+  <tile id="112" terrain="0,0,0,0"/>
+  <tile id="113" terrain="0,0,0,0"/>
+  <tile id="114" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="193" name="cwpVW12" tilewidth="32" tileheight="32" tilecount="192" columns="16">
+  <image source="cwpVW12.png" width="512" height="384"/>
+  <tile id="110">
+   <animation>
+    <frame tileid="111" duration="100"/>
+    <frame tileid="110" duration="100"/>
+    <frame tileid="126" duration="100"/>
+    <frame tileid="127" duration="100"/>
+    <frame tileid="142" duration="100"/>
+    <frame tileid="143" duration="100"/>
+    <frame tileid="143" duration="100"/>
+    <frame tileid="110" duration="100"/>
+    <frame tileid="126" duration="100"/>
+    <frame tileid="142" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="111">
+   <animation>
+    <frame tileid="111" duration="100"/>
+    <frame tileid="127" duration="100"/>
+    <frame tileid="143" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="150">
+   <animation>
+    <frame tileid="150" duration="100"/>
+    <frame tileid="151" duration="100"/>
+    <frame tileid="166" duration="100"/>
+    <frame tileid="167" duration="100"/>
+    <frame tileid="182" duration="100"/>
+    <frame tileid="183" duration="100"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer name="layer4" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztltEOgyAMResf7ZfUp7kn9f+TYUyT2hRBBoWwPtyk0xWRg0cnAJhdxojsLqvL9kP9Gs7weoNrTXuPa09kniXqVvJkTvQ+cC2PPLlv7OE1jin1Gg85H5c3Y3EEjy8QrrGH1wtca9obO3ZqXZtBKg/uHIz5qg4P7pxUXw1sHPyP+aqOrwZhnDtfGQ85OXwV2v/mK11fhd7XIV69rHsOHjl8Je1/eqy0r1qPpq/o9aT10vBV69H0Fd370vNjvtL1Fd370vOj4avWOdn3VX0GqTx6+L7qiUcP31c98cjtq1mYh/lK31e+875e4yEnh6/Gm/O+XuNxH84jtm8F/ztkF36br8qHrjfnGWL7Dzy+wWb0wQ==
+  </data>
+ </layer>
+ <layer name="layer3" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztlk2OwyAMhenFplmRqvmZLubgPdIQCUuWZVIbCDhqFk9JCJH9/DnA6JwbL126VFU/QUO83qMGNN47v2/yvMVfgh5BPugWNaPxXrX6Fs/QEwPKB3K5Ec1obqv8fKxJTS6WPUM+tD/2BD2DfWnqpZkLPGpy6eFZWpfF5edGfc2J/LCHEc2V9B3lAVct196eNX1SKzf4vwdSK5/4DsboPirlge+te06xwmeJxdXPDT9z8z7VhPZbLg9rnvfWS27vSu1nrXlQJrk8rHkuXS978qBztTwsei5dL8/Mw6JnWD9z18uUnkEvozzO4rlmbti/NR5n8VyS29Ybv0jQJ0fywP24xvuWPI72jL/Z/E3Mu7+g905dJGeYUh5QBy4m5aLhkfL8ZMZbeKb/3Ur4g6bI5C3I6wgeqbMrjanlkfL8crJeqOEZx5+czK9XsIAYUwUekKs0Jt5bH+Sd1rMmdonnnJhewYJbR2iNuTMJx0Maa+9fKa2zRjmeWwv3Jq3BUTxWJpZVz/9Ztqu3
+  </data>
+ </layer>
+ <layer name="layer2" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzVWdtOHDEM9T4hSgtql67EVWppkWAAiQKtuL0U/v+b6qOuhdcbZzzJzM5ypCOyM87FjmPHQ0NEF8zLORv1Wz/33jUd5Bqnn5VvzN/Llme17bY5ozK16z1kTiiPSZCliI5fOm/f4w2Jodfg6Vu7ByX2W8V+bAQYWeOqMbR/bjI/MLeZOxSz0zpwjP0QW31kfmLeMW+Yt8zfzD+V418zfzEPmMe0GjvKnKLHndKl636ID1l7bSmb2bb0mQTlbRt564R52snScWBd+8yZ8z5nv1q0xSRvfhC2OU7In1P+LnBFizGmTd625fdVUEe9frGbPMM+b9OiLbGm73Pdxs7RwOegHHxoKB9dFb4wj2jZv/F8Sv/3S/ZsZ6l3O/o4S3tBOfjQYeEcQyJ1HjzAp1JnHM+RQ6Af9suLXRZRX86hdA/hQyld3hPgU6kzjufIUT+YPymuZ9SXh4DEq7FjbNt5kPepd/CpWUIWZwPxapf5ld5il41bQ+b2rpB4tQ5rKUU0Xkk7GrfGQJd4dc98YD46fGI+O337rnPEp+FD0Xgl7XWOz7l4laor/jJfHL5SvlaxdaDIld57BN79KncHr40HNsZ540XlBBKvtA11raf9K3LOUzbQtco5LdsmWoN48OJVCcb43qj9HjkO+2HtI3PrfFijc40u2sdS+R4+1WdOSMWF2jPcBqmVkONy9WDJ/b0UuXo7B5uj7TgRO0of2YMpLfriULrL3st940TN9S0h39f56AKJedG4jv3IffPpkiPQBzrDLtoX7fjWVl4NmbKplcfZkPvGlN6+8Zwl+uk1ret3Fayvz7Uh/kFfnTvt+NZWXg2ZsqnIy9nQ9dHBfG6d921b//Zkou3SfpHx+hzXtvvUTcun/qf7Dwn6ZBQ=
+  </data>
+ </layer>
+ <layer name="layer1" width="100" height="20" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztlsESgCAIRM3//+gOdWgaLSRYlvTNcGnGXFhEaymlOoQnqP2QuaJqJ4HVdzToXu59X34cRObkXV+PGYwKNMhZnDEi8/Eiqte+kMmP1hpJT2Uio+Y7PU+QZ9EKZr1SXSNnnJ0sOp9YfvigrZt0VmXwJZveFpo3CSvs+iTM5IfVm3Y7w6M+I+8ry/2l/xvZd7SuWo0IP6yIOFfaPmeEWZsU1jprNL3NCHbY+97jXmHL8Qq7HzOR9Y74K63677JkA7k=
+  </data>
+ </layer>
+</map>
