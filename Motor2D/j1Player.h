@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+#include "Animation.h"
 
 class SDL_Texture;
 
@@ -24,9 +25,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	
-
+public:
 	SDL_Texture* graphics = nullptr;
+
+	Animation* current_animation = nullptr;
+	Animation idle;
+	Animation walk;
+	Animation jump;
+
 
 };
 
