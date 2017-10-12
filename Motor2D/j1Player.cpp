@@ -10,7 +10,6 @@ j1Player::j1Player() : j1Module()
 {
 	graphics = nullptr;
 
-
 	idle.PushBack({ 0, 0, 178, 249 });
 	idle.PushBack({ 180, 0, 178, 249 });
 	idle.PushBack({ 360, 0, 178, 249 });
@@ -24,18 +23,31 @@ j1Player::j1Player() : j1Module()
 	idle.loop = true;
 	idle.speed = 0.1f;
 
-	idle.PushBack({ 0, 250, 178, 249 });
-	idle.PushBack({ 180, 250, 178, 249 });
-	idle.PushBack({ 360, 250, 178, 249 });
-	idle.PushBack({ 540, 250, 178, 249 });
-	idle.PushBack({ 720, 250, 178, 249 });
-	idle.PushBack({ 900, 250, 178, 249 });
-	idle.PushBack({ 1080, 250, 178, 249 });
-	idle.PushBack({ 1260, 250, 178, 249 });
-	idle.PushBack({ 1620, 250, 178, 249 });
-	idle.PushBack({ 1800, 250, 178, 249 });
-	idle.loop = true;
-	idle.speed = 0.1f;
+	jump.PushBack({ 0, 250, 178, 249 });
+	jump.PushBack({ 180, 250, 178, 249 });
+	jump.PushBack({ 360, 250, 178, 249 });
+	jump.PushBack({ 540, 250, 178, 249 });
+	jump.PushBack({ 720, 250, 178, 249 });
+	jump.PushBack({ 900, 250, 178, 249 });
+	jump.PushBack({ 1080, 250, 178, 249 });
+	jump.PushBack({ 1260, 250, 178, 249 });
+	jump.PushBack({ 1620, 250, 178, 249 });
+	jump.PushBack({ 1800, 250, 178, 249 });
+	jump.loop = true;
+	jump.speed = 0.1f;
+
+	walk.PushBack({ 0, 500, 178, 249 });
+	walk.PushBack({ 180, 500, 178, 249 });
+	walk.PushBack({ 360, 500, 178, 249 });
+	walk.PushBack({ 540, 500, 178, 249 });
+	walk.PushBack({ 720, 500, 178, 249 });
+	walk.PushBack({ 900, 500, 178, 249 });
+	walk.PushBack({ 1080, 500, 178, 249 });
+	walk.PushBack({ 1260, 500, 178, 249 });
+	walk.PushBack({ 1620, 500, 178, 249 });
+	walk.PushBack({ 1800, 500, 178, 249 });
+	walk.loop = true;
+	walk.speed = 0.1f;
 }
 
 j1Player::~j1Player()
