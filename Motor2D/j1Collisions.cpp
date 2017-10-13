@@ -26,7 +26,7 @@ j1Collisions::~j1Collisions(){}
 
 bool j1Collisions::PreUpdate() {
 
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)//prepares collider's array
 	{
 		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
 		{
@@ -34,6 +34,7 @@ bool j1Collisions::PreUpdate() {
 			colliders[i] = nullptr;
 		}
 	}
+
 	return true;
 }
 
@@ -105,9 +106,16 @@ void j1Collisions::DebugDraw() {
 
 		switch (colliders[i]->type)
 		{
-		case COLLIDER_NONE:																//Only this case?? what about COLLIDER PLAYER and COLLIDER GROUND?
+		case COLLIDER_NONE:		//white														
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
+		case COLLIDER_GROUND:	//blue															
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
+		case COLLIDER_PLAYER:	//green															
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+
 		}
 	}
 }

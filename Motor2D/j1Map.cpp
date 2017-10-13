@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Collisions.h"
 #include "j1Map.h"
 #include <math.h>
 
@@ -40,9 +41,17 @@ void j1Map::Draw()
 			for (int column = 0; column < layer_iterator->data->width; column++) {
 
 				uint id = layer_iterator->data->data[tile_num];
-				 
-				
+
 				iPoint position = GetXYfromTile(column, row);
+
+				for(uint i =0; i<33;i++){ // puts collision on id tiles that need it
+					if (data.tilesets.At(0)->data->ground_id_tiles[i] == id-1) {
+						App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
+						continue;
+					}
+				 
+				}
+				
 				
 				App->render->Blit(data.tilesets.At(0)->data->texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id));
 				tile_num++;			
@@ -279,9 +288,11 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	set->tile_height = tileset_node.attribute("tileheight").as_int();
 	set->margin = tileset_node.attribute("margin").as_int();
 	set->spacing = tileset_node.attribute("spacing").as_int();
+
+
 	pugi::xml_node offset = tileset_node.child("tileoffset");
 
-	if(offset != NULL)
+	if (offset != NULL)
 	{
 		set->offset_x = offset.attribute("x").as_int();
 		set->offset_y = offset.attribute("y").as_int();
@@ -292,6 +303,22 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 		set->offset_y = 0;
 	}
 
+	set->ground_id_tiles = new uint[33];
+	memset(set->ground_id_tiles, 0, 33 * sizeof(uint));//33 number of tiles with attribute ground = true
+
+	uint i = 0;
+	
+	for (pugi::xml_node& tile_node = tileset_node.child("tile"); tile_node; tile_node = tile_node.next_sibling("tile")) {
+
+		if (tile_node.child("properties").child("property").attribute("value"))
+		{
+			set->ground_id_tiles[i] = tile_node.attribute("id").as_uint();
+			
+			i++;
+		}
+
+	
+	}
 	return ret;
 }
 

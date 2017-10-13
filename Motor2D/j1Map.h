@@ -43,6 +43,7 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+	uint*				ground_id_tiles = nullptr;
 };
 
 enum MapTypes

@@ -67,7 +67,7 @@ bool j1Player::Start()
 	LOG("Loading player.");
 
 	graphics = App->tex->Load("textures/character_spritesheet.png");
-	playercoll = App->collis->AddCollider({ position.x + 00, position.y, 00, 23 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
+	playercoll = App->collis->AddCollider({ position.x, position.y, 63, 88 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
 
 	if (!graphics)
 	{
@@ -147,6 +147,9 @@ bool j1Player::Update(float dt)
 		current_animation = &idle;
 		landing = false;
 	}
+
+	if(playercoll!=nullptr) //updates the collider to player's position
+	playercoll->SetPos(position.x, position.y);
 
 
 	// Draw everything
