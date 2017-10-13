@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 
+#define GRAVITY 3
+
 struct SDL_Texture;
 
 class j1Scene : public j1Module

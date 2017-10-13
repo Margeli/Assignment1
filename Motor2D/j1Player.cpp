@@ -38,7 +38,7 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 1080, 250, 178, 249 });
 	jump.PushBack({ 1260, 250, 178, 249 });
 	jump.PushBack({ 1620, 250, 178, 249 });
-	jump.loop = true;
+	jump.loop = false;
 	jump.speed = 0.05f;
 
 	walk.PushBack({ 0, 500, 178, 249 });
@@ -79,6 +79,7 @@ bool j1Player::Start()
 	position = { 0,0 };
 	speed = 1.0f;
 	current_animation = &idle;
+	
 
 	return ret;
 }
@@ -95,19 +96,24 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {}
-		
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+		position.y -= speed;
 	
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	}
+		
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+	
+		position.y += speed;
+	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)//pressed
 	{
 		position.x -= speed;
 		current_animation = &walk;
 	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-	{
-		position.x = position.x;
+	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)//after pressed
+	{		
 		current_animation = &idle;
 	}
 
@@ -118,33 +124,41 @@ bool j1Player::Update(float dt)
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-	{
-		position.x = position.x;
+	{		
 		current_animation = &idle;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
-		current_animation = &jump;
-		for (time = 0; time < 100; time++)
-		{
-			position.y -= 1;
+	current_animation = &jump;
+	jump_increment = position.y;
+	}
 
-		}
+	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && landing == false)
+	{
+ 	Jump();
 
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
-		position.x = position.x;
-		position.y += 100;
 		current_animation = &idle;
+		landing = false;
 	}
-
 
 	// Draw everything
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
 	return true;
+}
+
+void j1Player::Jump() {
+
+	
+	if (position.y - jump_increment > -100)
+		position.y -= 10;
+	else
+		landing = true;
+
 }

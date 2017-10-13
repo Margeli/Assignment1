@@ -24,11 +24,16 @@ public:
 
 	bool CleanUp();
 
+
+	void Jump();
+
 public:
 
 	float speed;
-	float time;
+	float jump_increment;
+	bool landing;
 	iPoint position;
+
 
 	SDL_Texture* graphics = nullptr;
 
