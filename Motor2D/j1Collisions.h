@@ -15,11 +15,23 @@ enum COLLIDER_TYPE
 	COLLIDER_MAX
 };
 
+enum CollisionDirection
+{	
+	NO_COLLISION =0,
+	PLAYER_ABOVE ,
+	PLAYER_BELOW,
+	PLAYER_RIGHT,
+	PLAYER_LEFT
+
+
+};
+
 struct Collider
 {
 	SDL_Rect rect;
 	bool to_delete = false;
 	COLLIDER_TYPE type;
+	CollisionDirection direction;
 
 	j1Module* callback = nullptr;
 
@@ -27,6 +39,7 @@ struct Collider
 
 	void SetPos(int x, int y) {rect.x = x; rect.y = y;}
 	bool CheckCollision(const SDL_Rect& r) const;
+	CollisionDirection CheckDirection(const SDL_Rect& r);
 };
 
 class j1Collisions : public j1Module
@@ -43,8 +56,9 @@ public:
 	bool EraseCollider(Collider* collider);
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
+	//void GroupUpColliders();
+
 	
-	bool CheckCollision(const SDL_Rect& r);	//??? Function def not found...
 private:
 
 	Collider* colliders[MAX_COLLIDERS];

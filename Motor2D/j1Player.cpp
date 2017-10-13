@@ -120,9 +120,13 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Loading player.");
 
-	graphics = App->tex->Load("textures/character_spritesheet_left.png");
 
-	playercoll = App->collis->AddCollider({ position.x, position.y, 63, 88 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
+	graphics = App->tex->Load("textures/character_spritesheet.png");
+	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
+
+	//graphics = App->tex->Load("textures/character_spritesheet_left.png");
+
+
 
 	if (!graphics)
 	{
@@ -130,7 +134,7 @@ bool j1Player::Start()
 		ret = false;
 	}
 	
-	position = { 0,0 };
+	position = { 200,100 };
 	speed = 1.0f;
 	current_animation = &idle;
 	jump_speed = 8;
@@ -208,7 +212,7 @@ bool j1Player::Update(float dt)
 	}
 
 	if(playercoll!=nullptr) //updates the collider to player's position
-	playercoll->SetPos(position.x, position.y);
+	playercoll->SetPos(position.x, position.y+5);
 
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
@@ -221,8 +225,33 @@ void j1Player::Jump()
 	if (position.y - jump_increment > -90)//jump height
 	{
 		position.y -= jump_speed;
-
 	}
 	else
 			landing = true;
 }
+
+
+void j1Player::OnCollision(Collider* c1, Collider* c2, CollisionDirection direction) {
+	int margin = 0;
+	switch (c2->type) {
+	case COLLIDER_GROUND:
+		
+		switch (direction) {
+			
+		case PLAYER_ABOVE:
+ 			position.y = c2->rect.y - 65-margin;//player height //margin
+			break;
+		case PLAYER_BELOW:
+			position.y = c2->rect.y + c2->rect.h + margin;
+			break;
+		case PLAYER_RIGHT:
+			position.x = c2->rect.x + c2->rect.w +margin; 
+			break;
+		case PLAYER_LEFT:
+			position.x = c2->rect.x - 46 - margin;//playr width
+			break;
+			
+		}
+		break;
+	}
+

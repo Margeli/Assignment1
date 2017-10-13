@@ -11,6 +11,8 @@
 
 struct Collider;
 
+enum CollisionDirection;
+
 class j1App;
 
 class j1Module
@@ -71,7 +73,7 @@ public:
 		return true;
 	}
 
-	virtual void OnCollision(Collider* c1, Collider* c2)
+	virtual void OnCollision(Collider* c1, Collider* c2, CollisionDirection direction)
 	{
 
 
