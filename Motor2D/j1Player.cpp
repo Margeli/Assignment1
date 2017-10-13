@@ -66,6 +66,7 @@ bool j1Player::Start()
 	LOG("Loading player.");
 
 	graphics = App->tex->Load("textures/character_spritesheet.png");
+	playercoll = App->collis->AddCollider({ position.x + 7, position.y, 14, 23 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
 
 	if (!graphics)
 	{
@@ -89,6 +90,7 @@ bool j1Player::CleanUp()
 	return true;
 
 }
+
 bool j1Player::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {}

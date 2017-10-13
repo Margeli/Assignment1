@@ -89,7 +89,6 @@ bool j1Collisions::Update(float dt) {
 
 }
 
-
 void j1Collisions::DebugDraw() {
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -106,7 +105,7 @@ void j1Collisions::DebugDraw() {
 
 		switch (colliders[i]->type)
 		{
-		case COLLIDER_NONE: 
+		case COLLIDER_NONE:																//Only this case?? what about COLLIDER PLAYER and COLLIDER GROUND?
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		}

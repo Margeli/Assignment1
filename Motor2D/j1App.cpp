@@ -13,7 +13,6 @@
 #include "j1Map.h"
 #include "j1App.h"
 
-// Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
@@ -27,6 +26,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	player = new j1Player();
 	render = new j1Render();
+	collis = new j1Collisions();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -37,12 +37,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
-
-	// render last to swap buffer
+	AddModule(collis);
 	AddModule(render);
 }
 
-// Destructor
 j1App::~j1App()
 {
 	// release modules

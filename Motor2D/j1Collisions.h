@@ -44,7 +44,7 @@ public:
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
 	
-	bool CheckCollision(const SDL_Rect& r);
+	bool CheckCollision(const SDL_Rect& r);	//??? Function def not found...
 private:
 
 	Collider* colliders[MAX_COLLIDERS];

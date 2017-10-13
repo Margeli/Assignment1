@@ -16,20 +16,13 @@ public:
 
 	virtual ~j1Player();
 
-	
-	// Called each loop iteration
 	bool Awake(pugi::xml_node& conf);
 
-	// Called each loop iteration
 	bool Start();
 
-	// Called each loop iteration
 	bool Update(float dt);
 
-	// Called before quitting
 	bool CleanUp();
-
-
 
 public:
 
@@ -43,7 +36,8 @@ public:
 	Animation walk;
 	Animation jump;
 
-	//Collider * player_collider;
+	Collider * playercoll;
+
 };
 
 
