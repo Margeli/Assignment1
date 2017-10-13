@@ -26,7 +26,6 @@ j1Collisions::~j1Collisions(){}
 
 bool j1Collisions::PreUpdate() {
 
-	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
@@ -61,16 +60,13 @@ bool j1Collisions::Update(float dt) {
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		// skip empty colliders
 		if (colliders[i] == nullptr)
 			continue;
 
 		c1 = colliders[i];
 
-		// avoid checking collisions already checked
 		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
 		{
-			// skip empty colliders
 			if (colliders[k] == nullptr)
 				continue;
 
@@ -110,16 +106,12 @@ void j1Collisions::DebugDraw() {
 
 		switch (colliders[i]->type)
 		{
-		case COLLIDER_NONE: // white
+		case COLLIDER_NONE: 
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 		}
 	}
 }
-
-
-
-
 
 Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
@@ -133,7 +125,6 @@ Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module*
 			break;
 		}
 	}
-
 	return ret;
 }
 
@@ -152,9 +143,6 @@ bool j1Collisions::EraseCollider(Collider* collider)
 	}
 	return false;
 }
-
-
-
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {

@@ -10,7 +10,6 @@
 j1Player::j1Player() : j1Module()
 {
 	name.create("player");
-
 	graphics = nullptr;
 
 	idle.PushBack({ 0, 0, 178, 249 });
@@ -51,26 +50,18 @@ j1Player::j1Player() : j1Module()
 	walk.PushBack({ 1800, 500, 178, 249 });
 	walk.loop = true;
 	walk.speed = 0.1f;
-
-	
 }
 
 j1Player::~j1Player()
 {}
 
-
-
 bool j1Player::Awake(pugi::xml_node& conf)
 {
 	return true;
-
 }
 
-
-
-bool j1Player::Start() {
-
-
+bool j1Player::Start() 
+{
 	bool ret = true;
 	LOG("Loading player.");
 
@@ -83,10 +74,7 @@ bool j1Player::Start() {
 	}
 	
 	position = { 0,0 };
-
 	speed = 1.0f;
-
-
 	current_animation = &idle;
 
 	return ret;
@@ -103,38 +91,23 @@ bool j1Player::CleanUp()
 }
 bool j1Player::Update(float dt)
 {
-
-
-
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {}
 		
-	}
-		
-
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {}
 	
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-	
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
 		position.x -= speed;
 		current_animation = &walk;
-
 	}
-	
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-	
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
 		position.x+= speed;
 		current_animation = &walk;
 	}
-	
-
-
-
-
-
 
 	// Draw everything
-
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
