@@ -16,14 +16,18 @@ j1Player::j1Player() : j1Module()
 	idle.PushBack({ 180, 0, 178, 249 });
 	idle.PushBack({ 360, 0, 178, 249 });
 	idle.PushBack({ 540, 0, 178, 249 });
+	idle.PushBack({ 360, 0, 178, 249 });
+	idle.PushBack({ 180, 0, 178, 249 });
+	idle.PushBack({ 180, 0, 178, 249 });
+	idle.PushBack({ 360, 0, 178, 249 });
+	idle.PushBack({ 540, 0, 178, 249 });
 	idle.PushBack({ 720, 0, 178, 249 });
-	idle.PushBack({ 900, 0, 178, 249 });
-	idle.PushBack({ 1080, 0, 178, 249 });
-	idle.PushBack({ 1260, 0, 178, 249 });
-	idle.PushBack({ 1620, 0, 178, 249 });
-	idle.PushBack({ 1800, 0, 178, 249 });
+	//idle.PushBack({ 900, 0, 178, 249 });
+	//idle.PushBack({ 1080, 0, 178, 249 });
+	//idle.PushBack({ 1260, 0, 178, 249 });
+	//idle.PushBack({ 1620, 0, 178, 249 });
 	idle.loop = true;
-	idle.speed = 0.1f;
+	idle.speed = 0.07f;
 
 	jump.PushBack({ 0, 250, 178, 249 });
 	jump.PushBack({ 180, 250, 178, 249 });
@@ -34,9 +38,8 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 1080, 250, 178, 249 });
 	jump.PushBack({ 1260, 250, 178, 249 });
 	jump.PushBack({ 1620, 250, 178, 249 });
-	jump.PushBack({ 1800, 250, 178, 249 });
 	jump.loop = true;
-	jump.speed = 0.1f;
+	jump.speed = 0.06f;
 
 	walk.PushBack({ 0, 500, 178, 249 });
 	walk.PushBack({ 180, 500, 178, 249 });
@@ -47,7 +50,6 @@ j1Player::j1Player() : j1Module()
 	walk.PushBack({ 1080, 500, 178, 249 });
 	walk.PushBack({ 1260, 500, 178, 249 });
 	walk.PushBack({ 1620, 500, 178, 249 });
-	walk.PushBack({ 1800, 500, 178, 249 });
 	walk.loop = true;
 	walk.speed = 0.1f;
 }
@@ -66,7 +68,7 @@ bool j1Player::Start()
 	LOG("Loading player.");
 
 	graphics = App->tex->Load("textures/character_spritesheet.png");
-	playercoll = App->collis->AddCollider({ position.x + 7, position.y, 14, 23 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
+	playercoll = App->collis->AddCollider({ position.x + 00, position.y, 00, 23 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
 
 	if (!graphics)
 	{
@@ -103,11 +105,38 @@ bool j1Player::Update(float dt)
 		current_animation = &walk;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+	{
+		position.x = position.x;
+		current_animation = &idle;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		position.x+= speed;
 		current_animation = &walk;
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+	{
+		position.x = position.x;
+		current_animation = &idle;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+	{
+		position.x += speed;
+		position.y -= 100.1;
+		current_animation = &jump;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		position.x = position.x;
+		position.y = position.y;
+		current_animation = &idle;
+	}
+
 
 	// Draw everything
 

@@ -139,7 +139,6 @@ bool j1Input::CleanUp()
 	return true;
 }
 
-// ---------
 bool j1Input::GetWindowEvent(j1EventWindow ev)
 {
 	return windowEvents[ev];
