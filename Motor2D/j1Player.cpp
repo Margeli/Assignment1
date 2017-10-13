@@ -67,7 +67,7 @@ bool j1Player::Start()
 	LOG("Loading player.");
 
 	graphics = App->tex->Load("textures/character_spritesheet.png");
-	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 65 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
+	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
 
 	if (!graphics)
 	{
@@ -149,7 +149,7 @@ bool j1Player::Update(float dt)
 	}
 
 	if(playercoll!=nullptr) //updates the collider to player's position
-	playercoll->SetPos(position.x, position.y);
+	playercoll->SetPos(position.x, position.y+5);
 
 
 	// Draw everything
@@ -169,22 +169,23 @@ void j1Player::Jump()
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2, CollisionDirection direction) {
-
+	int margin = 0;
 	switch (c2->type) {
 	case COLLIDER_GROUND:
 		
 		switch (direction) {
+			
 		case PLAYER_ABOVE:
- 			position.y = c2->rect.y - 65;//player height
+ 			position.y = c2->rect.y - 65-margin;//player height //margin
 			break;
 		case PLAYER_BELOW:
-			position.y = c2->rect.y + c2->rect.h;
+			position.y = c2->rect.y + c2->rect.h + margin;
 			break;
 		case PLAYER_RIGHT:
-			position.x = c2->rect.x + c2->rect.w ; 
+			position.x = c2->rect.x + c2->rect.w +margin; 
 			break;
 		case PLAYER_LEFT:
-			position.x = c2->rect.x - 46;//playr width
+			position.x = c2->rect.x - 46 - margin;//playr width
 			break;
 			//if (c1->rect.y + c1->rect.h >= c2->rect.y) { //player above collider ground
 			//	position.y = c2->rect.y - 65;//playr height
