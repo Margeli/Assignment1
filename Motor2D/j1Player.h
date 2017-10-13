@@ -44,7 +44,12 @@ public:
 	Animation idle;
 	Animation walk;
 	Animation jump;
+	Animation run;
 
+	Animation idleleft;
+	Animation walkleft;
+	Animation jumpleft;
+	Animation runleft;
 	Collider * playercoll;
 
 };
