@@ -24,6 +24,8 @@ public:
 
 	bool CleanUp();
 
+	void OnCollision(Collider* c1, Collider* c2, CollisionDirection direction);
+
 
 	void Jump();
 

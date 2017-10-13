@@ -46,7 +46,7 @@ void j1Map::Draw()
 
 				if (first_loop) {
 					PutMapColliders(id, position);
-					
+					//App->collis->GroupUpColliders();
 				}
 				
 

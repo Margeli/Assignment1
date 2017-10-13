@@ -74,12 +74,14 @@ bool j1Collisions::Update(float dt) {
 			c2 = colliders[k];
 
 			if (c1->CheckCollision(c2->rect) == true)
-			{
+			{	
+				c1->direction = NO_COLLISION;
+				c1->direction = c1->CheckDirection(c2->rect);
 				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2);
+					c1->callback->OnCollision(c1, c2, c1->direction);
 
-				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1);
+				//if (matrix[c2->type][c1->type] && c2->callback)
+				//	c2->callback->OnCollision(c2, c1);
 			}
 		}
 	}
@@ -151,10 +153,39 @@ bool j1Collisions::EraseCollider(Collider* collider)
 	return false;
 }
 
-bool Collider::CheckCollision(const SDL_Rect& r) const
+CollisionDirection Collider::CheckDirection(const SDL_Rect& r) 
 {
-	return (rect.x < r.x + r.w &&
-		rect.x + rect.w > r.x &&
-		rect.y < r.y + r.h &&
-		rect.h + rect.y > r.y);
+	
+		if ((rect.x < r.x + r.w)&&(rect.x>r.x)) {
+			return PLAYER_RIGHT;
+		}
+		if ((rect.x + rect.w > r.x)&&(rect.x+rect.w < r.x+r.w)) {
+			return PLAYER_LEFT;
+		}
+		if ((rect.y < r.y + r.h) && (rect.y > r.y)) {
+			return PLAYER_BELOW;
+		}
+		if ((rect.h + rect.y > r.y) && (rect.h + rect.y < r.y + r.h)) {
+			return PLAYER_ABOVE;
+		}
+		
+	 
 }
+bool Collider::CheckCollision(const SDL_Rect& r) const {
+
+	return (rect.x < r.x + r.w
+		&&	rect.x + rect.w > r.x
+		&&	 rect.y < r.y + r.h
+		&&	rect.h + rect.y > r.y);
+
+}
+
+
+//void GroupUpColliders() {
+//	for (uint i = 0; i < MAX_COLLIDERS; ++i){
+//		if(collider)
+//
+//
+//
+//}
+//}
