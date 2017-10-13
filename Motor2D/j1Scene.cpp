@@ -52,8 +52,8 @@ bool j1Scene::Update(float dt)
 
 	App->player->position.y += GRAVITY;
 
-	if (App->player->position.y >= 450) {//bottom limit
-		App->player->position.y = 450;	
+	if (App->player->position.y >= 630) {//bottom limit
+		App->player->position.y = 630;	
 	}
 
 	//App->render->Blit(img, 0, 0);

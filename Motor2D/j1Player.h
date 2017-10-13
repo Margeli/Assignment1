@@ -31,6 +31,7 @@ public:
 
 	float speed;
 	float jump_increment;
+	float jump_speed;
 	bool landing;
 	iPoint position;
 
