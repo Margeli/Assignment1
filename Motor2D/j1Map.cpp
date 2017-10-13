@@ -44,13 +44,13 @@ void j1Map::Draw()
 
 				iPoint position = GetXYfromTile(column, row);
 
-				for(uint i =0; i<33;i++){ // puts collision on id tiles that need it
-					if (data.tilesets.At(0)->data->ground_id_tiles[i] == id-1) {
-						App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
-						continue;
-					}
-				 
+				if (first_loop) {
+					PutMapColliders(id, position);
+					
 				}
+				
+
+				
 				
 				
 				App->render->Blit(data.tilesets.At(0)->data->texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id));
@@ -58,7 +58,7 @@ void j1Map::Draw()
 			}
 		}	
 	}
-
+	first_loop = false;
 
 
 	// TODO 9: Complete the draw function
@@ -379,6 +379,20 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 	}
 	return true;
 }
+
+void j1Map::PutMapColliders(int current_id, iPoint position) {
+
+	for (uint i = 0; i<33; i++) { // puts collision on id tiles that need it
+		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1) {
+			App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
+
+		}
+
+	}
+
+
+}
+
 
 inline iPoint GetXYfromTile(int x, int y) {
 	iPoint position;
