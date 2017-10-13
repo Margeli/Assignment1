@@ -27,6 +27,7 @@ public:
 public:
 
 	float speed;
+	float time;
 	iPoint position;
 
 	SDL_Texture* graphics = nullptr;

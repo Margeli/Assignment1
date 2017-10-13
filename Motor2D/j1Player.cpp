@@ -39,7 +39,7 @@ j1Player::j1Player() : j1Module()
 	jump.PushBack({ 1260, 250, 178, 249 });
 	jump.PushBack({ 1620, 250, 178, 249 });
 	jump.loop = true;
-	jump.speed = 0.06f;
+	jump.speed = 0.05f;
 
 	walk.PushBack({ 0, 500, 178, 249 });
 	walk.PushBack({ 180, 500, 178, 249 });
@@ -51,7 +51,7 @@ j1Player::j1Player() : j1Module()
 	walk.PushBack({ 1260, 500, 178, 249 });
 	walk.PushBack({ 1620, 500, 178, 249 });
 	walk.loop = true;
-	walk.speed = 0.1f;
+	walk.speed = 0.06f;
 }
 
 j1Player::~j1Player()
@@ -99,25 +99,25 @@ bool j1Player::Update(float dt)
 		
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {}
 	
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		position.x -= speed;
 		current_animation = &walk;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
 		position.x = position.x;
 		current_animation = &idle;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		position.x+= speed;
 		current_animation = &walk;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
 		position.x = position.x;
 		current_animation = &idle;
@@ -125,15 +125,19 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
-		position.x += speed;
-		position.y -= 100.1;
 		current_animation = &jump;
+		for (time = 0; time < 100; time++)
+		{
+			position.y -= 1;
+
+		}
+
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
 		position.x = position.x;
-		position.y = position.y;
+		position.y += 100;
 		current_animation = &idle;
 	}
 
