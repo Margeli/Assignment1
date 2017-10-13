@@ -122,7 +122,7 @@ bool j1Player::Start()
 
 	graphics = App->tex->Load("textures/character_spritesheet_left.png");
 
-	playercoll = App->collis->AddCollider({ position.x, position.y, 63, 88 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
+	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 65 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
 
 	if (!graphics)
 	{
