@@ -50,7 +50,6 @@ public:
 	SDL_Rect		viewport;
 	SDL_Color		background;
 
-	float camera_position;
 };
 
 #endif // __j1RENDER_H__

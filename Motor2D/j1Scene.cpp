@@ -57,8 +57,6 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
 
-	App->win->GetWindowSize(window_width, window_height);
-
 	App->player->position.y += GRAVITY;
 
 	if (App->player->position.y >= 545)	//630
@@ -75,6 +73,16 @@ bool j1Scene::Update(float dt)
 	{
 		App->player->position.y = 0;
 	}
+
+	if (App->player->position.x >= 3152 && App->player->position.y > 160)
+	{
+		App->player->position.x = 3152;	
+	}
+	else if (App->player->position.x >= 3152 && App->player->position.y < 160)
+	{
+		//FADE TO BLACK LEVEL 2
+	}
+
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();

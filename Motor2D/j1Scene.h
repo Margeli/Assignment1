@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "j1Render.h"
 
 #define GRAVITY 3
 
@@ -34,10 +35,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
-
-	uint window_height;
-	uint window_width;
 };
 
 #endif // __j1SCENE_H__

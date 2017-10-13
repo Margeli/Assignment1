@@ -3,6 +3,8 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Player.h"
+#include "j1Input.h"
 
 #define VSYNC true
 
@@ -13,6 +15,10 @@ j1Render::j1Render() : j1Module()
 	background.g = 0;
 	background.b = 0;
 	background.a = 0;
+
+	camera.x = camera.y = 0;
+	camera.w = SCREEN_WIDTH;
+	camera.h = SCREEN_HEIGHT;
 }
 
 // Destructor
@@ -69,9 +75,17 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
-
-	camera.x = camera_position;
-
+	int speed = SCREEN_SIZE;
+	
+		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->player->position.x >= SCREEN_WIDTH/2 + 130 && App->player->position.x <= SCREEN_WIDTH*4 + 60))
+		{
+			camera.x -= speed;
+		}
+		else if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->player->position.x >= SCREEN_WIDTH / 2 + 130 && App->player->position.x <= SCREEN_WIDTH * 4 + 60))
+		{
+			camera.x += speed;
+		}
+	
 	return true;
 }
 
