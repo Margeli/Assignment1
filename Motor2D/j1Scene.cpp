@@ -50,9 +50,18 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		App->render->camera.x -= 1;
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		App->render->camera.x += 1;
+
+	App->win->GetWindowSize(window_width, window_height);
+
 	App->player->position.y += GRAVITY;
 
-	if (App->player->position.y >= 630) {//bottom limit
+	if (App->player->position.y >= 630)
+	{	
 		App->player->position.y = 630;	
 	}
 

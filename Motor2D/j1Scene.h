@@ -35,6 +35,9 @@ public:
 	bool CleanUp();
 
 private:
+
+	uint window_height;
+	uint window_width;
 };
 
 #endif // __j1SCENE_H__

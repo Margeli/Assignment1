@@ -69,6 +69,9 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
+
+	camera.x = camera_position;
+
 	return true;
 }
 
