@@ -159,12 +159,11 @@ bool j1Player::Update(float dt)
 	return true;
 }
 
-void j1Player::Jump() {
-
-	
-	if (position.y - jump_increment > -90)//jump height
-		position.y -= jump_speed;
-	else
-		landing = true;
+void j1Player::Jump()
+{
+		if (position.y - jump_increment > -90)//jump height
+			position.y -= jump_speed;
+		else
+			landing = true;
 
 }

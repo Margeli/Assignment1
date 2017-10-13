@@ -61,9 +61,19 @@ bool j1Scene::Update(float dt)
 
 	App->player->position.y += GRAVITY;
 
-	if (App->player->position.y >= 630)
+	if (App->player->position.y >= 545)	//630
 	{	
-		App->player->position.y = 630;	
+		App->player->position.y = 545;	
+	}
+
+	if (App->player->position.x <= 0 )
+	{
+		App->player->position.x = 0;
+	}
+
+	if (App->player->position.y <= 0)
+	{
+		App->player->position.y = 0;
 	}
 
 	//App->render->Blit(img, 0, 0);
