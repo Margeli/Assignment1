@@ -105,8 +105,9 @@ bool j1Scene2::PostUpdate()
 bool j1Scene2::CleanUp()
 {
 	LOG("Freeing scene2");
+	App->map->CleanUp();
 
-	App->scene->active = true;
+	App->collis->CleanUp();
 
 
 	return true;
@@ -114,13 +115,37 @@ bool j1Scene2::CleanUp()
 
 bool j1Scene2::Load(pugi::xml_node& data)
 {
+	pugi::xml_node activated = data.child("activated");
+
+	bool scene2_active = activated.attribute("true").as_bool();
+	if ( scene2_active == false && active ) {
+
+		SceneChange();
+		//NEED TO PUT FADING
+
+	}
 
 
 	return true;
 }
 bool j1Scene2::Save(pugi::xml_node& data) const
 {
+	pugi::xml_node activated = data.append_child("activated");
 
+	activated.append_attribute("true") = active;
 
 	return true;
+}
+
+
+void j1Scene2::SceneChange() {
+
+	App->scene->active = true;
+	App->scene2->active = false;
+	CleanUp();
+
+
+	App->player->InitialPos();
+	App->render->camera = { 0,0 };
+	App->scene->Start();
 }

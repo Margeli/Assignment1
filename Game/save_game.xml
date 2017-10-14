@@ -5,10 +5,14 @@
 	<textures />
 	<audio />
 	<map />
-	<scene />
-	<scene2 />
+	<scene>
+		<activated true="true" />
+	</scene>
+	<scene2>
+		<activated true="false" />
+	</scene2>
 	<player>
-		<position x="87" y="479" />
+		<position x="414" y="287" />
 	</player>
 	<collisions />
 	<renderer>

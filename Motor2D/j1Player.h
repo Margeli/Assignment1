@@ -37,6 +37,7 @@ public:
 	float jump_speed;
 	bool landing;
 	iPoint position;
+	void InitialPos();
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
