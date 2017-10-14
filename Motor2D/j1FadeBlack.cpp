@@ -26,7 +26,6 @@ bool j1FadeBlack::Start()
 	return true;
 }
 
-// Update: draw background
 bool j1FadeBlack::Update()
 {
 	if (current_step == fade_step::none)
@@ -37,45 +36,39 @@ bool j1FadeBlack::Update()
 
 	switch (current_step)
 	{
-	case fade_step::fade_to_black:
-	{
-		if (now >= total_time)
+		case fade_step::fade_to_black:
 		{
-		//	to_disable->Disable();
+			if (now >= total_time)
+			{
+			//to_disable->Disable();
 
-			App->render->camera.x = 0;//Return the camera to the position 0 after disable the module
-			App->render->camera.y = 0;//If we make it before, the position will move because the position of the camera is always rising
-		//	App->music->Unload(App->first_scene->music);
-		//	App->music->Unload(App->scene_map2->music);
-		//	App->music->Unload(App->end_scene->music);
-		//	to_enable->Enable();
-			total_time += total_time;
-			start_time = SDL_GetTicks();
-			current_step = fade_step::fade_from_black;
-		}
-	} break;
+				App->render->camera.x = 0;
+				App->render->camera.y = 0;
 
-	case fade_step::fade_from_black:
-	{
-		normalized = 1.0f - normalized;
-		if (now >= total_time) {
-			current_step = fade_step::none;
-			//App->scene_start->fading = false;
-			//App->first_scene->fading = false; //we need that because if we pres change fade to black during one fade the next won't work
-			//App->scene_map2->fading = false;
-			//App->end_scene->fading = false;
-		}
-	} break;
+			//	to_enable->Enable();
+				total_time += total_time;
+				start_time = SDL_GetTicks();
+				current_step = fade_step::fade_from_black;
+			}
+		} break;
+
+		case fade_step::fade_from_black:
+		{
+			normalized = 1.0f - normalized;
+			if (now >= total_time) 
+			{
+				current_step = fade_step::none;
+				App->scene = false;
+			}
+		} break;
 	}
 
-	// Finally render the black square with alpha on the screen
 	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
 	return true;
 }
 
-// Fade to black. At mid point deactivate one module, then activate the other
 bool j1FadeBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
 {
 	bool ret = false;
