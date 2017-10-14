@@ -23,16 +23,14 @@ j1Render::j1Render() : j1Module()
 	camera_speed = 1;
 }
 
-// Destructor
 j1Render::~j1Render()
 {}
 
-// Called before render is available
 bool j1Render::Awake(pugi::xml_node& config)
 {
 	LOG("Create SDL rendering context");
 	bool ret = true;
-	// load flags
+
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
 	if(config.child("vsync").attribute("value").as_bool(true) == true)
@@ -59,16 +57,13 @@ bool j1Render::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Called before the first frame
 bool j1Render::Start()
 {
 	LOG("render start");
-	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
 	return true;
 }
 
-// Called each loop iteration
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
@@ -77,31 +72,6 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
-	/*int speed = 1;
-	if (App->player->position.x > camera.x + (2 * SCREEN_WIDTH / 3))
-		camera.x -= speed;
-*/
-
-
-
-
-
-	//int speed = SCREEN_SIZE;
-	//int end = 3200 - SCREEN_WIDTH / 2;
-	//
-	//	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	//	{
-	//		if (App->player->position.x >= SCREEN_WIDTH / 2 && App->player->position.x <= end)
-	//		{
-	//			camera.x -= speed;
-	//		}
-	//	}
-
-	//	else if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->player->position.x >= SCREEN_WIDTH / 2 + 130 && App->player->position.x <= end))
-	//	{
-	//		camera.x += speed;
-	//	}
-	
 
 	return true;
 }
@@ -113,7 +83,6 @@ bool j1Render::PostUpdate()
 	return true;
 }
 
-// Called before quitting
 bool j1Render::CleanUp()
 {
 	LOG("Destroying SDL render");
@@ -121,7 +90,6 @@ bool j1Render::CleanUp()
 	return true;
 }
 
-// Load Game State
 bool j1Render::Load(pugi::xml_node& data)
 {
 	camera.x = data.child("camera").attribute("x").as_int();
@@ -130,7 +98,6 @@ bool j1Render::Load(pugi::xml_node& data)
 	return true;
 }
 
-// Save Game State
 bool j1Render::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node cam = data.append_child("camera");
@@ -156,7 +123,6 @@ void j1Render::ResetViewPort()
 	SDL_RenderSetViewport(renderer, &viewport);
 }
 
-// Blit to screen
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y) const
 {
 	bool ret = true;

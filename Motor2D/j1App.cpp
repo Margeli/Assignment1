@@ -13,6 +13,7 @@
 #include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1App.h"
+#include "j1FadeBlack.h"
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -29,6 +30,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	render = new j1Render();
 	collis = new j1Collisions();
+	fade = new j1FadeBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -42,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(collis);
 	AddModule(render);
+	AddModule(fade);
 }
 
 j1App::~j1App()

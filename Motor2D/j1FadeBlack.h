@@ -10,7 +10,7 @@ public:
 	j1FadeBlack();
 	~j1FadeBlack();
 
-	bool Start();
+	bool Awake();
 	bool Update();
 	bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 0.5f);
 	bool IsFading() const;
