@@ -48,10 +48,7 @@ void j1Map::Draw()
 					PutMapColliders(id, position);
 					//App->collis->GroupUpColliders();
 				}
-				
 
-				
-				
 				
 				App->render->Blit(data.tilesets.At(0)->data->texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id));
 				tile_num++;			

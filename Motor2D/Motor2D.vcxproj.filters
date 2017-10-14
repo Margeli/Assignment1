@@ -40,6 +40,9 @@
     <ClCompile Include="j1Collisions.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1FadeBlack.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -101,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="j1Animation.h">
       <Filter>Desenvolupament  ========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1FadeBlack.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

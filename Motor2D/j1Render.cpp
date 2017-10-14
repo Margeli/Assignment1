@@ -76,16 +76,22 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	int speed = SCREEN_SIZE;
+	int end = 3200 - SCREEN_WIDTH / 2;
 	
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && (App->player->position.x >= SCREEN_WIDTH/2 + 130 && App->player->position.x <= SCREEN_WIDTH*4 + 60))
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			camera.x -= speed;
+			if (App->player->position.x >= SCREEN_WIDTH / 2 && App->player->position.x <= end)
+			{
+				camera.x -= speed;
+			}
 		}
-		else if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->player->position.x >= SCREEN_WIDTH / 2 + 130 && App->player->position.x <= SCREEN_WIDTH * 4 + 60))
+
+		else if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && (App->player->position.x >= SCREEN_WIDTH / 2 + 130 && App->player->position.x <= end))
 		{
 			camera.x += speed;
 		}
 	
+
 	return true;
 }
 

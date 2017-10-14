@@ -15,9 +15,6 @@ struct Layer {
 	uint height;
 	uint* data=nullptr;
 
-	
-
-
 	~Layer();
 };
 	// TODO 6: Short function to get the value of x,y
