@@ -31,6 +31,7 @@ public:
 
 public:
 
+	bool camera_movement = false;
 	float speed;
 	float jump_increment;
 	float jump_speed;

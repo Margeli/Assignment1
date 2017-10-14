@@ -45,11 +45,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	/*if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame();
+		App->SaveGame();*/
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
@@ -58,6 +58,17 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x += 1;
 
 	App->player->position.y += GRAVITY;
+
+	//-----CAMERA MOVEMENT----
+	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
+		App->player->camera_movement = true;
+	
+	else {
+		App->player->camera_movement = false;
+	}
+
+
+
 
 	if (App->player->position.y >= 545)	//630
 	{	

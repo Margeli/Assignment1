@@ -179,6 +179,9 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
+		if (camera_movement) {
+			App->render->camera.x -= App->render->camera_speed;
+		}
 		position.x+= speed;
 		if (current_animation != &jump)
 		current_animation = &walk;

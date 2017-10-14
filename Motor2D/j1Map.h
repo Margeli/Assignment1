@@ -13,6 +13,7 @@ struct Layer {
 	p2SString name;
 	uint width;
 	uint height;
+	float speed;
 	uint* data=nullptr;
 
 	~Layer();

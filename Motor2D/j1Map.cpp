@@ -50,7 +50,7 @@ void j1Map::Draw()
 				}
 
 				
-				App->render->Blit(data.tilesets.At(0)->data->texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id));
+				App->render->Blit(data.tilesets.At(0)->data->texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id),layer_iterator->data->speed);
 				tile_num++;			
 			}
 		}	
@@ -361,6 +361,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 	layer->name = node.attribute("name").as_string();
 	layer->height = node.attribute("height").as_uint();
 	layer->width = node.attribute("width").as_uint();
+	layer->speed = node.child("properties").child("property").attribute("value").as_float();
 
 	uint data_size = layer->width * layer->height;
 	layer->data= new uint[data_size];
