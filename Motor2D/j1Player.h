@@ -38,6 +38,9 @@ public:
 	bool landing;
 	iPoint position;
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 
 	SDL_Texture* graphics = nullptr;
 

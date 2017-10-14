@@ -35,7 +35,7 @@ bool j1Scene:: Awake(pugi::xml_node&)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("Map2.tmx");
+	App->map->Load("Map1.tmx");
 
 	return true;
 }
@@ -49,11 +49,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	/*if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame();*/
+	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->SaveGame();
 
 	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
@@ -132,6 +132,19 @@ bool j1Scene::CleanUp()
 	App->collis->CleanUp();
 
 	//App->scene2->active = true;
+
+	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& data)
+{
+	
+
+	return true;
+}
+bool j1Scene::Save(pugi::xml_node& data) const
+{
+
 
 	return true;
 }

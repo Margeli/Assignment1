@@ -42,6 +42,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(collis);
 	AddModule(render);
+
+	load_game = "save_game.xml";
+	save_game = "save_game.xml";
+
 }
 
 j1App::~j1App()

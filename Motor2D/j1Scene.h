@@ -35,6 +35,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
 };
 
 #endif // __j1SCENE_H__
