@@ -36,6 +36,10 @@ public:
 	bool CleanUp();
 
 	bool fading = false;
+
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 };
 
 #endif // __j1SCENE_H__

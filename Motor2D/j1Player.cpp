@@ -261,3 +261,21 @@ void j1Player::OnCollision(Collider* c1, Collider* c2, CollisionDirection direct
 	}
 }
 
+bool j1Player::Load(pugi::xml_node& data)
+{
+	position.x = data.child("position").attribute("x").as_int();
+	position.y = data.child("position").attribute("y").as_int();
+
+	return true;
+
+}
+bool j1Player::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node pos= data.append_child("position");
+
+	pos.append_attribute("x") = position.x;
+	pos.append_attribute("y") = position.y;
+
+
+	return true;
+}

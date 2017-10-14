@@ -52,6 +52,13 @@ bool j1Scene2::PreUpdate()
 // Called each loop iteration
 bool j1Scene2::Update(float dt)
 {
+
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		App->LoadGame();
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->SaveGame();
+
 	App->player->position.y += GRAVITY;
 
 	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
@@ -94,6 +101,19 @@ bool j1Scene2::CleanUp()
 	LOG("Freeing scene2");
 
 	App->scene->active = true;
+
+
+	return true;
+}
+
+bool j1Scene2::Load(pugi::xml_node& data)
+{
+
+
+	return true;
+}
+bool j1Scene2::Save(pugi::xml_node& data) const
+{
 
 
 	return true;
