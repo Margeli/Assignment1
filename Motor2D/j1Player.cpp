@@ -79,16 +79,16 @@ j1Player::j1Player() : j1Module()
 	jumpleft.loop = false;
 	jumpleft.speed = 0.06f;
 
-	walkleft.PushBack({ 0, 325, 46, 65 });
-	walkleft.PushBack({ 47, 325, 46, 65 });
-	walkleft.PushBack({ 94, 325, 46, 65 });
-	walkleft.PushBack({ 141, 325, 46, 65 });
-	walkleft.PushBack({ 188, 325, 46, 65 });
-	walkleft.PushBack({ 235, 325, 46, 65 });
-	walkleft.PushBack({ 282, 325, 46, 65 });
-	walkleft.PushBack({ 329, 325, 46, 65 });
-	walkleft.PushBack({ 376, 325, 46, 65 });
-	walkleft.PushBack({ 423, 325, 46, 65 });
+	walkleft.PushBack({ 0, 326, 46, 65 });
+	walkleft.PushBack({ 47, 326, 46, 65 });
+	walkleft.PushBack({ 94, 326, 46, 65 });
+	walkleft.PushBack({ 141, 326, 46, 65 });
+	walkleft.PushBack({ 188, 326, 46, 65 });
+	walkleft.PushBack({ 235, 326, 46, 65 });
+	walkleft.PushBack({ 282, 326, 46, 65 });
+	walkleft.PushBack({ 329, 326, 46, 65 });
+	walkleft.PushBack({ 376, 326, 46, 65 });
+	walkleft.PushBack({ 423, 326, 46, 65 });
 	walkleft.loop = true;
 	walkleft.speed = 0.06f;
 
