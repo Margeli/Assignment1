@@ -39,6 +39,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	bool fading = false;
+
 };
 
 #endif // __j1SCENE2_H__

@@ -8,6 +8,7 @@
 #include "p2Log.h"
 #include "j1Scene.h" 
 #include "j1Scene2.h"
+#include "j1Module.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -39,10 +40,15 @@ bool j1FadeBlack::Update()
 		{
 			if (now >= total_time)
 			{
+				to_disable->Disable();
+
+
 				App->render->camera.x = 0;
 				App->render->camera.y = 0;
 
 				App->audio->CleanUp();
+
+				to_enable->Enable();
 
 				total_time += total_time;
 				start_time = SDL_GetTicks();
@@ -57,6 +63,8 @@ bool j1FadeBlack::Update()
 			{
 				current_step = fade_step::none;
 				App->scene->fading = false;
+				App->scene2->fading = false;
+
 			}
 		} break;
 	}

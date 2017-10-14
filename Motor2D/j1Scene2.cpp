@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
+#include "j1FadeBlack.h"
 
 j1Scene2::j1Scene2() : j1Module()
 {
@@ -52,6 +53,15 @@ bool j1Scene2::PreUpdate()
 // Called each loop iteration
 bool j1Scene2::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, App->scene, 2.0f);
+	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		App->fade->FadeToBlack(this, App->scene, 2.0f);
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
@@ -68,12 +78,8 @@ bool j1Scene2::Update(float dt)
 		App->player->camera_movement = false;
 	}
 
-		//FADE TO BLACK LEVEL 2
-	
-
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		App->map->data.width, App->map->data.height,
@@ -81,6 +87,7 @@ bool j1Scene2::Update(float dt)
 		App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());
+
 	return true;
 }
 
@@ -100,7 +107,7 @@ bool j1Scene2::CleanUp()
 {
 	LOG("Freeing scene2");
 
-	App->scene->active = true;
+	App->scene->active = false;
 
 
 	return true;
@@ -112,6 +119,7 @@ bool j1Scene2::Load(pugi::xml_node& data)
 
 	return true;
 }
+
 bool j1Scene2::Save(pugi::xml_node& data) const
 {
 

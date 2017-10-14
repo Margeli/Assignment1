@@ -47,6 +47,9 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->fade->FadeToBlack(this, App->scene, 2.0f);
+
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
@@ -130,7 +133,7 @@ bool j1Scene::CleanUp()
 	App->player->CleanUp();
 	
 
-	//App->scene2->active = true;
+	App->scene2->active = true;
 
 	return true;
 }
