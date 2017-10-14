@@ -56,7 +56,7 @@ public:
 	bool EraseCollider(Collider* collider);
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
-	//void GroupUpColliders();
+
 
 	
 private:

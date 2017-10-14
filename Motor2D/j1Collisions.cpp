@@ -183,13 +183,3 @@ bool Collider::CheckCollision(const SDL_Rect& r) const {
 		&&	rect.h + rect.y +margin> r.y);
 
 }
-
-
-//void GroupUpColliders() {
-//	for (uint i = 0; i < MAX_COLLIDERS; ++i){
-//		if(collider)
-//
-//
-//
-//}
-//}

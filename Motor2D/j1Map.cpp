@@ -46,7 +46,7 @@ void j1Map::Draw()
 
 				if (first_loop) {
 					PutMapColliders(id, position);
-					//App->collis->GroupUpColliders();
+					
 				}
 
 				
@@ -383,7 +383,7 @@ void j1Map::PutMapColliders(int current_id, iPoint position) {
 	for (uint i = 0; i<33; i++) { // puts collision on id tiles that need it
 		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1) {
 			App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
-
+			continue;
 		}
 
 	}

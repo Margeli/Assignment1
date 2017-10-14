@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Scene2.h"
 #include "j1Player.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -20,10 +21,13 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene:: Awake(pugi::xml_node&)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+
+	
+
 
 	return ret;
 }
@@ -31,7 +35,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("Map1.tmx");
+	App->map->Load("Map2.tmx");
 
 	return true;
 }
@@ -51,11 +55,11 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();*/
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->camera.x -= 1;
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+		App->render->camera.x += 1;*/
 
 	App->player->position.y += GRAVITY;
 
@@ -66,7 +70,7 @@ bool j1Scene::Update(float dt)
 	else {
 		App->player->camera_movement = false;
 	}
-
+	//-------------------------
 
 
 
@@ -92,6 +96,7 @@ bool j1Scene::Update(float dt)
 	else if (App->player->position.x >= 3152 && App->player->position.y < 160)
 	{
 		//FADE TO BLACK LEVEL 2
+		LOG("ENDLVL1!");
 	}
 
 
@@ -123,6 +128,10 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	App->collis->CleanUp();
+
+	//App->scene2->active = true;
 
 	return true;
 }

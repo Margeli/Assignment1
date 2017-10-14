@@ -1,5 +1,6 @@
-#ifndef __j1SCENE_H__
-#define __j1SCENE_H__
+
+#ifndef __j1SCENE2_H__
+#define __j1SCENE2_H__
 
 #include "j1Module.h"
 #include "j1Render.h"
@@ -8,14 +9,14 @@
 
 struct SDL_Texture;
 
-class j1Scene : public j1Module
+class j1Scene2 : public j1Module
 {
 public:
 
-	j1Scene();
+	j1Scene2();
 
 	// Destructor
-	virtual ~j1Scene();
+	virtual ~j1Scene2();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -37,4 +38,4 @@ public:
 
 };
 
-#endif // __j1SCENE_H__
+#endif // __j1SCENE2_H__
