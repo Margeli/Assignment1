@@ -104,7 +104,6 @@ j1Player::j1Player() : j1Module()
 	run.PushBack({ 423, 130, 46, 65 });
 	run.loop = true;
 	run.speed = 2.0f;
-
 }
 
 j1Player::~j1Player()
@@ -120,7 +119,7 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Loading player.");
 
-	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
+	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	
 	graphics = App->tex->Load("textures/character_spritesheet_left.png");
 
 	if (!graphics)
