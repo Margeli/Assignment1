@@ -35,7 +35,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
+	void SceneChange();
+
 	bool fading = false;
+
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;

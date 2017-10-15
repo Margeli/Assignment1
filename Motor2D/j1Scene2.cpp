@@ -52,12 +52,14 @@ bool j1Scene2::PreUpdate()
 // Called each loop iteration
 bool j1Scene2::Update(float dt)
 {
-
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
+
+
+	
 
 	App->player->position.y += GRAVITY;
 
@@ -81,6 +83,9 @@ bool j1Scene2::Update(float dt)
 		App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+		SceneChange();
 	return true;
 }
 
@@ -99,8 +104,9 @@ bool j1Scene2::PostUpdate()
 bool j1Scene2::CleanUp()
 {
 	LOG("Freeing scene2");
+	App->map->CleanUp();
 
-	App->scene->active = true;
+	App->collis->CleanUp();
 
 
 	return true;
@@ -108,13 +114,37 @@ bool j1Scene2::CleanUp()
 
 bool j1Scene2::Load(pugi::xml_node& data)
 {
+	pugi::xml_node activated = data.child("activated");
+
+	bool scene2_active = activated.attribute("true").as_bool();
+	if ( scene2_active == false && active ) {
+
+		SceneChange();
+		//NEED TO PUT FADING
+
+	}
 
 
 	return true;
 }
 bool j1Scene2::Save(pugi::xml_node& data) const
 {
+	pugi::xml_node activated = data.append_child("activated");
 
+	activated.append_attribute("true") = active;
 
 	return true;
+}
+
+
+void j1Scene2::SceneChange() {
+
+	App->scene->active = true;
+	App->scene2->active = false;
+	CleanUp();
+
+	App->player->CleanUp();
+	App->player->Start();
+	App->render->camera = { 0,0 };
+	App->scene->Start();
 }

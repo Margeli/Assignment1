@@ -136,7 +136,7 @@ bool j1Player::Start()
 		ret = false;
 	}
 	
-	position = { 200,100 };
+	InitialPos();
 	speed = 1.0f;
 	current_animation = &idle;
 	jump_speed = 8;
@@ -149,6 +149,8 @@ bool j1Player::CleanUp()
 	LOG("Unloading player.");
 
 	App->tex->UnLoad(graphics);
+	if (playercoll != nullptr)
+		playercoll->to_delete = true;
 
 	return true;
 
@@ -223,6 +225,9 @@ bool j1Player::Update(float dt)
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
 	return true;
+}
+void j1Player::InitialPos() {
+	position = { 200,100 };
 }
 
 void j1Player::Jump()
