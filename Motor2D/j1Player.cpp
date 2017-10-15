@@ -143,6 +143,7 @@ bool j1Player::CleanUp()
 	LOG("Unloading player.");
 
 	App->tex->UnLoad(graphics);
+	
 	if (playercoll != nullptr)
 		playercoll->to_delete = true;
 

@@ -113,6 +113,7 @@ bool j1Scene::CleanUp()
 	App->tex->CleanUp();
 	App->player->CleanUp();
 
+
 	return true;
 }
 
