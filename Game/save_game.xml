@@ -6,16 +6,16 @@
 	<audio />
 	<map />
 	<scene>
-		<activated true="true" />
+		<activated true="false" />
 	</scene>
 	<scene2>
-		<activated true="false" />
+		<activated true="true" />
 	</scene2>
 	<player>
-		<position x="87" y="479" />
+		<position x="864" y="95" />
 	</player>
 	<collisions />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-248" y="0" />
 	</renderer>
 </game_state>
