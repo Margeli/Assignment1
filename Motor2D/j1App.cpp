@@ -2,7 +2,6 @@
 
 #include "p2Defs.h"
 #include "p2Log.h"
-
 #include "j1Player.h"
 #include "j1Window.h"
 #include "j1Input.h"
@@ -13,7 +12,7 @@
 #include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1App.h"
-#include "j1FadeBlack.h"
+
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -30,10 +29,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	render = new j1Render();
 	collis = new j1Collisions();
-	fade = new j1FadeBlack();
 
-	// Ordered for awake / Start / Update
-	// Reverse order of CleanUp
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
@@ -44,12 +40,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(collis);
 	AddModule(render);
-	AddModule(fade);
-
 
 	load_game = "save_game.xml";
 	save_game = "save_game.xml";
-
 }
 
 j1App::~j1App()
