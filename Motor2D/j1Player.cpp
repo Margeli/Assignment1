@@ -7,6 +7,8 @@
 #include "j1Animation.h"
 #include "j1Input.h"
 
+#include "SDL/include/SDL_timer.h"
+
 j1Player::j1Player() : j1Module()
 {
 	name.create("player");
@@ -205,13 +207,13 @@ bool j1Player::Update(float dt)
 		else if (current_animation == &walk || current_animation == &idle)
 			current_animation = &jump;
 
+		if(!jumping)
+		to_jump = true;
+		
+
 		jump_increment = position.y;
 	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && landing == false)
-	{
-		Jump();
-	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
@@ -219,8 +221,37 @@ bool j1Player::Update(float dt)
 			current_animation = &idle;
 		else if (current_animation == &jumpleft)
 			current_animation = &idleleft;
-		landing = false;
+		
+		
 	}
+
+	if (to_jump) {
+
+		jump_start = SDL_GetTicks();
+		jumping = true;
+		to_jump = false;
+	}
+	if (jumping) {
+
+		if (SDL_GetTicks() - jump_start < 200) {
+			position.y -= jump_speed;
+
+		}
+		else if (SDL_GetTicks() - jump_start > 1000) {
+			jumping = false;
+
+		}
+		
+			
+
+	}
+	
+	
+	
+	
+
+
+
 
 	if (playercoll!=nullptr) { playercoll->SetPos(position.x, position.y + 5); }
 
@@ -234,14 +265,8 @@ void j1Player::InitialPos()
 	position = { 50,100 };
 }
 
-void j1Player::Jump()
-{
-	if (position.y - jump_increment > -90)//jump height
-	{
-		position.y -= jump_speed;
-	}
-	else
-			landing = true;
+void j1Player::Landing()
+{	
 }
 
 
@@ -264,8 +289,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2, CollisionDirection direct
 		case PLAYER_LEFT:
 			position.x = c2->rect.x - 46 - margin;//playr width
 			break;
-
+		
 		}
+		landing = true;
 		break;
 	}
 }

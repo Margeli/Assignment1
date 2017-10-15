@@ -27,7 +27,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2, CollisionDirection direction);
 
 
-	void Jump();
+	void Landing();
 
 public:
 
@@ -36,8 +36,13 @@ public:
 	float jump_increment;
 	float jump_speed;
 	bool landing;
+	bool to_jump = false;
+	bool jumping = false;
+	Uint32 jump_start;
 	iPoint position;
 	void InitialPos();
+
+	
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
