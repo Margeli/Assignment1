@@ -64,16 +64,15 @@ bool j1Scene::Update(float dt)
 	
 	else { App->player->camera_movement = false; }
 
-	if (App->player->position.y >= 560) { //down limit
-		
+	if (App->player->position.y >= 560)
+	{
 		App->player->position= initial_scene_pos;
 		App->render->camera.x=0;
-	
 	}
 
-	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } //left limit
+	if (App->player->position.x <= 35 ) { App->player->position.x = 35; }
 
-	if (App->player->position.y <= 0) { App->player->position.y = 0; }	//upper limit
+	if (App->player->position.y <= 34) { App->player->position.y = 34; }	
 
 	if (App->player->position.x >= 3152 && App->player->position.y > 160)
 	{
