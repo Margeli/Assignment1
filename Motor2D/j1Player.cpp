@@ -120,15 +120,8 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Loading player.");
 
-
-
-	//graphics = App->tex->Load("textures/character_spritesheet.png");
 	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	//CHANGE POSITION!!!!!
-
 	graphics = App->tex->Load("textures/character_spritesheet_left.png");
-
-
-
 
 	if (!graphics)
 	{
@@ -158,13 +151,6 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {position.y -= speed;}
-		
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
-	
-		position.y += speed;
-	}
-	
 	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
 		if (camera_movement) {
@@ -237,15 +223,15 @@ bool j1Player::Update(float dt)
 		landing = false;
 	}
 
-	if(playercoll!=nullptr) //updates the collider to player's position
-	playercoll->SetPos(position.x, position.y+5);
-
+	if (playercoll!=nullptr) { playercoll->SetPos(position.x, position.y + 5); }
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
 	return true;
 }
-void j1Player::InitialPos() {
+
+void j1Player::InitialPos() 
+{
 	position = { 200,100 };
 }
 

@@ -58,8 +58,20 @@ bool j1Scene2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		SceneChange();
+		App->player->position.x = 50;
+		App->player->position.y = 100;
+		App->render->camera.x = 0;
+	}
 
-	
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		App->player->position.x = 0;
+		App->player->position.y = 100;
+		App->render->camera.x = 0;
+	}
 
 	App->player->position.y += GRAVITY;
 
@@ -79,8 +91,7 @@ bool j1Scene2::Update(float dt)
 
 	App->win->SetTitle(title.GetString());
 
-	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
-		SceneChange();
+	
 	return true;
 }
 
@@ -130,7 +141,6 @@ bool j1Scene2::Save(pugi::xml_node& data) const
 
 	return true;
 }
-
 
 void j1Scene2::SceneChange() {
 
