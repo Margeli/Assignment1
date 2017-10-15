@@ -1,14 +1,15 @@
-# Game Development - Assignment 1#
+# Game Development
+## Assignment 1
 
-Carles Margelí & Roger Sánchez
+**@Margeli & @RogerJimbo**
 
-Features:
-	Two levels.
-	Save and load.
-	Moving character with jump and run habilities.
-	Parallax effect.
-	Music.
-Controlls:
+**Features:**
+	1.Two levels.
+	1.Save and load.
+	1.Moving character with jump and run habilities.
+	1.Parallax effect.
+	1.Music.
+**Controlls:**
 	"ASWD" or "LEFT,DOWN,UP,RIGHT" arrows to move the character.
 	"SPACE" bar to jump.
 	"LEFT SHIFT" key to sprint.
@@ -21,4 +22,4 @@ Controlls:
 
 
 
-Map tiles and character sprites art are from https://opengameart.org/ , both free without copyright. 
+Map tiles and character sprites art are from  [Open Art](https://opengameart.org/)  , both free without copyright. 
