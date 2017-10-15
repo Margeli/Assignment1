@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
+#include "j1FadeBlack.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -25,9 +26,6 @@ bool j1Scene:: Awake(pugi::xml_node&)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-
-	
-
 
 	return ret;
 }
@@ -63,18 +61,14 @@ bool j1Scene::Update(float dt)
 
 	App->player->position.y += GRAVITY;
 
-	//-----CAMERA MOVEMENT----
 	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
 		App->player->camera_movement = true;
 	
 	else {
 		App->player->camera_movement = false;
 	}
-	//-------------------------
 
-
-
-	if (App->player->position.y >= 545)	//630
+	if (App->player->position.y >= 545)
 	{	
 		App->player->position.y = 545;	
 	}
@@ -91,14 +85,15 @@ bool j1Scene::Update(float dt)
 
 	if (App->player->position.x >= 3152 && App->player->position.y > 160)
 	{
-		App->player->position.x = 3152;	
+		App->player->position.x = 3152;
 	}
 	else if (App->player->position.x >= 3152 && App->player->position.y < 160)
 	{
-		//FADE TO BLACK LEVEL 2
-		LOG("ENDLVL1!");
-	}
+		LOG("End of level 1!");
+		App->fade->FadeToBlack(this, App->scene2, 2.0f);
 
+		fading = true;
+	}
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
@@ -110,6 +105,7 @@ bool j1Scene::Update(float dt)
 					App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		SceneChange();
@@ -131,11 +127,14 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
-	LOG("Freeing scene");
+	LOG("Unloading scene.");
 
 	App->map->CleanUp();
 
 	App->collis->CleanUp();
+	App->tex->CleanUp();
+	App->player->CleanUp();
+	
 
 	
 

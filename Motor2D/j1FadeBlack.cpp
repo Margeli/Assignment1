@@ -6,7 +6,8 @@
 #include "j1Audio.h"
 #include "j1Window.h"
 #include "p2Log.h"
-
+#include "j1Scene.h" 
+#include "j1Scene2.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -15,11 +16,9 @@ j1FadeBlack::j1FadeBlack()
 	screen = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 }
 
-j1FadeBlack::~j1FadeBlack()
-{
-}
+j1FadeBlack::~j1FadeBlack() {}
 
-bool j1FadeBlack::Start()
+bool j1FadeBlack::Awake()
 {
 	LOG("Preparing Fade Screen");
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
@@ -40,12 +39,11 @@ bool j1FadeBlack::Update()
 		{
 			if (now >= total_time)
 			{
-			//to_disable->Disable();
-
 				App->render->camera.x = 0;
 				App->render->camera.y = 0;
 
-			//	to_enable->Enable();
+				App->audio->CleanUp();
+
 				total_time += total_time;
 				start_time = SDL_GetTicks();
 				current_step = fade_step::fade_from_black;
@@ -58,7 +56,7 @@ bool j1FadeBlack::Update()
 			if (now >= total_time) 
 			{
 				current_step = fade_step::none;
-				App->scene = false;
+				App->scene->fading = false;
 			}
 		} break;
 	}

@@ -14,7 +14,6 @@
 j1Scene2::j1Scene2() : j1Module()
 {
 	name.create("scene2");
-
 }
 
 // Destructor
@@ -31,7 +30,6 @@ bool j1Scene2::Awake(pugi::xml_node&)
 	{
 		active = false;
 	}
-	
 
 	return ret;
 }
@@ -65,16 +63,12 @@ bool j1Scene2::Update(float dt)
 
 	App->player->position.y += GRAVITY;
 
-	//-----CAMERA MOVEMENT----
 	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
 		App->player->camera_movement = true;
 
 	else {
 		App->player->camera_movement = false;
 	}
-	//-------------------------
-
-
 
 		//FADE TO BLACK LEVEL 2
 	
