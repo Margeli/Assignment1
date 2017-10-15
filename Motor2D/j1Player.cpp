@@ -235,9 +235,10 @@ bool j1Player::Update(float dt)
 		jumping = true;
 		to_jump = false;
 	}
+
 	if (jumping) {
 
-		if (SDL_GetTicks() - jump_start < 180) {
+		if (SDL_GetTicks() - jump_start < 150) {
 			position.y -= jump_speed;
 
 		}
