@@ -16,40 +16,35 @@ j1Scene2::j1Scene2() : j1Module()
 	name.create("scene2");
 }
 
-// Destructor
 j1Scene2::~j1Scene2()
 {}
 
-// Called before render is available
 bool j1Scene2::Awake(pugi::xml_node&)
 {
 	LOG("Loading Scene2");
 	bool ret = true;
 
-	if (App->scene->active == true)
-	{
-		active = false;
-	}
+	if (App->scene->active == true) { active = false; }
 
 	return ret;
 }
 
-// Called before the first frame
 bool j1Scene2::Start()
 {
 	if (active) 
+	{
 		App->map->Load("Map2.tmx");
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+	}
+		
 	return true;
 }
 
-// Called each loop iteration
 bool j1Scene2::PreUpdate()
 {
 	return true;
 }
 
-// Called each loop iteration
 bool j1Scene2::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
@@ -78,9 +73,7 @@ bool j1Scene2::Update(float dt)
 	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
 		App->player->camera_movement = true;
 
-	else {
-		App->player->camera_movement = false;
-	}
+	else { App->player->camera_movement = false; }
 
 	App->map->Draw();
 
@@ -95,7 +88,6 @@ bool j1Scene2::Update(float dt)
 	return true;
 }
 
-// Called each loop iteration
 bool j1Scene2::PostUpdate()
 {
 	bool ret = true;
@@ -106,14 +98,11 @@ bool j1Scene2::PostUpdate()
 	return ret;
 }
 
-// Called before quitting
 bool j1Scene2::CleanUp()
 {
 	LOG("Freeing scene2");
 	App->map->CleanUp();
-
 	App->collis->CleanUp();
-
 
 	return true;
 }
@@ -123,16 +112,12 @@ bool j1Scene2::Load(pugi::xml_node& data)
 	pugi::xml_node activated = data.child("activated");
 
 	bool scene2_active = activated.attribute("true").as_bool();
-	if ( scene2_active == false && active ) {
 
-		SceneChange();
-		//NEED TO PUT FADING
-
-	}
-
+	if (scene2_active == false && active) { SceneChange(); }															//NEED TO PUT FADING
 
 	return true;
 }
+
 bool j1Scene2::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node activated = data.append_child("activated");
@@ -142,10 +127,12 @@ bool j1Scene2::Save(pugi::xml_node& data) const
 	return true;
 }
 
-void j1Scene2::SceneChange() {
+void j1Scene2::SceneChange() 
+{
 
 	App->scene->active = true;
 	App->scene2->active = false;
+
 	CleanUp();
 
 	App->player->CleanUp();
