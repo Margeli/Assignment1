@@ -16,11 +16,9 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 }
 
-// Destructor
 j1Scene::~j1Scene()
 {}
 
-// Called before render is available
 bool j1Scene:: Awake(pugi::xml_node&)
 {
 	LOG("Loading Scene");
@@ -29,7 +27,6 @@ bool j1Scene:: Awake(pugi::xml_node&)
 	return ret;
 }
 
-// Called before the first frame
 bool j1Scene::Start()
 {
 
@@ -41,21 +38,17 @@ bool j1Scene::Start()
 	return true;
 }
 
-// Called each loop iteration
 bool j1Scene::PreUpdate()
 {
 	return true;
 }
 
-// Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->LoadGame();
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 
-	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->SaveGame();
-
+	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
+		
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		App->player->position.x = 50;
@@ -68,24 +61,13 @@ bool j1Scene::Update(float dt)
 	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
 		App->player->camera_movement = true;
 	
-	else {
-		App->player->camera_movement = false;
-	}
+	else { App->player->camera_movement = false; }
 
-	if (App->player->position.y >= 545)
-	{	
-		App->player->position.y = 545;	
-	}
+	if (App->player->position.y >= 545) { App->player->position.y = 545; }
 
-	if (App->player->position.x <= 0 )
-	{
-		App->player->position.x = 0;
-	}
+	if (App->player->position.x <= 0 ) { App->player->position.x = 0; }
 
-	if (App->player->position.y <= 0)
-	{
-		App->player->position.y = 0;
-	}
+	if (App->player->position.y <= 0) { App->player->position.y = 0; }
 
 	if (App->player->position.x >= 3152 && App->player->position.y > 160)
 	{
@@ -109,24 +91,19 @@ bool j1Scene::Update(float dt)
 	return true;
 }
 
-// Called each loop iteration
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
-
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) { ret = false; }
 
 	return ret;
 }
 
-// Called before quitting
 bool j1Scene::CleanUp()
 {
 	LOG("Unloading scene.");
 
 	App->map->CleanUp();
-
 	App->collis->CleanUp();
 	App->tex->CleanUp();
 	App->player->CleanUp();
@@ -137,12 +114,10 @@ bool j1Scene::CleanUp()
 bool j1Scene::Load(pugi::xml_node& data)
 {
 	pugi::xml_node activated = data.child("activated");
-	
-	bool scene_active = activated.attribute("true").as_bool();
-	if ((scene_active == false)&& active) {
 
-		SceneChange();																	//NEED TO PUT FADING
-	}
+	bool scene_active = activated.attribute("true").as_bool();
+
+	if ((scene_active == false) && active) { SceneChange(); }			//NEED TO PUT FADING
 
 	return true;
 }
@@ -156,18 +131,22 @@ bool j1Scene::Save(pugi::xml_node& data) const
 	return true;
 }
 
-void j1Scene::SceneChange() {
-	
+void j1Scene::SceneChange() 
+{
 	App->scene2->active = true;
 	App->scene->active = false;
+
 	CleanUp();
 	
-
 	App->player->CleanUp();
 	App->player->Start();
 	App->render->camera = { 0,0 };
 	App->scene2->Start();
-	}
+}
+
+
+
+
 
 //
 //bool j1Player::Load(pugi::xml_node& data)
