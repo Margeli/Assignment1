@@ -1,7 +1,9 @@
 # Game Development Assignment 1
 
 
-**@Margeli & @RogerJimbo**
+**[@Margeli](https://github.com/Margeli) & [@RogerJimbo](https://github.com/RogerJimbo)**
+
+Map tiles and character sprites art are from  [Open Art](https://opengameart.org/)  , both free without copyright. 
 
 ## Features
 
@@ -22,4 +24,4 @@
 - "F6" to load the previous state.
 - "F9" to show colliders.
 
-Map tiles and character sprites art are from  [Open Art](https://opengameart.org/)  , both free without copyright. 
+
