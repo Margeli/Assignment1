@@ -74,10 +74,20 @@ bool j1Scene2::Update(float dt)
 
 	App->player->position.y += GRAVITY;
 
-	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
+	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x>-2175))
 		App->player->camera_movement = true;
 
 	else { App->player->camera_movement = false; }
+
+	if (App->player->position.y >= 560)
+	{
+		App->player->position = initial_scene_pos;
+		App->render->camera.x = 0;
+	}
+
+	if (App->player->position.x <= 35) { App->player->position.x = 35; }
+
+	if (App->player->position.y <= 0) { App->player->position.y = 0; }	
 
 	App->map->Draw();
 
