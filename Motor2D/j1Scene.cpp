@@ -90,9 +90,7 @@ bool j1Scene::Update(float dt)
 	else if (App->player->position.x >= 3152 && App->player->position.y < 160)
 	{
 		LOG("End of level 1!");
-		App->fade->FadeToBlack(this, App->scene2, 2.0f);
-
-		fading = true;
+		SceneChange();
 	}
 
 	//App->render->Blit(img, 0, 0);
