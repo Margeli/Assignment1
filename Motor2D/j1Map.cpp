@@ -44,7 +44,7 @@ void j1Map::Draw()
 
 				iPoint position = GetXYfromTile(column, row);
 
-				if (first_loop) {
+ 				if (first_loop) {
 					PutMapColliders(id, position);
 					
 				}
@@ -106,7 +106,7 @@ bool j1Map::CleanUp()
 	item2 = data.layers.start;
 	data.layers.clear();
 	
-
+	first_loop = true;
 
 	// Clean up the pugui tree
 	map_file.reset();

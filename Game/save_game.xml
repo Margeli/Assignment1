@@ -12,7 +12,7 @@
 		<activated true="false" />
 	</scene2>
 	<player>
-		<position x="414" y="287" />
+		<position x="87" y="479" />
 	</player>
 	<collisions />
 	<renderer>

@@ -54,12 +54,14 @@ bool j1Scene2::PreUpdate()
 // Called each loop iteration
 bool j1Scene2::Update(float dt)
 {
-
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
+
+
+	
 
 	App->player->position.y += GRAVITY;
 
@@ -87,6 +89,9 @@ bool j1Scene2::Update(float dt)
 		App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+		SceneChange();
 	return true;
 }
 
@@ -144,8 +149,8 @@ void j1Scene2::SceneChange() {
 	App->scene2->active = false;
 	CleanUp();
 
-
-	App->player->InitialPos();
+	App->player->CleanUp();
+	App->player->Start();
 	App->render->camera = { 0,0 };
 	App->scene->Start();
 }

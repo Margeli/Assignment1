@@ -56,8 +56,7 @@ bool j1Scene::Update(float dt)
 		App->SaveGame();
 
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_REPEAT)
-		SceneChange();
+	
 	/*
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;*/
@@ -111,6 +110,10 @@ bool j1Scene::Update(float dt)
 					App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		SceneChange();
+
 	return true;
 }
 
@@ -171,7 +174,8 @@ void j1Scene::SceneChange() {
 	CleanUp();
 	
 
-	App->player->InitialPos();
+	App->player->CleanUp();
+	App->player->Start();
 	App->render->camera = { 0,0 };
 	App->scene2->Start();
 	}
