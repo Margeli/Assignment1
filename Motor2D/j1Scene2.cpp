@@ -37,8 +37,11 @@ bool j1Scene2::Awake(pugi::xml_node&)
 // Called before the first frame
 bool j1Scene2::Start()
 {
-	if (active) 
+	if (active) {
 		App->map->Load("Map2.tmx");
+		App->player->position = App->map->data.layers.At(2)->data->initial_player_position;	//Gets the positionfrom the last layer loaded from Tiled
+
+	}
 	
 	return true;
 }

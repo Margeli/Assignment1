@@ -36,6 +36,9 @@ void j1Map::Draw()
 
 	int tile_num;
 	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next) {
+
+	
+
 		tile_num = 0;
 		for (int row = 0; row < layer_iterator->data->height; row++) {
 			for (int column = 0; column < layer_iterator->data->width; column++) {
@@ -357,7 +360,15 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 	layer->name = node.attribute("name").as_string();
 	layer->height = node.attribute("height").as_uint();
 	layer->width = node.attribute("width").as_uint();
-	layer->speed = node.child("properties").child("property").attribute("value").as_float();
+
+	pugi::xml_node prop = node.child("properties").first_child();	
+	layer->speed = prop.attribute("value").as_float();	
+	prop = prop.next_sibling();
+	layer->initial_player_position.x = prop.attribute("value").as_int();
+	prop = prop.next_sibling();
+
+	layer->initial_player_position.y = prop.attribute("value").as_int();
+	
 
 	uint data_size = layer->width * layer->height;
 	layer->data= new uint[data_size];

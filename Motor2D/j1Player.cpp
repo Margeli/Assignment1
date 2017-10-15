@@ -136,7 +136,7 @@ bool j1Player::Start()
 		ret = false;
 	}
 	
-	InitialPos();
+	
 	speed = 1.0f;
 	current_animation = &idle;
 	jump_speed = 8;
