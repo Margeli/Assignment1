@@ -165,6 +165,25 @@ bool j1Player::Update(float dt)
 		position.y += speed;
 	}
 	
+	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	{
+		if (camera_movement) {
+			App->render->camera.x -= App->render->camera_speed;
+		}
+		position.x += speed * 1.5f;
+		if (current_animation != &jump)
+			current_animation = &run;
+	}
+	else if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	{
+		if (camera_movement) {
+			App->render->camera.x -= App->render->camera_speed;
+		}
+		position.x -= speed * 1.0f;
+		if (current_animation != &jump)
+			current_animation = &run;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		position.x -= speed;
