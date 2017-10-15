@@ -207,9 +207,13 @@ bool j1Player::Update(float dt)
 		else if (current_animation == &walk || current_animation == &idle)
 			current_animation = &jump;
 
-		if(!jumping)
-		to_jump = true;
+		if(!jumping) 
+			to_jump = true;
 		
+		if (jumping && double_jump){
+			to_jump = true;
+			double_jump = false;
+		}
 
 		jump_increment = position.y;
 	}
@@ -220,8 +224,7 @@ bool j1Player::Update(float dt)
 		if (current_animation == &jump)
 			current_animation = &idle;
 		else if (current_animation == &jumpleft)
-			current_animation = &idleleft;
-		
+			current_animation = &idleleft;		
 		
 	}
 
@@ -233,25 +236,17 @@ bool j1Player::Update(float dt)
 	}
 	if (jumping) {
 
-		if (SDL_GetTicks() - jump_start < 200) {
+		if (SDL_GetTicks() - jump_start < 180) {
 			position.y -= jump_speed;
 
 		}
-		else if (SDL_GetTicks() - jump_start > 1000) {
+		else if (SDL_GetTicks() - jump_start > 800) {
 			jumping = false;
-
-		}
-		
-			
+			if (!double_jump)
+				double_jump = true;
+		}			
 
 	}
-	
-	
-	
-	
-
-
-
 
 	if (playercoll!=nullptr) { playercoll->SetPos(position.x, position.y + 5); }
 

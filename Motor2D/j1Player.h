@@ -38,7 +38,9 @@ public:
 	bool landing;
 	bool to_jump = false;
 	bool jumping = false;
+	bool double_jump = true;
 	Uint32 jump_start;
+	
 	iPoint position;
 	void InitialPos();
 
