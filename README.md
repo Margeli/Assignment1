@@ -1,6 +1,6 @@
 # Game Development Assignment 1
 
-**[GitHub](https://github.com/Margeli/Assignment1)
+**[GitHub](https://github.com/Margeli/Assignment1)**
 
 **[@Margeli](https://github.com/Margeli) & [@RogerJimbo](https://github.com/RogerJimbo)**
 
