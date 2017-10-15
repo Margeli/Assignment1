@@ -39,7 +39,7 @@ bool j1Scene2::Start()
 {
 	if (active) 
 		App->map->Load("Map2.tmx");
-	
+		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	return true;
 }
 

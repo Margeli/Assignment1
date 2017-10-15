@@ -34,7 +34,7 @@ bool j1Scene:: Awake(pugi::xml_node&)
 bool j1Scene::Start()
 {
 	App->map->Load("Map1.tmx");
-
+	App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	return true;
 }
 
