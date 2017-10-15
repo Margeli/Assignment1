@@ -35,8 +35,9 @@ bool j1Scene2::Start()
 	if (active) {
 
 		App->map->Load("Map2.tmx");
+		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position;
 
-		App->player->position = App->map->data.layers.At(2)->data->initial_player_position;	//Gets the position from the last layer loaded from Tiled
+		App->player->position= initial_scene_pos; 	//Gets the position from the last layer loaded from Tiled
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	}
 

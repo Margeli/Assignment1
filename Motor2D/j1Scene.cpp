@@ -32,7 +32,8 @@ bool j1Scene::Start()
 
 	if (active) {
 		App->map->Load("Map1.tmx");
-		App->player->position = App->map->data.layers.At(2)->data->initial_player_position; //Gets the positionfrom the last layer loaded from Tiled
+		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the positionfrom the last layer loaded from Tiled
+		App->player->position = initial_scene_pos;
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	}
 	return true;
@@ -58,16 +59,21 @@ bool j1Scene::Update(float dt)
 
 	App->player->position.y += GRAVITY;
 
-	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5))
+	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) )&& (App->render->camera.x>-2175))
 		App->player->camera_movement = true;
 	
 	else { App->player->camera_movement = false; }
 
-	if (App->player->position.y >= 545) { App->player->position.y = 545; }
+	if (App->player->position.y >= 560) { //down limit
+		
+		App->player->position= initial_scene_pos;
+		App->render->camera.x=0;
+	
+	}
 
-	if (App->player->position.x <= 0 ) { App->player->position.x = 0; }
+	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } //left limit
 
-	if (App->player->position.y <= 0) { App->player->position.y = 0; }
+	if (App->player->position.y <= 0) { App->player->position.y = 0; }	//upper limit
 
 	if (App->player->position.x >= 3152 && App->player->position.y > 160)
 	{

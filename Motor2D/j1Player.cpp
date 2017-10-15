@@ -232,7 +232,7 @@ bool j1Player::Update(float dt)
 
 void j1Player::InitialPos() 
 {
-	position = { 200,100 };
+	position = { 50,100 };
 }
 
 void j1Player::Jump()

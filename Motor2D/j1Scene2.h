@@ -38,6 +38,8 @@ public:
 
 	void SceneChange();
 
+	iPoint initial_scene_pos;
+
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
