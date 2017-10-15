@@ -70,12 +70,7 @@ bool j1Scene2::Update(float dt)
 		App->player->camera_movement = false;
 	}
 
-		//FADE TO BLACK LEVEL 2
-	
-
-	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		App->map->data.width, App->map->data.height,

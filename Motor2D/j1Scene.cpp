@@ -10,7 +10,6 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
-#include "j1FadeBlack.h"
 
 j1Scene::j1Scene() : j1Module()
 {
