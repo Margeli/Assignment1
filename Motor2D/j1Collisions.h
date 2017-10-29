@@ -12,7 +12,9 @@ enum COLLIDER_TYPE
 	COLLIDER_NONE = 1,
 	COLLIDER_PLAYER,
 	COLLIDER_GROUND,
-	COLLIDER_MAX
+	COLLIDER_WALL,
+	COLLIDER_MAX,
+	COLLIDER_ENEMIE
 };
 
 enum CollisionDirection
@@ -22,8 +24,15 @@ enum CollisionDirection
 	PLAYER_BELOW,
 	PLAYER_RIGHT,
 	PLAYER_LEFT
+};
 
-
+enum CollissionDirectionEnemie
+{
+	NO_COLLISION_ENEMIE = 0,
+	ENEMIE_ABOVE,
+	ENEMIE_BELOW,
+	ENEMIE_RIGHT,
+	ENEMIE_LEFT
 };
 
 struct Collider
@@ -57,8 +66,6 @@ public:
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
 
-
-	
 private:
 
 	Collider* colliders[MAX_COLLIDERS];

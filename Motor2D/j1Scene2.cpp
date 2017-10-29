@@ -130,7 +130,7 @@ bool j1Scene2::Load(pugi::xml_node& data)
 
 	bool scene2_active = activated.attribute("true").as_bool();
 
-	if (scene2_active == false && active) { SceneChange(); }															//NEED TO PUT FADING
+	if (scene2_active == false && active) { SceneChange(); }															
 
 	return true;
 }
@@ -146,7 +146,6 @@ bool j1Scene2::Save(pugi::xml_node& data) const
 
 void j1Scene2::SceneChange() 
 {
-
 	App->scene->active = true;
 	App->scene2->active = false;
 

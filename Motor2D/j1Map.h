@@ -7,9 +7,8 @@
 #include "j1Module.h"
 #include "j1App.h"
 
-// TODO 1: Create a struct for the map layer
-// ----------------------------------------------------
-struct Layer {
+struct Layer 
+{
 	p2SString name;
 	uint width;
 	uint height;
@@ -19,14 +18,11 @@ struct Layer {
 
 	~Layer();
 };
-	// TODO 6: Short function to get the value of x,y
+	
+inline iPoint GetXYfromTile(int x, int y);
 
-inline iPoint GetXYfromTile(int x, int y) ;
-
-// ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -43,6 +39,7 @@ struct TileSet
 	int					offset_x;
 	int					offset_y;
 	uint*				ground_id_tiles = nullptr;
+	uint*				wall_id_tiles = nullptr;
 };
 
 enum MapTypes
@@ -52,7 +49,7 @@ enum MapTypes
 	MAPTYPE_ISOMETRIC,
 	MAPTYPE_STAGGERED
 };
-// ----------------------------------------------------
+
 struct MapData
 {
 	int					width;
@@ -63,10 +60,9 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<Layer*>		layers;
-	// TODO 2: Add a list/array of layers to the map!
+
 };
 
-// ----------------------------------------------------
 class j1Map : public j1Module
 {
 public:
@@ -96,7 +92,6 @@ private:
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
 
 	void PutMapColliders(int current_id, iPoint position);

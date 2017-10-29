@@ -64,7 +64,7 @@ bool j1Scene::Update(float dt)
 	
 	else { App->player->camera_movement = false; }
 
-	if (App->player->position.y >= 560)
+	if (App->player->position.y >= 770)
 	{
 		App->player->position= initial_scene_pos;
 		App->render->camera.x=0;
@@ -113,7 +113,6 @@ bool j1Scene::CleanUp()
 	App->tex->CleanUp();
 	App->player->CleanUp();
 
-
 	return true;
 }
 
@@ -149,27 +148,3 @@ void j1Scene::SceneChange()
 	App->render->camera = { 0,0 };
 	App->scene2->Start();
 }
-
-
-
-
-
-//
-//bool j1Player::Load(pugi::xml_node& data)
-//{
-//	position.x = data.child("position").attribute("x").as_int();
-//	position.y = data.child("position").attribute("y").as_int();
-//
-//	return true;
-//
-//}
-//bool j1Player::Save(pugi::xml_node& data) const
-//{
-//	pugi::xml_node pos = data.append_child("position");
-//
-//	pos.append_attribute("x") = position.x;
-//	pos.append_attribute("y") = position.y;
-//
-//
-//	return true;
-//}

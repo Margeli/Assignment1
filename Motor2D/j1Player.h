@@ -26,7 +26,6 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2, CollisionDirection direction);
 
-
 	void Landing();
 
 public:
@@ -41,14 +40,15 @@ public:
 	bool double_jump = true;
 	Uint32 jump_start;
 	
+	uint jump_sound;
+	uint sword_sound;
+	uint playersteps;
+
 	iPoint position;
 	void InitialPos();
 
-	
-
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
-
 
 	SDL_Texture* graphics = nullptr;
 
@@ -57,13 +57,17 @@ public:
 	Animation walk;
 	Animation jump;
 	Animation run;
+	Animation attack_right;
+	Animation death_right;
 
 	Animation idleleft;
 	Animation walkleft;
 	Animation jumpleft;
 	Animation runleft;
-	Collider * playercoll;
+	Animation attack_left;
+	Animation death_left;
 
+	Collider * playercoll;
 };
 
 

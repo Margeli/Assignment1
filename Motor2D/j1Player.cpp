@@ -1,18 +1,39 @@
-#include "j1Player.h"
-#include "p2Defs.h"
-#include "j1Render.h"
-#include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
-#include "j1Animation.h"
 #include "j1Input.h"
+#include "j1Render.h"
+#include "j1Collisions.h"
+#include "p2Log.h"
+#include "j1Window.h"
+#include "j1Audio.h"
+#include "j1Player.h"
+#include "p2Defs.h"
+#include "j1Animation.h"
 
 #include "SDL/include/SDL_timer.h"
+
+#define SPEED 1
 
 j1Player::j1Player() : j1Module()
 {
 	name.create("player");
 	graphics = nullptr;
+
+	attack_right.PushBack({0,0,0,0});
+	attack_right.loop = false;
+	attack_right.speed = 0.07f;
+
+	attack_left.PushBack({ 0,0,0,0 });
+	attack_left.loop = false;
+	attack_left.speed = 0.07f;
+
+	death_right.PushBack({ 0,0,0,0 });
+	death_right.loop = false;
+	death_right.speed = 0.07f;
+
+	death_left.PushBack({ 0,0,0,0 });
+	death_left.loop = false;
+	death_left.speed = 0.07f;
 
 	idle.PushBack({ 0, 0, 46, 65 });
 	idle.PushBack({ 47, 0, 46, 65 });
@@ -26,7 +47,6 @@ j1Player::j1Player() : j1Module()
 	idle.PushBack({ 423, 0, 46, 65 });
 	idle.loop = true;
 	idle.speed = 0.07f;
-
 
 	jump.PushBack({ 0, 65, 46, 65 });
 	jump.PushBack({ 47, 65, 46, 65 });
@@ -66,7 +86,6 @@ j1Player::j1Player() : j1Module()
 	idleleft.PushBack({ 423, 195, 46, 65 });
 	idleleft.loop = true;
 	idleleft.speed = 0.07f;
-
 
 	jumpleft.PushBack({ 0, 260, 46, 65 });
 	jumpleft.PushBack({ 47, 260, 46, 65 });
@@ -122,7 +141,7 @@ bool j1Player::Start()
 	LOG("Loading player.");
 
 	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	
-	graphics = App->tex->Load("textures/character_spritesheet_left.png");
+	graphics = App->tex->Load("textures/character.png");
 
 	if (!graphics)
 	{
@@ -130,10 +149,18 @@ bool j1Player::Start()
 		ret = false;
 	}
 	
-	
-	speed = 1.0f;
+	speed = SPEED;
 	current_animation = &idle;
-	jump_speed = 8;
+	jump_speed = 5;
+
+	if (sword_sound == 0)
+		sword_sound = App->audio->LoadFx("audio/fx/sword_attack.wav");
+
+	if (jump_sound == 0)
+		jump_sound = App->audio->LoadFx("audio/fx/player_jump.wav");
+
+	if (playersteps == 0)
+		playersteps = App->audio->LoadFx("audio/fx/player_steps.wav");
 
 	return ret;
 }
@@ -147,26 +174,47 @@ bool j1Player::CleanUp()
 	if (playercoll != nullptr)
 		playercoll->to_delete = true;
 
-	return true;
-
+	return true; 
 }
 
 bool j1Player::Update(float dt)
 {
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == SDL_PRESSED)
+	{
+		App->audio->PlayFx(sword_sound);
+
+		if (current_animation == &walk || current_animation == &idle)
+		{
+			current_animation = &attack_right;
+		}
+
+		else if (current_animation == &walkleft || current_animation == &idleleft)
+		{
+			current_animation = &attack_left;
+		}
+	}
+	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == SDL_RELEASED)
+	{
+		if (current_animation == &attack_right)
+			current_animation = &idle;
+		else if (current_animation == &attack_left)
+			current_animation = &idleleft;
+	}
+
 	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
-		if (camera_movement) {
-			App->render->camera.x -= App->render->camera_speed;
-		}
-		position.x += speed * 1.5f;
+		App->audio->PlayFx(playersteps);
+		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
+		
+		position.x += speed * 1.25f;
 		if (current_animation != &jump)
 			current_animation = &run;
+
 	}
 	else if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
-		if (camera_movement) {
-			App->render->camera.x -= App->render->camera_speed;
-		}
+		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
+
 		position.x -= speed * 1.0f;
 		if (current_animation != &jump)
 			current_animation = &run;
@@ -174,10 +222,14 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
+		App->audio->PlayFx(playersteps);
+
 		position.x -= speed;
 		if (current_animation != &jump)
 		current_animation = &walkleft;
+
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
 		if (current_animation = &walkleft)
@@ -188,6 +240,8 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
+		App->audio->PlayFx(playersteps);
+
 		if (camera_movement) {
 			App->render->camera.x -= App->render->camera_speed;
 		}
@@ -203,6 +257,8 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
+		App->audio->PlayFx(jump_sound);
+
 		if (current_animation == &walkleft || current_animation == &idleleft)
 			current_animation = &jumpleft;
 		else if (current_animation == &walk || current_animation == &idle)
@@ -216,9 +272,8 @@ bool j1Player::Update(float dt)
 			double_jump = false;
 		}
 
-		jump_increment = position.y;
+		jump_increment = position.y + 2;
 	}
-
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
@@ -226,7 +281,23 @@ bool j1Player::Update(float dt)
 			current_animation = &idle;
 		else if (current_animation == &jumpleft)
 			current_animation = &idleleft;		
-		
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT 
+		&& App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		App->audio->PlayFx(jump_sound);
+
+		if(current_animation == &jump)
+		current_animation = &walkleft;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && 
+		App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		App->audio->PlayFx(jump_sound);
+
+		if (current_animation == &jump)
+			current_animation = &walk;
 	}
 
 	if (to_jump) {
@@ -266,7 +337,6 @@ void j1Player::Landing()
 {	
 }
 
-
 void j1Player::OnCollision(Collider* c1, Collider* c2, CollisionDirection direction) {
 	int margin = 0;
 	switch (c2->type) {
@@ -299,15 +369,14 @@ bool j1Player::Load(pugi::xml_node& data)
 	position.y = data.child("position").attribute("y").as_int();
 
 	return true;
-
 }
+
 bool j1Player::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node pos= data.append_child("position");
 
 	pos.append_attribute("x") = position.x;
 	pos.append_attribute("y") = position.y;
-
 
 	return true;
 }

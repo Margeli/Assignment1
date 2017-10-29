@@ -5,7 +5,7 @@
 #include "j1Module.h"
 #include "j1Render.h"
 
-#define GRAVITY 3
+#define GRAVITY 2
 
 struct SDL_Texture;
 

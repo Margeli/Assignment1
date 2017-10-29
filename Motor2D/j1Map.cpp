@@ -35,10 +35,8 @@ void j1Map::Draw()
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 
 	int tile_num;
-	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next) {
-
-	
-
+	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next) 
+	{
 		tile_num = 0;
 		for (int row = 0; row < layer_iterator->data->height; row++) {
 			for (int column = 0; column < layer_iterator->data->width; column++) {
@@ -47,22 +45,15 @@ void j1Map::Draw()
 
 				iPoint position = GetXYfromTile(column, row);
 
- 				if (first_loop) {
-					PutMapColliders(id, position);
-					
-				}
+ 				if (first_loop) {PutMapColliders(id, position);}
 
-				
 				App->render->Blit(data.tilesets.At(0)->data->texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id),layer_iterator->data->speed);
 				tile_num++;			
 			}
 		}	
 	}
+
 	first_loop = false;
-
-
-	// TODO 9: Complete the draw function
-	
 }
 
 
@@ -87,12 +78,10 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	return rect;
 }
 
-// Called before quitting
 bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
 
-	// Remove all tilesets
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;
 
@@ -103,21 +92,17 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
-	// Remove all layers
 	p2List_item<Layer*>* item2;
 	item2 = data.layers.start;
 	data.layers.clear();
 	
 	first_loop = true;
 
-	// Clean up the pugui tree
 	map_file.reset();
 
 	return true;
 }
 
-// Load new map
 bool j1Map::Load(const char* file_name)
 {
 	bool ret = true;
@@ -131,13 +116,11 @@ bool j1Map::Load(const char* file_name)
 		ret = false;
 	}
 
-	// Load general info ----------------------------------------------
 	if(ret == true)
 	{
 		ret = LoadMap();
 	}
 
-	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
 	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
@@ -156,8 +139,6 @@ bool j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
-	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
@@ -190,9 +171,6 @@ bool j1Map::Load(const char* file_name)
 			item = item->next;
 		}
 
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this vcode with your own variables
-		
 		p2List_item<Layer*>* item_layer = data.layers.start;
 		while(item_layer != NULL)
 		{
@@ -209,7 +187,6 @@ bool j1Map::Load(const char* file_name)
 	return ret;
 }
 
-// Load map general properties
 bool j1Map::LoadMap()
 {
 	bool ret = true;
@@ -354,7 +331,6 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-// TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 
 	layer->name = node.attribute("name").as_string();
@@ -368,16 +344,14 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 	prop = prop.next_sibling();
 
 	layer->initial_player_position.y = prop.attribute("value").as_int();
-	
 
 	uint data_size = layer->width * layer->height;
 	layer->data= new uint[data_size];
 
 	memset(layer->data, 0, data_size*sizeof(uint));
-
-
 	
 	pugi::xml_node tile_node_iterator = node.child("data").child("tile");
+
 	for (uint i = 0; i < data_size; i++) {
 		layer->data[i] = tile_node_iterator.attribute("gid").as_uint();
 		tile_node_iterator = tile_node_iterator.next_sibling();
@@ -385,31 +359,28 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 	return true;
 }
 
-void j1Map::PutMapColliders(int current_id, iPoint position) {
-
-	for (uint i = 0; i<33; i++) { // puts collision on id tiles that need it
-		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1) {
+void j1Map::PutMapColliders(int current_id, iPoint position) 
+{
+	for (uint i = 0; i<33; i++) 
+	{ 
+		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1) 
+		{
 			App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
 			continue;
 		}
 
+		//Add wall colliders
+
 	}
-
-
 }
 
-
-inline iPoint GetXYfromTile(int x, int y) {
+inline iPoint GetXYfromTile(int x, int y) 
+{
 	iPoint position;
 	position.x = x* App->map->data.tilesets.At(0)->data->tile_width;
 	position.y = y* App->map->data.tilesets.At(0)->data->tile_height;
 
-
-
 	return position;
 }
 
-
-Layer::~Layer(){
-	RELEASE(data);
-}
+Layer::~Layer() { RELEASE(data); }
