@@ -28,21 +28,25 @@ public:
 
 	void Landing();
 
+private:
+
+	float jump_limit;
+	float jump_pos;
+	float jump_speed;
+	bool landing;
+	bool can_jump = false;
+	bool jumping = false;
+	bool double_jump = true;
+
+	uint jump_sound;
+	uint sword_sound;
+	uint playersteps;
+
 public:
 
 	bool camera_movement = false;
 	float speed;
-	float jump_increment;
-	float jump_speed;
-	bool landing;
-	bool to_jump = false;
-	bool jumping = false;
-	bool double_jump = true;
-	Uint32 jump_start;
 	
-	uint jump_sound;
-	uint sword_sound;
-	uint playersteps;
 
 	iPoint position;
 	void InitialPos();
