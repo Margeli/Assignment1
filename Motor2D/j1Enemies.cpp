@@ -12,11 +12,19 @@ j1Enemies::j1Enemies()
 	name.create("Troll1");
 	graphics = nullptr;
 
-	idle_right.PushBack({ 0, 0, 0, 0 });
+	idle_right.PushBack({ 0, 0, 81, 63 });
+	idle_right.PushBack({ 93, 0, 84, 65 });
+	idle_right.PushBack({ 187, 0, 88, 65  });
+	idle_right.PushBack({ 281, 0, 81, 63 });
+	idle_right.PushBack({ 375, 0, 86, 64 });
+	idle_right.PushBack({ 467, 0, 85, 65 });
+	idle_right.PushBack({ 561, 0, 85, 65 });
 	idle_right.loop = true;
 	idle_right.speed = 0.07f;
 
-	idle_left.PushBack({ 0, 0, 0, 0 });
+	idle_left.PushBack({ 0, 66, 85, 64 });
+	idle_left.PushBack({ 94, 67, 85, 63 });
+	idle_left.PushBack({ 187, 67, 86, 62 });
 	idle_left.loop = true;
 	idle_left.speed = 0.07f;
 
