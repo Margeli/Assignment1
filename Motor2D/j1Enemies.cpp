@@ -149,74 +149,13 @@ bool j1Enemies::Update(float dt)
 	return true;
 }
 
-void j1Enemies::OnCollision(Collider* c1, Collider* c2, CollissionDirectionEnemie direction)
+void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 {
-	int margin = 0;
-	switch (c2->type) 
-	{
-	case COLLIDER_GROUND:
-
-		switch (direction)
-		{
-		case ENEMIE_ABOVE:
-			position.y = c2->rect.y - 65 - margin;
-			break;
-		case ENEMIE_BELOW:
-			position.y = c2->rect.y + c2->rect.h + margin;
-			break;
-		case ENEMIE_RIGHT:
-			position.x = c2->rect.x + c2->rect.w + margin;
-			break;
-		case ENEMIE_LEFT:
-			position.x = c2->rect.x - 46 - margin;
-			break;
-		}
-		break;
-
-	case COLLIDER_WALL://CHANGE PARAMETERS
-
-		switch (direction)
-		{
-		case ENEMIE_ABOVE:
-			position.y = c2->rect.y - 65 - margin;					
-			break;
-		case ENEMIE_BELOW:
-			position.y = c2->rect.y + c2->rect.h + margin;
-			break;
-		case ENEMIE_RIGHT:
-			position.x = c2->rect.x + c2->rect.w + margin;
-			break;
-		case ENEMIE_LEFT:
-			position.x = c2->rect.x - 46 - margin;
-			break;
-		}
-	case COLLIDER_PLAYER://CHANGE PARAMETERS
-
-		switch (direction)
-		{
-		case ENEMIE_ABOVE:
-			position.y = c2->rect.y - 65 - margin;
-			break;
-		case ENEMIE_BELOW:
-			position.y = c2->rect.y + c2->rect.h + margin;
-			break;
-		case ENEMIE_RIGHT:
-			position.x = c2->rect.x + c2->rect.w + margin;
-			break;
-		case ENEMIE_LEFT:
-			position.x = c2->rect.x - 46 - margin;
-			break;
-		}
-
-		break;
-
-		break;
-	}
+	
+	
 }
 
-void j1Enemies::Landing()
-{
-}
+
 
 void j1Enemies::initialpos()
 {

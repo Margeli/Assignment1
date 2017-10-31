@@ -347,25 +347,25 @@ void j1Player::InitialPos()
 	position = { 50,100 };
 }
 
-void j1Player::Landing()
-{	
-}
+//void j1Player::Landing()
+//{	
+//}
 
-void j1Player::OnCollision(Collider* c1, Collider* c2, CollisionDirection direction) {
+void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	int margin = 0;
 	switch (c2->type) {
 	case COLLIDER_GROUND:
 
-		switch (direction) {
+		switch (c1->CheckDirection(c2->rect)) {
 
 		case PLAYER_ABOVE:
 			position.y = c2->rect.y - 65 - margin;//player height //margin
 			break;
 		case PLAYER_BELOW:
-			position.y = c2->rect.y + c2->rect.h + margin;
+ 			position.y = c2->rect.y + c2->rect.h + margin;
 			break;
 		case PLAYER_RIGHT:
-			position.x = c2->rect.x + c2->rect.w + margin;
+ 			position.x = c2->rect.x + c2->rect.w + margin;
 			break;
 		case PLAYER_LEFT:
 			position.x = c2->rect.x - 46 - margin;//playr width

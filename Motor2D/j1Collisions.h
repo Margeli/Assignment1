@@ -12,9 +12,9 @@ enum COLLIDER_TYPE
 	COLLIDER_NONE = 1,
 	COLLIDER_PLAYER,
 	COLLIDER_GROUND,
-	COLLIDER_WALL,
-	COLLIDER_MAX,
-	COLLIDER_ENEMIE
+	COLLIDER_WALL,	
+	COLLIDER_ENEMIE,
+	COLLIDER_MAX
 };
 
 enum CollisionDirection
@@ -26,21 +26,14 @@ enum CollisionDirection
 	PLAYER_LEFT
 };
 
-enum CollissionDirectionEnemie
-{
-	NO_COLLISION_ENEMIE = 0,
-	ENEMIE_ABOVE,
-	ENEMIE_BELOW,
-	ENEMIE_RIGHT,
-	ENEMIE_LEFT
-};
+
 
 struct Collider
 {
 	SDL_Rect rect;
 	bool to_delete = false;
 	COLLIDER_TYPE type;
-	CollisionDirection direction;
+	
 
 	j1Module* callback = nullptr;
 

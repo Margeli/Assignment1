@@ -65,25 +65,19 @@ bool j1Collisions::Update(float dt) {
 			continue;
 		if (colliders[i]->type == COLLIDER_PLAYER) {
 
-			c1 = colliders[i];
+			c1 = colliders[i]; // player collider
 
 			for (uint k = 0; k < MAX_COLLIDERS; ++k)
 			{
-				if (colliders[k] == nullptr)
+				if (colliders[k] == nullptr || i==k) // if collider is nllptr or the player collider itself
 					continue;
 				
 					c2 = colliders[k];
 
 					if (c1->CheckCollision(c2->rect) == true)
-					{
-
-						c1->direction = c1->CheckDirection(c2->rect);
+					{						
 						if (matrix[c1->type][c2->type] && c1->callback)
-							c1->callback->OnCollision(c1, c2, c1->direction);
-
-						//if (matrix[c2->type][c1->type] && c2->callback)
-						//	c2->callback->OnCollision(c2, c1);
-					
+							c1->callback->OnCollision(c1, c2);					
 				}
 			}
 		}
@@ -158,19 +152,26 @@ bool j1Collisions::EraseCollider(Collider* collider)
 
 CollisionDirection Collider::CheckDirection(const SDL_Rect& r) 
 {
-		if ((rect.y < r.y + r.h) && (rect.y > r.y)) {
-				return PLAYER_BELOW;
-			}
-		if ((rect.h + rect.y > r.y) && (rect.h + rect.y < r.y + r.h)) {
-				return PLAYER_ABOVE;
-			}
+	/*int right_contact_surface, left_contact_surface, up_contact_surface, down_contact_surface;
+	if (rect.y > r.y){
 		
-		if ((rect.x < r.x + r.w)&&(rect.x>r.x)) {
-			return PLAYER_RIGHT;
-		}
-		if ((rect.x + rect.w > r.x)&&(rect.x+rect.w < r.x+r.w)) {
-			return PLAYER_LEFT;
-		}
+	
+	}
+*/
+	if ((rect.x < r.x + r.w) && (rect.x > r.x)) {
+		return PLAYER_RIGHT;
+	}
+	if ((rect.x + rect.w > r.x) && (rect.x + rect.w < r.x + r.w)) {
+		return PLAYER_LEFT;
+	}
+
+	if ((rect.y < r.y + r.h) && (rect.y > r.y)) {
+		return PLAYER_BELOW;
+	}
+	if ((rect.h + rect.y > r.y) && (rect.h + rect.y < r.y + r.h)) {
+		return PLAYER_ABOVE;
+	}
+		
 		
 		
 	 

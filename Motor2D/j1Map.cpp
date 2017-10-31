@@ -276,19 +276,36 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 		set->offset_y = 0;
 	}
 
+	p2SString ground = " ground";
 	set->ground_id_tiles = new uint[33];
 	memset(set->ground_id_tiles, 0, 33 * sizeof(uint));//33 number of tiles with attribute ground = true
 
+	/*p2SString wall = " wall";
+	set->wall_id_tiles = new uint[33];
+	memset(set->wall_id_tiles, 0, 33 * sizeof(uint));*///COMMENTED IS FOR IF WE INCLUDE WALLS
 	uint i = 0;
+	//uint j = 0;
 	
 	for (pugi::xml_node& tile_node = tileset_node.child("tile"); tile_node; tile_node = tile_node.next_sibling("tile")) {
 
-		if (tile_node.child("properties").child("property").attribute("value"))
-		{
-			set->ground_id_tiles[i] = tile_node.attribute("id").as_uint();
-			
-			i++;
-		}
+		
+			if (tile_node.child("properties").child("property").attribute("value").as_bool())
+			{
+				bool is_ground = strcmp(ground.GetString(), tile_node.child("properties").child("property").attribute("name").as_string());
+				//bool is_wall = strcmp(wall.GetString(), tile_node.child("properties").child("property").attribute("name").as_string());
+				if (is_ground)
+				{				
+					set->ground_id_tiles[i] = tile_node.attribute("id").as_uint();
+					i++;
+				}
+				/*if (is_wall)
+				{
+					set->wall_id_tiles[j] = tile_node.attribute("id").as_uint();
+					j++;
+				}*/
+				
+			}
+	
 
 	
 	}

@@ -23,9 +23,9 @@ public:
 
 	bool CleanUp();
 
-	void OnCollision(Collider* c1, Collider* c2, CollissionDirectionEnemie direction);
+	void OnCollision(Collider* c1, Collider* c2);
 
-	void Landing();
+	
 
 public:
 
