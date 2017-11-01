@@ -26,15 +26,13 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void Landing();
 
 private:
 
 	float jump_limit;
 	float jump_pos;
-	float jump_speed;
-	bool falling = false;
-	bool landing;
+	float jump_speed;	
+	bool landing = false;
 	bool can_jump = false;
 	bool jumping = false;
 	bool double_jump = true;
