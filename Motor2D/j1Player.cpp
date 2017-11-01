@@ -151,7 +151,7 @@ bool j1Player::Start()
 	
 	speed = SPEED;
 	current_animation = &idle;
-	jump_speed = 5.0f;
+	jump_speed = 4.5f;
 	jump_limit = 70.0f;
 
 	if (sword_sound == 0)
@@ -291,47 +291,40 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		App->audio->PlayFx(jump_sound);
+		
 
 		if (current_animation == &walkleft || current_animation == &idleleft)
 			current_animation = &jumpleft;
 		else if (current_animation == &walk || current_animation == &idle)
-			current_animation = &jump;
+			current_animation = &jump;		
 
-		
+		if (jumping== false )
+ 			can_jump = true;
 
-		if (jumping== false)
-			can_jump = true;
-
-		if (jumping && double_jump) {
-			can_jump = true;
-			double_jump = false;
-			jump_pos = position.y;
-		}
-
-		
+		if (jumping == true && double_jump == true  ) {
+ 			can_jump = true;
+			double_jump = false;		
+		}		
 	}
 
 	if (can_jump) {
 
+		App->audio->PlayFx(jump_sound);
 		jump_pos = position.y;
 		jumping = true;
+		landing = false;
 		can_jump = false;
+		
 	}
 
 	if (jumping) {
 
-   		if (jump_pos -position.y   < jump_limit) {
-			position.y -= jump_speed;
-			
+   		if ((jump_pos -position.y   < jump_limit)&&(!landing)) {
+			position.y -= jump_speed;			
 		}
 		else{
-			jumping = false;
-			
-			if (!double_jump)
-				double_jump = true;
+			landing = true;			
 		}
-
 	}	
 	//--------
 
@@ -359,20 +352,23 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		switch (c1->CheckDirection(c2->rect)) {
 
 		case PLAYER_ABOVE:
-			position.y = c2->rect.y - 65 - margin;//player height //margin
+			position.y = c2->rect.y - 65 - margin;// 65 -> player height			
+			double_jump = true;
+			jumping = false;			
 			break;
 		case PLAYER_BELOW:
  			position.y = c2->rect.y + c2->rect.h + margin;
+			jumping = false;			
 			break;
 		case PLAYER_RIGHT:
  			position.x = c2->rect.x + c2->rect.w + margin;
 			break;
 		case PLAYER_LEFT:
-			position.x = c2->rect.x - 46 - margin;//playr width
+			position.x = c2->rect.x - 46 - margin;//45 -> player width
 			break;
 		
 		}
-		//landing = true;
+		
 		break;
 	}
 }

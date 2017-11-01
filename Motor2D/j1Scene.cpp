@@ -70,9 +70,9 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x=0;
 	}
 
-	if (App->player->position.x <= 35 ) { App->player->position.x = 35; }
+	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } // Left Limit
 
-	if (App->player->position.y <= 34) { App->player->position.y = 34; }	
+	
 
 	if (App->player->position.x >= 3152 && App->player->position.y > 160)
 	{

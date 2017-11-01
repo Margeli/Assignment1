@@ -33,6 +33,7 @@ private:
 	float jump_limit;
 	float jump_pos;
 	float jump_speed;
+	bool falling = false;
 	bool landing;
 	bool can_jump = false;
 	bool jumping = false;
