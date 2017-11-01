@@ -12,7 +12,8 @@
 #include "j1Scene2.h"
 #include "j1Map.h"
 #include "j1App.h"
-
+#include "j1Enemies.h"
+#include "j1FlyingEnemie.h"
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -29,6 +30,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	render = new j1Render();
 	collis = new j1Collisions();
+	enemie = new j1Enemies();
+	flyenem = new j1FlyingEnemie();
 
 	AddModule(input);
 	AddModule(win);
@@ -40,6 +43,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player);
 	AddModule(collis);
 	AddModule(render);
+	AddModule(enemie);
+	AddModule(flyenem);
 
 	load_game = "save_game.xml";
 	save_game = "save_game.xml";

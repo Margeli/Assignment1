@@ -25,12 +25,12 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
-	
+	bool j1Enemies::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi);
 
 public:
 
 	iPoint position;
-	void initialpos();
+	void InitialPos();
 
 	uint troll_sound;
 	uint troll_death_sound;

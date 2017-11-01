@@ -16,6 +16,8 @@ class j1Scene2;
 class j1Map;
 class j1Player;
 class j1Collisions;
+class j1Enemies;
+class j1FlyingEnemie;
 
 
 class j1App
@@ -90,6 +92,8 @@ public:
 	j1Map*				map;
 	j1Player*			player;
 	j1Collisions*		collis;
+	j1Enemies*			enemie;
+	j1FlyingEnemie*		flyenem;
 
 private:
 

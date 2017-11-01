@@ -6,10 +6,10 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "p2Log.h"
-
+#include "j1Enemies.h"
+#include "j1FlyingEnemie.h"
 
 #include "SDL\include\SDL.h"
-
 
 j1Collisions::j1Collisions(): j1Module()
 {
@@ -63,13 +63,14 @@ bool j1Collisions::Update(float dt) {
 	{
 		if (colliders[i] == nullptr)
 			continue;
-		if (colliders[i]->type == COLLIDER_PLAYER) {
+		if (colliders[i]->type == COLLIDER_PLAYER) 
+		{
 
 			c1 = colliders[i]; // player collider
 
 			for (uint k = 0; k < MAX_COLLIDERS; ++k)
 			{
-				if (colliders[k] == nullptr || i==k) // if collider is nllptr or the player collider itself
+				if (colliders[k] == nullptr || i==k)
 					continue;
 				
 					c2 = colliders[k];
@@ -78,6 +79,24 @@ bool j1Collisions::Update(float dt) {
 					{						
 						if (matrix[c1->type][c2->type] && c1->callback)
 							c1->callback->OnCollision(c1, c2);					
+				}
+			}
+		}
+		else if (colliders[i]->type == COLLIDER_ENEMIE)
+		{
+			c1 = colliders[i];
+
+			for (uint k = 0; k < MAX_COLLIDERS; ++k)
+			{
+				if (colliders[k] == nullptr || i == k)
+					continue;
+
+				c2 = colliders[k];
+
+				if (c1->CheckCollision(c2->rect) == true)
+				{
+					if (matrix[c1->type][c2->type] && c1->callback)
+						c1->callback->OnCollision(c1, c2);
 				}
 			}
 		}
@@ -114,7 +133,9 @@ void j1Collisions::DebugDraw() {
 		case COLLIDER_PLAYER:	//green															
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
-
+		case COLLIDER_ENEMIE:	//red
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);	
+			break;
 		}
 	}
 }
@@ -187,6 +208,7 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r)
 		}
 	}	 
 }
+
 bool Collider::CheckCollision(const SDL_Rect& r) const {
 	int margin = 0;
 	return (rect.x < r.x + r.w + margin

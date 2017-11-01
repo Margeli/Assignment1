@@ -19,13 +19,21 @@ enum COLLIDER_TYPE
 
 enum CollisionDirection
 {	
-	NO_COLLISION =0,
+	NO_COLLISION = 0,
 	PLAYER_ABOVE ,
 	PLAYER_BELOW,
 	PLAYER_RIGHT,
 	PLAYER_LEFT
 };
 
+enum EnemieCollisionDirection
+{
+	NO_ENEMIE_COLLISION = 0,
+	ENEMIE_ABOVE,
+	ENEMIE_BELOW,
+	ENEMIE_RIGHT,
+	ENEMIE_LEFT
+};
 
 
 struct Collider

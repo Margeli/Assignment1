@@ -14,6 +14,7 @@ struct Layer
 	uint height;
 	float speed;
 	iPoint initial_player_position;
+	iPoint initial_enemie_position;
 	uint* data=nullptr;
 
 	~Layer();

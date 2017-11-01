@@ -10,6 +10,8 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
+#include "j1Enemies.h"
+#include "j1FlyingEnemie.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -29,11 +31,13 @@ bool j1Scene:: Awake(pugi::xml_node&)
 
 bool j1Scene::Start()
 {
-
-	if (active) {
+	if (active) 
+	{
 		App->map->Load("Map1.tmx");
 		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the positionfrom the last layer loaded from Tiled
+		initial_scene_pos_enemies = App->map->data.layers.At(2)->data->initial_enemie_position;
 		App->player->position = initial_scene_pos;
+		App->enemie->position = initial_scene_pos_enemies;
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	}
 	return true;
@@ -46,6 +50,9 @@ bool j1Scene::PreUpdate()
 
 bool j1Scene::Update(float dt)
 {
+	App->player->position.y += GRAVITY;
+	//App->enemie->position.y += GRAVITY;
+
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
@@ -57,10 +64,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x = 0;
 	}
 
-	App->player->position.y += GRAVITY;
-
-	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) )&& (App->render->camera.x>-2175))
-		App->player->camera_movement = true;
+	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > -2175)) { App->player->camera_movement = true; }
 	
 	else { App->player->camera_movement = false; }
 
@@ -70,9 +74,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x=0;
 	}
 
-	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } // Left Limit
-
-	
+	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } 
 
 	if (App->player->position.x >= 3152 && App->player->position.y > 160)
 	{
@@ -112,6 +114,7 @@ bool j1Scene::CleanUp()
 	App->collis->CleanUp();
 	App->tex->CleanUp();
 	App->player->CleanUp();
+	App->enemie->CleanUp();
 
 	return true;
 }
@@ -145,6 +148,8 @@ void j1Scene::SceneChange()
 	
 	App->player->CleanUp();
 	App->player->Start();
+	App->enemie->CleanUp();
+	App->enemie->Start();
 	App->render->camera = { 0,0 };
 	App->scene2->Start();
 }

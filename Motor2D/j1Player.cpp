@@ -264,14 +264,12 @@ bool j1Player::Update(float dt)
 
 	//-------------JUMP
 
-
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
 		if (current_animation == &jump)
 			current_animation = &idle;
 		else if (current_animation == &jumpleft)
 			current_animation = &idleleft;		
-
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
@@ -291,8 +289,6 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		
-
 		if (current_animation == &walkleft || current_animation == &idleleft)
 			current_animation = &jumpleft;
 		else if (current_animation == &walk || current_animation == &idle)
@@ -301,7 +297,8 @@ bool j1Player::Update(float dt)
 		if (jumping== false )
  			can_jump = true;
 
-		if (jumping == true && double_jump == true  ) {
+		if (jumping == true && double_jump == true  ) 
+		{
  			can_jump = true;
 			double_jump = false;		
 		}		
@@ -317,16 +314,11 @@ bool j1Player::Update(float dt)
 		
 	}
 
-	if (jumping) {
-
-   		if ((jump_pos -position.y   < jump_limit)&&(!landing)) {
-			position.y -= jump_speed;			
-		}
-		else{
-			landing = true;			
-		}
+	if (jumping) 
+	{
+   		if ((jump_pos -position.y < jump_limit) && !landing) { position.y -= jump_speed; }
+		else { landing = true; }
 	}	
-	//--------
 
 	if (playercoll!=nullptr) { playercoll->SetPos(position.x, position.y + 5); }
 
@@ -366,9 +358,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case PLAYER_LEFT:
 			position.x = c2->rect.x - 46 - margin;//45 -> player width
 			break;
-		
 		}
-		
 		break;
 	}
 }
