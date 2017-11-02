@@ -294,13 +294,13 @@ bool j1Player::Update(float dt)
 		else if (current_animation == &walk || current_animation == &idle)
 			current_animation = &jump;		
 
-		if (jumping== false )
+		if (jumping== false && landing ==false  )
  			can_jump = true;
 
 		if (jumping == true && double_jump == true  ) 
 		{
  			can_jump = true;
-			double_jump = false;		
+ 			double_jump = false;		
 		}		
 	}
 
@@ -346,11 +346,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case PLAYER_ABOVE:
 			position.y = c2->rect.y - 65 - margin;// 65 -> player height			
 			double_jump = true;
-			jumping = false;			
+			jumping = false;
+			landing = false;
 			break;
 		case PLAYER_BELOW:
  			position.y = c2->rect.y + c2->rect.h + margin;
-			jumping = false;			
+			jumping = false;
+			landing = true;
 			break;
 		case PLAYER_RIGHT:
  			position.x = c2->rect.x + c2->rect.w + margin;

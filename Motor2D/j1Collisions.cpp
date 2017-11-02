@@ -70,7 +70,7 @@ bool j1Collisions::Update(float dt) {
 
 			for (uint k = 0; k < MAX_COLLIDERS; ++k)
 			{
-				if (colliders[k] == nullptr || i==k)
+				if (colliders[k] == nullptr || i==k) // if collider is nullptr or the player collider itself
 					continue;
 				
 					c2 = colliders[k];

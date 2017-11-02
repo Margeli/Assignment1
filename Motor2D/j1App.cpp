@@ -37,14 +37,20 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	//---- Scenes
 	AddModule(map);
 	AddModule(scene);
 	AddModule(scene2);
-	AddModule(player);
+
+	//----Entities
+	AddModule(player);	
+	AddModule(enemie);
+	AddModule(flyenem);// shouldnt be here
+
+	//------collider & render (should be the lasts to update)
 	AddModule(collis);
 	AddModule(render);
-	AddModule(enemie);
-	AddModule(flyenem);
+	
 
 	load_game = "save_game.xml";
 	save_game = "save_game.xml";
