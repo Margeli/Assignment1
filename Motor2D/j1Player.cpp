@@ -332,9 +332,6 @@ void j1Player::InitialPos()
 	position = { 50,100 };
 }
 
-//void j1Player::Landing()
-//{	
-//}
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	int margin = 0;
