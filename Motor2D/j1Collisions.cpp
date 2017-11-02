@@ -171,8 +171,8 @@ bool j1Collisions::EraseCollider(Collider* collider)
 	return false;
 }
 
-CollisionDirection Collider::CheckDirection(const SDL_Rect& r) 
-{
+CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
+
 	uint right_surface, left_surface;
 	uint up_surface, down_surface;	
 	right_surface = left_surface = 2;// to evite some problems when it collides, giving priority to left and right 
