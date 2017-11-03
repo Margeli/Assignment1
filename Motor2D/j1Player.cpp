@@ -143,12 +143,20 @@ bool j1Player::Start()
 	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	
 	graphics = App->tex->Load("textures/character.png");
 
+	lose_fx = App->audio->LoadFx("audio/fx/lose.wav");
+	hurt_fx = App->audio->LoadFx("audio/fx/player_hurt.wav");
+	die_fx = App->audio->LoadFx("audio/fx/player_death.wav");
+
 	if (!graphics)
 	{
 		LOG("Error loading player textures");
 		ret = false;
 	}
 	
+	lives = 5;
+	points = 0;
+	max_score = 0;
+	dead = false;
 	speed = SPEED;
 	current_animation = &idle;
 	jump_speed = 4.5f;
@@ -180,6 +188,24 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt)
 {
+	if (App->player->lives <= 0) { lives = 0; dead = true; }
+
+	if (dead)
+	{
+		App->audio->PlayFx(lose_fx, 0);
+
+		App->player->CleanUp();
+		App->player->Start();
+
+		App->player->position.x = 50;
+		App->player->position.y = 100;
+		App->render->camera.x = 0;
+
+		dead = false;
+	}
+
+	///////ATTACK MOVEMENT///////
+
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == SDL_PRESSED)
 	{
 		App->audio->PlayFx(sword_sound);
@@ -202,23 +228,22 @@ bool j1Player::Update(float dt)
 			current_animation = &idleleft;
 	}
 	 
-	//-------------RIGHT
+	///////RIGHT MOVEMENT///////
 
 	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
-		App->audio->PlayFx(playersteps);
+		//App->audio->PlayFx(playersteps);
+
 		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 		
 		position.x += speed * 1.25f;
 		if (current_animation != &jump)
 			current_animation = &run;
-
 	}
-	
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		App->audio->PlayFx(playersteps);
+		//App->audio->PlayFx(playersteps);
 
 		if (camera_movement) {
 			App->render->camera.x -= App->render->camera_speed;
@@ -233,9 +258,12 @@ bool j1Player::Update(float dt)
 		current_animation = &idle;
 	}
 
-	//-------------LEFT
+	///////LEFT MOVEMENT///////
+
 	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
+		//App->audio->PlayFx(playersteps);
+
 		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 
 		position.x -= speed * 1.0f;
@@ -245,7 +273,7 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		App->audio->PlayFx(playersteps);
+		//App->audio->PlayFx(playersteps);
 
 		position.x -= speed;
 		if (current_animation != &jump)
@@ -261,8 +289,7 @@ bool j1Player::Update(float dt)
 			current_animation = &idle;
 	}
 
-
-	//-------------JUMP
+	//JUMPING
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
@@ -272,16 +299,16 @@ bool j1Player::Update(float dt)
 			current_animation = &idleleft;		
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
 	{
-		App->audio->PlayFx(jump_sound);
+		App->audio->PlayFx(jump_sound, 0);
 
 		if(current_animation == &jump)
 		current_animation = &walkleft;
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
+	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
 	{
-		App->audio->PlayFx(jump_sound);
+		App->audio->PlayFx(jump_sound, 0);
 
 		if (current_animation == &jump)
 			current_animation = &walk;
@@ -331,7 +358,6 @@ void j1Player::InitialPos()
 {
 	position = { 50,100 };
 }
-
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	int margin = 0;

@@ -378,16 +378,13 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
 
 void j1Map::PutMapColliders(int current_id, iPoint position) 
 {
-	for (uint i = 0; i<39; i++) 
+	for (uint i = 0; i < 39; i++) 
 	{ 
 		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1) 
 		{
 			App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
 			continue;
 		}
-
-		//Add wall colliders
-
 	}
 }
 

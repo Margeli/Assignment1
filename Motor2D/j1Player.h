@@ -45,7 +45,14 @@ public:
 
 	bool camera_movement = false;
 	float speed;
-	
+	int lives;
+	int points;
+	bool dead;
+	int max_score;
+
+	uint lose_fx;
+	uint hurt_fx;
+	uint die_fx;
 
 	iPoint position;
 	void InitialPos();

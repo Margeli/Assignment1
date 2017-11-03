@@ -54,7 +54,6 @@ bool j1Scene::Update(float dt)
 {
 	App->player->position.y += GRAVITY;
 	
-
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
@@ -70,10 +69,12 @@ bool j1Scene::Update(float dt)
 	
 	else { App->player->camera_movement = false; }
 
-	if (App->player->position.y >= 770)
+	if (App->player->position.y >= 750)
 	{
-		App->player->position= initial_scene_pos;
-		App->render->camera.x=0;
+		App->audio->PlayFx(App->player->die_fx);
+		App->player->lives--;
+		App->player->position = initial_scene_pos;
+		App->render->camera.x = 0;
 	}
 
 	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } 
@@ -90,7 +91,8 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
+	p2SString title("Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
+					App->player->lives,	App->player->points, App->player->max_score,
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count());
