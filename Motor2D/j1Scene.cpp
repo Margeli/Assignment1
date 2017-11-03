@@ -34,7 +34,7 @@ bool j1Scene::Start()
 	if (active) 
 	{
 		App->map->Load("Map1.tmx");
-		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the positionfrom the last layer loaded from Tiled
+		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the player position from the last layer loaded from Tiled
 		initial_scene_pos_enemies = App->map->data.layers.At(2)->data->initial_enemie_position;
 		App->player->position = initial_scene_pos;		
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
@@ -53,7 +53,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	App->player->position.y += GRAVITY;
-	//App->enemie->position.y += GRAVITY;
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 

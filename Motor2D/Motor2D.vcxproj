@@ -124,7 +124,6 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\hello2.tmx" />
     <None Include="..\Game\maps\Map1.tmx" />
     <None Include="..\Game\maps\Map2.tmx" />
   </ItemGroup>
