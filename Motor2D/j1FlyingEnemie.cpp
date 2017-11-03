@@ -1,16 +1,12 @@
 #include "j1FlyingEnemie.h"
-#include "p2Defs.h"
-#include "j1Render.h"
-#include "p2Log.h"
 #include "j1App.h"
 #include "j1Textures.h"
-#include "j1Animation.h"
-#include "j1Audio.h"
+#include "j1Enemies.h"
 
-j1FlyingEnemie::j1FlyingEnemie()
+j1FlyingEnemie::j1FlyingEnemie(int x, int y) : j1Enemy(x, y)
 {
-	name.create("Fly");
-	graphics = nullptr;
+	
+	sprite_path = App->tex->Load("textures/Fly.png");
 
 	fly_right.PushBack({ 0, 0, 0, 0 });
 	fly_right.loop = true;
@@ -19,66 +15,27 @@ j1FlyingEnemie::j1FlyingEnemie()
 	fly_left.PushBack({ 0, 0, 0, 0 });
 	fly_left.loop = true;
 	fly_left.speed = 0.07f;
+
+
+	collider = App->collis->AddCollider({ position.x, position.y, 0, 0 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
+
+	animation = &fly_left;
 }
 
-j1FlyingEnemie::~j1FlyingEnemie()
-{
-}
+// Should have the initial pos of enemies in a XML
 
-bool j1FlyingEnemie::Awake(pugi::xml_node& conf)
-{
-	return true;
-}
-
-bool j1FlyingEnemie::Start()
-{
-	bool ret = true;
-
-	graphics = App->tex->Load("textures/Fly.png");
-	enemie_collider = App->collis->AddCollider({ position.x, position.y, 0, 0 }, COLLIDER_ENEMIE, this);
-
-	if (!graphics) { LOG("Error loading Fly sprites.");  ret = false; }
-
-	current_animation = &fly_left;
-
-	if (fly_sound == 0)
-		fly_sound = App->audio->LoadFx("audio/fx/troll_death.wav");
-
-
-	return ret;
-}
-
-bool j1FlyingEnemie::CleanUp()
-{
-	LOG("Unloading Troll 1.");
-
-	App->tex->UnLoad(graphics);
-
-	if (enemie_collider != nullptr)
-	{
-		enemie_collider->to_delete = true;
-	}
-
-	return true;
-}
-
-bool j1FlyingEnemie::Update(float dt)
+void j1FlyingEnemie::Move()
 {
 	//IA
 	//Pathfinding applied to platformers.
 
-	return true;
-}
-
-void j1FlyingEnemie::OnCollision(Collider* c1, Collider* c2)
-{
-	int margin = 0;
 	
+	collider->SetPos(position.x, position.y + 5);
 }
 
-
-
-void j1FlyingEnemie::initialpos()
+void j1FlyingEnemie::OnCollision(Collider* c1, int num_enemy)
 {
-	position = { 100, 100 };
+
 }
+
+

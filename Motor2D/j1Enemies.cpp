@@ -1,204 +1,167 @@
 #include "j1Enemies.h"
-#include "p2Defs.h"
-#include "j1Render.h"
-#include "p2Log.h"
+#include "j1Enemy.h"
 #include "j1App.h"
+#include "j1Render.h"
 #include "j1Textures.h"
-#include "j1Animation.h"
-#include "j1Audio.h"
-#include "j1Player.h"
+#include "p2Log.h"
+
+#include "j1Troll.h"
+#include "j1FlyingEnemie.h"
+
+
+#define SPAWN_MARGIN 200
+
 
 j1Enemies::j1Enemies()
 {
-	name.create("Troll1");
-	graphics = nullptr;
+	name.create("enemies");
 
-	idle_right.PushBack({ 0, 0, 81, 63 });
-	idle_right.PushBack({ 93, 0, 84, 65 });
-	idle_right.PushBack({ 187, 0, 88, 65  });
-	idle_right.PushBack({ 281, 0, 81, 63 });
-	idle_right.PushBack({ 375, 0, 86, 64 });
-	idle_right.PushBack({ 467, 0, 85, 65 });
-	idle_right.PushBack({ 561, 0, 85, 65 });
-	idle_right.loop = true;
-	idle_right.speed = 0.05f;
-
-	idle_left.PushBack({ 0, 66, 85, 64 });
-	idle_left.PushBack({ 94, 67, 85, 63 });
-	idle_left.PushBack({ 187, 67, 86, 62 });
-	idle_left.PushBack({ 281, 67, 88, 63 });
-	idle_left.PushBack({ 375, 67, 85, 63 });
-	idle_left.PushBack({ 469, 68, 84, 62 });
-	idle_left.PushBack({ 561, 68, 81, 62 });
-	idle_left.loop = true;
-	idle_left.speed = 0.05f;
-
-	walk_right.PushBack({ 0, 264, 93, 62});
-	walk_right.PushBack({ 93, 265, 93, 62 });
-	walk_right.PushBack({ 187, 262, 84, 64 });
-	walk_right.PushBack({ 281, 262, 78, 64 });
-	walk_right.PushBack({ 376, 262, 78, 64 });
-	walk_right.PushBack({ 467, 262, 83, 64 });
-	walk_right.PushBack({ 562, 263, 90, 63 });
-	walk_right.loop = true;
-	walk_right.speed = 0.05f;
-
-	walk_left.PushBack({ 0, 327, 93, 62 });
-	walk_left.PushBack({ 93, 327, 93, 62 });
-	walk_left.PushBack({ 187, 327, 84, 64 });
-	walk_left.PushBack({ 281, 327, 78, 64 });
-	walk_left.PushBack({ 376, 327, 78, 64 });
-	walk_left.PushBack({ 467, 327, 83, 64 });
-	walk_left.PushBack({ 562, 327, 90, 63 });
-	walk_left.loop = true;
-	walk_left.speed = 0.05f;
-
-	jump_right.PushBack({ 0, 132, 82, 62 });
-	jump_right.PushBack({ 93, 132, 88, 62 });
-	jump_right.PushBack({ 187, 132, 93, 63 });
-	jump_right.PushBack({ 281, 132, 94, 63 });
-	jump_right.PushBack({ 375, 132, 92, 63 });
-	jump_right.PushBack({ 467, 132, 94, 63 });
-	jump_right.PushBack({ 562, 132, 92, 63 });
-	jump_right.loop = true;
-	jump_right.speed = 0.05f;
-
-	jump_left.PushBack({ 0, 197, 82, 62 });
-	jump_left.PushBack({ 93, 197, 88, 62 });
-	jump_left.PushBack({ 187, 197, 93, 63 });
-	jump_left.PushBack({ 281, 197, 94, 63 });
-	jump_left.PushBack({ 375, 197, 92, 63 });
-	jump_left.PushBack({ 467, 197, 94, 63 });
-	jump_left.PushBack({ 562, 197, 92, 63 });
-	jump_left.loop = true;
-	jump_left.speed = 0.05f;
-
-	attack_right.PushBack({ 0, 393, 88, 94 });
-	attack_right.PushBack({ 93, 393, 82, 94 });
-	attack_right.PushBack({ 187, 393, 79, 94 });
-	attack_right.PushBack({ 281, 393, 79, 94 });
-	attack_right.PushBack({ 375, 393, 84, 94 });
-	attack_right.PushBack({ 467, 393, 82, 94 });
-	attack_right.PushBack({ 561, 393, 85, 94 });
-	attack_right.loop = true;
-	attack_right.speed = 0.07f;
-
-	attack_left.PushBack({ 0, 0, 0, 0 });
-	attack_left.loop = true;
-	attack_left.speed = 0.07f;
-
-	death_right.PushBack({ 0, 0, 0, 0 });
-	death_right.loop = false;
-	death_right.speed = 0.07f;
-
-	death_left.PushBack({ 0, 0, 0, 0 });
-	death_left.loop = false;
-	death_left.speed = 0.07f;
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		enemies[i] = nullptr;
 }
 
-
+// Destructor
 j1Enemies::~j1Enemies()
-{
-}
-
-bool j1Enemies::Awake(pugi::xml_node& conf)
-{
-	return true;
-}
+{}
 
 bool j1Enemies::Start()
 {
+	// Create a prototype for each enemy available so we can copy them around
+	//sprites = App->textures->Load("Assets/Images/Bonus_Spaceship.png");
+	//sprites = App->textures->Load("Assets/Images/Green_Shooter.png");
+	//sprites = App->textures->Load("Assets/Images/Light_Shooter.png");
+	/*
+	if (sprites == nullptr) {
+	LOG("Error loading enemy's sprites.");
+	}*/
+
+	return true;
+}
+
+bool j1Enemies::PreUpdate()
+{
 	bool ret = true;
-
-	graphics = App->tex->Load("textures/Troll1.png");
-	enemie_collider = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_ENEMIE, this);
-
-	if (!graphics) { LOG("Error loading Troll 1 sprites.");  ret = false; }
-
-	current_animation = &idle_right;
-
-	if (troll_sound == 0)
-		troll_sound = App->audio->LoadFx("audio/fx/troll_attack.wav");
-
-	if (troll_death_sound == 0)
-		troll_death_sound = App->audio->LoadFx("audio/fx/troll_death.wav");
+	
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (queue[i].type != ENEMY_TYPES::NO_TYPE) // need limit spawn depending on camera position 
+		{
+			SpawnEnemy(queue[i]);
+			queue[i].type = ENEMY_TYPES::NO_TYPE;
+			LOG("Spawning enemy at %d", queue[i].x);
+		}
+	}
 
 	return ret;
 }
 
-bool j1Enemies::CleanUp()
-{
-	LOG("Unloading Troll 1.");
-
-	App->tex->UnLoad(graphics);
-
-	if (enemie_collider != nullptr)
-	{
-		enemie_collider->to_delete = true;
-	}
-
-	return true;
-}
-
+// Called before render is available
 bool j1Enemies::Update(float dt)
 {
-	//IA
-	//Pathfinding applied to platformers.
+	bool ret = true;
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		if (enemies[i] != nullptr) enemies[i]->Move();
 
-	if (IsPointInCircle(App->player->position.x, App->player->position.y, App->enemie->position.x, App->enemie->position.y, 500) == true)
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		if (enemies[i] != nullptr) {
+			enemies[i]->Draw(enemies[i]->sprite_path);
+		}
+
+	return ret;
+}
+
+bool j1Enemies::PostUpdate()
+{
+
+	bool ret = true;
+	// check camera position to decide what to spawn
+	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if (App->player->position.x < App->enemie->position.x)
+		if (enemies[i] != nullptr)
 		{
-			App->enemie->position.x -= 1.5f;
-			current_animation = &walk_left;
+			if (App->render->camera.y + (-SCREEN_HEIGHT - SPAWN_MARGIN)*SCREEN_SIZE>-enemies[i]->position.y*SCREEN_SIZE)
+			{
+				LOG("DeSpawning enemy at %d", enemies[i]->position.y);
+				delete enemies[i];
+				enemies[i] = nullptr;
+			}
 		}
-		else if (App->player->position.x > App->enemie->position.x)
-		{
-			App->enemie->position.x += 1.5f;
-			current_animation = &walk_right;
-		}
+	}*/
 
+	return ret;
+}
+
+// Called before quitting
+bool j1Enemies::CleanUp()
+{
+	LOG("Freeing all enemies");
+
+	 // need to unload all enemy tex
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] != nullptr)
+		{
+			delete enemies[i];
+			enemies[i] = nullptr;
+		}
 	}
-	
-	if (enemie_collider != nullptr) { enemie_collider->SetPos(position.x, position.y + 5); }
 
-	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	return true;
 }
 
-bool j1Enemies::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi)
+bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 {
-	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
+	bool ret = false;
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (queue[i].type == ENEMY_TYPES::NO_TYPE)
+		{
+			queue[i].type = type;
+			queue[i].x = x;
+			queue[i].y = y;
+			
+
+			ret = true;
+			break;
+		}
+	}
+
+	return ret;
 }
 
-void j1Enemies::InitialPos()
+void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 {
-	position = { 500, 200 };
+	// find room for the new enemy
+	uint i = 0;
+	for (; enemies[i] != nullptr && i < MAX_ENEMIES; ++i);
+
+	if (i != MAX_ENEMIES)
+	{
+		switch (info.type)
+		{
+		case ENEMY_TYPES::TROLL:
+			enemies[i] = new j1Troll(info.x, info.y);
+			break;
+
+		case ENEMY_TYPES::FLYING:
+			enemies[i] = new j1FlyingEnemie(info.x, info.y);
+			break;	
+
+		}
+	}
 }
 
 void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 {
-	int margin = 0;
-	switch (c2->type) {
-	case COLLIDER_GROUND:
+	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
+		{
+			enemies[i]->OnCollision(c2, i);
 
-		switch (c1->CheckDirection(c2->rect)) {
 
-		case ENEMIE_ABOVE:
-			position.y = c2->rect.y - 80 - margin;		
-			break;
-		case ENEMIE_BELOW:
-			position.y = c2->rect.y + c2->rect.h + margin;
-			break;
-		case ENEMIE_RIGHT:
-			position.x = c2->rect.x + c2->rect.w + margin;
-			break;
-		case ENEMIE_LEFT:
-			position.x = c2->rect.x - 46 - margin;
 			break;
 		}
-
-		break;
-	}
+	}*/
 }
-

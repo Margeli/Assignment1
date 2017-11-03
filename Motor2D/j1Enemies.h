@@ -1,57 +1,60 @@
-#ifndef __ENEMIES_H__
-#define __ENEMIES_H_
+#ifndef __j1ENEMIES_H__
+#define __j1ENEMIES_H_
 
 #include "j1Module.h"
-#include "p2Point.h"
-#include "j1Animation.h"
-#include "j1Collisions.h"
+
+#define MAX_ENEMIES 20
 
 struct SDL_Texture;
+
+enum ENEMY_TYPES
+{
+	NO_TYPE,
+	TROLL,
+	FLYING
+};
+
+class j1Enemy;
+
+struct EnemyInfo
+{
+	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
+	int x, y;
+	
+};
 
 class j1Enemies : public j1Module
 {
 public:
+
+
 	j1Enemies();
 
 	virtual ~j1Enemies();
 
-	bool Awake(pugi::xml_node& conf);
-
 	bool Start();
+
+	bool PreUpdate();
 
 	bool Update(float dt);
 
+	bool PostUpdate();
+
 	bool CleanUp();
 
-	void OnCollision(Collider* c1, Collider* c2);
+	void OnCollision(Collider* c1, Collider* c2);	
 
-	bool j1Enemies::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y);
 
-public:
+	j1Enemy* enemies[MAX_ENEMIES];
 
-	iPoint position;
-	void InitialPos();
+private:
 
-	uint troll_sound;
-	uint troll_death_sound;
+	void SpawnEnemy(const EnemyInfo& info);
 
-	SDL_Texture* graphics = false;
-	
-	Animation* current_animation;
-	Animation idle_right;
-	Animation walk_right;
-	Animation jump_right;
-	Animation attack_right;
-	Animation death_right;
+	EnemyInfo queue[MAX_ENEMIES];
 
-	Animation idle_left;
-	Animation walk_left;
-	Animation jump_left;
-	Animation attack_left;
-	Animation death_left;
-
-	Collider* enemie_collider;
+	SDL_Texture* sprites;
 };
 
-
-#endif //__ENEMIES_H_
+#endif //__j1ENEMIES_H_

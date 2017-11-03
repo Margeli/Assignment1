@@ -49,6 +49,12 @@
     <ClCompile Include="j1FlyingEnemie.cpp">
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="j1Troll.cpp">
+      <Filter>Desenvolupament  ========\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Enemy.cpp">
+      <Filter>Desenvolupament  ========\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -120,6 +126,13 @@
     <ClInclude Include="j1FlyingEnemie.h">
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="j1Troll.h">
+      <Filter>Desenvolupament  ========\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Enemy.h">
+      <Filter>Desenvolupament  ========\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -152,5 +165,8 @@
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
     <Xml Include="..\Game\save_game.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Motor 2D.rc" />
   </ItemGroup>
 </Project>

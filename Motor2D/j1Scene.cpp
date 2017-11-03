@@ -36,9 +36,11 @@ bool j1Scene::Start()
 		App->map->Load("Map1.tmx");
 		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the positionfrom the last layer loaded from Tiled
 		initial_scene_pos_enemies = App->map->data.layers.At(2)->data->initial_enemie_position;
-		App->player->position = initial_scene_pos;
-		App->enemie->position = initial_scene_pos_enemies;
+		App->player->position = initial_scene_pos;		
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+		// Should have the initial pos of enemies in a XML
+
+		PlaceEnemies();
 	}
 	return true;
 }
@@ -114,7 +116,7 @@ bool j1Scene::CleanUp()
 	App->collis->CleanUp();
 	App->tex->CleanUp();
 	App->player->CleanUp();
-	App->enemie->CleanUp();
+	App->enemies->CleanUp();
 
 	return true;
 }
@@ -141,6 +143,7 @@ bool j1Scene::Save(pugi::xml_node& data) const
 
 void j1Scene::SceneChange() 
 {
+	
 	App->scene2->active = true;
 	App->scene->active = false;
 
@@ -148,8 +151,14 @@ void j1Scene::SceneChange()
 	
 	App->player->CleanUp();
 	App->player->Start();
-	App->enemie->CleanUp();
-	App->enemie->Start();
+	App->enemies->CleanUp();
+	App->enemies->Start();
 	App->render->camera = { 0,0 };
 	App->scene2->Start();
+}
+
+void j1Scene::PlaceEnemies() const{
+
+	App->enemies->AddEnemy(TROLL, 100, 100);
+
 }

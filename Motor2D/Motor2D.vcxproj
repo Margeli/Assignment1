@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="j1Enemies.cpp" />
+    <ClCompile Include="j1Enemy.cpp" />
     <ClCompile Include="j1FlyingEnemie.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="j1Troll.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
@@ -97,10 +99,12 @@
     <ClInclude Include="j1Animation.h" />
     <ClInclude Include="j1Collisions.h" />
     <ClInclude Include="j1Enemies.h" />
+    <ClInclude Include="j1Enemy.h" />
     <ClInclude Include="j1FlyingEnemie.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="j1Troll.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
@@ -117,6 +121,7 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="j1Scene2.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\hello2.tmx" />
@@ -126,6 +131,9 @@
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
     <Xml Include="..\Game\save_game.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Motor 2D.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

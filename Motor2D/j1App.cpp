@@ -13,7 +13,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Enemies.h"
-#include "j1FlyingEnemie.h"
+
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -30,8 +30,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	render = new j1Render();
 	collis = new j1Collisions();
-	enemie = new j1Enemies();
-	flyenem = new j1FlyingEnemie();
+	enemies = new j1Enemies();
+	
 
 	AddModule(input);
 	AddModule(win);
@@ -44,8 +44,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	//----Entities
 	AddModule(player);	
-	AddModule(enemie);
-	AddModule(flyenem);// shouldnt be here
+	AddModule(enemies);
+	
 
 	//------collider & render (should be the lasts to update)
 	AddModule(collis);

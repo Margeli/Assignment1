@@ -1,47 +1,27 @@
-#ifndef __FLYINGENEMIE_H__
-#define __FLYINGENEMIE_H_
+#ifndef __j1FLYINGENEMIE_H__
+#define __j1FLYINGENEMIE_H_
 
-#include "j1Module.h"
+#include "j1Enemy.h"
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
 
-struct SDL_Texture;
-
-class j1FlyingEnemie : public j1Module
+class j1FlyingEnemie : public j1Enemy
 {
 public:
-	j1FlyingEnemie();
 
-	virtual ~j1FlyingEnemie();
+	j1FlyingEnemie(int x, int y);
+		
+	void Move();
 
-	bool Awake(pugi::xml_node& conf);
-
-	bool Start();
-
-	bool Update(float dt);
-
-	bool CleanUp();
-
-	void OnCollision(Collider* c1, Collider* c2);
-
-
+	void OnCollision(Collider* c1, int num_enemy);
+	
 
 public:
-
-	iPoint position;
-	void initialpos();
-
-	uint fly_sound;
-
-	SDL_Texture* graphics = false;
-
-	Animation* current_animation;
-
+		
 	Animation fly_right;
 	Animation fly_left;
 
-	Collider* enemie_collider;
 };
 
 
