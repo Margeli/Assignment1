@@ -71,7 +71,7 @@ bool j1Scene2::Update(float dt)
 		App->player->position.y = 100;
 		App->render->camera.x = 0;
 	}
-
+	if (App->player->position.x <= -App->render->camera.x) { App->player->position.x++; }
 	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x> CAMERA_LIMIT)) { App->player->camera_movement = true; }
 
 	else { App->player->camera_movement = false; }

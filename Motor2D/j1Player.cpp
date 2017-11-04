@@ -22,13 +22,31 @@ j1Player::j1Player() : j1Module()
 	name.create("player");
 	graphics = nullptr;
 
-	attack_right.PushBack({0,0,0,0});
-	attack_right.loop = false;
-	attack_right.speed = 0.07f;
+	attack_right.PushBack({ 0, 393, 50, 65 });
+	attack_right.PushBack({ 54, 393, 40, 65 });
+	attack_right.PushBack({ 101, 393, 40, 65 });
+	attack_right.PushBack({ 148, 393, 40, 65 });
+	attack_right.PushBack({ 192, 393, 43, 65 });
+	attack_right.PushBack({ 239, 393, 48, 65 });
+	attack_right.PushBack({ 290, 393, 50, 65 });
+	attack_right.PushBack({ 344, 393, 50, 65 });
+	attack_right.PushBack({ 396, 393, 52, 65 });
+	attack_right.PushBack({ 451, 393, 47, 65 });
+	attack_right.loop = true;
+	attack_right.speed = 0.08f;
 
-	attack_left.PushBack({ 0,0,0,0 });
-	attack_left.loop = false;
-	attack_left.speed = 0.07f;
+	attack_left.PushBack({ 0, 459, 44, 65 });
+	attack_left.PushBack({ 48, 459, 44, 65 });
+	attack_left.PushBack({ 97, 459, 44, 65 });
+	attack_left.PushBack({ 144, 459, 44, 65 });
+	attack_left.PushBack({ 189, 459, 44, 65 });
+	attack_left.PushBack({ 239, 459, 48, 65 });
+	attack_left.PushBack({ 291, 459, 50, 65 });
+	attack_left.PushBack({ 345, 459, 50, 65 });
+	attack_left.PushBack({ 398, 459, 52, 65 });
+	attack_left.PushBack({ 455, 459, 50, 65 });
+	attack_left.loop = true;
+	attack_left.speed = 0.08f;
 
 	death_right.PushBack({ 0,0,0,0 });
 	death_right.loop = false;
@@ -207,11 +225,6 @@ bool j1Player::Update(float dt)
 		dead = false;
 	}
 
-	if (App->player->position.x == 200)	//PROVISIONAL
-	{
-		points += 10;
-	}
-
 	if (points > max_score)
 	{
 		max_score = points;
@@ -219,7 +232,8 @@ bool j1Player::Update(float dt)
 
 	///////ATTACK MOVEMENT///////
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == SDL_PRESSED)
+	//if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == SDL_PRESSED)
+	if(App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		App->audio->PlayFx(sword_sound);
 
@@ -233,20 +247,20 @@ bool j1Player::Update(float dt)
 			current_animation = &attack_left;
 		}
 	}
-	else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == SDL_RELEASED)
+	else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
 	{
 		if (current_animation == &attack_right)
 			current_animation = &idle;
 		else if (current_animation == &attack_left)
 			current_animation = &idleleft;
 	}
-	 
+	else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) { App->audio->PlayFx(sword_sound); }
+
 	///////RIGHT MOVEMENT///////
 
 	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
 		//App->audio->PlayFx(playersteps);
-
 		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 		
 		position.x += speed * 1.25f;
