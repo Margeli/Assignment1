@@ -277,14 +277,14 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	}
 
 	p2SString ground = " ground";
-	set->ground_id_tiles = new uint[39];
-	memset(set->ground_id_tiles, 0, 39 * sizeof(uint));	//39 number of tiles with attribute ground = true
+	set->ground_id_tiles = new uint[GROUND_TILES];
+	memset(set->ground_id_tiles, 0, GROUND_TILES * sizeof(uint));	
 
 	/*p2SString wall = " wall";
 	set->wall_id_tiles = new uint[39];
-	memset(set->wall_id_tiles, 0, 39 * sizeof(uint));*///COMMENTED IS FOR IF WE INCLUDE WALLS
+	memset(set->wall_id_tiles, 0, 39 * sizeof(uint));	//COMMENTED IS FOR IF WE INCLUDE WALLS	
+	uint j = 0;*/
 	uint i = 0;
-	//uint j = 0;
 	
 	for (pugi::xml_node& tile_node = tileset_node.child("tile"); tile_node; tile_node = tile_node.next_sibling("tile")) 
 	{	
@@ -304,6 +304,8 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 				}*/
 			}
 	}
+	
+
 	return ret;
 }
 
@@ -373,10 +375,12 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer)
 
 void j1Map::PutMapColliders(int current_id, iPoint position) 
 {
-	for (uint i = 0; i < 39; i++) 
+	for (uint i = 0; i < GROUND_TILES; i++) 
 	{ 
+		
 		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1) 
 		{
+			
 			App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
 			continue;
 		}

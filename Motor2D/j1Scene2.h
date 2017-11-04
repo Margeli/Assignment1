@@ -39,7 +39,7 @@ public:
 	void SceneChange();
 
 	iPoint initial_scene_pos;
-	iPoint initial_scene_pos_enemies;
+	
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;

@@ -7,6 +7,9 @@
 #include "j1Module.h"
 #include "j1App.h"
 
+#define GROUND_TILES 39
+//nº of tiles that have the property ground in Tiled
+
 struct Layer 
 {
 	p2SString name;
