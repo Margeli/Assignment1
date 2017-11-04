@@ -8,13 +8,23 @@ j1FlyingEnemie::j1FlyingEnemie(int x, int y) : j1Enemy(x, y)
 	
 	sprite_path = App->tex->Load("textures/Fly.png");
 
-	fly_right.PushBack({ 0, 0, 0, 0 });
+	fly_right.PushBack({ 0, 0, 47, 65 });
+	fly_right.PushBack({ 53, 0, 50, 65 });
+	fly_right.PushBack({ 107, 0, 55, 65 });
+	fly_right.PushBack({ 167, 0, 59, 65 });
+	fly_right.PushBack({ 107, 0, 55, 65 });
+	fly_right.PushBack({ 53, 0, 50, 65 });
 	fly_right.loop = true;
-	fly_right.speed = 0.07f;
+	fly_right.speed = 0.2f;
 
-	fly_left.PushBack({ 0, 0, 0, 0 });
+	fly_left.PushBack({ 0, 69, 60, 60 });
+	fly_left.PushBack({ 63, 69, 60, 60 });
+	fly_left.PushBack({ 123, 69, 50, 60 });
+	fly_left.PushBack({ 180, 69, 50, 60 });
+	fly_left.PushBack({ 123, 69, 50, 60 });
+	fly_left.PushBack({ 63, 69, 60, 60 });
 	fly_left.loop = true;
-	fly_left.speed = 0.07f;
+	fly_left.speed = 0.2f;
 
 
 	collider = App->collis->AddCollider({ position.x, position.y, 0, 0 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);

@@ -11,12 +11,12 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	idle_right.PushBack({ 0, 0, 81, 63 });
 	idle_right.PushBack({ 93, 0, 84, 65 });
 	idle_right.PushBack({ 187, 0, 88, 65 });
-	idle_right.PushBack({ 281, 0, 81, 63 });
+	idle_right.PushBack({ 281, 0, 88, 63 });
 	idle_right.PushBack({ 375, 0, 86, 64 });
 	idle_right.PushBack({ 467, 0, 85, 65 });
 	idle_right.PushBack({ 561, 0, 85, 65 });
-	idle_right.loop = true;
-	idle_right.speed = 0.05f;
+	idle_right.loop = true; 
+	idle_right.speed = 0.2f;
 
 	idle_left.PushBack({ 0, 66, 85, 64 });
 	idle_left.PushBack({ 94, 67, 85, 63 });
@@ -26,7 +26,7 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	idle_left.PushBack({ 469, 68, 84, 62 });
 	idle_left.PushBack({ 561, 68, 81, 62 });
 	idle_left.loop = true;
-	idle_left.speed = 0.05f;
+	idle_left.speed = 0.2f;
 
 	walk_right.PushBack({ 0, 264, 93, 62 });
 	walk_right.PushBack({ 93, 265, 93, 62 });
@@ -36,7 +36,7 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	walk_right.PushBack({ 467, 262, 83, 64 });
 	walk_right.PushBack({ 562, 263, 90, 63 });
 	walk_right.loop = true;
-	walk_right.speed = 0.05f;
+	walk_right.speed = 0.2f;
 
 	walk_left.PushBack({ 0, 327, 93, 62 });
 	walk_left.PushBack({ 93, 327, 93, 62 });
@@ -46,7 +46,7 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	walk_left.PushBack({ 467, 327, 83, 64 });
 	walk_left.PushBack({ 562, 327, 90, 63 });
 	walk_left.loop = true;
-	walk_left.speed = 0.05f;
+	walk_left.speed = 0.2f;
 
 	jump_right.PushBack({ 0, 132, 82, 62 });
 	jump_right.PushBack({ 93, 132, 88, 62 });
@@ -56,7 +56,7 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	jump_right.PushBack({ 467, 132, 94, 63 });
 	jump_right.PushBack({ 562, 132, 92, 63 });
 	jump_right.loop = true;
-	jump_right.speed = 0.05f;
+	jump_right.speed = 0.2f;
 
 	jump_left.PushBack({ 0, 197, 82, 62 });
 	jump_left.PushBack({ 93, 197, 88, 62 });
@@ -66,7 +66,7 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	jump_left.PushBack({ 467, 197, 94, 63 });
 	jump_left.PushBack({ 562, 197, 92, 63 });
 	jump_left.loop = true;
-	jump_left.speed = 0.05f;
+	jump_left.speed = 0.2f;
 
 	attack_right.PushBack({ 0, 393, 88, 94 });
 	attack_right.PushBack({ 93, 393, 82, 94 });
@@ -76,19 +76,38 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	attack_right.PushBack({ 467, 393, 82, 94 });
 	attack_right.PushBack({ 561, 393, 85, 94 });
 	attack_right.loop = true;
-	attack_right.speed = 0.07f;
+	attack_right.speed = 0.2f;
 
-	attack_left.PushBack({ 0, 0, 0, 0 });
+	attack_left.PushBack({ 0, 487, 85, 94 });
+	attack_left.PushBack({ 93, 487, 85, 94 });
+	attack_left.PushBack({ 187, 487, 85, 94 });
+	attack_left.PushBack({ 280, 487, 85, 94 });
+	attack_left.PushBack({ 375, 487, 85, 94 });
+	attack_left.PushBack({ 467, 487, 85, 94 });
+	attack_left.PushBack({ 561, 487, 85, 94 });
 	attack_left.loop = true;
-	attack_left.speed = 0.07f;
+	attack_left.speed = 0.2f;
 
-	death_right.PushBack({ 0, 0, 0, 0 });
+	death_right.PushBack({ 0, 581, 72, 57 });
+	death_right.PushBack({ 93, 581, 88, 57 });
+	death_right.PushBack({ 187, 581, 102, 57 });
+	death_right.PushBack({ 294, 581, 100, 57 });
+	death_right.PushBack({ 395, 581, 92, 57 });
+	death_right.PushBack({ 489, 581, 89, 57 });
+	death_right.PushBack({ 579, 581, 91, 57 });
 	death_right.loop = false;
-	death_right.speed = 0.07f;
+	death_right.speed = 0.2f;
 
-	death_left.PushBack({ 0, 0, 0, 0 });
+	death_left.PushBack({ 0, 638, 72, 57 });
+	death_left.PushBack({ 93, 638, 88, 57 });
+	death_left.PushBack({ 187, 638, 102, 57 });
+	death_left.PushBack({ 294, 638, 100, 57 });
+	death_left.PushBack({ 395, 638, 92, 57 });
+	death_left.PushBack({ 489, 638, 89, 57 });
+	death_left.PushBack({ 579, 638, 91, 57 });
 	death_left.loop = false;
-	death_left.speed = 0.07f;
+	death_left.speed = 0.2f;
+
 
 	collider = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
 
