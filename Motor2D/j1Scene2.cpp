@@ -31,13 +31,12 @@ bool j1Scene2::Awake(pugi::xml_node&)
 
 bool j1Scene2::Start()
 {
-
-	if (active) {
-
+	if (active) 
+	{
 		App->map->Load("Map2.tmx");
 		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position;
 
-		App->player->position= initial_scene_pos; 	//Gets the position from the last layer loaded from Tiled
+		App->player->position= initial_scene_pos; 	
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	}
 
@@ -51,11 +50,11 @@ bool j1Scene2::PreUpdate()
 
 bool j1Scene2::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->LoadGame();
+	App->player->position.y += GRAVITY;
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->SaveGame();
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
 
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
@@ -72,15 +71,14 @@ bool j1Scene2::Update(float dt)
 		App->render->camera.x = 0;
 	}
 
-	App->player->position.y += GRAVITY;
-
-	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x>-2175))
-		App->player->camera_movement = true;
+	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x> CAMERA_LIMIT)) { App->player->camera_movement = true; }
 
 	else { App->player->camera_movement = false; }
 
-	if (App->player->position.y >= 560)
+	if (App->player->position.y >= 750)
 	{
+		App->audio->PlayFx(App->player->die_fx);
+		App->player->lives--;
 		App->player->position = initial_scene_pos;
 		App->render->camera.x = 0;
 	}
@@ -91,7 +89,8 @@ bool j1Scene2::Update(float dt)
 
 	App->map->Draw();
 
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
+	p2SString title("Level 2 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
+		App->player->lives, App->player->points, App->player->max_score,
 		App->map->data.width, App->map->data.height,
 		App->map->data.tile_width, App->map->data.tile_height,
 		App->map->data.tilesets.count());

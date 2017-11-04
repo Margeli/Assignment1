@@ -48,7 +48,7 @@ public:
 	int lives;
 	int points;
 	bool dead;
-	int max_score;
+	int max_score = 0;
 
 	uint lose_fx;
 	uint hurt_fx;

@@ -2,10 +2,11 @@
 #define __j1WINDOW_H__
 
 #define SCREEN_HEIGHT 480
-#define SCREEN_WIDTH 1024 //640
+#define SCREEN_WIDTH 1024 
 #define SCREEN_SIZE 1
 #define MAP_WIDTH 3200
 #define MAP_HEIGHT 460
+#define CAMERA_LIMIT -2175
 
 #include "j1Module.h"
 

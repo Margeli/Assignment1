@@ -65,7 +65,7 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x = 0;
 	}
 
-	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > -2175)) { App->player->camera_movement = true; }
+	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT)) { App->player->camera_movement = true; }
 	
 	else { App->player->camera_movement = false; }
 
@@ -91,7 +91,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	p2SString title("Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
+	p2SString title("Level 1 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
 					App->player->lives,	App->player->points, App->player->max_score,
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,

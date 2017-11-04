@@ -278,11 +278,11 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 
 	p2SString ground = " ground";
 	set->ground_id_tiles = new uint[39];
-	memset(set->ground_id_tiles, 0, 39 * sizeof(uint));//33 number of tiles with attribute ground = true
+	memset(set->ground_id_tiles, 0, 39 * sizeof(uint));	//39 number of tiles with attribute ground = true
 
 	/*p2SString wall = " wall";
-	set->wall_id_tiles = new uint[33];
-	memset(set->wall_id_tiles, 0, 33 * sizeof(uint));*///COMMENTED IS FOR IF WE INCLUDE WALLS
+	set->wall_id_tiles = new uint[39];
+	memset(set->wall_id_tiles, 0, 39 * sizeof(uint));*///COMMENTED IS FOR IF WE INCLUDE WALLS
 	uint i = 0;
 	//uint j = 0;
 	

@@ -13,6 +13,9 @@
 #include "SDL/include/SDL_timer.h"
 
 #define SPEED 1
+#define LIVES 5
+#define PLAYERHEIGHT 65
+#define PLAYERWIDTH 45
 
 j1Player::j1Player() : j1Module()
 {
@@ -153,9 +156,9 @@ bool j1Player::Start()
 		ret = false;
 	}
 	
-	lives = 5;
+	lives = LIVES;
 	points = 0;
-	max_score = 0;
+	max_score = max_score;
 	dead = false;
 	speed = SPEED;
 	current_animation = &idle;
@@ -202,6 +205,16 @@ bool j1Player::Update(float dt)
 		App->render->camera.x = 0;
 
 		dead = false;
+	}
+
+	if (App->player->position.x == 200)	//PROVISIONAL
+	{
+		points += 10;
+	}
+
+	if (points > max_score)
+	{
+		max_score = points;
 	}
 
 	///////ATTACK MOVEMENT///////
@@ -289,7 +302,7 @@ bool j1Player::Update(float dt)
 			current_animation = &idle;
 	}
 
-	//JUMPING
+	///////JUMP MOVEMENT///////
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
@@ -331,14 +344,13 @@ bool j1Player::Update(float dt)
 		}		
 	}
 
-	if (can_jump) {
-
+	if (can_jump)
+	{
 		App->audio->PlayFx(jump_sound);
 		jump_pos = position.y;
 		jumping = true;
 		landing = false;
-		can_jump = false;
-		
+		can_jump = false;	
 	}
 
 	if (jumping) 
@@ -359,32 +371,33 @@ void j1Player::InitialPos()
 	position = { 50,100 };
 }
 
-void j1Player::OnCollision(Collider* c1, Collider* c2) {
+void j1Player::OnCollision(Collider* c1, Collider* c2) 
+{
 	int margin = 0;
-	switch (c2->type) {
-	case COLLIDER_GROUND:
-
-		switch (c1->CheckDirection(c2->rect)) {
-
-		case PLAYER_ABOVE:
-			position.y = c2->rect.y - 65 - margin;// 65 -> player height			
-			double_jump = true;
-			jumping = false;
-			landing = false;
+	switch (c2->type)
+	{
+		case COLLIDER_GROUND:
+			switch (c1->CheckDirection(c2->rect)) 
+				{
+				case PLAYER_ABOVE:
+					position.y = c2->rect.y - PLAYERHEIGHT - margin;		
+					double_jump = true;
+					jumping = false;
+					landing = false;
+					break;
+				case PLAYER_BELOW:
+ 					position.y = c2->rect.y + c2->rect.h + margin;
+					jumping = false;
+					landing = true;
+					break;
+				case PLAYER_RIGHT:
+ 					position.x = c2->rect.x + c2->rect.w + margin;
+					break;
+				case PLAYER_LEFT:
+					position.x = c2->rect.x - PLAYERWIDTH - margin;
+					break;
+				}
 			break;
-		case PLAYER_BELOW:
- 			position.y = c2->rect.y + c2->rect.h + margin;
-			jumping = false;
-			landing = true;
-			break;
-		case PLAYER_RIGHT:
- 			position.x = c2->rect.x + c2->rect.w + margin;
-			break;
-		case PLAYER_LEFT:
-			position.x = c2->rect.x - 46 - margin;//45 -> player width
-			break;
-		}
-		break;
 	}
 }
 
