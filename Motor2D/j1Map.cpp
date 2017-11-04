@@ -286,9 +286,8 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	uint i = 0;
 	//uint j = 0;
 	
-	for (pugi::xml_node& tile_node = tileset_node.child("tile"); tile_node; tile_node = tile_node.next_sibling("tile")) {
-
-		
+	for (pugi::xml_node& tile_node = tileset_node.child("tile"); tile_node; tile_node = tile_node.next_sibling("tile")) 
+	{	
 			if (tile_node.child("properties").child("property").attribute("value").as_bool())
 			{
 				bool is_ground = strcmp(ground.GetString(), tile_node.child("properties").child("property").attribute("name").as_string());
@@ -303,11 +302,7 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 					set->wall_id_tiles[j] = tile_node.attribute("id").as_uint();
 					j++;
 				}*/
-				
 			}
-	
-
-	
 	}
 	return ret;
 }
@@ -348,8 +343,8 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer){
-
+bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer)
+{
 	layer->name = node.attribute("name").as_string();
 	layer->height = node.attribute("height").as_uint();
 	layer->width = node.attribute("width").as_uint();

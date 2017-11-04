@@ -11,7 +11,6 @@
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "j1Enemies.h"
-#include "j1FlyingEnemie.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -35,10 +34,10 @@ bool j1Scene::Start()
 	{
 		App->map->Load("Map1.tmx");
 		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the player position from the last layer loaded from Tiled
-		initial_scene_pos_enemies = App->map->data.layers.At(2)->data->initial_enemie_position;
+		initial_scene_pos_enemies = App->map->data.layers.At(2)->data->initial_enemie_position;	// Should have the initial pos of enemies in a XML
 		App->player->position = initial_scene_pos;		
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
-		// Should have the initial pos of enemies in a XML
+		
 
 		PlaceEnemies();
 	}

@@ -266,6 +266,11 @@ bool j1Player::Update(float dt)
 		current_animation = &walk;
 	}
 
+	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	{
+		current_animation = &walk;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
 		current_animation = &idle;

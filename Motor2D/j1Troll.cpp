@@ -99,6 +99,8 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 
 void j1Troll::Move()
 {
+
+
 	//IA
 	//Pathfinding applied to platformers.
 

@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
+#include "j1Enemies.h"
 
 j1Scene2::j1Scene2() : j1Module()
 {
@@ -35,7 +36,7 @@ bool j1Scene2::Start()
 	{
 		App->map->Load("Map2.tmx");
 		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position;
-
+		initial_scene_pos_enemies = App->map->data.layers.At(2)->data->initial_enemie_position;	// Should have the initial pos of enemies in a XML
 		App->player->position= initial_scene_pos; 	
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 	}
@@ -154,4 +155,9 @@ void j1Scene2::SceneChange()
 	App->player->Start();
 	App->render->camera = { 0,0 };
 	App->scene->Start();
+}
+
+void j1Scene2::PlaceEnemies() const
+{
+	App->enemies->AddEnemy(TROLL, 100, 100);
 }
