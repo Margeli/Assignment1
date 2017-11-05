@@ -48,11 +48,27 @@ j1Player::j1Player() : j1Module()
 	attack_left.loop = true;
 	attack_left.speed = 0.08f;
 
-	death_right.PushBack({ 0,0,0,0 });
+	death_right.PushBack({ 0, 524, 49, 64 });
+	death_right.PushBack({ 49, 524, 48, 64 });
+	death_right.PushBack({ 97, 524, 48, 64 });
+	death_right.PushBack({ 144, 524, 47, 64 });
+	death_right.PushBack({ 191, 524, 47, 64 });
+	death_right.PushBack({ 238, 524, 52, 64 });
+	death_right.PushBack({ 290, 524, 60, 64 });
+	death_right.PushBack({ 356, 524, 60, 64 });	
+	death_right.PushBack({ 427, 524, 60, 64 });
 	death_right.loop = false;
 	death_right.speed = 0.07f;
 
-	death_left.PushBack({ 0,0,0,0 });
+	death_left.PushBack({ 0, 589, 44, 65 });
+	death_left.PushBack({ 48, 589, 44, 65 });
+	death_left.PushBack({ 96, 589, 44, 65 });
+	death_left.PushBack({ 144, 589, 45, 65 });
+	death_left.PushBack({ 190, 589, 48, 65 });
+	death_left.PushBack({ 239, 589, 51, 65 });
+	death_left.PushBack({ 291, 589, 59, 65 });
+	death_left.PushBack({ 358, 589, 62, 65 });
+	death_left.PushBack({ 430, 589, 62, 65 });
 	death_left.loop = false;
 	death_left.speed = 0.07f;
 
