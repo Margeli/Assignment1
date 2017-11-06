@@ -43,8 +43,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene2);
 
 	//----Entities
-	AddModule(player);	
+		
 	AddModule(enemies);
+	AddModule(player);
 	
 
 	//------collider & render (should be the lasts to update)

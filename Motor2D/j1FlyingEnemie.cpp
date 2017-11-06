@@ -7,6 +7,7 @@ j1FlyingEnemie::j1FlyingEnemie(int x, int y) : j1Enemy(x, y)
 {
 	
 	sprite_path = App->tex->Load("textures/Fly.png");
+	//----------NEED TO PUT ON XML animations.xml
 
 	fly_right.PushBack({ 0, 0, 47, 65 });
 	fly_right.PushBack({ 53, 0, 50, 65 });

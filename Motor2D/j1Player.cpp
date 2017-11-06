@@ -84,10 +84,8 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt)
 {
 	if (lifes == 0) { Dead(); }
-
 	
-	if (points > max_score)
-	{
+	if (points > max_score)	{
 		max_score = points;
 	}
 
@@ -270,7 +268,7 @@ void j1Player::InitialPos()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) 
 {
-	int margin = 1;
+	int margin = 2;
 	switch (c2->type)
 	{
 		case COLLIDER_GROUND:

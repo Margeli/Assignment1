@@ -4,7 +4,8 @@
 #include "j1Render.h"
 
 j1Enemy::j1Enemy(int x, int y) : position(x, y)
-{}
+{	
+}
 
 j1Enemy::~j1Enemy()
 {

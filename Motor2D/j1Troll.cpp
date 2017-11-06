@@ -8,26 +8,10 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 	
 	sprite_path = App->tex->Load("textures/Troll1.png");
 
-	idle_right.PushBack({ 0, 0, 81, 63 });
-	idle_right.PushBack({ 93, 0, 84, 65 });
-	idle_right.PushBack({ 187, 0, 88, 65 });
-	idle_right.PushBack({ 281, 0, 88, 63 });
-	idle_right.PushBack({ 375, 0, 86, 64 });
-	idle_right.PushBack({ 467, 0, 85, 65 });
-	idle_right.PushBack({ 561, 0, 85, 65 });
-	idle_right.loop = true; 
-	idle_right.speed = 0.2f;
-
-	idle_left.PushBack({ 0, 66, 85, 64 });
-	idle_left.PushBack({ 94, 67, 85, 63 });
-	idle_left.PushBack({ 187, 67, 86, 62 });
-	idle_left.PushBack({ 281, 67, 88, 63 });
-	idle_left.PushBack({ 375, 67, 85, 63 });
-	idle_left.PushBack({ 469, 68, 84, 62 });
-	idle_left.PushBack({ 561, 68, 81, 62 });
-	idle_left.loop = true;
-	idle_left.speed = 0.2f;
-
+	idle_right.LoadEnemyAnimations("idle_right", "troll");
+	idle_left.LoadEnemyAnimations("idle_left", "troll");
+	
+	//----------NEED TO PUT ON XML animations.xml
 	walk_right.PushBack({ 0, 264, 93, 62 });
 	walk_right.PushBack({ 93, 265, 93, 62 });
 	walk_right.PushBack({ 187, 262, 84, 64 });
