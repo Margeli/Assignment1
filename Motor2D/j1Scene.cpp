@@ -70,10 +70,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->player->position.y >= 750)
 	{
-		App->audio->PlayFx(App->player->die_fx);
-		App->player->lives--;
-		App->player->position = initial_scene_pos;
-		App->render->camera.x = 0;
+		App->player->LoseOneLife(initial_scene_pos);
 	}
 
 	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } 
@@ -91,7 +88,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 
 	p2SString title("Level 1 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
-					App->player->lives,	App->player->points, App->player->max_score,
+					App->player->lifes,	App->player->points, App->player->max_score,
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count());

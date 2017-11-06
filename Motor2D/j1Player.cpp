@@ -6,6 +6,7 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Audio.h"
+#include "j1Scene2.h"
 #include "j1Player.h"
 #include "p2Defs.h"
 #include "j1Animation.h"
@@ -13,7 +14,7 @@
 #include "SDL/include/SDL_timer.h"
 
 #define SPEED 1
-#define LIVES 5
+#define LIFES 5
 #define PLAYERHEIGHT 65
 #define PLAYERWIDTH 45
 
@@ -21,28 +22,9 @@ j1Player::j1Player() : j1Module()
 {
 	name.create("player");
 	graphics = nullptr;
+	lifes = LIFES;
 
-	attack_right.LoadAnimations("attack_right", this);
-	
-	attack_left.LoadAnimations("attack_left", this);
-		
-	death_right.LoadAnimations("death_right", this);
-	
-	death_left.LoadAnimations("death_left", this);
-			
-	idle.LoadAnimations("idle", this);
-	
-	idleleft.LoadAnimations("idleleft", this);
-	
-	jump.LoadAnimations("jump", this);
-
-	jumpleft.LoadAnimations("jumpleft", this);
-
-	walk.LoadAnimations("walk", this);
-
-	walkleft.LoadAnimations("walkleft", this);
-
-	run.LoadAnimations("run", this);
+	LoadPlayerAnimations();
 		
 }
 
@@ -61,21 +43,15 @@ bool j1Player::Start()
 
 	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	
 	graphics = App->tex->Load("textures/character.png");
+	if (!graphics)	{
+		LOG("Error loading player textures");
+		ret = false;
+	}
 
 	lose_fx = App->audio->LoadFx("audio/fx/lose.wav");
 	hurt_fx = App->audio->LoadFx("audio/fx/player_hurt.wav");
 	die_fx = App->audio->LoadFx("audio/fx/player_death.wav");
 
-	if (!graphics)
-	{
-		LOG("Error loading player textures");
-		ret = false;
-	}
-	
-	lives = LIVES;
-	points = 0;
-	max_score = max_score;
-	dead = false;
 	speed = SPEED;
 	current_animation = &idle;
 	jump_speed = 4.5f;
@@ -107,22 +83,9 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt)
 {
-	if (App->player->lives <= 0) { lives = 0; dead = true; }
+	if (lifes == 0) { Dead(); }
 
-	if (dead)
-	{
-		App->audio->PlayFx(lose_fx, 0);
-
-		App->player->CleanUp();
-		App->player->Start();
-
-		App->player->position.x = 50;
-		App->player->position.y = 100;
-		App->render->camera.x = 0;
-
-		dead = false;
-	}
-
+	
 	if (points > max_score)
 	{
 		max_score = points;
@@ -219,7 +182,7 @@ bool j1Player::Update(float dt)
 			current_animation = &idle;
 	}
 
-	///////JUMP MOVEMENT///////
+	//---------JUMP MOVEMENT--------
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
@@ -231,14 +194,11 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
 	{
-		App->audio->PlayFx(jump_sound, 0);
-
 		if(current_animation == &jump)
-		current_animation = &walkleft;
+			current_animation = &walkleft;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
-	{
-		App->audio->PlayFx(jump_sound, 0);
+	{		
 
 		if (current_animation == &jump)
 			current_animation = &walk;
@@ -254,8 +214,7 @@ bool j1Player::Update(float dt)
 		if (jumping== false && landing ==false  )
  			can_jump = true;
 
-		if (jumping == true && double_jump == true  ) 
-		{
+		if (jumping == true && double_jump == true  ){
  			can_jump = true;
  			double_jump = false;		
 		}		
@@ -276,11 +235,32 @@ bool j1Player::Update(float dt)
 		else { landing = true; }
 	}	
 
+	//----------------
+
 	if (playercoll!=nullptr) { playercoll->SetPos(position.x, position.y + 5); }
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
 	return true;
+}
+
+void j1Player::Dead(){
+	
+	App->audio->PlayFx(lose_fx, 0);
+	App->scene2->SceneChange();
+
+	lifes = LIFES;
+	points = 0;
+}
+
+void j1Player::LoseOneLife(iPoint respawn_pos) {
+
+	App->audio->PlayFx(App->player->die_fx);
+	lifes--;
+	position = respawn_pos;
+	App->render->camera.x = 0;
+
+
 }
 
 void j1Player::InitialPos() 
@@ -290,25 +270,25 @@ void j1Player::InitialPos()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) 
 {
-	int margin = 0;
+	int margin = 1;
 	switch (c2->type)
 	{
 		case COLLIDER_GROUND:
 			switch (c1->CheckDirection(c2->rect)) 
 				{
 				case PLAYER_ABOVE:
-					position.y = c2->rect.y - PLAYERHEIGHT - margin;		
+					position.y = c2->rect.y - PLAYERHEIGHT;		
 					double_jump = true;
 					jumping = false;
 					landing = false;
 					break;
 				case PLAYER_BELOW:
- 					position.y = c2->rect.y + c2->rect.h + margin;
+ 					position.y = c2->rect.y + c2->rect.h;
 					jumping = false;
 					landing = true;
 					break;
 				case PLAYER_RIGHT:
- 					position.x = c2->rect.x + c2->rect.w + margin;
+ 					position.x = c2->rect.x + c2->rect.w;
 					break;
 				case PLAYER_LEFT:
 					position.x = c2->rect.x - PLAYERWIDTH - margin;
@@ -334,4 +314,19 @@ bool j1Player::Save(pugi::xml_node& data) const
 	pos.append_attribute("y") = position.y;
 
 	return true;
+}
+
+void j1Player::LoadPlayerAnimations(){
+
+	attack_right.LoadAnimations("attack_right", this);
+	attack_left.LoadAnimations("attack_left", this);
+	death_right.LoadAnimations("death_right", this);
+	death_left.LoadAnimations("death_left", this);
+	idle.LoadAnimations("idle", this);
+	idleleft.LoadAnimations("idleleft", this);
+	jump.LoadAnimations("jump", this);
+	jumpleft.LoadAnimations("jumpleft", this);
+	walk.LoadAnimations("walk", this);
+	walkleft.LoadAnimations("walkleft", this);
+	run.LoadAnimations("run", this);
 }

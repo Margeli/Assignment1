@@ -26,6 +26,9 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2);
 
+	void Dead();
+
+	void LoseOneLife(iPoint respawn_pos);
 
 private:
 
@@ -41,18 +44,21 @@ private:
 	uint sword_sound;
 	uint playersteps;
 
+	uint lose_fx;
+	uint hurt_fx;
+	
+
+	void LoadPlayerAnimations();
+
 public:
 
+	uint die_fx;
 	bool camera_movement = false;
 	float speed;
-	int lives;
+	int lifes;
 	int points;
 	bool dead;
 	int max_score = 0;
-
-	uint lose_fx;
-	uint hurt_fx;
-	uint die_fx;
 
 	iPoint position;
 	void InitialPos();

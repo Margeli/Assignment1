@@ -80,7 +80,7 @@
       <animation x="423" y="260" w="46" h="65"/>
     </jumpleft>  
 
-    <attack_right loop="true" speed="0.08f">
+    <attack_right loop="false" speed="0.08f">
       <animation x="0" y="393" w="50" h="65"/>
       <animation x="54" y="393" w="40" h="65"/>
       <animation x="101" y="393" w="40" h="65"/>
@@ -93,7 +93,7 @@
       <animation x="451" y="393" w="47" h="65"/>      
     </attack_right>
 
-    <attack_left loop="true" speed="0.08f">
+    <attack_left loop="false" speed="0.08f">
       <animation x="0" y="459" w="44" h="65"/>
       <animation x="48" y="459" w="44" h="65"/>
       <animation x="97" y="459" w="44" h="65"/>
