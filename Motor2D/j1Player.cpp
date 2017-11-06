@@ -248,24 +248,22 @@ void j1Player::Dead(){
 	
 	App->audio->PlayFx(lose_fx, 0);
 	App->scene2->SceneChange();
-
+	 
 	lifes = LIFES;
 	points = 0;
 }
 
-void j1Player::LoseOneLife(iPoint respawn_pos) {
-
-	App->audio->PlayFx(App->player->die_fx);
-	lifes--;
-	position = respawn_pos;
-	App->render->camera.x = 0;
-
-
+void j1Player::LoseOneLife(iPoint respawn_pos) 
+{
+		App->audio->PlayFx(App->player->die_fx);
+		lifes--;
+		position = respawn_pos;
+		App->render->camera.x = 0;
 }
 
 void j1Player::InitialPos() 
 {
-	position = { 50,100 };
+	position = { 50, 100 };
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
@@ -274,7 +272,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	switch (c2->type)
 	{
 	case COLLIDER_ENEMIE:
-		if (App->scene2->active) {
+		if (App->scene2->active) 
+		{
 			LoseOneLife(App->scene2->initial_scene_pos);
 			break;
 		}
@@ -325,8 +324,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
-void j1Player::LoadPlayerAnimations(){
-
+void j1Player::LoadPlayerAnimations()
+{
 	attack_right.LoadAnimations("attack_right", this);
 	attack_left.LoadAnimations("attack_left", this);
 	death_right.LoadAnimations("death_right", this);

@@ -165,7 +165,87 @@
         <animation x="561" y="68" w="81" h="65"/>
       </idle_left>
 
-    
+      <walk_right loop="true" speed="0.08f">       
+       <animation x="0" y="264" w="93" h="62"/>
+       <animation x="93" y="265" w="93" h="62"/>
+       <animation x="187" y="262" w="84" h="64"/>
+       <animation x="281" y="262" w="78" h="64"/>
+       <animation x="376" y="262" w="78" h="64"/>
+       <animation x="467" y="262" w="83" h="64"/>
+       <animation x="562" y="263" w="90" h="63"/>
+     </walk_right>
+
+      <walk_left loop="true" speed="0.08f">
+        <animation x="0" y="327" w="93" h="62"/>
+        <animation x="93" y="327" w="93" h="62"/>
+        <animation x="187" y="327" w="84" h="64"/>
+        <animation x="281" y="327" w="78" h="64"/>
+        <animation x="376" y="327" w="78" h="64"/>
+        <animation x="467" y="327" w="83" h="64"/>
+        <animation x="562" y="327" w="90" h="63"/>
+      </walk_left>
+
+      <jump_right loop="true" speed="0.08f">
+        <animation x="0" y="132" w="82" h="62"/>
+        <animation x="93" y="132" w="88" h="62"/>
+        <animation x="187" y="132" w="93" h="63"/>
+        <animation x="281" y="132" w="94" h="63"/>
+        <animation x="375" y="132" w="92" h="63"/>
+        <animation x="467" y="132" w="94" h="63"/>
+        <animation x="562" y="132" w="92" h="63"/>
+      </jump_right>
+
+      <jump_left loop="true" speed="0.08f">
+        <animation x="0" y="197" w="82" h="62"/>
+        <animation x="93" y="197" w="88" h="62"/>
+        <animation x="187" y="197" w="93" h="63"/>
+        <animation x="281" y="197" w="94" h="63"/>
+        <animation x="375" y="197" w="92" h="63"/>
+        <animation x="467" y="197" w="94" h="63"/>
+        <animation x="562" y="197" w="92" h="63"/>
+      </jump_left>
+
+      <attack_right loop="true" speed="0.08f">
+        <animation x="0" y="393" w="88" h="94"/>
+        <animation x="93" y="393" w="82" h="94"/>
+        <animation x="187" y="393" w="79" h="94"/>
+        <animation x="281" y="393" w="79" h="94"/>
+        <animation x="375" y="393" w="84" h="94"/>
+        <animation x="467" y="393" w="82" h="94"/>
+        <animation x="561" y="393" w="85" h="94"/>        
+      </attack_right>
+
+      <attack_left loop="true" speed="0.08f">
+        <animation x="0" y="487" w="85" h="94"/>
+        <animation x="93" y="487" w="85" h="94"/>
+        <animation x="187" y="487" w="85" h="94"/>
+        <animation x="280" y="487" w="85" h="94"/>
+        <animation x="375" y="487" w="85" h="94"/>
+        <animation x="467" y="487" w="85" h="94"/>
+        <animation x="561" y="487" w="85" h="94"/>
+      </attack_left>
+
+      <death_right loop="true" speed="0.08f"/>
+      <animation x="0" y="581" w="72" h="57"/>
+      <animation x="93" y="581" w="88" h="57"/>
+      <animation x="187" y="581" w="102" h="57"/>
+      <animation x="294" y="581" w="100" h="57"/>
+      <animation x="395" y="581" w="92" h="57"/>
+      <animation x="489" y="581" w="89" h="57"/>
+      <animation x="579" y="581" w="," h="57"/>
+      <death_right/>
+
+      <death_left loop="true" speed="0.08f"/>
+      <animation x="0" y="638" w="72" h="57"/>
+      <animation x="93" y="638" w="88" h="57"/>
+      <animation x="187" y="638" w="102" h="57"/>
+      <animation x="294" y="638" w="100" h="57"/>
+      <animation x="395" y="638" w="92" h="57"/>
+      <animation x="489" y="638" w="89" h="57"/>
+      <animation x="579" y="638" w="91" h="57"/>
+      <death_left/>
+      
+
     </troll>
     
     

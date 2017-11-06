@@ -16,6 +16,7 @@ public:
 
 	void OnCollision(Collider* c1, int num_enemy);
 	
+	void LoadTrollAnimations();
 
 private:
 
