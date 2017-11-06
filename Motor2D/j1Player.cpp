@@ -22,146 +22,28 @@ j1Player::j1Player() : j1Module()
 	name.create("player");
 	graphics = nullptr;
 
-	attack_right.PushBack({ 0, 393, 50, 65 });
-	attack_right.PushBack({ 54, 393, 40, 65 });
-	attack_right.PushBack({ 101, 393, 40, 65 });
-	attack_right.PushBack({ 148, 393, 40, 65 });
-	attack_right.PushBack({ 192, 393, 43, 65 });
-	attack_right.PushBack({ 239, 393, 48, 65 });
-	attack_right.PushBack({ 290, 393, 50, 65 });
-	attack_right.PushBack({ 344, 393, 50, 65 });
-	attack_right.PushBack({ 396, 393, 52, 65 });
-	attack_right.PushBack({ 451, 393, 47, 65 });
-	attack_right.loop = true;
-	attack_right.speed = 0.08f;
+	attack_right.LoadAnimations("attack_right", this);
+	
+	attack_left.LoadAnimations("attack_left", this);
+		
+	death_right.LoadAnimations("death_right", this);
+	
+	death_left.LoadAnimations("death_left", this);
+			
+	idle.LoadAnimations("idle", this);
+	
+	idleleft.LoadAnimations("idleleft", this);
+	
+	jump.LoadAnimations("jump", this);
 
-	attack_left.PushBack({ 0, 459, 44, 65 });
-	attack_left.PushBack({ 48, 459, 44, 65 });
-	attack_left.PushBack({ 97, 459, 44, 65 });
-	attack_left.PushBack({ 144, 459, 44, 65 });
-	attack_left.PushBack({ 189, 459, 44, 65 });
-	attack_left.PushBack({ 239, 459, 48, 65 });
-	attack_left.PushBack({ 291, 459, 50, 65 });
-	attack_left.PushBack({ 345, 459, 50, 65 });
-	attack_left.PushBack({ 398, 459, 52, 65 });
-	attack_left.PushBack({ 455, 459, 50, 65 });
-	attack_left.loop = true;
-	attack_left.speed = 0.08f;
+	jumpleft.LoadAnimations("jumpleft", this);
 
-	death_right.PushBack({ 0, 524, 49, 64 });
-	death_right.PushBack({ 49, 524, 48, 64 });
-	death_right.PushBack({ 97, 524, 48, 64 });
-	death_right.PushBack({ 144, 524, 47, 64 });
-	death_right.PushBack({ 191, 524, 47, 64 });
-	death_right.PushBack({ 238, 524, 52, 64 });
-	death_right.PushBack({ 290, 524, 60, 64 });
-	death_right.PushBack({ 356, 524, 60, 64 });	
-	death_right.PushBack({ 427, 524, 60, 64 });
-	death_right.loop = false;
-	death_right.speed = 0.07f;
+	walk.LoadAnimations("walk", this);
 
-	death_left.PushBack({ 0, 589, 44, 65 });
-	death_left.PushBack({ 48, 589, 44, 65 });
-	death_left.PushBack({ 96, 589, 44, 65 });
-	death_left.PushBack({ 144, 589, 45, 65 });
-	death_left.PushBack({ 190, 589, 48, 65 });
-	death_left.PushBack({ 239, 589, 51, 65 });
-	death_left.PushBack({ 291, 589, 59, 65 });
-	death_left.PushBack({ 358, 589, 62, 65 });
-	death_left.PushBack({ 430, 589, 62, 65 });
-	death_left.loop = false;
-	death_left.speed = 0.07f;
+	walkleft.LoadAnimations("walkleft", this);
 
-	idle.PushBack({ 0, 0, 46, 65 });
-	idle.PushBack({ 47, 0, 46, 65 });
-	idle.PushBack({ 94, 0, 46, 65 });
-	idle.PushBack({ 141, 0, 46, 65 });
-	idle.PushBack({ 188, 0, 46, 65 });
-	idle.PushBack({ 235, 0, 46, 65 });
-	idle.PushBack({ 282, 0, 46, 65 });
-	idle.PushBack({ 329, 0, 46, 65 });
-	idle.PushBack({ 376, 0, 46, 65 });
-	idle.PushBack({ 423, 0, 46, 65 });
-	idle.loop = true;
-	idle.speed = 0.07f;
-
-	jump.PushBack({ 0, 65, 46, 65 });
-	jump.PushBack({ 47, 65, 46, 65 });
-	jump.PushBack({ 94, 65, 46, 65 });
-	jump.PushBack({ 141, 65, 46, 65 });
-	jump.PushBack({ 188, 65, 46, 65 });
-	jump.PushBack({ 235, 65, 46, 65 });
-	jump.PushBack({ 282, 65, 46, 65 });
-	jump.PushBack({ 329, 65, 46, 65 });
-	jump.PushBack({ 376, 65, 46, 65 });
-	jump.PushBack({ 423, 65, 46, 65 });
-	jump.loop = false;
-	jump.speed = 0.06f;
-
-	walk.PushBack({ 0, 130, 46, 65 });
-	walk.PushBack({ 47, 130, 46, 65 });
-	walk.PushBack({ 94, 130, 46, 65 });
-	walk.PushBack({ 141, 130, 46, 65 });
-	walk.PushBack({ 188, 130, 46, 65 });
-	walk.PushBack({ 235, 130, 46, 65 });
-	walk.PushBack({ 282, 130, 46, 65 });
-	walk.PushBack({ 329, 130, 46, 65 });
-	walk.PushBack({ 376, 130, 46, 65 });
-	walk.PushBack({ 423, 130, 46, 65 });
-	walk.loop = true;
-	walk.speed = 0.06f;
-
-	idleleft.PushBack({ 0, 195, 46, 65 });
-	idleleft.PushBack({ 47, 195, 46, 65 });
-	idleleft.PushBack({ 94, 195, 46, 65 });
-	idleleft.PushBack({ 141, 195, 46, 65 });
-	idleleft.PushBack({ 188, 195, 46, 65 });
-	idleleft.PushBack({ 235, 195, 46, 65 });
-	idleleft.PushBack({ 282, 195, 46, 65 });
-	idleleft.PushBack({ 329, 195, 46, 65 });
-	idleleft.PushBack({ 376, 195, 46, 65 });
-	idleleft.PushBack({ 423, 195, 46, 65 });
-	idleleft.loop = true;
-	idleleft.speed = 0.07f;
-
-	jumpleft.PushBack({ 0, 260, 46, 65 });
-	jumpleft.PushBack({ 47, 260, 46, 65 });
-	jumpleft.PushBack({ 94, 260, 46, 65 });
-	jumpleft.PushBack({ 141, 260, 46, 65 });
-	jumpleft.PushBack({ 188, 260, 46, 65 });
-	jumpleft.PushBack({ 235, 260, 46, 65 });
-	jumpleft.PushBack({ 282, 260, 46, 65 });
-	jumpleft.PushBack({ 329, 260, 46, 65 });
-	jumpleft.PushBack({ 376, 260, 46, 65 });
-	jumpleft.PushBack({ 423, 260, 46, 65 });
-	jumpleft.loop = false;
-	jumpleft.speed = 0.06f;
-
-	walkleft.PushBack({ 0, 326, 46, 65 });
-	walkleft.PushBack({ 47, 326, 46, 65 });
-	walkleft.PushBack({ 94, 326, 46, 65 });
-	walkleft.PushBack({ 141, 326, 46, 65 });
-	walkleft.PushBack({ 188, 326, 46, 65 });
-	walkleft.PushBack({ 235, 326, 46, 65 });
-	walkleft.PushBack({ 282, 326, 46, 65 });
-	walkleft.PushBack({ 329, 326, 46, 65 });
-	walkleft.PushBack({ 376, 326, 46, 65 });
-	walkleft.PushBack({ 423, 326, 46, 65 });
-	walkleft.loop = true;
-	walkleft.speed = 0.06f;
-
-	run.PushBack({ 0, 130, 46, 65 });
-	run.PushBack({ 47, 130, 46, 65 });
-	run.PushBack({ 94, 130, 46, 65 });
-	run.PushBack({ 141, 130, 46, 65 });
-	run.PushBack({ 188, 130, 46, 65 });
-	run.PushBack({ 235, 130, 46, 65 });
-	run.PushBack({ 282, 130, 46, 65 });
-	run.PushBack({ 329, 130, 46, 65 });
-	run.PushBack({ 376, 130, 46, 65 });
-	run.PushBack({ 423, 130, 46, 65 });
-	run.loop = true;
-	run.speed = 2.0f;
+	run.LoadAnimations("run", this);
+		
 }
 
 j1Player::~j1Player()

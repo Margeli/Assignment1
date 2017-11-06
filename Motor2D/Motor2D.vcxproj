@@ -128,6 +128,7 @@
     <None Include="..\Game\maps\Map2.tmx" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\Game\animations.xml" />
     <Xml Include="..\Game\config.xml" />
     <Xml Include="..\Game\save_game.xml" />
   </ItemGroup>
