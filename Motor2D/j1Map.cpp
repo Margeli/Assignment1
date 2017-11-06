@@ -377,12 +377,19 @@ void j1Map::PutMapColliders(int current_id, iPoint position)
 {
 	for (uint i = 0; i < GROUND_TILES; i++) 
 	{ 
-		
-		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1) 
+		if (93 == current_id - 1 || 85 == current_id - 1){
+			App->collis->AddCollider({ 7+position.x, position.y,data.tilesets.At(0)->data->tile_width-7, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
+			break;
+		}
+		if (95 == current_id - 1 || 87 == current_id - 1) {		
+			App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width - 7, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
+			break;
+		}
+		if (data.tilesets.At(0)->data->ground_id_tiles[i] == current_id - 1)
 		{
-			
+
 			App->collis->AddCollider({ position.x, position.y,data.tilesets.At(0)->data->tile_width, data.tilesets.At(0)->data->tile_height }, COLLIDER_GROUND);
-			continue;
+			break;
 		}
 	}
 }

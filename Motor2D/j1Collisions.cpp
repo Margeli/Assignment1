@@ -15,11 +15,25 @@ j1Collisions::j1Collisions(): j1Module()
 {
 	name.create("collisions");
 
-	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-
-	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMIE] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_ATTACK] = false;
+	
 	matrix[COLLIDER_GROUND][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_GROUND][COLLIDER_ENEMIE] = true;
+	matrix[COLLIDER_GROUND][COLLIDER_ATTACK] = false;
+
+	matrix[COLLIDER_ENEMIE][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMIE][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_ENEMIE][COLLIDER_ENEMIE] = false;
+	matrix[COLLIDER_ENEMIE][COLLIDER_ATTACK] = true;
+
+	matrix[COLLIDER_ATTACK][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_ATTACK][COLLIDER_GROUND] = false;
+	matrix[COLLIDER_ATTACK][COLLIDER_ENEMIE] = true;
+	matrix[COLLIDER_ATTACK][COLLIDER_ATTACK] = false;
 }
 
 j1Collisions::~j1Collisions(){}
@@ -82,24 +96,7 @@ bool j1Collisions::Update(float dt) {
 				}
 			}
 		}
-		else if (colliders[i]->type == COLLIDER_ENEMIE)
-		{
-			c1 = colliders[i];
-
-			for (uint k = 0; k < MAX_COLLIDERS; ++k)
-			{
-				if (colliders[k] == nullptr || i == k)
-					continue;
-
-				c2 = colliders[k];
-
-				if (c1->CheckCollision(c2->rect) == true)
-				{
-					if (matrix[c1->type][c2->type] && c1->callback)
-						c1->callback->OnCollision(c1, c2);
-				}
-			}
-		}
+		
 	}
 
 	DebugDraw();
@@ -146,6 +143,7 @@ Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module*
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
+		
 		if (colliders[i] == nullptr)
 		{
 			ret = colliders[i] = new Collider(rect, type, callback);

@@ -118,6 +118,7 @@ bool j1Scene2::CleanUp()
 	App->collis->CleanUp();
 	App->tex->CleanUp();
 	App->player->CleanUp();
+	App->enemies->CleanUp();
 
 	return true;
 }

@@ -13,6 +13,7 @@ enum COLLIDER_TYPE
 	COLLIDER_PLAYER,
 	COLLIDER_GROUND,
 	COLLIDER_ENEMIE,
+	COLLIDER_ATTACK,
 	COLLIDER_MAX
 };
 
@@ -24,16 +25,6 @@ enum CollisionDirection
 	PLAYER_RIGHT,
 	PLAYER_LEFT
 };
-
-enum EnemieCollisionDirection
-{
-	NO_ENEMIE_COLLISION = 0,
-	ENEMIE_ABOVE,
-	ENEMIE_BELOW,
-	ENEMIE_RIGHT,
-	ENEMIE_LEFT
-};
-
 
 struct Collider
 {

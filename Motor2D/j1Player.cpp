@@ -6,6 +6,7 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Audio.h"
+#include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "p2Defs.h"
@@ -83,11 +84,12 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt)
 {
-	if (lifes == 0) { Dead(); }
+	if (lifes == 0) 
+		Dead(); 
 	
-	if (points > max_score)	{
+	if (points > max_score)	
 		max_score = points;
-	}
+	
 
 	///////ATTACK MOVEMENT///////
 
@@ -266,33 +268,42 @@ void j1Player::InitialPos()
 	position = { 50,100 };
 }
 
-void j1Player::OnCollision(Collider* c1, Collider* c2) 
+void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	int margin = 2;
 	switch (c2->type)
 	{
-		case COLLIDER_GROUND:
-			switch (c1->CheckDirection(c2->rect)) 
-				{
-				case PLAYER_ABOVE:
-					position.y = c2->rect.y - PLAYERHEIGHT;		
-					double_jump = true;
-					jumping = false;
-					landing = false;
-					break;
-				case PLAYER_BELOW:
- 					position.y = c2->rect.y + c2->rect.h;
-					jumping = false;
-					landing = true;
-					break;
-				case PLAYER_RIGHT:
- 					position.x = c2->rect.x + c2->rect.w;
-					break;
-				case PLAYER_LEFT:
-					position.x = c2->rect.x - PLAYERWIDTH - margin;
-					break;
-				}
+	case COLLIDER_ENEMIE:
+		if (App->scene2->active) {
+			LoseOneLife(App->scene2->initial_scene_pos);
 			break;
+		}
+		else if (App->scene->active) {
+			LoseOneLife(App->scene->initial_scene_pos);
+			break;
+		}
+	case COLLIDER_GROUND:
+		switch (c1->CheckDirection(c2->rect))
+		{
+		case PLAYER_ABOVE:
+			position.y = c2->rect.y - PLAYERHEIGHT;
+			double_jump = true;
+			jumping = false;
+			landing = false;
+			break;
+		case PLAYER_BELOW:
+			position.y = c2->rect.y + c2->rect.h;
+			jumping = false;
+			landing = true;
+			break;
+		case PLAYER_RIGHT:
+			position.x = c2->rect.x + c2->rect.w;
+			break;
+		case PLAYER_LEFT:
+			position.x = c2->rect.x - PLAYERWIDTH - margin;
+			break;
+		}
+		break;
 	}
 }
 

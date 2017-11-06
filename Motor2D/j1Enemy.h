@@ -11,12 +11,10 @@ struct Collider;
 
 class j1Enemy
 {
-protected:
+public:
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 
-
-public:
 	iPoint position;
 	SDL_Texture* sprite_path = nullptr;
 

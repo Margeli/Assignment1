@@ -28,7 +28,7 @@ j1FlyingEnemie::j1FlyingEnemie(int x, int y) : j1Enemy(x, y)
 	fly_left.speed = 0.2f;
 
 
-	collider = App->collis->AddCollider({ position.x, position.y, 0, 0 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
+	collider = App->collis->AddCollider({ position.x, position.y, 50, 60 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
 
 	animation = &fly_left;
 }
