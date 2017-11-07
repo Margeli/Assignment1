@@ -110,10 +110,15 @@ bool j1Player::Update(float dt)
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
 	{
-		if (current_animation == &attack_right)
+
+		if (current_animation == &attack_right){
+			attack_right.Reset();
 			current_animation = &idle;
-		else if (current_animation == &attack_left)
+	}
+		else if (current_animation == &attack_left) {
+			attack_left.Reset();
 			current_animation = &idleleft;
+		}
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) { App->audio->PlayFx(sword_sound); }
 
