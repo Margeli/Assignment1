@@ -1,4 +1,4 @@
-# Game Development Assignment 1
+# Game Development Assignment 2
 
 **[GitHub](https://github.com/Margeli/Assignment1)**
 
@@ -8,15 +8,24 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 
 ## Features
 
-- Two levels.
+- Two levels (improved).
 - Save and load.
 - Moving character with jump and run habilities.
 - Parallax effect.
 - Music.
 - Additional feature is double jump.
+- Animations loaded from XML as innovation.
+- Full live-die cicle.
+- Points and maximum points.
+- Walking enemies (Trolls).
+- Flying enemies (Flyes).
+- Pathfinding (A*) for enemies AI.
+- Sound effects.
+
 
 ## Controlls
 
+- "RETURN" to attack.
 - "ASWD" or "LEFT,DOWN,UP,RIGHT" arrows to move the character.
 - "SPACE" bar to jump. Press it twice and you'll get a double jump.
 - "LEFT SHIFT" key to sprint.
