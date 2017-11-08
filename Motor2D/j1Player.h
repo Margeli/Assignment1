@@ -8,6 +8,10 @@
 
 struct SDL_Texture;
 
+enum Player_Facing {
+	RIGHT, 
+	LEFT};
+
 class j1Player : public j1Module
 {
 public:
@@ -31,6 +35,8 @@ public:
 	void LoseOneLife(iPoint respawn_pos);
 
 private:
+
+	Player_Facing facing = RIGHT;
 
 	float jump_limit;
 	float jump_pos;
@@ -61,7 +67,7 @@ public:
 
 	bool dead = false;
 	bool hit = false;
-	bool player_hurted = false;
+	
 	Uint32 hit_time;
 	
 	int max_score = 0;

@@ -152,7 +152,7 @@ void j1Scene::SceneChange()
 
 void j1Scene::PlaceEnemies() const{
 
-	//App->enemies->AddEnemy(TROLL, 250, 514);
+	App->enemies->AddEnemy(TROLL, 250, 514);
 	//App->enemies->AddEnemy(TROLL, 800, 420);
-	App->enemies->AddEnemy(FLYING, 400, 100);
+	//App->enemies->AddEnemy(FLYING, 400, 100);
 }
