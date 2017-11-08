@@ -9,9 +9,9 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 
 	LoadTrollAnimations();
 
-	collider = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
+	enemie_collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
 
-	animation = &idle_right;
+	animation = &idle_left;
 }
 
 // Should have the initial pos of enemies in a XML
@@ -38,7 +38,7 @@ void j1Troll::Move()
 
 	}*/
 
-	collider->SetPos(position.x, position.y + 5); 
+	if (enemie_collider != nullptr) { enemie_collider->SetPos(position.x, position.y); }
 
 }
 

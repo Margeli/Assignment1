@@ -15,7 +15,10 @@ public:
 	void Move();
 
 	void OnCollision(Collider* c1, int num_enemy);
+
+	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
 	
+	void LoadFlyAnimations();
 
 public:
 		

@@ -4,7 +4,6 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "p2Log.h"
-
 #include "j1Troll.h"
 #include "j1FlyingEnemie.h"
 
@@ -121,7 +120,6 @@ bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 			queue[i].x = x;
 			queue[i].y = y;
 			
-
 			ret = true;
 			break;
 		}

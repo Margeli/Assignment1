@@ -13,7 +13,7 @@ class j1Enemy
 {
 public:
 	Animation* animation = nullptr;
-	Collider* collider = nullptr;
+	Collider* enemie_collider = nullptr;
 
 	iPoint position;
 	SDL_Texture* sprite_path = nullptr;

@@ -11,12 +11,12 @@
 	<scene2>
 		<activated true="false" />
 	</scene2>
-	<player>
-		<position x="3085" y="95" />
-	</player>
 	<enemies />
+	<player>
+		<position x="50" y="396" />
+	</player>
 	<collisions />
 	<renderer>
-		<camera x="-2175" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

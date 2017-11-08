@@ -49,7 +49,6 @@ private:
 	uint lose_fx;
 	uint hurt_fx;
 	
-
 	void LoadPlayerAnimations();
 
 public:
@@ -60,9 +59,9 @@ public:
 	int lifes;
 	int points;
 
-
-	bool dead= false;
-	bool hit= false;
+	bool dead = false;
+	bool hit = false;
+	bool player_hurted = false;
 	Uint32 hit_time;
 	
 	int max_score = 0;
