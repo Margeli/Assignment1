@@ -35,10 +35,12 @@ private:
 	float jump_limit;
 	float jump_pos;
 	float jump_speed;	
+	bool walking = false;
 	bool landing = false;
 	bool can_jump = false;
 	bool jumping = false;
 	bool double_jump = true;
+	void JumpReset();
 
 	uint jump_sound;
 	uint sword_sound;
@@ -57,11 +59,16 @@ public:
 	float speed;
 	int lifes;
 	int points;
-	bool dead;
+
+
+	bool dead= false;
+	bool hit= false;
+	Uint32 hit_time;
+	
 	int max_score = 0;
 
 	iPoint position;
-	void InitialPos();
+
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
