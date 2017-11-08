@@ -121,6 +121,7 @@ bool j1Player::Update(float dt)
 	{
 		position.x += speed * 1.25f;
 		walking = true;
+		facing = RIGHT;
 
 		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 
@@ -132,6 +133,7 @@ bool j1Player::Update(float dt)
 	{
 		position.x += speed;
 		walking = true;
+		facing = RIGHT;
 
 		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 		if (current_animation != &jump) { current_animation = &walk; }
@@ -156,7 +158,7 @@ bool j1Player::Update(float dt)
 	{
 		position.x -= speed * 1.0f;
 		walking = true;
-
+		facing = LEFT;
 		if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 		
 		if (current_animation != &jump)
@@ -167,7 +169,7 @@ bool j1Player::Update(float dt)
 	{
 		walking = true;
 		position.x -= speed;
-
+		facing = LEFT;
 		if (current_animation != &jump)
 			current_animation = &walkleft;
 	}
@@ -271,12 +273,14 @@ void j1Player::LoseOneLife(iPoint respawn_pos)
 
 	App->audio->PlayFx(App->player->die_fx);
 
-	if (current_animation == &walk || current_animation == &idle)
+	if (facing == RIGHT)
+	{
 		current_animation = &death_right;
-	else if (current_animation == &walkleft || current_animation == &idleleft)
+	}
+	else if (facing == LEFT)
+	{
 		current_animation = &death_left;
-
-	current_animation = &death_right;
+	}
 
 	if (current_animation->Finished() == true)
 	{
@@ -285,6 +289,7 @@ void j1Player::LoseOneLife(iPoint respawn_pos)
 		App->render->camera.x = 0;
 		current_animation->Reset();
 		current_animation = &idle;
+		walking = false;
 		hit_time = SDL_GetTicks();
 		hit = true;
 		player_hurted = false;

@@ -78,7 +78,7 @@ bool j1Scene::Update(float dt)
 
 	//
 
-	if (App->player->position.y >= BOTTOM_SCENE_LIMIT) {	App->player->LoseOneLife(initial_scene_pos);} 
+	if (App->player->position.y >= BOTTOM_SCENE_LIMIT) {App->player->LoseOneLife(initial_scene_pos);} 
 	
 	if (App->player->position.x >= RIGHT_SCENE_LIMIT)	
 	{ 

@@ -8,9 +8,11 @@
 
 struct SDL_Texture;
 
-enum Player_Facing {
+enum Player_Facing
+{
 	RIGHT, 
-	LEFT};
+	LEFT
+};
 
 class j1Player : public j1Module
 {
@@ -74,7 +76,6 @@ public:
 	int max_score = 0;
 
 	iPoint position;
-
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;

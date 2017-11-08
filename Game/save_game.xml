@@ -13,7 +13,7 @@
 	</scene2>
 	<enemies />
 	<player>
-		<position x="50" y="396" />
+		<position x="64" y="479" />
 	</player>
 	<collisions />
 	<renderer>
