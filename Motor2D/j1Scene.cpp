@@ -59,28 +59,24 @@ bool j1Scene::Update(float dt)
 		
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->player->position.x = 50;
-		App->player->position.y = 100;
+		App->player->position = initial_scene_pos;
 		App->render->camera.x = 0;
 	}
-	if (App->player->position.x <= -App->render->camera.x) { App->player->position.x++; }
-	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT)) { App->player->camera_movement = true; }
+	/*if (App->player->player_position.x <= -App->render->camera.x) { // No idea what it does but all works well without it.
+		App->player->player_position.x++; 
+	}*/
+
+	//-----CAMERA MOVEMENT
+	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT)) { 
+		App->player->camera_movement = true; }
 
 	else { App->player->camera_movement = false; }
 
-	if (App->player->position.y >= 750)
-	{
-		App->player->LoseOneLife(initial_scene_pos);
-	}
+	//-----
 
-	if (App->player->position.x <= 35 ) { App->player->position.x = 35; } 
-
-	if (App->player->position.x >= 3152 && App->player->position.y > 160)
-	{
-		App->player->position.x = 3152;
-	}
-	else if (App->player->position.x >= 3152 && App->player->position.y < 160)
-	{
+	if (App->player->position.y >= BOTTOM_SCENE_LIMIT){	App->player->LoseOneLife(initial_scene_pos);} //Lower map limit
+	
+	if (App->player->position.x >= RIGHT_SCENE_LIMIT)	{ //Scene1 end
 		LOG("End of level 1!");
 		SceneChange();
 	}
@@ -125,7 +121,7 @@ bool j1Scene::Load(pugi::xml_node& data)
 
 	bool scene_active = activated.attribute("true").as_bool();
 
-	if ((scene_active == false) && active) { SceneChange(); }			//NEED TO PUT FADING
+	if ((scene_active == false) && active) { SceneChange(); }			
 
 	return true;
 }

@@ -39,8 +39,10 @@ bool j1Scene2::Start()
 		// Should have the initial pos of enemies in a XML
 		App->player->position= initial_scene_pos; 	
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
-	}
 
+
+		PlaceEnemies();
+	}
 	return true;
 }
 
@@ -57,34 +59,23 @@ bool j1Scene2::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		SceneChange();
-		App->player->position.x = 50;
-		App->player->position.y = 100;
-		App->render->camera.x = 0;
-	}
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {	SceneChange();	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->player->position.x = 0;
-		App->player->position.y = 100;
+		App->player->position = initial_scene_pos;
 		App->render->camera.x = 0;
 	}
-	if (App->player->position.x <= -App->render->camera.x) { App->player->position.x++; }
-	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x> CAMERA_LIMIT)) { App->player->camera_movement = true; }
+	//if (App->player->player_position.x <= -App->render->camera.x) { App->player->player_position.x++; }
+
+	//-----CAMERA MOVEMENT
+	if (App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x> CAMERA_LIMIT)) {
+		App->player->camera_movement = true; }
 
 	else { App->player->camera_movement = false; }
+	//-----
 
-	if (App->player->position.y >= 750)
-	{
-		App->player->LoseOneLife(initial_scene_pos);
-		
-	}
-
-	if (App->player->position.x <= 35) { App->player->position.x = 35; }
-
-	if (App->player->position.y <= 0) { App->player->position.y = 0; }	
+	if (App->player->position.y >= BOTTOM_SCENE_LIMIT){	App->player->LoseOneLife(initial_scene_pos);}
 
 	App->map->Draw();
 
@@ -151,7 +142,8 @@ void j1Scene2::SceneChange()
 	CleanUp();
 	
 	App->player->Start();
-	
+	App->enemies->Start();
+	App->collis->Start();
 	App->render->camera = { 0,0 };
 	App->scene->Start();
 }
