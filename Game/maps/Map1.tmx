@@ -5378,7 +5378,7 @@
   <properties>
    <property name="speed" type="float" value="1"/>
    <property name="xpos" type="int" value="50"/>
-   <property name="ypos" type="int" value="80"/>
+   <property name="ypos" type="int" value="0"/>
   </properties>
   <data>
    <tile gid="38"/>

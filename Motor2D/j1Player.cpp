@@ -88,7 +88,7 @@ bool j1Player::Update(float dt)
 {
 	///////ATTACK MOVEMENT///////
 
-	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT && hit != true)
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT && player_hurted != true)
 	{
 		App->audio->PlayFx(sword_sound);
 
@@ -102,7 +102,7 @@ bool j1Player::Update(float dt)
 			current_animation = &attack_left;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP && hit != true)
+	else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP && player_hurted != true)
 	{
 		if (current_animation == &attack_right) {
 			attack_right.Reset();
@@ -117,7 +117,7 @@ bool j1Player::Update(float dt)
 	///////RIGHT MOVEMENT///////
 
 	//RUNNING
-	if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) && hit != true)
+	if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) && player_hurted != true)
 	{
 		position.x += speed * 1.25f;
 		walking = true;
@@ -128,7 +128,7 @@ bool j1Player::Update(float dt)
 			current_animation = &run;
 	}
 	//WALKING
-	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && hit != true)
+	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && player_hurted != true)
 	{
 		position.x += speed;
 		walking = true;
@@ -138,12 +138,12 @@ bool j1Player::Update(float dt)
 	}
 
 	//BETTER GAMEPLAY
-	if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) && hit != true)
+	if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) && player_hurted != true)
 	{
 		current_animation = &walk;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_D) == KEY_UP && hit != true)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_D) == KEY_UP && player_hurted != true)
 	{
 		current_animation = &idle;
 		walking = false;
@@ -152,7 +152,7 @@ bool j1Player::Update(float dt)
 	///////LEFT MOVEMENT///////
 
 	//RUNNING
-	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT && hit != true)
+	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT && player_hurted != true)
 	{
 		position.x -= speed * 1.0f;
 		walking = true;
@@ -163,7 +163,7 @@ bool j1Player::Update(float dt)
 			current_animation = &run;
 	}
 	//WALKING
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && hit != true)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player_hurted != true)
 	{
 		walking = true;
 		position.x -= speed;
@@ -172,7 +172,7 @@ bool j1Player::Update(float dt)
 			current_animation = &walkleft;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_A) == KEY_UP && hit != true)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_A) == KEY_UP && player_hurted != true)
 	{
 		walking = false;
 		if (current_animation = &walkleft)
@@ -183,7 +183,7 @@ bool j1Player::Update(float dt)
 
 	//---------JUMP MOVEMENT--------
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP && hit != true)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP && player_hurted != true)
 	{
 		if (current_animation == &jump)
 			current_animation = &idle;
@@ -191,19 +191,19 @@ bool j1Player::Update(float dt)
 			current_animation = &idleleft;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && hit != true)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && player_hurted != true)
 	{
 		if (current_animation == &jump)
 			current_animation = &walkleft;
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && hit != true)
+	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && player_hurted != true)
 	{
 
 		if (current_animation == &jump)
 			current_animation = &walk;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && hit != true)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && player_hurted != true)
 	{
 		if (current_animation == &walkleft || current_animation == &idleleft)
 			current_animation = &jumpleft;
@@ -266,7 +266,7 @@ void j1Player::Dead()
 
 void j1Player::LoseOneLife(iPoint respawn_pos) 
 {
-	hit = true;
+	player_hurted = true;
 	hit_time = SDL_GetTicks();
 
 	App->audio->PlayFx(App->player->die_fx);
@@ -276,19 +276,24 @@ void j1Player::LoseOneLife(iPoint respawn_pos)
 	else if (current_animation == &walkleft || current_animation == &idleleft)
 		current_animation = &death_left;
 
-	
+	current_animation = &death_right;
+
+	if (current_animation->Finished() == true)
+	{
 		lifes--;
 		position = respawn_pos;
 		App->render->camera.x = 0;
-		
-		App->audio->active = true;//why this?
-		
-		
+		current_animation->Reset();
+		current_animation = &idle;
+		hit_time = SDL_GetTicks();
+		hit = true;
+		player_hurted = false;
 		JumpReset();
-	
+	}
 }
 
-void j1Player::JumpReset() {
+void j1Player::JumpReset() 
+{
 	jumping = false;
 	landing = true;
 	can_jump = false;
