@@ -21,7 +21,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Flying enemies (Flyes).
 - Pathfinding (A*) for enemies AI.
 - Sound effects.
-
+- FPS handler.
 
 ## Controlls
 
@@ -34,5 +34,6 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - "F5" to save the current state.
 - "F6" to load the previous state.
 - "F9" to show colliders.
+- "F10" to activate god mode.
 
 
