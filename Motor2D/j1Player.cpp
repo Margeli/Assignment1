@@ -238,9 +238,18 @@ bool j1Player::Update(float dt)
 		}
 	}
 	//----------------
-	if (hit && hit_time - SDL_GetTicks() > 1000) { hit = false; } // 1s of invulnerability  if hitted
+	if (hit && hit_time - SDL_GetTicks() > 1000) { 
+		hit = false; 	} // 1s of invulnerability  if hitted
 	
 	if (playercoll != nullptr) { playercoll->SetPos(position.x, position.y + 5); }
+
+	if (player_hurted && current_animation->Finished() == true)
+	{
+		LoseOneLife();
+
+
+	}
+		
 
 	if (lifes < 1)
 		Dead();
@@ -268,12 +277,12 @@ void j1Player::Dead()
 		App->scene2->SceneChange();
 	}	
 }
+void j1Player::PlayerHurted(iPoint respawn_pos) {
 
-void j1Player::LoseOneLife(iPoint respawn_pos) 
-{
 	player_hurted = true;
 	hit_time = SDL_GetTicks();
 	use_input = false;
+	pos_to_respawn = respawn_pos;
 
 	App->audio->PlayFx(App->player->die_fx);
 
@@ -286,10 +295,14 @@ void j1Player::LoseOneLife(iPoint respawn_pos)
 		current_animation = &death_left;
 	}
 
-	if (current_animation->Finished() == true)
-	{
+}
+
+
+void j1Player::LoseOneLife() 
+{
 		lifes--;
-		position = respawn_pos;
+		position = pos_to_respawn;
+		pos_to_respawn = { 0,0 };
 		App->render->camera.x = 0;
 		current_animation->Reset();
 		current_animation = &idle;
@@ -299,7 +312,7 @@ void j1Player::LoseOneLife(iPoint respawn_pos)
 		player_hurted = false;
 		use_input = true;
 		JumpReset();
-	}
+	
 }
 
 void j1Player::JumpReset() 
@@ -317,14 +330,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		switch (c2->type)
 		{
 		case COLLIDER_ENEMIE:
-			if (App->scene->active)
-			{
-				LoseOneLife(App->scene->initial_scene_pos);
+			if (App->scene->active&& !player_hurted)
+			{	
+				PlayerHurted(App->scene->initial_scene_pos);
 				break;
 			}
-			if (App->scene2->active)
+			if (App->scene2->active && !player_hurted)
 			{
-				LoseOneLife(App->scene2->initial_scene_pos);
+				PlayerHurted(App->scene2->initial_scene_pos);
 				break;
 			}
 		case COLLIDER_GROUND:

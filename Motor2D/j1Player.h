@@ -34,7 +34,8 @@ public:
 
 	void Dead();
 
-	void LoseOneLife(iPoint respawn_pos);
+	void PlayerHurted(iPoint respawn_pos);
+	void LoseOneLife();
 
 private:
 
@@ -56,6 +57,8 @@ private:
 
 	uint lose_fx;
 	uint hurt_fx;
+
+	iPoint pos_to_respawn = {0,0};
 	
 	void LoadPlayerAnimations();
 

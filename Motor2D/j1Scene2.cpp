@@ -76,7 +76,7 @@ bool j1Scene2::Update(float dt)
 	else { App->player->camera_movement = false; }
 	//-----
 
-	if (App->player->position.y >= BOTTOM_SCENE_LIMIT){	App->player->LoseOneLife(initial_scene_pos);}
+	if (App->player->position.y >= BOTTOM_SCENE_LIMIT){	App->player->PlayerHurted(initial_scene_pos);}
 
 	App->map->Draw();
 
