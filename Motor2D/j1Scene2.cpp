@@ -76,11 +76,11 @@ bool j1Scene2::Update(float dt)
 	else { App->player->camera_movement = false; }
 	//-----
 
-	if (App->player->position.y >= BOTTOM_SCENE_LIMIT){	App->player->PlayerHurted(initial_scene_pos);}
+	if (App->player->position.y >= BOTTOM_SCENE_LIMIT){	App->player->PlayerHurted();}
 
 	App->map->Draw();
 
-	p2SString title("Level 2 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
+	p2SString title("CAVE KNIGHT | Level 2 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		App->player->lifes, App->player->points, App->player->max_score,
 		App->map->data.width, App->map->data.height,
 		App->map->data.tile_width, App->map->data.tile_height,

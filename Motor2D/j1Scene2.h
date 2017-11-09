@@ -37,7 +37,6 @@ public:
 	bool CleanUp();
 
 	void SceneChange();
-
 	iPoint initial_scene_pos;
 	
 

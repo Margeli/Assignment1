@@ -39,8 +39,8 @@ public:
 
 
 	void SceneChange();
-
 	bool fading = false;
+
 	iPoint initial_scene_pos;
 	
 

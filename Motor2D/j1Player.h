@@ -34,7 +34,7 @@ public:
 
 	void Dead();
 
-	void PlayerHurted(iPoint respawn_pos);
+	void PlayerHurted();
 	void LoseOneLife();
 
 private:
@@ -50,6 +50,7 @@ private:
 	bool jumping = false;
 	bool double_jump = true;
 	void JumpReset();
+	bool godmode = false;
 
 	uint jump_sound;
 	uint sword_sound;
@@ -58,8 +59,6 @@ private:
 	uint lose_fx;
 	uint hurt_fx;
 
-	iPoint pos_to_respawn = {0,0};
-	
 	void LoadPlayerAnimations();
 
 public:

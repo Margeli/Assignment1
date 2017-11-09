@@ -52,7 +52,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	App->player->position.y += GRAVITY;
-	
+
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
@@ -78,7 +78,7 @@ bool j1Scene::Update(float dt)
 
 	//
 
-	if (App->player->position.y >= BOTTOM_SCENE_LIMIT) {App->player->PlayerHurted(initial_scene_pos);} 
+	if (App->player->position.y >= BOTTOM_SCENE_LIMIT) {App->player->PlayerHurted();} 
 	
 	if (App->player->position.x >= RIGHT_SCENE_LIMIT)	
 	{ 
@@ -88,7 +88,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	p2SString title("Level 1 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
+	p2SString title("CAVE KNIGHT | Level 1 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
 					App->player->lifes,	App->player->points, App->player->max_score,
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
@@ -161,3 +161,4 @@ void j1Scene::PlaceEnemies() const{
 	//App->enemies->AddEnemy(TROLL, 800, 420);
 	//App->enemies->AddEnemy(FLYING, 400, 100);
 }
+

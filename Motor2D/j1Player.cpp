@@ -86,7 +86,10 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt)
 {
-	if (use_input) {
+	if (use_input) 
+	{
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) { godmode = true; }
+
 		///////ATTACK MOVEMENT///////
 
 		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT )
@@ -277,13 +280,12 @@ void j1Player::Dead()
 		App->scene2->SceneChange();
 	}	
 }
-void j1Player::PlayerHurted(iPoint respawn_pos) {
-
+void j1Player::PlayerHurted() 
+{
 	player_hurted = true;
 	hit_time = SDL_GetTicks();
 	use_input = false;
-	pos_to_respawn = respawn_pos;
-
+	walking = false;
 	App->audio->PlayFx(App->player->die_fx);
 
 	if (facing == RIGHT)
@@ -294,26 +296,33 @@ void j1Player::PlayerHurted(iPoint respawn_pos) {
 	{
 		current_animation = &death_left;
 	}
-
 }
 
 
 void j1Player::LoseOneLife() 
 {
-		lifes--;
-		position = pos_to_respawn;
-		pos_to_respawn = { 0,0 };
+	
+		if (App->scene->active)
+		{
+			position = App->scene->initial_scene_pos;
+		}
+		if (App->scene2->active)
+		{
+			position = App->scene2->initial_scene_pos;
+		}
+
 		App->render->camera.x = 0;
 		current_animation->Reset();
 		current_animation = &idle;
+		lifes--;
 		walking = false;
 		hit_time = SDL_GetTicks();
 		hit = true;
 		player_hurted = false;
 		use_input = true;
 		JumpReset();
-	
 }
+
 
 void j1Player::JumpReset() 
 {
@@ -330,16 +339,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		switch (c2->type)
 		{
 		case COLLIDER_ENEMIE:
-			if (App->scene->active&& !player_hurted)
-			{	
-				PlayerHurted(App->scene->initial_scene_pos);
-				break;
-			}
-			if (App->scene2->active && !player_hurted)
-			{
-				PlayerHurted(App->scene2->initial_scene_pos);
-				break;
-			}
+			if(player_hurted == false && godmode == false)
+			PlayerHurted();
+			break;
 		case COLLIDER_GROUND:
 
 			switch (c1->CheckDirection(c2->rect))
