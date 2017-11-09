@@ -130,7 +130,7 @@
       <animation x="430" y="589" w="62" h="65"/>
     </death_left>
 
-    <run loop="true" speed ="2.0f">
+    <run loop="true" speed ="0.2f">
       <animation x="0" y="130" w="46" h="65"/>
       <animation x="47" y="130" w="46" h="65"/>
       <animation x="94" y="130" w="46" h="65"/>
