@@ -8,6 +8,7 @@
 #include "p2Log.h"
 #include "j1Enemies.h"
 #include "j1FlyingEnemie.h"
+#include "Brofiler/Brofiler.h"
 
 #include "j1Map.h"
 
@@ -72,6 +73,7 @@ bool j1Collisions::CleanUp() {
 
 bool j1Collisions::Update(float dt) {
 
+	BROFILER_CATEGORY("Collisions_Update", Profiler::Color::Azure);
 	Collider* c1;
 	Collider* c2;
 

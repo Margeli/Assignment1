@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Collisions.h"
 #include "j1Map.h"
+#include "Brofiler/Brofiler.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -29,6 +30,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Map_Drawing", Profiler::Color::DarkBlue);
 	if(map_loaded == false)
 		return;
 

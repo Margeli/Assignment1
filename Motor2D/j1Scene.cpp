@@ -11,6 +11,7 @@
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "j1Enemies.h"
+#include "Brofiler/Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -51,6 +52,7 @@ bool j1Scene::PreUpdate()
 
 bool j1Scene::Update(float dt)
 {
+	BROFILER_CATEGORY("Scene_Update", Profiler::Color::Chocolate);
 	App->player->position.y += GRAVITY;
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }

@@ -11,6 +11,7 @@
 #include "j1Player.h"
 #include "p2Defs.h"
 #include "j1Animation.h"
+#include "Brofiler/Brofiler.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -85,11 +86,12 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt)
 {
+	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
 	if (use_input) 
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) { godmode = true; }
 
-		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) //ATTACK MOVEMENT
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) //----------------ATTACK MOVEMENT
 		{
 			App->audio->PlayFx(sword_sound);
 			if (facing = RIGHT) { current_animation = &attack_right; }
@@ -112,7 +114,7 @@ bool j1Player::Update(float dt)
 		}
 		
 
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) 	//WALKING RIGHT
+		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))//-----------WALKING RIGHT
 		{
 			position.x += speed;
 			walking = true;
@@ -136,7 +138,7 @@ bool j1Player::Update(float dt)
 			if (current_animation != &jump) { current_animation = &run; }
 		}
 		
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) //WALKING LEFT
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) //------------WALKING LEFT
 		{
 			walking = true;
 			position.x -= speed;
@@ -191,7 +193,7 @@ bool j1Player::Update(float dt)
 			if ((jump_pos - position.y < jump_limit) && !landing) { position.y -= jump_speed; }
 			else { landing = true; }
 		}
-	}
+	}//----------------------------
 
 	if (hit && hit_time - SDL_GetTicks() > 1000) { hit = false; } // 1s of invulnerability  if hitted
 	
