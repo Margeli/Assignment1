@@ -66,6 +66,7 @@ public:
 	float speed;
 	int lifes;
 	int points;
+	bool use_input= true;
 
 	bool dead = false;
 	bool hit = false;
