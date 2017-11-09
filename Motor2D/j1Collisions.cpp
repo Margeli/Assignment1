@@ -9,6 +9,8 @@
 #include "j1Enemies.h"
 #include "j1FlyingEnemie.h"
 
+#include "j1Map.h"
+
 #include "SDL\include\SDL.h"
 
 j1Collisions::j1Collisions(): j1Module()
@@ -173,34 +175,34 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 
 	uint right_surface, left_surface;
 	uint up_surface, down_surface;	
-	right_surface = left_surface = 2;// to evite some problems when it collides, giving priority to left and right 
+	right_surface = left_surface =2;// to evite some problems when it collides, giving priority to left and right 
 	up_surface = 3;// giving more priority to up
 
-	if (r.y > rect.y) { //excluding player_below
-		if (r.x < rect.x) { // excluding player_left
+	if (r.y >= rect.y) { //excluding player_below
+		if (r.x <= rect.x) { // excluding player_left
 			up_surface += (r.x + r.w) - rect.x;
-			right_surface += (rect.y + rect.h) - r.y;
+			right_surface += (rect.y + rect.h) - r.y;			
 			if (up_surface > right_surface) { return PLAYER_ABOVE; } // compares with which side the player has more surface with the collider and return its direction; 
 			if (right_surface > up_surface) { return PLAYER_RIGHT; }
 		}
 		if (r.x > rect.x) { // excluding player_right
 			up_surface += (rect.x + rect.w) - r.x;
-			left_surface += (rect.y + rect.h) - r.y;
-			if (up_surface > left_surface) { return PLAYER_ABOVE; } 
+			left_surface += (rect.y + rect.h) - r.y;			
+			if (up_surface > left_surface) { return PLAYER_ABOVE; }
 			if (left_surface > up_surface) { return PLAYER_LEFT; }
-		}	
+		}
 	}
 
 	if (r.y < rect.y) { //excluding player_above
-		if (r.x < rect.x) { // excluding player_left
+		if (r.x <= rect.x) { // excluding player_left
 			down_surface = (r.x + r.w) - rect.x;
-			right_surface += (r.y + r.h) - rect.y;
+			right_surface += (r.y + r.h) - rect.y;					
 			if (down_surface > right_surface) { return PLAYER_BELOW; }
 			if (right_surface > down_surface) { return PLAYER_RIGHT; }
 		}
 		if (r.x > rect.x) { // excluding player_right
 			down_surface = (rect.x + rect.w) - r.x;
-			left_surface += (r.y + r.h) - rect.y;
+			left_surface += (r.y + r.h) - rect.y;			
 			if (down_surface > left_surface) { return PLAYER_BELOW; }
 			if (left_surface > down_surface) { return PLAYER_LEFT; }
 		}
