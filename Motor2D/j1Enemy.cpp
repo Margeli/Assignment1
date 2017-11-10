@@ -30,3 +30,4 @@ void j1Enemy::OnCollision(Collider* collider, int num_enemy)
 {
 
 }
+

@@ -71,7 +71,7 @@ public:
 	bool use_input= true;
 
 	bool dead = false;
-	bool hit = false;
+	bool hitted = false;
 	bool player_hurted = false;
 
 	Uint32 hit_time;

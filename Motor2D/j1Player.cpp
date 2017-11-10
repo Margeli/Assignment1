@@ -29,13 +29,11 @@ j1Player::j1Player() : j1Module()
 	LoadPlayerAnimations();
 }
 
-j1Player::~j1Player()
+j1Player::~j1Player() 
 {}
 
 bool j1Player::Awake(pugi::xml_node& conf)
-{
-	return true;
-}
+{ return true; }
 
 bool j1Player::Start() 
 {
@@ -44,11 +42,8 @@ bool j1Player::Start()
 
 	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	
 	graphics = App->tex->Load("textures/character.png");
-	if (!graphics)	{
-		LOG("Error loading player textures");
-		ret = false;
-	}
-
+	if (!graphics) { LOG("Error loading player textures"); ret = false; }
+		
 	lose_fx = App->audio->LoadFx("audio/fx/lose.wav");
 	hurt_fx = App->audio->LoadFx("audio/fx/player_hurt.wav");
 	die_fx = App->audio->LoadFx("audio/fx/player_death.wav");
@@ -75,11 +70,8 @@ bool j1Player::Start()
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player.");
-
-	App->tex->UnLoad(graphics);
-	
-	if (playercoll != nullptr)
-		playercoll->to_delete = true;
+	App->tex->UnLoad(graphics);	
+	if (playercoll != nullptr) { playercoll->to_delete = true; }
 
 	return true; 
 }
@@ -195,7 +187,7 @@ bool j1Player::Update(float dt)
 		}
 	}//----------------------------
 
-	if (hit && hit_time - SDL_GetTicks() > 1000) { hit = false; } // 1s of invulnerability  if hitted
+	if (hitted && hit_time - SDL_GetTicks() > 1000) { hitted = false; } // 1s of invulnerability  if hitted
 	
 	if (playercoll != nullptr) { playercoll->SetPos(position.x, position.y + 5); }
 
@@ -236,7 +228,6 @@ void j1Player::PlayerHurted()
 
 void j1Player::LoseOneLife() 
 {
-	
 		if (App->scene->active) { position = App->scene->initial_scene_pos; }
 
 		if (App->scene2->active) { position = App->scene2->initial_scene_pos; }
@@ -247,7 +238,7 @@ void j1Player::LoseOneLife()
 		lifes--;
 		walking = false;
 		hit_time = SDL_GetTicks();
-		hit = true;
+		hitted = true;
 		player_hurted = false;
 		use_input = true;
 		JumpReset();
@@ -265,7 +256,7 @@ void j1Player::JumpReset()
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	int margin = 2;
-	if (!hit) {
+	if (!hitted) {
 		switch (c2->type)
 		{
 		case COLLIDER_ENEMIE:

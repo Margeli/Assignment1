@@ -18,28 +18,7 @@ j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
 
 void j1Troll::Move()
 {
-
-
-	//IA
-	//Pathfinding applied to platformers.
-
-	/*if (IsPointInCircle(App->player->position.x, App->player->position.y, position.x, position.y, 500) == true)
-	{
-		if (App->player->position.x < App->enemie->position.x)
-		{
-			position.x -= 1.5f;
-			animation = &walk_left;
-		}
-		else if (App->player->position.x > position.x)
-		{
-			position.x += 1.5f;
-			animation = &walk_right;
-		}
-
-	}*/
-
 	if (enemie_collider != nullptr) { enemie_collider->SetPos(position.x, position.y); }
-
 }
 
 bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const
@@ -47,10 +26,8 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
 }
 
-
 void j1Troll::OnCollision(Collider* c1, int num_enemy)
 {
-	
 }
 
 void j1Troll::LoadTrollAnimations() 

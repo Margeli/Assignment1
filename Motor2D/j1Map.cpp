@@ -13,11 +13,9 @@ j1Map::j1Map() : j1Module(), map_loaded(false)
 	name.create("map");
 }
 
-// Destructor
 j1Map::~j1Map()
 {}
 
-// Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
@@ -31,20 +29,17 @@ bool j1Map::Awake(pugi::xml_node& config)
 void j1Map::Draw()
 {
 	BROFILER_CATEGORY("Map_Drawing", Profiler::Color::DarkBlue);
-	if(map_loaded == false)
-		return;
-
-	// TODO 5: Prepare the loop to draw all tilesets + Blit
+	if (map_loaded == false) { LOG("Couldn't load map.");  return; }
 
 	int tile_num;
-	for (p2List_item<Layer*> *layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next) 
+	for (p2List_item<Layer*>* layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next) 
 	{
 		tile_num = 0;
-		for (int row = 0; row < layer_iterator->data->height; row++) {
-			for (int column = 0; column < layer_iterator->data->width; column++) {
-
+		for (int row = 0; row < layer_iterator->data->height; row++) 
+		{
+			for (int column = 0; column < layer_iterator->data->width; column++)
+			{
 				uint id = layer_iterator->data->data[tile_num];
-
 				iPoint position = GetXYfromTile(column, row);
 
  				if (first_loop) {PutMapColliders(id, position);}
