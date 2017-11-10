@@ -5,12 +5,13 @@
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
+#include "j1Entity.h"
 
-class j1FlyingEnemie : public j1Enemy
+class j1FlyingEnemie : public j1Entity
 {
 public:
 
-	j1FlyingEnemie(int x, int y);
+	j1FlyingEnemie();
 		
 	void Move();
 
@@ -19,6 +20,12 @@ public:
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
 	
 	void LoadFlyAnimations();
+
+	bool Start();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool PreUpdate();
+	bool CleanUp();
 
 public:
 		

@@ -13,6 +13,8 @@
 #include "j1Animation.h"
 #include "Brofiler/Brofiler.h"
 
+#include "j1EntityManager.h"
+
 #include "SDL/include/SDL_timer.h"
 
 #define SPEED 1
@@ -20,7 +22,7 @@
 #define PLAYERHEIGHT 65
 #define PLAYERWIDTH 45
 
-j1Player::j1Player() : j1Module()
+j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 {
 	name.create("player");
 	graphics = nullptr;

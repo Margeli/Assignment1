@@ -5,16 +5,13 @@
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
+#include "j1Entity.h"
 
 struct SDL_Texture;
 
-enum Player_Facing
-{
-	RIGHT, 
-	LEFT
-};
 
-class j1Player : public j1Module
+
+class j1Player : public j1Entity
 {
 public:
 
@@ -37,7 +34,18 @@ public:
 	void PlayerHurted();
 	void LoseOneLife();
 
+	void SetPlayerPos();
+
+	enum Player_Facing
+	{
+		RIGHT,
+		LEFT
+	};
+
+
 private:
+
+	
 
 	Player_Facing facing = RIGHT;
 

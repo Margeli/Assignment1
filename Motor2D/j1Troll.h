@@ -2,15 +2,16 @@
 #define __j1TROLL_H__
 
 #include "j1Enemy.h"
+
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
 
-class j1Troll : public j1Enemy
+class j1Troll : public j1Entity
 {
 public:
 
-	j1Troll(int x, int y);
+	j1Troll();
 	
 	void Move();
 
@@ -21,6 +22,14 @@ public:
 private:
 
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
+
+
+	bool Start();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool PreUpdate();
+	bool CleanUp();
+
 		
 	Animation idle_right;
 	Animation walk_right;

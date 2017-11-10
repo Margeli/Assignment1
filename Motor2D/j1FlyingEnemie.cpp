@@ -2,12 +2,13 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Enemies.h"
+#include "j1EntityManager.h"
 
-j1FlyingEnemie::j1FlyingEnemie(int x, int y) : j1Enemy(x, y)
+j1FlyingEnemie::j1FlyingEnemie() : j1Entity(EntityTypes::FLY)
 {
 	sprite_path = App->tex->Load("textures/Fly.png");
 
-	enemie_collider = App->collis->AddCollider({ position.x, position.y, 50, 60 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
+	collider = App->collis->AddCollider({ position.x, position.y, 50, 60 }, COLLIDER_ENEMIE);
 
 	LoadFlyAnimations();
 
@@ -21,7 +22,7 @@ void j1FlyingEnemie::Move()
 	//IA
 	//Pathfinding applied to platformers.
 	
-	enemie_collider->SetPos(position.x, position.y + 5);
+	collider->SetPos(position.x, position.y + 5);
 }
 
 bool j1FlyingEnemie::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const

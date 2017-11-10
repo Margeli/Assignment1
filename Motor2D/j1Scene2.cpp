@@ -111,8 +111,8 @@ bool j1Scene2::CleanUp()
 	App->map->CleanUp();
 	App->collis->CleanUp();
 	App->tex->CleanUp();
-	App->player->CleanUp();
-	App->enemies->CleanUp();
+	App->entities->CleanUp();
+	
 
 	return true;
 }
@@ -144,8 +144,7 @@ void j1Scene2::SceneChange()
 
 	CleanUp();
 	
-	App->player->Start();
-	App->enemies->Start();
+	App->entities.;
 	App->collis->Start();
 	App->render->camera = { 0,0 };
 	App->scene->Start();

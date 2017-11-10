@@ -2,8 +2,9 @@
 #include "j1Enemy.h"
 #include "j1Collisions.h"
 #include "j1Render.h"
+#include "j1EntityManager.h"
 
-j1Enemy::j1Enemy(int x, int y) : position(x, y)
+j1Enemy::j1Enemy() : j1Entity(EntityTypes::ENEMIE)
 {	
 }
 
@@ -26,7 +27,3 @@ void j1Enemy::Draw(SDL_Texture* sprites)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 }
 
-void j1Enemy::OnCollision(Collider* collider, int num_enemy)
-{
-
-}

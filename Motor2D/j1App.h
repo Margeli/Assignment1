@@ -14,9 +14,8 @@ class j1Audio;
 class j1Scene;
 class j1Scene2;
 class j1Map;
-class j1Player;
 class j1Collisions;
-class j1Enemies;
+class j1EntityManager;
 class j1Pathfinding;
 
 class j1App
@@ -88,10 +87,9 @@ public:
 	j1Audio*			audio = nullptr;
 	j1Scene*			scene = nullptr;
 	j1Scene2*			scene2 = nullptr;
-	j1Map*				map = nullptr;
-	j1Player*			player = nullptr;
+	j1Map*				map = nullptr;	
 	j1Collisions*		collis = nullptr;
-	j1Enemies*			enemies = nullptr;
+	j1EntityManager*	entities = nullptr;
 	j1Pathfinding*		pathfind = nullptr;
 
 private:

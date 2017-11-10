@@ -3,13 +3,13 @@
 #include "j1Textures.h"
 #include "j1Enemies.h"
 
-j1Troll::j1Troll(int x, int y) : j1Enemy(x, y)
+j1Troll::j1Troll() : j1Entity(EntityTypes::TROLL)
 {
 	sprite_path = App->tex->Load("textures/Troll1.png");
 
 	LoadTrollAnimations();
 
-	enemie_collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, (j1Module*)App->enemies);
+	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE);
 
 	animation = &idle_left;
 }
@@ -38,7 +38,7 @@ void j1Troll::Move()
 
 	}*/
 
-	if (enemie_collider != nullptr) { enemie_collider->SetPos(position.x, position.y); }
+	if (collider != nullptr) { collider->SetPos(position.x, position.y); }
 
 }
 
