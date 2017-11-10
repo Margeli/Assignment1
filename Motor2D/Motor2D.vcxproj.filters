@@ -58,6 +58,7 @@
     <ClCompile Include="j1Animation.cpp">
       <Filter>Desenvolupament  ========</Filter>
     </ClCompile>
+    <ClCompile Include="j1Pathfinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -136,6 +137,7 @@
     <ClInclude Include="j1Enemy.h">
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="j1Pathfinding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">

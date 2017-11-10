@@ -1,5 +1,4 @@
 #include <iostream> 
-
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1Player.h"
@@ -13,6 +12,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Enemies.h"
+#include "j1Pathfinding.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -32,7 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	collis = new j1Collisions();
 	enemies = new j1Enemies();
-	
+	pathfind = new j1Pathfinding();
 
 	AddModule(input);
 	AddModule(win);

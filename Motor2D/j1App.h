@@ -17,8 +17,7 @@ class j1Map;
 class j1Player;
 class j1Collisions;
 class j1Enemies;
-
-
+class j1Pathfinding;
 
 class j1App
 {
@@ -82,18 +81,18 @@ private:
 public:
 
 	// Modules
-	j1Window*			win;
-	j1Input*			input;
-	j1Render*			render;
-	j1Textures*			tex;
-	j1Audio*			audio;
-	j1Scene*			scene;
-	j1Scene2*			scene2;
-	j1Map*				map;
-	j1Player*			player;
-	j1Collisions*		collis;
-	j1Enemies*			enemies;
-	
+	j1Window*			win = nullptr;
+	j1Input*			input = nullptr;
+	j1Render*			render = nullptr;
+	j1Textures*			tex = nullptr;
+	j1Audio*			audio = nullptr;
+	j1Scene*			scene = nullptr;
+	j1Scene2*			scene2 = nullptr;
+	j1Map*				map = nullptr;
+	j1Player*			player = nullptr;
+	j1Collisions*		collis = nullptr;
+	j1Enemies*			enemies = nullptr;
+	j1Pathfinding*		pathfind = nullptr;
 
 private:
 
@@ -112,6 +111,5 @@ private:
 	mutable p2SString	save_game;
 };
 
-extern j1App* App; // No student is asking me about that ... odd :-S
-
+extern j1App* App; 
 #endif
