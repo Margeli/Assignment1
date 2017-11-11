@@ -33,6 +33,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - "F2" to start from the beginning of the current level.
 - "F5" to save the current state.
 - "F6" to load the previous state.
+- "F7" to see FPS and other info (hold key).
 - "F9" to show colliders.
 - "F10" to activate god mode.
 
