@@ -13,6 +13,7 @@
 #include "j1App.h"
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
+#include "j1Timer.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -33,6 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collis = new j1Collisions();
 	entities = new j1EntityManager();
 	pathfind = new j1Pathfinding();
+	timer = new j1Timer();
 
 	AddModule(input);
 	AddModule(win);
@@ -56,6 +58,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	load_game = "save_game.xml";
 	save_game = "save_game.xml";
+
+	LOG("App Constructor time: %f", timer->ReadMs());
 }
 
 j1App::~j1App()
@@ -126,6 +130,8 @@ bool j1App::Start()
 		item = item->next;
 	}
 
+	LOG("App Start time: %f", timer->ReadMs());
+
 	return ret;
 }
 
@@ -153,7 +159,6 @@ bool j1App::Update()
 	return ret;
 }
 
-// ---------------------------------------------
 pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 {
 	pugi::xml_node ret;
@@ -168,12 +173,10 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 	return ret;
 }
 
-// ---------------------------------------------
 void j1App::PrepareUpdate()
 {
 }
 
-// ---------------------------------------------
 void j1App::FinishUpdate()
 {
 	if(want_to_save == true)
@@ -181,6 +184,30 @@ void j1App::FinishUpdate()
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+
+	float avg_fps = timer->ReadTicks() / timer->ReadMs();
+	float seconds_since_startup = timer->ReadMs() * 1000;
+	float dt = 0.0f;
+	uint32 last_frame_ms = 0;
+	uint32 frames_on_last_update = 0;
+	uint64 frame_count = timer->ReadTicks();
+	static char title[400];
+
+	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d ",
+		App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
+		App->map->data.width, App->map->data.height,
+		App->map->data.tile_width, App->map->data.tile_height,
+		App->map->data.tilesets.count());
+
+	App->win->SetTitle(title);
+
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_REPEAT)
+	{
+		sprintf_s(title, 400, "CAVE KNIGHT | Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu",
+			avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+		App->win->SetTitle(title);
+	}
 }
 
 // Call modules before each loop iteration

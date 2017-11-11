@@ -1,7 +1,6 @@
 #ifndef __j1FLYINGENEMIE_H__
 #define __j1FLYINGENEMIE_H_
 
-#include "j1Enemy.h"
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
@@ -13,8 +12,6 @@ public:
 
 	j1FlyingEnemie(iPoint pos);
 		
-	
-
 	void OnCollision(Collider* c1, int num_enemy);
 
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
@@ -30,7 +27,6 @@ public:
 		
 	Animation fly_right;
 	Animation fly_left;
-	
 
 };
 

@@ -17,6 +17,7 @@ class j1Map;
 class j1Collisions;
 class j1EntityManager;
 class j1Pathfinding;
+class j1Timer;
 
 class j1App
 {
@@ -91,6 +92,7 @@ public:
 	j1Collisions*		collis = nullptr;
 	j1EntityManager*	entities = nullptr;
 	j1Pathfinding*		pathfind = nullptr;
+	j1Timer*				timer = nullptr;
 
 private:
 

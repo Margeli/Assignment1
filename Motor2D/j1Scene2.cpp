@@ -10,7 +10,6 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
-#include "j1Enemies.h"
 #include "Brofiler/Brofiler.h"
 
 j1Scene2::j1Scene2() : j1Module()
@@ -40,7 +39,6 @@ bool j1Scene2::Start()
 		// Should have the initial pos of enemies in a XML
 		App->entities->player->position= initial_scene_pos;
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
-
 
 		PlaceEnemies();
 	}
@@ -76,21 +74,11 @@ bool j1Scene2::Update(float dt)
 		App->entities->player->camera_movement = true; }
 
 	else { App->entities->player->camera_movement = false; }
-	//-----
 
 	if (App->entities->player->position.y >= BOTTOM_SCENE_LIMIT){ App->entities->player->PlayerHurted();}
 
 	App->map->Draw();
 
-	p2SString title("CAVE KNIGHT | Level 2 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
-		App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
-		App->map->data.width, App->map->data.height,
-		App->map->data.tile_width, App->map->data.tile_height,
-		App->map->data.tilesets.count());
-
-	App->win->SetTitle(title.GetString());
-
-	
 	return true;
 }
 
