@@ -1,37 +1,51 @@
 #ifndef __j1ENTITY_H__
 #define __j1ENTITY_H__
 
+#include "j1Module.h"
 #include "j1EntityManager.h"
 #include "p2Point.h"
+#include "j1Animation.h"
+#include "j1Collisions.h"
 
-enum EntityTypes {
-	NO_TYPE,
-	PLAYER,
-	TROLL,
-	FLY
-};
+struct Collider;
+struct Animation;
+struct SDL_Texture;
+enum EntityTypes;
 
 
-class j1Entity : public j1EntityManager
+class j1Entity
 {
 public:
 	j1Entity(EntityTypes type);
-	~j1Entity();
 
-	virtual bool Start();
-	virtual bool Update(float dt);
-	virtual bool PostUpdate();
-	virtual bool PreUpdate();
-	virtual bool CleanUp();
+	virtual bool Start() {
+		return true;
+	};
+	virtual bool Update(float dt) {
+		return true;
+	};
+	virtual bool PostUpdate() {
+		return true;
+	};
+	virtual bool PreUpdate() {
+		return true;
+	};
+	virtual bool CleanUp() {
+		return true;
+	};
 
-	EntityTypes type = NO_TYPE;
+public:
+
+	EntityTypes type;
 	iPoint position;
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
-	SDL_Texture* sprite_path = nullptr;
+	SDL_Texture* sprites = nullptr;
 	
 	virtual void Draw();
-	virtual void OnCollision(Collider* c1, Collider* c2);
+	virtual void OnCollision(Collider* c1, Collider* c2)
+	{};
+	
 
 
 };

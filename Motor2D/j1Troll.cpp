@@ -2,45 +2,26 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Enemies.h"
+#include "j1Entity.h"
 
-j1Troll::j1Troll() : j1Entity(EntityTypes::TROLL)
+j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)
 {
-	sprite_path = App->tex->Load("textures/Troll1.png");
-
-	LoadTrollAnimations();
-
-	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE);
-
-	animation = &idle_left;
+	LoadTrollAnimations();	
+	position = pos;
 }
 
+
+
+bool j1Troll::Start() {
+
+	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, App->entities);
+	sprites = App->tex->Load("textures/Troll1.png");	
+	animation = &idle_left;
+
+	return true;
+}
 // Should have the initial pos of enemies in a XML
 
-void j1Troll::Move()
-{
-
-
-	//IA
-	//Pathfinding applied to platformers.
-
-	/*if (IsPointInCircle(App->player->position.x, App->player->position.y, position.x, position.y, 500) == true)
-	{
-		if (App->player->position.x < App->enemie->position.x)
-		{
-			position.x -= 1.5f;
-			animation = &walk_left;
-		}
-		else if (App->player->position.x > position.x)
-		{
-			position.x += 1.5f;
-			animation = &walk_right;
-		}
-
-	}*/
-
-	if (collider != nullptr) { collider->SetPos(position.x, position.y); }
-
-}
 
 bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const
 {
@@ -66,3 +47,38 @@ void j1Troll::LoadTrollAnimations()
 	death_right.LoadEnemyAnimations("death_right", "troll");
 	death_left.LoadEnemyAnimations("death_left", "troll");
 }
+
+bool j1Troll::CleanUp() {
+	App->tex->UnLoad(sprites);
+	collider->to_delete = true;
+	return true;
+}
+
+bool j1Troll::Update(float dt) {
+
+	//IA
+	//Pathfinding applied to platformers.
+
+	/*if (IsPointInCircle(App->player->position.x, App->player->position.y, position.x, position.y, 500) == true)
+	{
+	if (App->player->position.x < App->enemie->position.x)
+	{
+	position.x -= 1.5f;
+	animation = &walk_left;
+	}
+	else if (App->player->position.x > position.x)
+	{
+	position.x += 1.5f;
+	animation = &walk_right;
+	}
+
+	}*/
+
+	if (collider != nullptr) {
+		collider->SetPos(position.x, position.y); }
+
+	Draw();
+
+	return true;
+}
+

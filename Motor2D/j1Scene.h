@@ -10,6 +10,7 @@
 
 struct SDL_Texture;
 
+
 class j1Scene : public j1Module
 {
 public:
@@ -46,10 +47,12 @@ public:
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+	
 
 private:
 	void PlaceEnemies() const;
 
+	
 };
 
 #endif // __j1SCENE_H__

@@ -1,3 +1,4 @@
+/*
 #include "j1Enemies.h"
 #include "j1Enemy.h"
 #include "j1App.h"
@@ -29,10 +30,10 @@ bool j1Enemies::Start()
 	//sprites = App->textures->Load("Assets/Images/Bonus_Spaceship.png");
 	//sprites = App->textures->Load("Assets/Images/Green_Shooter.png");
 	//sprites = App->textures->Load("Assets/Images/Light_Shooter.png");
-	/*
-	if (sprites == nullptr) {
-	LOG("Error loading enemy's sprites.");
-	}*/
+	
+	//if (sprites == nullptr) {
+	//LOG("Error loading enemy's sprites.");
+	//}
 
 	return true;
 }
@@ -74,18 +75,18 @@ bool j1Enemies::PostUpdate()
 
 	bool ret = true;
 	// check camera position to decide what to spawn
-	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (enemies[i] != nullptr)
-		{
-			if (App->render->camera.y + (-SCREEN_HEIGHT - SPAWN_MARGIN)*SCREEN_SIZE>-enemies[i]->position.y*SCREEN_SIZE)
-			{
-				LOG("DeSpawning enemy at %d", enemies[i]->position.y);
-				delete enemies[i];
-				enemies[i] = nullptr;
-			}
-		}
-	}*/
+	//for (uint i = 0; i < MAX_ENEMIES; ++i)
+	//{
+	//	if (enemies[i] != nullptr)
+	//	{
+	//		if (App->render->camera.y + (-SCREEN_HEIGHT - SPAWN_MARGIN)*SCREEN_SIZE>-enemies[i]->position.y*SCREEN_SIZE)
+	//		{
+	//			LOG("DeSpawning enemy at %d", enemies[i]->position.y);
+	//			delete enemies[i];
+	//			enemies[i] = nullptr;
+	//		}
+	//	}
+	//}
 
 	return ret;
 }
@@ -161,5 +162,5 @@ void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 
 			break;
 		}
-	}*/
-}
+	}
+}*/

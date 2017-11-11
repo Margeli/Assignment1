@@ -11,9 +11,9 @@ class j1FlyingEnemie : public j1Entity
 {
 public:
 
-	j1FlyingEnemie();
+	j1FlyingEnemie(iPoint pos);
 		
-	void Move();
+	
 
 	void OnCollision(Collider* c1, int num_enemy);
 
@@ -23,14 +23,14 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool PostUpdate();
-	bool PreUpdate();
+	
 	bool CleanUp();
 
 public:
 		
 	Animation fly_right;
 	Animation fly_left;
+	
 
 };
 

@@ -1,4 +1,4 @@
-#ifndef __j1ENEMIES_H__
+/*#ifndef __j1ENEMIES_H__
 #define __j1ENEMIES_H_
 
 #include "j1Module.h"
@@ -58,3 +58,4 @@ private:
 };
 
 #endif //__j1ENEMIES_H_
+*/

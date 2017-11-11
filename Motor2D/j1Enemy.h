@@ -1,4 +1,4 @@
-#ifndef __j1ENEMY_H__
+/*#ifndef __j1ENEMY_H__
 #define __j1ENEMY_H__
 
 
@@ -10,7 +10,7 @@
 struct SDL_Texture;
 struct Collider;
 
-class j1Enemy : public j1Entity
+class j1Enemy 
 {
 public:
 	Animation* animation = nullptr;
@@ -33,3 +33,4 @@ public:
 };
 
 #endif // __j1ENEMY_H__
+*/

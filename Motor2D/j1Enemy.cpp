@@ -1,11 +1,11 @@
-#include "j1App.h"
+/*#include "j1App.h"
 #include "j1Enemy.h"
 #include "j1Collisions.h"
 #include "j1Render.h"
 #include "j1EntityManager.h"
 
-j1Enemy::j1Enemy() : j1Entity(EntityTypes::ENEMIE)
-{	
+j1Enemy::j1Enemy() 
+{
 }
 
 j1Enemy::~j1Enemy()
@@ -27,3 +27,4 @@ void j1Enemy::Draw(SDL_Texture* sprites)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 }
 
+*/

@@ -5,11 +5,11 @@ void Animation::PushBack(const SDL_Rect& rect) {
 		frames[last_frame++] = rect; 
 }
 
-void Animation::LoadAnimations(p2SString name, j1Module* callback) {
+void Animation::LoadPlayerAnimations(p2SString name) {
 	pugi::xml_parse_result result = anim_file.load_file("animations.xml");
 	if (result != NULL)
 	{
-		pugi::xml_node anim_name = anim_file.child("animations").child(callback->name.GetString()).child(name.GetString());
+		pugi::xml_node anim_name = anim_file.child("animations").child("player").child(name.GetString());
 		loop = anim_name.attribute("loop").as_bool();
 		speed = anim_name.attribute("speed").as_float();
 		for (pugi::xml_node animation = anim_name.child("animation"); animation; animation = animation.next_sibling("animation"))

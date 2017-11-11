@@ -11,11 +11,14 @@
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "j1Enemies.h"
+#include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+
+	
 }
 
 j1Scene::~j1Scene()
@@ -36,7 +39,7 @@ bool j1Scene::Start()
 		App->map->Load("Map1.tmx");
 		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the player position from the last layer loaded from Tiled
 		// Should have the initial pos of enemies in a XML
-		App->position = initial_scene_pos;		
+		App->entities->player->position = initial_scene_pos;		
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 		
 
@@ -53,7 +56,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene_Update", Profiler::Color::Chocolate);
-	App->player->position.y += GRAVITY;
+	App->entities->player->position.y += GRAVITY;
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 
@@ -61,28 +64,28 @@ bool j1Scene::Update(float dt)
 		
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->player->position = initial_scene_pos;
+		App->entities->player->position = initial_scene_pos;
 		App->render->camera.x = 0;
 	}
 
-	if (App->player->position.x <= -App->render->camera.x) 
+	if (App->entities->player->position.x <= -App->render->camera.x)
 	{ 
-		App->player->position.x++; 
+		App->entities->player->position.x++;
 	}
 
 	//CAMERA MOVEMENT
-	if ((App->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT)) 
+	if ((App->entities->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT))
 	{ 
-		App->player->camera_movement = true;
+		App->entities->player->camera_movement = true;
 	}
 
-	else { App->player->camera_movement = false; }
+	else { App->entities->player->camera_movement = false; }
 
 	//
 
-	if (App->player->position.y >= BOTTOM_SCENE_LIMIT) {App->player->PlayerHurted();} 
+	if (App->entities->player->position.y >= BOTTOM_SCENE_LIMIT) { App->entities->player->PlayerHurted();}
 	
-	if (App->player->position.x >= RIGHT_SCENE_LIMIT)	
+	if (App->entities->player->position.x >= RIGHT_SCENE_LIMIT)
 	{ 
 		LOG("End of level 1!");
 		SceneChange();
@@ -91,7 +94,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 
 	p2SString title("CAVE KNIGHT | Level 1 | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d",
-					App->player->lifes,	App->player->points, App->player->max_score,
+					App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count());
@@ -157,8 +160,10 @@ void j1Scene::SceneChange()
 
 void j1Scene::PlaceEnemies() const{
 
-	//App->enemies->AddEnemy(TROLL, 250, 514);
+	App->entities->CreateEntity(TROLL, { 250, 514 });
+	App->entities->CreateEntity(FLY, { 400, 100 });
+	
 	//App->enemies->AddEnemy(TROLL, 800, 420);
-	//App->enemies->AddEnemy(FLYING, 400, 100);
+	
 }
 

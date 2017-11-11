@@ -9,7 +9,10 @@
 
 struct SDL_Texture;
 
-
+#define SPEED 1
+#define LIFES 5
+#define PLAYERHEIGHT 65
+#define PLAYERWIDTH 45
 
 class j1Player : public j1Entity
 {
@@ -34,7 +37,6 @@ public:
 	void PlayerHurted();
 	void LoseOneLife();
 
-	void SetPlayerPos();
 
 	enum Player_Facing
 	{
@@ -86,14 +88,10 @@ public:
 	
 	int max_score = 0;
 
-	iPoint position;
-
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	SDL_Texture* graphics = nullptr;
-
-	Animation* current_animation = nullptr;
+	
 	Animation idle;
 	Animation walk;
 	Animation jump;
@@ -108,7 +106,7 @@ public:
 	Animation attack_left;
 	Animation death_left;
 
-	Collider * playercoll;
+	
 };
 
 
