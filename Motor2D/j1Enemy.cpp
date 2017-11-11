@@ -27,4 +27,6 @@ void j1Enemy::Draw(SDL_Texture* sprites)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 }
 
+
 */
+

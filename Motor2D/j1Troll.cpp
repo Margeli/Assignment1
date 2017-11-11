@@ -12,6 +12,7 @@ j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)
 
 
 
+
 bool j1Troll::Start() {
 
 	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, App->entities);
@@ -19,6 +20,7 @@ bool j1Troll::Start() {
 	animation = &idle_left;
 
 	return true;
+
 }
 // Should have the initial pos of enemies in a XML
 
@@ -28,10 +30,8 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
 }
 
-
 void j1Troll::OnCollision(Collider* c1, int num_enemy)
 {
-	
 }
 
 void j1Troll::LoadTrollAnimations() 

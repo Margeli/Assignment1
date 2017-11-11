@@ -28,18 +28,17 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 	LoadPlayerAnimations();
 }
 
-j1Player::~j1Player()
+j1Player::~j1Player() 
 {}
 
 bool j1Player::Awake(pugi::xml_node& conf)
-{
-	return true;
-}
+{ return true; }
 
 bool j1Player::Start() 
 {
 	bool ret = true;
 	LOG("Loading player.");
+
 
 	collider = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, App->entities);	
 	sprites = App->tex->Load("textures/character.png");
@@ -75,11 +74,13 @@ bool j1Player::CleanUp()
 {
 	LOG("Unloading player.");
 
+
 	App->tex->UnLoad(sprites);
 	
 	if (collider != nullptr)
 		collider->to_delete = true;
 	
+
 	return true; 
 }
 
@@ -195,7 +196,7 @@ bool j1Player::Update(float dt)
 		}
 	}//----------------------------
 
-	if (hit && hit_time - SDL_GetTicks() > 1000) { hit = false; } // 1s of invulnerability  if hitted
+	if (hitted && hit_time - SDL_GetTicks() > 1000) { hitted = false; } // 1s of invulnerability  if hitted
 	
 	if (collider != nullptr) { collider->SetPos(position.x, position.y + 5); }
 
@@ -236,7 +237,6 @@ void j1Player::PlayerHurted()
 
 void j1Player::LoseOneLife() 
 {
-	
 		if (App->scene->active) { position = App->scene->initial_scene_pos; }
 
 		if (App->scene2->active) { position = App->scene2->initial_scene_pos; }
@@ -247,7 +247,7 @@ void j1Player::LoseOneLife()
 		lifes--;
 		walking = false;
 		hit_time = SDL_GetTicks();
-		hit = true;
+		hitted = true;
 		player_hurted = false;
 		use_input = true;
 		JumpReset();
@@ -265,7 +265,7 @@ void j1Player::JumpReset()
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	int margin = 2;
-	if (!hit) {
+	if (!hitted) {
 		switch (c2->type)
 		{
 		case COLLIDER_ENEMIE:

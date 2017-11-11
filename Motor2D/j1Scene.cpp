@@ -28,6 +28,7 @@ bool j1Scene:: Awake(pugi::xml_node&)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+	if (App->scene->active == false) { LOG("Unable to load Scene."); ret = false; }
 
 	return ret;
 }
@@ -37,11 +38,12 @@ bool j1Scene::Start()
 	if (active) 
 	{
 		App->map->Load("Map1.tmx");
+
 		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the player position from the last layer loaded from Tiled
 		// Should have the initial pos of enemies in a XML
 		App->entities->player->position = initial_scene_pos;		
+
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
-		
 
 		PlaceEnemies();
 	}
@@ -64,6 +66,7 @@ bool j1Scene::Update(float dt)
 		
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
+
 		App->entities->player->position = initial_scene_pos;
 		App->render->camera.x = 0;
 	}
@@ -75,13 +78,13 @@ bool j1Scene::Update(float dt)
 
 	//CAMERA MOVEMENT
 	if ((App->entities->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT))
+
 	{ 
 		App->entities->player->camera_movement = true;
 	}
 
 	else { App->entities->player->camera_movement = false; }
-
-	//
+	
 
 	if (App->entities->player->position.y >= BOTTOM_SCENE_LIMIT) { App->entities->player->PlayerHurted();}
 	
@@ -90,6 +93,7 @@ bool j1Scene::Update(float dt)
 		LOG("End of level 1!");
 		SceneChange();
 	}
+
 
 	App->map->Draw();
 
@@ -158,11 +162,12 @@ void j1Scene::SceneChange()
 	App->scene2->Start();
 }
 
+
 void j1Scene::PlaceEnemies() const{
 
 	App->entities->CreateEntity(TROLL, { 250, 514 });
 	App->entities->CreateEntity(FLY, { 400, 100 });
-	
+
 	//App->enemies->AddEnemy(TROLL, 800, 420);
 	
 }

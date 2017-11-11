@@ -41,8 +41,8 @@ j1Collisions::j1Collisions(): j1Module()
 
 j1Collisions::~j1Collisions(){}
 
-bool j1Collisions::PreUpdate() {
-
+bool j1Collisions::PreUpdate()
+{
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)//prepares collider's array
 	{
 		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
@@ -56,7 +56,8 @@ bool j1Collisions::PreUpdate() {
 }
 
 
-bool j1Collisions::CleanUp() {
+bool j1Collisions::CleanUp()
+{
 	LOG("Freeing all colliders");
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -74,8 +75,8 @@ bool j1Collisions::CleanUp() {
 bool j1Collisions::Update(float dt) {
 
 	BROFILER_CATEGORY("Collisions_Update", Profiler::Color::Azure);
-	Collider* c1;
-	Collider* c2;
+	Collider* collider1;
+	Collider* collider2;
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -84,29 +85,27 @@ bool j1Collisions::Update(float dt) {
 		if (colliders[i]->type == COLLIDER_PLAYER) 
 		{
 
-			c1 = colliders[i]; // player collider
+			collider1 = colliders[i]; // player collider
 
 			for (uint k = 0; k < MAX_COLLIDERS; ++k)
 			{
 				if (colliders[k] == nullptr || i==k) // if collider is nullptr or the player collider itself
 					continue;
 				
-					c2 = colliders[k];
+					collider2 = colliders[k];
 
-					if (c1->CheckCollision(c2->rect) == true)
+					if (collider1->CheckCollision(collider2->rect) == true)
 					{						
-						if (matrix[c1->type][c2->type] && c1->callback)
-							c1->callback->OnCollision(c1, c2);					
+						if (matrix[collider1->type][collider2->type] && collider1->callback)
+							collider1->callback->OnCollision(collider1, collider2);					
 				}
 			}
 		}
-		
 	}
 
 	DebugDraw();
 
 	return true;
-
 }
 
 void j1Collisions::DebugDraw() {
