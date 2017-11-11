@@ -13,17 +13,16 @@
 #include "j1Animation.h"
 #include "Brofiler/Brofiler.h"
 
+#include "j1EntityManager.h"
+
 #include "SDL/include/SDL_timer.h"
 
-#define SPEED 1
-#define LIFES 5
-#define PLAYERHEIGHT 65
-#define PLAYERWIDTH 45
 
-j1Player::j1Player() : j1Module()
+
+j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 {
-	name.create("player");
-	graphics = nullptr;
+
+
 	lifes = LIFES;
 
 	LoadPlayerAnimations();
@@ -40,16 +39,20 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Loading player.");
 
-	playercoll = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, this);	
-	graphics = App->tex->Load("textures/character.png");
-	if (!graphics) { LOG("Error loading player textures"); ret = false; }
-		
+
+	collider = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, App->entities);	
+	sprites = App->tex->Load("textures/character.png");
+	if (!sprites)	{
+		LOG("Error loading player textures");
+		ret = false;
+	}
+
 	lose_fx = App->audio->LoadFx("audio/fx/lose.wav");
 	hurt_fx = App->audio->LoadFx("audio/fx/player_hurt.wav");
 	die_fx = App->audio->LoadFx("audio/fx/player_death.wav");
 
 	speed = SPEED;
-	current_animation = &idle;
+	animation = &idle;
 	jump_speed = 4.5f;
 	jump_limit = 70.0f;
 
@@ -70,8 +73,13 @@ bool j1Player::Start()
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player.");
-	App->tex->UnLoad(graphics);	
-	if (playercoll != nullptr) { playercoll->to_delete = true; }
+
+
+	App->tex->UnLoad(sprites);
+	
+	if (collider != nullptr)
+		collider->to_delete = true;
+	
 
 	return true; 
 }
@@ -86,13 +94,13 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) //----------------ATTACK MOVEMENT
 		{
 			App->audio->PlayFx(sword_sound);
-			if (facing = RIGHT) { current_animation = &attack_right; }
-			else if (facing = LEFT) { current_animation = &attack_left; }
+			if (facing = RIGHT) { animation = &attack_right; }
+			else if (facing = LEFT) { animation = &attack_left; }
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP )
 		{
-			if (current_animation == &attack_right) { attack_right.Reset(); current_animation = &idle; }
-			else if (current_animation == &attack_left) { attack_left.Reset(); current_animation = &idleleft; }
+			if (animation == &attack_right) { attack_right.Reset(); animation = &idle; }
+			else if (animation == &attack_left) { attack_left.Reset(); animation = &idleleft; }
 		}
 
 		if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) //RUNING RIGHT
@@ -102,7 +110,7 @@ bool j1Player::Update(float dt)
 			facing = RIGHT;
 
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
-			if (current_animation != &jump) { current_animation = &run; }
+			if (animation != &jump) { animation = &run; }
 		}
 		
 
@@ -113,13 +121,14 @@ bool j1Player::Update(float dt)
 			facing = RIGHT;
 
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
-			if (current_animation != &jump) { current_animation = &walk; }
+			if (animation != &jump) {animation = &walk; }
 		}
 
 		if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)) 	//BETTER GAMEPLAY
-			current_animation = &walk;
+			animation = &walk;
 		
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_D) == KEY_UP ) { current_animation = &idle; walking = false; }
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_D) == KEY_UP ) 
+			animation = &idle; walking = false; 
 	
 		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) 	//RUNNING LEFT
 		{
@@ -127,7 +136,7 @@ bool j1Player::Update(float dt)
 			walking = true;
 			facing = LEFT;
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
-			if (current_animation != &jump) { current_animation = &run; }
+			if (animation != &jump) { animation = &run; }
 		}
 		
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) //------------WALKING LEFT
@@ -135,36 +144,36 @@ bool j1Player::Update(float dt)
 			walking = true;
 			position.x -= speed;
 			facing = LEFT;
-			if (current_animation != &jump) { current_animation = &walkleft; }
+			if (animation != &jump) { animation = &walkleft; }
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP || App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 		{
 			walking = false;
-			if (current_animation == &walkleft) { current_animation = &idleleft; }	
-			else if (current_animation == &walk) { current_animation = &idle; }
+			if (animation == &walkleft) { animation = &idleleft; }	
+			else if (animation == &walk) { animation = &idle; }
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 		{
-			if (current_animation == &jump) { current_animation = &idle; }
-			else if (current_animation == &jumpleft) { current_animation = &idleleft; }
+			if (animation == &jump) { animation = &idle; }
+			else if (animation == &jumpleft) { animation = &idleleft; }
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) )
 		{
-			if (current_animation == &jump) { current_animation = &walkleft; }
+			if (animation == &jump) { animation = &walkleft; }
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) )
 		{
-			if (current_animation == &jump) { current_animation = &walk; }
+			if (animation == &jump) { animation = &walk; }
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
-			if (current_animation == &walkleft || current_animation == &idleleft) { current_animation = &jumpleft; }
+			if (animation == &walkleft || animation == &idleleft) {animation = &jumpleft; }
 				
-			else if (current_animation == &walk || current_animation == &idle) { current_animation = &jump; }
+			else if (animation == &walk || animation == &idle) { animation = &jump; }
 				
 			if (jumping == false && landing == false) { can_jump = true; }
 				
@@ -189,15 +198,15 @@ bool j1Player::Update(float dt)
 
 	if (hitted && hit_time - SDL_GetTicks() > 1000) { hitted = false; } // 1s of invulnerability  if hitted
 	
-	if (playercoll != nullptr) { playercoll->SetPos(position.x, position.y + 5); }
+	if (collider != nullptr) { collider->SetPos(position.x, position.y + 5); }
 
-	if (player_hurted && current_animation->Finished() == true) { LoseOneLife(); }
+	if (player_hurted && animation->Finished() == true) { LoseOneLife(); }
 
 	if (lifes < 1) { Dead(); }
 		
 	if (points > max_score) { max_score = points; }
 
-	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
+	Draw();
 	
 	return true;
 }
@@ -218,11 +227,11 @@ void j1Player::PlayerHurted()
 	hit_time = SDL_GetTicks();
 	use_input = false;
 	walking = false;
-	App->audio->PlayFx(App->player->die_fx);
+	App->audio->PlayFx(die_fx);
 
-	if (facing == RIGHT) { current_animation = &death_right; }
+	if (facing == RIGHT) { animation = &death_right; }
 
-	else if (facing == LEFT) { current_animation = &death_left; }
+	else if (facing == LEFT) { animation = &death_left; }
 }
 
 
@@ -233,8 +242,8 @@ void j1Player::LoseOneLife()
 		if (App->scene2->active) { position = App->scene2->initial_scene_pos; }
 
 		App->render->camera.x = 0;
-		current_animation->Reset();
-		current_animation = &idle;
+		animation->Reset();
+		animation = &idle;
 		lifes--;
 		walking = false;
 		hit_time = SDL_GetTicks();
@@ -310,15 +319,15 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 void j1Player::LoadPlayerAnimations()
 {
-	attack_right.LoadAnimations("attack_right", this);
-	attack_left.LoadAnimations("attack_left", this);
-	death_right.LoadAnimations("death_right", this);
-	death_left.LoadAnimations("death_left", this);
-	idle.LoadAnimations("idle", this);
-	idleleft.LoadAnimations("idleleft", this);
-	jump.LoadAnimations("jump", this);
-	jumpleft.LoadAnimations("jumpleft", this);
-	walk.LoadAnimations("walk", this);
-	walkleft.LoadAnimations("walkleft", this);
-	run.LoadAnimations("run", this);
+	attack_right.LoadPlayerAnimations("attack_right");
+	attack_left.LoadPlayerAnimations("attack_left");
+	death_right.LoadPlayerAnimations("death_right");
+	death_left.LoadPlayerAnimations("death_left");
+	idle.LoadPlayerAnimations("idle");
+	idleleft.LoadPlayerAnimations("idleleft");
+	jump.LoadPlayerAnimations("jump");
+	jumpleft.LoadPlayerAnimations("jumpleft");
+	walk.LoadPlayerAnimations("walk");
+	walkleft.LoadPlayerAnimations("walkleft");
+	run.LoadPlayerAnimations("run");
 }

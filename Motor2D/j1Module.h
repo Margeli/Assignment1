@@ -11,8 +11,6 @@
 
 struct Collider;
 
-enum CollisionDirection;
-
 class j1App;
 
 class j1Module

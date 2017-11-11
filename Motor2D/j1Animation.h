@@ -40,7 +40,7 @@ public:
 	bool Finished() const {return loops > 0;}
 	void Reset() {current_frame = 0; loops = 0;}
 
-	void LoadAnimations(p2SString name, j1Module* callback);
+	void LoadPlayerAnimations(p2SString name);
 	
 	void LoadEnemyAnimations(p2SString name, p2SString enemy);
 	

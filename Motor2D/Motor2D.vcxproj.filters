@@ -59,6 +59,12 @@
       <Filter>Desenvolupament  ========</Filter>
     </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp" />
+    <ClCompile Include="j1Entity.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -138,6 +144,12 @@
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h" />
+    <ClInclude Include="j1Entity.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -160,6 +172,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Enemies">
       <UniqueIdentifier>{a9d0a81c-4bd4-475e-aabb-806b096e5f20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities">
+      <UniqueIdentifier>{82027012-0242-4e60-b8f0-a706b959ad79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

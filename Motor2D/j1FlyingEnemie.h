@@ -5,14 +5,15 @@
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
+#include "j1Entity.h"
 
-class j1FlyingEnemie : public j1Enemy
+class j1FlyingEnemie : public j1Entity
 {
 public:
 
-	j1FlyingEnemie(int x, int y);
+	j1FlyingEnemie(iPoint pos);
 		
-	void Move();
+	
 
 	void OnCollision(Collider* c1, int num_enemy);
 
@@ -20,10 +21,16 @@ public:
 	
 	void LoadFlyAnimations();
 
+	bool Start();
+	bool Update(float dt);
+	
+	bool CleanUp();
+
 public:
 		
 	Animation fly_right;
 	Animation fly_left;
+	
 
 };
 

@@ -5,16 +5,16 @@
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
+#include "j1Entity.h"
 
 struct SDL_Texture;
 
-enum Player_Facing
-{
-	RIGHT, 
-	LEFT
-};
+#define SPEED 1
+#define LIFES 5
+#define PLAYERHEIGHT 65
+#define PLAYERWIDTH 45
 
-class j1Player : public j1Module
+class j1Player : public j1Entity
 {
 public:
 
@@ -37,7 +37,17 @@ public:
 	void PlayerHurted();
 	void LoseOneLife();
 
+
+	enum Player_Facing
+	{
+		RIGHT,
+		LEFT
+	};
+
+
 private:
+
+	
 
 	Player_Facing facing = RIGHT;
 
@@ -78,14 +88,10 @@ public:
 	
 	int max_score = 0;
 
-	iPoint position;
-
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	SDL_Texture* graphics = nullptr;
-
-	Animation* current_animation = nullptr;
+	
 	Animation idle;
 	Animation walk;
 	Animation jump;
@@ -100,7 +106,7 @@ public:
 	Animation attack_left;
 	Animation death_left;
 
-	Collider * playercoll;
+	
 };
 
 

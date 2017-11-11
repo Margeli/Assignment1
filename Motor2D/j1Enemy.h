@@ -1,15 +1,16 @@
-#ifndef __j1ENEMY_H__
+/*#ifndef __j1ENEMY_H__
 #define __j1ENEMY_H__
 
 
 #include "j1Animation.h"
+#include "j1Entity.h"
 #include "p2Point.h"
 
 
 struct SDL_Texture;
 struct Collider;
 
-class j1Enemy
+class j1Enemy 
 {
 public:
 	Animation* animation = nullptr;
@@ -19,7 +20,7 @@ public:
 	SDL_Texture* sprite_path = nullptr;
 
 public:
-	j1Enemy(int x, int y);
+	j1Enemy();
 	virtual ~j1Enemy();
 
 	const Collider* GetCollider() const;
@@ -32,3 +33,4 @@ public:
 };
 
 #endif // __j1ENEMY_H__
+*/
