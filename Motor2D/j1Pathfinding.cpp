@@ -1,6 +1,5 @@
 #include "p2Defs.h"
 #include "p2Log.h"
-#include "j1App.h"
 #include "j1Pathfinding.h"
 
 j1Pathfinding::j1Pathfinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
@@ -20,6 +19,10 @@ bool j1Pathfinding::CleanUp()
 	last_path.Clear();
 	RELEASE_ARRAY(map);
 	return true;
+}
+
+void j1Pathfinding::PathDrawer()
+{
 }
 
 void j1Pathfinding::SetMap(uint width, uint height, uchar* data)
@@ -60,24 +63,20 @@ const p2DynArray<iPoint>* j1Pathfinding::GetLastPath() const
 	return &last_path;
 }
 
-// PathList ------------------------------------------------------------------------
 // Looks for a node in this list and returns it's list node or NULL
-// ---------------------------------------------------------------------------------
-p2List_item<PathNode>* PathList::Find(const iPoint& point) const
+p2List_item<PathNode>* PathList::Finder(const iPoint& point) const
 {
 	p2List_item<PathNode>* item = list.start;
 	while (item)
 	{
-		if (item->data.pos == point)
+		if (item->data.position == point)
 			return item;
 		item = item->next;
 	}
 	return NULL;
 }
 
-// PathList ------------------------------------------------------------------------
 // Returns the Pathnode with lowest score in this list or NULL if empty
-// ---------------------------------------------------------------------------------
 p2List_item<PathNode>* PathList::GetNodeLowestScore() const
 {
 	p2List_item<PathNode>* ret = NULL;
@@ -96,38 +95,33 @@ p2List_item<PathNode>* PathList::GetNodeLowestScore() const
 	return ret;
 }
 
-// PathNode -------------------------------------------------------------------------
-// Convenient constructors
-// ----------------------------------------------------------------------------------
-PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
+PathNode::PathNode() : g(-1), h(-1), position(-1, -1), parent(NULL)
 {}
 
-PathNode::PathNode(int g, int h, const iPoint& pos, const PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
+PathNode::PathNode(int g, int h, const iPoint& pos, const PathNode* parent) : g(g), h(h), position(pos), parent(parent)
 {}
 
-PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
+PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), position(node.position), parent(node.parent)
 {}
-
- 
 
 uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const // Fills the PathList of all valid adjacent pathnodes
 {
 	iPoint cell;
 	uint before = list_to_fill.list.count();
 
-	cell.create(pos.x, pos.y + 1);			//UP
+	cell.create(position.x, position.y + 1);			//UP
 	if (App->pathfind->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	cell.create(pos.x, pos.y - 1);			//DOWN
+	cell.create(position.x, position.y - 1);			//DOWN
 	if (App->pathfind->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	cell.create(pos.x + 1, pos.y);			//RIGHT
+	cell.create(position.x + 1, position.y);			//RIGHT
 	if (App->pathfind->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
-	cell.create(pos.x - 1, pos.y);			//LEFT
+	cell.create(position.x - 1, position.y);			//LEFT
 	if (App->pathfind->IsWalkable(cell))
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
@@ -142,60 +136,69 @@ int PathNode::Score() const	//Calculates this tile score
 int PathNode::CalculateF(const iPoint& destination) // Calculate the F for a specific destination tile
 {
 	g = parent->g + 1;
-	h = pos.DistanceTo(destination);
+	h = position.DistanceTo(destination);
 
 	return g + h;
 }
 
 int j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination) 
 {
-	// TODO 1: if origin or destination are not walkable, return -1
-	//return number of steps in the creation of the path or -1
+
+	int steps_number = 0;
 
 	if (IsWalkable(destination) == false || IsWalkable(origin) == false) { return -1; }
 
-	// TODO 2: Create two lists: open, close
-	// Add the origin tile to open
-	// Iterate while we have tile in the open list
+	PathList OpenList;
+	PathList ClosedList;
+	PathList AdjacentsList;
 
-	PathList open;
-	PathList close;
-
+	PathNode adjacentnode;
+	PathNode auxiliarnode;
+	PathNode backtracknode;
 	PathNode originode(0, origin.DistanceTo(destination), origin, nullptr);
-	open.list.add(originode);
-	PathNode move;
 
+	OpenList.list.add(originode);
 
-	while (open.list.start)
+	while (OpenList.list.start)
 	{
-		// TODO 3: Move the lowest score cell from open list to the closed list
+		p2List_item<PathNode>* lowest_score_node = OpenList.GetNodeLowestScore();
+		auxiliarnode = lowest_score_node->data;
+		ClosedList.list.add(auxiliarnode);
+		OpenList.list.del(lowest_score_node);
 
-		p2List_item<PathNode>* lowest_score_cell = open.GetNodeLowestScore();
-		move = lowest_score_cell->data;
-		close.list.add(move);
-
-		if (move.pos == destination)
+		if (auxiliarnode.position == destination)
 		{
-			for (PathNode backtrack = move; backtrack.parent != nullptr; backtrack = *backtrack.parent)
+			for (backtracknode = auxiliarnode; backtracknode.parent != nullptr; backtracknode = *backtracknode.parent)
 			{
+				last_path.PushBack(backtracknode.position);
+				if (backtracknode.position == origin) { last_path.Flip(); }
+			}
+			continue;
+		}
+		auxiliarnode.FindWalkableAdjacents(AdjacentsList);
 
+		for (int iterations = 0; iterations < AdjacentsList.list.count(); ++iterations)
+		{
+			adjacentnode = AdjacentsList.list[iterations];
+
+			if (ClosedList.Finder(adjacentnode.position) == nullptr)
+			{
+				adjacentnode.CalculateF(destination);
+				ClosedList.list.add(adjacentnode);
+
+				if (OpenList.Finder(adjacentnode.position) != nullptr)
+				{
+					if (OpenList.Finder(adjacentnode.position)->data.g >= adjacentnode.g)
+					{
+						p2List_item<PathNode>* better_path_node = OpenList.Finder(adjacentnode.position);
+						better_path_node->data.parent = adjacentnode.parent;
+					}
+				}
+				else { OpenList.list.add(adjacentnode); }
 			}
 		}
-
 	}
+	return steps_number;
 
 
-	// TODO 4: If we just added the destination, we are done!
-	// Backtrack to create the final path
-	// Use the Pathnode::parent and Flip() the path when you are finish
-
-	// TODO 5: Fill a list of all adjancent nodes
-
-	// TODO 6: Iterate adjancent nodes:
-	// ignore nodes in the closed list
-	// If it is NOT found, calculate its F and add it to the open list
-	// If it is already in the open list, check if it is a better path (compare G)
-	// If it is a better path, Update the parent
-
-	return -1;
 }
