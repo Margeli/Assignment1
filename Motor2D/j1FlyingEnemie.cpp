@@ -1,6 +1,7 @@
 #include "j1FlyingEnemie.h"
 #include "j1App.h"
 #include "j1Textures.h"
+#include "j1Enemies.h"
 #include "j1EntityManager.h"
 
 j1FlyingEnemie::j1FlyingEnemie(iPoint pos) : j1Entity(EntityTypes::FLY) 
@@ -28,22 +29,28 @@ bool j1FlyingEnemie::IsPointInCircle(float playposX, float playposY, float enemp
 
 void j1FlyingEnemie::OnCollision(Collider* c1, int num_enemy)
 {
+
 }
 
 void j1FlyingEnemie::LoadFlyAnimations()
 {
 	fly_right.LoadEnemyAnimations("fly_right", "fly");
 	fly_left.LoadEnemyAnimations("fly_left", "fly");
+
+	
 }
+
 
 bool j1FlyingEnemie::CleanUp()
 {
 	App->tex->UnLoad(sprites);
 	collider->to_delete = true;
 	return true;
+	
 }
 bool j1FlyingEnemie::Update(float dt)
 {
+
 	//IA
 	//Pathfinding applied to platformers.
 	collider->SetPos(position.x, position.y + 5);

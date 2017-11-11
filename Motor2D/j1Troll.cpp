@@ -1,6 +1,7 @@
 #include "j1Troll.h"
 #include "j1App.h"
 #include "j1Textures.h"
+#include "j1Enemies.h"
 #include "j1Entity.h"
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)
@@ -8,6 +9,9 @@ j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)
 	LoadTrollAnimations();	
 	position = pos;
 }
+
+
+
 
 bool j1Troll::Start() {
 
@@ -19,6 +23,7 @@ bool j1Troll::Start() {
 
 }
 // Should have the initial pos of enemies in a XML
+
 
 bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const
 {

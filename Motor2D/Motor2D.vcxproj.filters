@@ -40,34 +40,18 @@
     <ClCompile Include="j1Scene2.cpp">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="j1FlyingEnemie.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Troll.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Enemy.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
-=======
     <ClCompile Include="j1Enemies.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
->>>>>>> origin/master
     </ClCompile>
     <ClCompile Include="j1Animation.cpp">
       <Filter>Desenvolupament  ========</Filter>
     </ClCompile>
-    <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1Entity.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1EntityManager.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="C:\Users\Roger\Downloads\Timer\Assignment2-master\Motor2D\j1Timer.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-=======
     <ClCompile Include="j1Troll.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
@@ -76,7 +60,12 @@
     </ClCompile>
     <ClCompile Include="j1Player.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
->>>>>>> origin/master
+    </ClCompile>
+    <ClCompile Include="j1Pathfinding.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Timer.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,32 +132,27 @@
     <ClInclude Include="j1Scene2.h">
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="j1FlyingEnemie.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
-=======
     <ClInclude Include="j1Enemies.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
->>>>>>> origin/master
     </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1Entity.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1EntityManager.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="C:\Users\Roger\Downloads\Timer\Assignment2-master\Motor2D\j1Timer.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-=======
     <ClInclude Include="j1Troll.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1FlyingEnemie.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
->>>>>>> origin/master
+    </ClInclude>
+    <ClInclude Include="j1Pathfinding.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Timer.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

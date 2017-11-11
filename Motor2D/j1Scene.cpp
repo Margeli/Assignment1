@@ -10,12 +10,15 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
+#include "j1Enemies.h"
 #include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+
+	
 }
 
 j1Scene::~j1Scene()
@@ -90,6 +93,7 @@ bool j1Scene::Update(float dt)
 		LOG("End of level 1!");
 		SceneChange();
 	}
+
 	App->map->Draw();
 
 	return true;
@@ -153,7 +157,9 @@ void j1Scene::SceneChange()
 void j1Scene::PlaceEnemies() const{
 
 	App->entities->CreateEntity(TROLL, { 250, 514 });
-	//App->entities->CreateEntity(FLY, { 400, 100 });
+	App->entities->CreateEntity(FLY, { 400, 100 });
+
 	//App->enemies->AddEnemy(TROLL, 800, 420);
+	
 }
 

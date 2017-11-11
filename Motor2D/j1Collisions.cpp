@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "p2Log.h"
+#include "j1Enemies.h"
 #include "j1FlyingEnemie.h"
 #include "Brofiler/Brofiler.h"
 

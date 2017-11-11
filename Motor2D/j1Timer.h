@@ -10,7 +10,7 @@ public:
 
 	void Start();
 	void StartSec();
-	double ReadMs() const;				
+	double ReadMs() const;
 	uint64 ReadTicks() const;
 	uint32 Read() const;
 	float ReadSec() const;

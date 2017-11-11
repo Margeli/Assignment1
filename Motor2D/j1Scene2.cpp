@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
+#include "j1Enemies.h"
 #include "Brofiler/Brofiler.h"
 
 j1Scene2::j1Scene2() : j1Module()
@@ -39,6 +40,7 @@ bool j1Scene2::Start()
 		// Should have the initial pos of enemies in a XML
 		App->entities->player->position= initial_scene_pos;
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+
 
 		PlaceEnemies();
 	}
