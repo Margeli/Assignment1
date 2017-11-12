@@ -86,7 +86,7 @@ public:
 	j1Render*			render = nullptr;
 	j1Textures*			tex = nullptr;
 	j1Audio*			audio = nullptr;
-	j1Scene*			scene = nullptr;
+	j1Scene*			scene1 = nullptr;
 	j1Scene2*			scene2 = nullptr;
 	j1Map*				map = nullptr;	
 	j1Collisions*		collis = nullptr;

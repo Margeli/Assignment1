@@ -5,18 +5,15 @@
 	<textures />
 	<audio />
 	<map />
-	<scene>
-		<activated true="false" />
-	</scene>
-	<scene2>
+	<scene1>
 		<activated true="true" />
+	</scene1>
+	<scene2>
+		<activated true="false" />
 	</scene2>
-	<enemies />
-	<player>
-		<position x="5" y="95" />
-	</player>
+	<:anonymous />
 	<collisions />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-652" y="0" />
 	</renderer>
 </game_state>

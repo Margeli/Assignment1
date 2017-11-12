@@ -26,7 +26,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	win = new j1Window();	
 	tex = new j1Textures();
 	audio = new j1Audio();
-	scene = new j1Scene();
+	scene1 = new j1Scene();
 	scene2 = new j1Scene2();
 	map = new j1Map();
 	
@@ -42,7 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	//---- Scenes
 	AddModule(map);
-	AddModule(scene);
+	AddModule(scene1);
 	AddModule(scene2);
 
 	//----Entities
@@ -185,10 +185,9 @@ void j1App::FinishUpdate()
 		LoadGameNow();
 
 	float avg_fps = timer->ReadTicks() / timer->ReadMs();
-	float seconds_since_startup = timer->ReadMs() * 1000;
-	float dt = 0.0f;
+	float FPS = SDL_GetPerformanceFrequency();
+	float seconds_since_start = timer->ReadMs();
 	uint32 last_frame_ms = 0;
-	uint32 frames_on_last_update = 0;
 	uint64 frame_count = timer->ReadTicks();
 
 	static char title[400];
@@ -201,10 +200,13 @@ void j1App::FinishUpdate()
 
 	App->win->SetTitle(title);
 
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_REPEAT)
 	{
-		sprintf_s(title, 400, "CAVE KNIGHT | Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu",
-			avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+		sprintf_s(title, 400, "CAVE KNIGHT | FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f Frame Count: %lu ",
+			FPS, avg_fps, last_frame_ms, seconds_since_start, frame_count);
+
+		//Add vSync On Off and Cap On Off!!
+
 		App->win->SetTitle(title);
 	}
 }

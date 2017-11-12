@@ -14,7 +14,8 @@ j1EntityManager::~j1EntityManager()
 j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position) {
 
 	j1Entity* ret = nullptr;
-	switch (type) {
+	switch (type) 
+	{
 	case PLAYER: ret = new j1Player(); break;
 	case FLY: ret = new j1FlyingEnemie(position); break;
 	case TROLL: ret = new j1Troll(position); break;

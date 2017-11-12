@@ -2,7 +2,7 @@
 
 <animations>  
   <player>
-    <idle loop="true" speed="0.07f">
+    <idle_right loop="true" speed="0.07f">
       <animation x="0" y="0" w="46" h="65"/>
       <animation x="47" y="0" w="46" h="65"/>
       <animation x="94" y="0" w="46" h="65"/>
@@ -13,9 +13,9 @@
       <animation x="329" y="0" w="46" h="65"/>
       <animation x="376" y="0" w="46" h="65"/>
       <animation x="423" y="0" w="46" h="65"/>     
-    </idle>
+    </idle_right>
 
-    <idleleft loop="true" speed="0.07f">
+    <idle_left loop="true" speed="0.07f">
       <animation x="0" y="195" w="46" h="65"/>
       <animation x="47" y="195" w="46" h="65"/>
       <animation x="94" y="195" w="46" h="65"/>
@@ -26,9 +26,9 @@
       <animation x="329" y="195" w="46" h="65"/>
       <animation x="376" y="195" w="46" h="65"/>
       <animation x="423" y="195" w="46" h="65"/>
-    </idleleft>  
+    </idle_left>  
 
-    <walk loop="true" speed="0.06f">
+    <walk_right loop="true" speed="0.06f">
       <animation x="0" y="130" w="46" h="65"/>
       <animation x="47" y="130" w="46" h="65"/>
       <animation x="94" y="130" w="46" h="65"/>
@@ -39,9 +39,9 @@
       <animation x="329" y="130" w="46" h="65"/>
       <animation x="376" y="130" w="46" h="65"/>
       <animation x="423" y="130" w="46" h="65"/>
-    </walk>
+    </walk_right>
 
-    <walkleft loop="true" speed="0.06f">
+    <walk_left loop="true" speed="0.06f">
       <animation x="0" y="326" w="46" h="65"/>
       <animation x="47" y="326" w="46" h="65"/>
       <animation x="94" y="326" w="46" h="65"/>
@@ -52,9 +52,9 @@
       <animation x="329" y="326" w="46" h="65"/>
       <animation x="376" y="326" w="46" h="65"/>
       <animation x="423" y="326" w="46" h="65"/>
-    </walkleft>
+    </walk_left>
   
-    <jump loop="false" speed ="0.06f">
+    <jump_right loop="false" speed ="0.06f">
       <animation x="0" y="65" w="46" h="65"/>
       <animation x="47" y="65" w="46" h="65"/>
       <animation x="94" y="65" w="46" h="65"/>
@@ -65,9 +65,9 @@
       <animation x="329" y="65" w="46" h="65"/>
       <animation x="376" y="65" w="46" h="65"/>
       <animation x="423" y="65" w="46" h="65"/>
-    </jump>
+    </jump_right>
 
-    <jumpleft loop="false" speed ="0.06f">
+    <jump_left loop="false" speed ="0.06f">
       <animation x="0" y="261" w="46" h="65"/>
       <animation x="47" y="261" w="46" h="65"/>
       <animation x="94" y="261" w="46" h="65"/>
@@ -78,9 +78,9 @@
       <animation x="329" y="261" w="46" h="65"/>
       <animation x="376" y="261" w="46" h="65"/>
       <animation x="423" y="261" w="46" h="65"/>
-    </jumpleft>  
+    </jump_left>  
 
-    <attack_right loop="false" speed="0.08f">
+    <attack_right loop="true" speed="0.08f">
       <animation x="0" y="393" w="50" h="65"/>
       <animation x="54" y="393" w="40" h="65"/>
       <animation x="101" y="393" w="40" h="65"/>
@@ -93,7 +93,7 @@
       <animation x="451" y="393" w="47" h="65"/>      
     </attack_right>
 
-    <attack_left loop="false" speed="0.08f">
+    <attack_left loop="true" speed="0.08f">
       <animation x="0" y="459" w="44" h="65"/>
       <animation x="48" y="459" w="44" h="65"/>
       <animation x="97" y="459" w="44" h="65"/>
@@ -205,7 +205,7 @@
         <animation x="562" y="197" w="92" h="63"/>
       </jump_left>
 
-      <attack_right loop="true" speed="0.08f">
+      <attack_right loop="true" speed="0.07f">
         <animation x="0" y="393" w="88" h="94"/>
         <animation x="93" y="393" w="82" h="94"/>
         <animation x="187" y="393" w="79" h="94"/>
@@ -215,7 +215,7 @@
         <animation x="561" y="393" w="85" h="94"/>        
       </attack_right>
 
-      <attack_left loop="true" speed="0.08f">
+      <attack_left loop="true" speed="0.07f">
         <animation x="0" y="487" w="85" h="94"/>
         <animation x="93" y="487" w="85" h="94"/>
         <animation x="187" y="487" w="85" h="94"/>

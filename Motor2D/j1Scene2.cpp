@@ -11,6 +11,7 @@
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "j1Enemies.h"
+#include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
 j1Scene2::j1Scene2() : j1Module()
@@ -26,7 +27,8 @@ bool j1Scene2::Awake(pugi::xml_node&)
 	LOG("Loading Scene2");
 	bool ret = true;
 
-	if (App->scene->active == true) { active = false; }
+	if (App->scene2->active == false) { LOG("Unable to load Scene 2."); ret = false; }
+	if (App->scene1->active == true) { active = false; }
 
 	return ret;
 }
@@ -40,8 +42,6 @@ bool j1Scene2::Start()
 		// Should have the initial pos of enemies in a XML
 		App->entities->player->position= initial_scene_pos;
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
-
-
 		PlaceEnemies();
 	}
 	return true;
@@ -65,13 +65,12 @@ bool j1Scene2::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->entities->player->position = initial_scene_pos;
-		App->render->camera.x = 0;
+		App->entities->player->position = initial_scene_pos; 	App->render->camera.x = 0;
 	}
 
 	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->position.x++; }
 
-	//-----CAMERA MOVEMENT
+	//CAMERA MOVEMENT
 	if (App->entities->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x> CAMERA_LIMIT)) {
 		App->entities->player->camera_movement = true; }
 
@@ -87,9 +86,7 @@ bool j1Scene2::Update(float dt)
 bool j1Scene2::PostUpdate()
 {
 	bool ret = true;
-
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) { ret = false; }
 
 	return ret;
 }
@@ -103,7 +100,6 @@ bool j1Scene2::CleanUp()
 	App->tex->CleanUp();
 	App->entities->CleanUp();
 	
-
 	return true;
 }
 
@@ -129,7 +125,7 @@ bool j1Scene2::Save(pugi::xml_node& data) const
 
 void j1Scene2::SceneChange() 
 {
-	App->scene->active = true;
+	App->scene1->active = true;
 	App->scene2->active = false;
 
 	CleanUp();
@@ -137,7 +133,7 @@ void j1Scene2::SceneChange()
 	App->entities->Start();
 	App->collis->Start();
 	App->render->camera = { 0,0 };
-	App->scene->Start();
+	App->scene1->Start();
 }
 
 void j1Scene2::PlaceEnemies() const

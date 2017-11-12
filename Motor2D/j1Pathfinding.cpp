@@ -27,7 +27,7 @@ void j1Pathfinding::PathDrawer()
 
 void j1Pathfinding::SetMap(uint width, uint height, uchar* data)
 {
-	this->width = width;
+	this->width = width;			//take info from 1jMap
 	this->height = height;
 
 	RELEASE_ARRAY(map);

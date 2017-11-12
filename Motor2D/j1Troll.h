@@ -1,10 +1,9 @@
 #ifndef __j1TROLL_H__
 #define __j1TROLL_H__
 
-
-
 #include "p2Point.h"
 #include "j1Entity.h"
+
 class j1Entity;
 
 class j1Troll : public j1Entity
@@ -12,7 +11,6 @@ class j1Troll : public j1Entity
 public:
 
 	j1Troll(iPoint pos);
-	
 
 	void OnCollision(Collider* c1, int num_enemy);
 	
@@ -22,13 +20,12 @@ private:
 
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
 
-
 	bool Start();
+
 	bool Update(float dt);
 	
 	bool CleanUp();
 
-		
 	Animation idle_right;
 	Animation walk_right;
 	Animation jump_right;

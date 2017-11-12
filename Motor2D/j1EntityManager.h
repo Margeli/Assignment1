@@ -39,6 +39,7 @@ public:
 
 	j1Player* player;
 
+
 protected:
 
 	

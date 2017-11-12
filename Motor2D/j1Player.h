@@ -10,7 +10,7 @@
 struct SDL_Texture;
 
 #define SPEED 1
-#define LIFES 5
+#define LIFES 1
 #define PLAYERHEIGHT 65
 #define PLAYERWIDTH 45
 
@@ -19,35 +19,24 @@ class j1Player : public j1Entity
 public:
 
 	j1Player();
-
 	virtual ~j1Player();
 
 	bool Awake(pugi::xml_node& conf);
-
 	bool Start();
-
 	bool Update(float dt);
-
 	bool CleanUp();
-
 	void OnCollision(Collider* c1, Collider* c2);
-
 	void Dead();
-
 	void PlayerHurted();
 	void LoseOneLife();
 
-
 	enum Player_Facing
 	{
-		RIGHT,
+		RIGHT = 0,
 		LEFT
 	};
 
-
 private:
-
-	
 
 	Player_Facing facing = RIGHT;
 
@@ -61,52 +50,46 @@ private:
 	bool double_jump = true;
 	void JumpReset();
 	bool godmode = false;
+	void LoadPlayerAnimations();
 
 	uint jump_sound;
 	uint sword_sound;
 	uint playersteps;
-
 	uint lose_fx;
 	uint hurt_fx;
-
-	void LoadPlayerAnimations();
+	uint die_fx;
 
 public:
 
-	uint die_fx;
-	bool camera_movement = false;
-	float speed;
 	int lifes;
 	int points;
-	bool use_input= true;
+	int max_score = 0;
+	float speed;
 
+	Uint32 hit_time;
+
+	bool camera_movement = false;
+	bool use_input = true;
 	bool dead = false;
 	bool hitted = false;
 	bool player_hurted = false;
 
-	Uint32 hit_time;
-	
-	int max_score = 0;
-
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	
-	Animation idle;
-	Animation walk;
-	Animation jump;
-	Animation run;
+	Animation idle_right;
+	Animation walk_right;
+	Animation jump_right;
+	Animation run_right;
 	Animation attack_right;
 	Animation death_right;
 
-	Animation idleleft;
-	Animation walkleft;
-	Animation jumpleft;
-	Animation runleft;
+	Animation idle_left;
+	Animation walk_left;
+	Animation jump_left;
+	Animation run_left;
 	Animation attack_left;
 	Animation death_left;
-
-	
 };
 
 
