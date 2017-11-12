@@ -14,23 +14,30 @@ j1EntityManager::~j1EntityManager()
 j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position) {
 
 	j1Entity* ret = nullptr;
-	switch (type) 
+	switch (type)
 	{
-	case PLAYER: ret = new j1Player(); break;
-	case FLY: ret = new j1FlyingEnemie(position); break;
-	case TROLL: ret = new j1Troll(position); break;
+	case PLAYER: ret = new j1Player();
+		if (ret != nullptr)
+			entities.add(ret);
+		break;
+	case FLY: AddtoSpawningQueue(position, FLY);
+		break;
+
+	case TROLL: AddtoSpawningQueue(position, TROLL);
+		break;
 	}
-	if (ret != nullptr)
-		entities.add(ret);
+
 	return ret;
 }
 
-void j1EntityManager::DestroyEntity(p2List_item<j1Entity*>* entitytoremove){
-//	entities.del(entitytoremove);
+void j1EntityManager::DestroyEntity(j1Entity* entity){
+	int num = entities.find(entity);
+	entities.del(entities.At(num));
 }
 
 bool j1EntityManager::Start()
 {
+	
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
 		entity_iterator->data->Start();
@@ -40,7 +47,9 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::PreUpdate()
 {
-	p2List_item<j1Entity*>* entity_iterator;
+	CheckPlayerPostoSpawn();// Spawn enemies (TROLL|FLY) depending on player pos
+
+	p2List_item<j1Entity*>* entity_iterator; 
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
 		entity_iterator->data->PreUpdate();
 	}
@@ -58,6 +67,8 @@ bool j1EntityManager::Update(float dt)
 }
 bool j1EntityManager::PostUpdate()
 {
+	CheckPlayerPostoDespawn(); // Despawn enemies (TROLL|FLY) depending on player pos
+
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
 		entity_iterator->data->PostUpdate();
@@ -84,4 +95,51 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
+}
+
+void  j1EntityManager::AddtoSpawningQueue(iPoint pos, EntityTypes t) {
+
+	for (uint i = 0; i < MAX_ENTITIES -1; ++i)
+	{
+		if (to_spawn[i].type == EntityTypes::NOTYPE) 
+		{
+			to_spawn[i].type = t;
+			to_spawn[i].pos = pos;	
+			return;
+		}
+	}
+
+}
+
+void  j1EntityManager::CheckPlayerPostoSpawn() {
+
+	for (uint i = 0; i < MAX_ENTITIES-1; ++i)
+	{
+		if (to_spawn[i].type != EntityTypes::NOTYPE && player->position.x+SPAWN_MARGIN>=to_spawn[i].pos.x) // need limit spawn depending on camera position 
+		{
+			j1Entity* enemy;
+			if (to_spawn[i].type== FLY) {
+				enemy = new j1FlyingEnemie(to_spawn[i].pos);
+			}
+			else if (to_spawn[i].type == TROLL) {
+				enemy = new j1Troll(to_spawn[i].pos);
+			}
+			entities.add(enemy);
+			enemy->Start();
+			to_spawn[i].type = EntityTypes::NOTYPE;			
+		}
+	}
+}
+
+void  j1EntityManager::CheckPlayerPostoDespawn() {
+
+	p2List_item<j1Entity*>* entity_iterator;
+	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
+		if ((entity_iterator->data->type == TROLL) || (entity_iterator->data->type == FLY)) {
+			if (entity_iterator->data->position.x + SPAWN_MARGIN < player->position.x) {
+				entity_iterator->data->CleanUp();
+				DestroyEntity(entity_iterator->data);
+			}
+		}
+	}	
 }

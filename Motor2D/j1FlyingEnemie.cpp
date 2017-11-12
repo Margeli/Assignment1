@@ -53,6 +53,7 @@ bool j1FlyingEnemie::Update(float dt)
 
 	//IA
 	//Pathfinding applied to platformers.
+	if (collider!= nullptr)
 	collider->SetPos(position.x, position.y + 5);
 	Draw();
 	return true;
