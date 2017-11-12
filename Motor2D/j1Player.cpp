@@ -43,7 +43,6 @@ bool j1Player::Start()
 	if (!sprites) { LOG("Error loading player textures");  ret = false; }
 
 	lose_fx = App->audio->LoadFx("audio/fx/lose.wav");
-	hurt_fx = App->audio->LoadFx("audio/fx/player_hurt.wav");
 	die_fx = App->audio->LoadFx("audio/fx/player_death.wav");
 
 	if (sword_sound == 0)
@@ -193,7 +192,7 @@ bool j1Player::Update(float dt)
 		
 	if (points > max_score) { max_score = points; }
 
-	if (position.y >= BOTTOM_SCENE_LIMIT && lifes < 1) { App->audio->PlayFx(lose_fx, 0);  Dead(); }
+	if (position.y >= BOTTOM_SCENE_LIMIT && lifes < 1) { App->audio->PlayFx(lose_fx, 0); }
 
 	Draw();
 	
