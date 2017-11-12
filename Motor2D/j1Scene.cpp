@@ -10,7 +10,6 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
-#include "j1Enemies.h"
 #include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 

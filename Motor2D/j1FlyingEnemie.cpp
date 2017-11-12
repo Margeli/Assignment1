@@ -1,7 +1,6 @@
 #include "j1FlyingEnemie.h"
 #include "j1App.h"
 #include "j1Textures.h"
-#include "j1Enemies.h"
 #include "j1EntityManager.h"
 
 j1FlyingEnemie::j1FlyingEnemie(iPoint pos) : j1Entity(EntityTypes::FLY) 
