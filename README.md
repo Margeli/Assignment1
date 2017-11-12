@@ -36,5 +36,6 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - "F7" to see FPS and other info (hold key).
 - "F9" to show colliders.
 - "F10" to activate god mode.
+- "F11" to desactivate god mode.
 
 
