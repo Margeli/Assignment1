@@ -8,7 +8,10 @@
 #include "j1Scene2.h"
 
 #define TROLL_ATTACK_RANGE 170
-#define TROLL_DETECTION_RANGE 500
+#define TROLL_DETECTION_RANGE 450
+#define TROLL_SPEED 1.00f
+#define ADDED_COLLIDER_WIDTH 10
+#define ADDED_COLLIDER_HEIGHT 50
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
@@ -32,6 +35,7 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 
 void j1Troll::OnCollision(Collider* c1, int num_enemy)
 {
+	//The OnCollision function has to be changed for all.	//TODO 
 }
 
 void j1Troll::LoadTrollAnimations()		//FIX ANIMATIONS SIZE (ATTACK CHANGES ITS POSITION)
@@ -63,17 +67,17 @@ bool j1Troll::Update(float dt)
 		if (App->entities->player->position.x == position.x) //SAME POSITION IN X			
 		{
 			if(App->entities->player->LEFT) 		animation = &idle_left;
-			if(App->entities->player->RIGHT)		animation = &idle_right;		//TROLL SHOULD LOOK RIGHT
+			if(App->entities->player->RIGHT)		animation = &idle_right;		//TROLL SHOULD LOOK RIGHT  //TODO 
 		}
 
 		else if (App->entities->player->position.x < position.x)	//WALK LEFT
 			{
-				position.x -= 1.00f;
+				position.x -= TROLL_SPEED;
 				animation = &walk_left;
 			}
 		else if (App->entities->player->position.x > position.x)	//WALK RIGHT
 			{
-				position.x += 1.00f;
+				position.x += TROLL_SPEED;
 				animation = &walk_right;
 			}
 
@@ -89,12 +93,10 @@ bool j1Troll::Update(float dt)
 				 }
 		}
 
+
+
 	}
-
-	if (collider != nullptr) 
-	{
-		collider->SetPos(position.x, position.y); }
-
+	if (collider != nullptr) { collider->SetPos(position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT); }
 	Draw();
 
 	return true;

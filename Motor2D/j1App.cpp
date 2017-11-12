@@ -202,8 +202,8 @@ void j1App::FinishUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_REPEAT)
 	{
-		sprintf_s(title, 400, "CAVE KNIGHT | FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f Frame Count: %lu ",
-			FPS, avg_fps, last_frame_ms, seconds_since_start, frame_count);
+		sprintf_s(title, 400, "CAVE KNIGHT | FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f ",
+			FPS, avg_fps, last_frame_ms, seconds_since_start);
 
 		//Add vSync On Off and Cap On Off!!
 

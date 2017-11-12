@@ -180,9 +180,8 @@ bool j1Player::Update(float dt)
 			else { landing = true; }
 		}
 	}
-	//----------------------------
 
-	if (hitted && hit_time - SDL_GetTicks() > 1000) { hitted = false; } // 1s of invulnerability  if hitted
+	if (hitted && hit_time - SDL_GetTicks() > 1000) { hitted = false; } // 1 second of invulnerability  if hitted. 
 	
 	if (collider != nullptr) { collider->SetPos(position.x, position.y + 5); }
 
@@ -250,7 +249,8 @@ void j1Player::JumpReset()
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	int margin = 2;
-	if (!hitted) {
+	if (!hitted) 
+	{
 		switch (c2->type)
 		{
 		case COLLIDER_ENEMIE:

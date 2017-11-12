@@ -17,9 +17,6 @@ public:
 
 	bool CleanUp();
 
-	//Draws the path
-	void PathDrawer();
-
 	// Sets up the walkability map
 	void SetMap(uint width, uint height, uchar* data);
 
@@ -52,7 +49,6 @@ struct PathList;
 
 struct PathNode
 {
-	// Convenient constructors
 	PathNode();
 	PathNode(int g, int h, const iPoint& pos, const PathNode* parent);
 	PathNode(const PathNode& node);
@@ -61,14 +57,13 @@ struct PathNode
 	uint FindWalkableAdjacents(PathList& list_to_fill) const;
 	// Calculates this tile score
 	int Score() const;
-	// Calculate the F for a specific destination tile
+	// Calculates the F for a specific destination tile
 	int CalculateF(const iPoint& destination);
 
-	// -----------
 	int g;
 	int h;
 	iPoint position;
-	const PathNode* parent; // needed to reconstruct the path in the end
+	const PathNode* parent; 
 };
 
 struct PathList
@@ -79,7 +74,6 @@ struct PathList
 	// Returns the Pathnode with lowest score in this list or NULL if empty
 	p2List_item<PathNode>* GetNodeLowestScore() const;
 
-	// -----------
 	// The list itself, note they are not pointers!
 	p2List<PathNode> list;
 };

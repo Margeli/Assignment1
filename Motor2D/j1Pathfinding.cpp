@@ -21,13 +21,9 @@ bool j1Pathfinding::CleanUp()
 	return true;
 }
 
-void j1Pathfinding::PathDrawer()
-{
-}
-
 void j1Pathfinding::SetMap(uint width, uint height, uchar* data)
 {
-	this->width = width;			//take info from 1jMap
+	this->width = width;			
 	this->height = height;
 
 	RELEASE_ARRAY(map);
@@ -128,12 +124,12 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const // Fills the 
 	return list_to_fill.list.count();
 }
 
-int PathNode::Score() const	//Calculates this tile score
+int PathNode::Score() const	//Calculates this tile score (F)
 {
 	return g + h;
 }
 
-int PathNode::CalculateF(const iPoint& destination) // Calculate the F for a specific destination tile
+int PathNode::CalculateF(const iPoint& destination) // Calculates the F for a specific destination tile
 {
 	g = parent->g + 1;
 	h = position.DistanceTo(destination);
@@ -198,7 +194,5 @@ int j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			}
 		}
 	}
-	return steps_number;
-
-
+	return 0;	//steps_number ??
 }

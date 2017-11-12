@@ -6,6 +6,7 @@
 #include "j1Collisions.h"
 #include "j1Map.h"
 #include "Brofiler/Brofiler.h"
+#include "j1Pathfinding.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -20,10 +21,19 @@ bool j1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
-
+	node = App->tex->Load("textures/node.png");
 	folder.create(config.child("folder").child_value());
 
 	return ret;
+}
+
+void j1Map::PathDrawer()		//This function should draw the nodes defined by the last path created on the screen.
+{
+	/*for (int iterator = 0; iterator < App->pathfind->GetLastPath.Count(); iterator++)
+	 {
+		iPoint position = App->map->MapToWorld(App->pathfind->GetLastPath.At[iterator]->x, App->pathfind->GetLastPath.At[iterator]->y);
+		App->render->Blit(node, position.x, position.y);
+	}*/
 }
 
 void j1Map::Draw()
@@ -52,7 +62,6 @@ void j1Map::Draw()
 
 	first_loop = false;
 }
-
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {

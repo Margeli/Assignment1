@@ -11,6 +11,7 @@
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
+#include "j1Entity.h"
 #include "Brofiler/Brofiler.h"
 
 j1Scene2::j1Scene2() : j1Module()
@@ -137,5 +138,5 @@ void j1Scene2::SceneChange()
 
 void j1Scene2::PlaceEnemies() const
 {
-	//App->enemies->AddEnemy(TROLL, 100, 100);
+	//App->entities->CreateEntity(TROLL, { 250, 482 });	//This entity is also created in the first scene!!!		//TODO
 }

@@ -7,8 +7,7 @@
 #include "j1Module.h"
 #include "j1App.h"
 
-#define GROUND_TILES 39
-//nº of tiles that have the property ground in Tiled
+#define GROUND_TILES 39	//nº of tiles that have the property ground in Tiled
 
 struct Layer 
 {
@@ -29,14 +28,13 @@ struct TileSet
 {
 	SDL_Rect GetTileRect(int id) const;
 
+	SDL_Texture*		texture = nullptr;
 	p2SString			name;
 	int					firstgid;
 	int					margin;
 	int					spacing;
 	int					tile_width;
 	int					tile_height;
-	SDL_Texture*		texture = nullptr;
-	SDL_Texture*		nodes = nullptr;
 	int					tex_width;
 	int					tex_height;
 	int					num_tiles_width;
@@ -71,28 +69,23 @@ struct MapData
 class j1Map : public j1Module
 {
 public:
-
 	j1Map();
 
-	// Destructor
 	virtual ~j1Map();
 
-	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
 
-	// Called each loop iteration
 	void Draw();
 
-	// Called before quitting
 	bool CleanUp();
 
-	// Load new map
 	bool Load(const char* path);
 
 	iPoint MapToWorld(int x, int y) const;
 
-private:
+	void PathDrawer();
 
+private:
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
@@ -102,14 +95,13 @@ private:
 	bool first_loop = true;
 
 public:
-
 	MapData data;
 
 private:
-
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+	SDL_Texture*		node = nullptr;
 };
 
 #endif // __j1MAP_H__
