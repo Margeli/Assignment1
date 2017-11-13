@@ -12,7 +12,7 @@ public:
 
 	j1Troll(iPoint pos);
 
-	void OnCollision(Collider* c1, int num_enemy);
+	void OnCollision(Collider* c1, Collider* c2);
 	
 	void LoadTrollAnimations();
 

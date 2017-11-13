@@ -25,7 +25,7 @@ bool j1FlyingEnemie::IsPointInCircle(float playposX, float playposY, float enemp
 	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
 }
 
-void j1FlyingEnemie::OnCollision(Collider* c1, int num_enemy)
+void j1FlyingEnemie::OnCollision(Collider* c1, Collider* c2)
 {
 	//The OnCollision function has to be changed for all.	//TODO 
 }
