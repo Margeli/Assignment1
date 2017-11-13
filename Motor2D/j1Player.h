@@ -40,6 +40,8 @@ private:
 
 	Player_Facing facing = RIGHT;
 
+	void InitialPlayerPos();
+
 	float jump_limit;
 	float jump_pos;
 	float jump_speed;	

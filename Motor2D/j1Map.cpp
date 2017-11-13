@@ -21,7 +21,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
-	node = App->tex->Load("textures/node.png");
+	node = App->tex->Load("Game/textures/node.png");
 	folder.create(config.child("folder").child_value());
 
 	return ret;

@@ -5,7 +5,7 @@
 
 j1EntityManager::j1EntityManager()
 {
-	player = (j1Player*)CreateEntity(PLAYER);
+	
 }
 
 j1EntityManager::~j1EntityManager()
@@ -37,7 +37,8 @@ void j1EntityManager::DestroyEntity(j1Entity* entity){
 
 bool j1EntityManager::Start()
 {
-	
+	player = (j1Player*)CreateEntity(PLAYER);
+
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
 		entity_iterator->data->Start();

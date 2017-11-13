@@ -44,10 +44,12 @@ bool j1Collisions::PreUpdate()
 {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)//prepares collider's array
 	{
-		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
-		{
-			delete colliders[i];
-			colliders[i] = nullptr;
+		if (colliders[i] != nullptr) {
+			if (colliders[i]->to_delete ) {
+
+				delete colliders[i];
+				colliders[i] = nullptr;
+			}
 		}
 	}
 
@@ -176,18 +178,20 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 	uint right_surface, left_surface;
 	uint up_surface, down_surface;	
 	right_surface = left_surface =2;// to evite some problems when it collides, giving priority to left and right 
-	up_surface = 3;// giving more priority to up
+	up_surface = 4;// giving more priority to up
 
 	if (r.y >= rect.y) { //excluding player_below
 		if (r.x <= rect.x) { // excluding player_left
 			up_surface += (r.x + r.w) - rect.x;
-			right_surface += (rect.y + rect.h) - r.y;			
+			right_surface += (rect.y + rect.h) - r.y;
+			if(right_surface>=App->map->data.tile_height) { return PLAYER_RIGHT; }
 			if (up_surface > right_surface) { return PLAYER_ABOVE; } // compares with which side the player has more surface with the collider and return its direction; 
 			if (right_surface > up_surface) { return PLAYER_RIGHT; }
 		}
 		if (r.x > rect.x) { // excluding player_right
 			up_surface += (rect.x + rect.w) - r.x;
-			left_surface += (rect.y + rect.h) - r.y;			
+			left_surface += (rect.y + rect.h) - r.y;
+			if (left_surface >= App->map->data.tile_height) { return PLAYER_LEFT; }
 			if (up_surface > left_surface) { return PLAYER_ABOVE; }
 			if (left_surface > up_surface) { return PLAYER_LEFT; }
 		}
@@ -196,13 +200,15 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 	if (r.y < rect.y) { //excluding player_above
 		if (r.x <= rect.x) { // excluding player_left
 			down_surface = (r.x + r.w) - rect.x;
-			right_surface += (r.y + r.h) - rect.y;					
+			right_surface += (r.y + r.h) - rect.y;	
+			if (right_surface >= App->map->data.tile_height) { return PLAYER_RIGHT; }
 			if (down_surface > right_surface) { return PLAYER_BELOW; }
 			if (right_surface > down_surface) { return PLAYER_RIGHT; }
 		}
 		if (r.x > rect.x) { // excluding player_right
 			down_surface = (rect.x + rect.w) - r.x;
-			left_surface += (r.y + r.h) - rect.y;			
+			left_surface += (r.y + r.h) - rect.y;		
+			if (left_surface >= App->map->data.tile_height) { return PLAYER_LEFT; }
 			if (down_surface > left_surface) { return PLAYER_BELOW; }
 			if (left_surface > down_surface) { return PLAYER_LEFT; }
 		}
