@@ -1,34 +1,43 @@
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1Pathfinding.h"
+#include "j1Textures.h"
+#include "j1Render.h"
+#include "j1Map.h"
 
-j1Pathfinding::j1Pathfinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
+j1Pathfinding::j1Pathfinding() : j1Module()
 {
 	name.create("pathfinding");
 }
 
 j1Pathfinding::~j1Pathfinding()
 {
-	RELEASE_ARRAY(map);
+	
 }
-
+bool j1Pathfinding::Start()
+{
+	PathStep = App->tex->Load("textures/node.png");
+	if (PathStep == nullptr) {
+		int i = 10;
+	}
+	width = App->map->data.width;
+	height = App->map->data.height;
+	return true;
+}
 bool j1Pathfinding::CleanUp()
 {
-	LOG("Freeing pathfinding library.");
+	ResetPath();
+	path.Clear();	
+	App->tex->UnLoad(PathStep);
 
-	last_path.Clear();
-	RELEASE_ARRAY(map);
 	return true;
 }
 
-void j1Pathfinding::SetMap(uint width, uint height, uchar* data)
-{
-	this->width = width;			
-	this->height = height;
+void j1Pathfinding::ResetPath() {
 
-	RELEASE_ARRAY(map);
-	map = new uchar[width*height];
-	memcpy(map, data, width*height);
+	frontier.Clear();
+	visited.clear();
+	breadcrumbs.clear();
 }
 
 // Utility: return true if pos is inside the map boundaries
@@ -37,162 +46,68 @@ bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
 	return (pos.x >= 0 && pos.x <= (int)width && pos.y >= 0 && pos.y <= (int)height);
 }
 
-// Utility: returns true if the tile is walkable
-bool j1Pathfinding::IsWalkable(const iPoint& pos) const
+void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination) 
 {
-	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
-}
+	ResetPath();
 
-// Utility: return the walkability value of a tile
-uchar j1Pathfinding::GetTileAt(const iPoint& pos) const
-{
-	if (CheckBoundaries(pos))
-		return map[(pos.y*width) + pos.x];
+	iPoint goal = App->map->WorldToMap(destination.x, destination.y);
+	iPoint start = App->map->WorldToMap(origin.x, origin.y);
+	if (CheckBoundaries(goal)) {// Check if it's walkable
 
-	return INVALID_WALK_CODE;
-}
+		frontier.Push(start, 0);
 
-// To request all tiles involved in the last generated path
-const p2DynArray<iPoint>* j1Pathfinding::GetLastPath() const
-{
-	return &last_path;
-}
+		iPoint curr;
+		while (frontier.Count() != 0) {
+			if (curr == goal)
+				break;
+			frontier.Pop(curr);
 
-// Looks for a node in this list and returns it's list node or NULL
-p2List_item<PathNode>* PathList::Finder(const iPoint& point) const
-{
-	p2List_item<PathNode>* item = list.start;
-	while (item)
-	{
-		if (item->data.position == point)
-			return item;
-		item = item->next;
-	}
-	return NULL;
-}
+			iPoint neighbors[4];
+			neighbors[0].create(curr.x + 1, curr.y + 0);
+			neighbors[1].create(curr.x + 0, curr.y + 1);
+			neighbors[2].create(curr.x - 1, curr.y + 0);
+			neighbors[3].create(curr.x + 0, curr.y - 1);
 
-// Returns the Pathnode with lowest score in this list or NULL if empty
-p2List_item<PathNode>* PathList::GetNodeLowestScore() const
-{
-	p2List_item<PathNode>* ret = NULL;
-	int min = 65535;
-
-	p2List_item<PathNode>* item = list.end;
-	while (item)
-	{
-		if (item->data.Score() < min)
-		{
-			min = item->data.Score();
-			ret = item;
-		}
-		item = item->prev;
-	}
-	return ret;
-}
-
-PathNode::PathNode() : g(-1), h(-1), position(-1, -1), parent(NULL)
-{}
-
-PathNode::PathNode(int g, int h, const iPoint& pos, const PathNode* parent) : g(g), h(h), position(pos), parent(parent)
-{}
-
-PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), position(node.position), parent(node.parent)
-{}
-
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const // Fills the PathList of all valid adjacent pathnodes
-{
-	iPoint cell;
-	uint before = list_to_fill.list.count();
-
-	cell.create(position.x, position.y + 1);			//UP
-	if (App->pathfind->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-
-	cell.create(position.x, position.y - 1);			//DOWN
-	if (App->pathfind->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-
-	cell.create(position.x + 1, position.y);			//RIGHT
-	if (App->pathfind->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-
-	cell.create(position.x - 1, position.y);			//LEFT
-	if (App->pathfind->IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-
-	return list_to_fill.list.count();
-}
-
-int PathNode::Score() const	//Calculates this tile score (F)
-{
-	return g + h;
-}
-
-int PathNode::CalculateF(const iPoint& destination) // Calculates the F for a specific destination tile
-{
-	g = parent->g + 1;
-	h = position.DistanceTo(destination);
-
-	return g + h;
-}
-
-int j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination) 
-{
-
-	int steps_number = 0;
-
-	if (IsWalkable(destination) == false || IsWalkable(origin) == false) { return -1; }
-
-	PathList OpenList;
-	PathList ClosedList;
-	PathList AdjacentsList;
-
-	PathNode adjacentnode;
-	PathNode auxiliarnode;
-	PathNode backtracknode;
-	PathNode originode(0, origin.DistanceTo(destination), origin, nullptr);
-
-	OpenList.list.add(originode);
-
-	while (OpenList.list.start)
-	{
-		p2List_item<PathNode>* lowest_score_node = OpenList.GetNodeLowestScore();
-		auxiliarnode = lowest_score_node->data;
-		ClosedList.list.add(auxiliarnode);
-		OpenList.list.del(lowest_score_node);
-
-		if (auxiliarnode.position == destination)
-		{
-			for (backtracknode = auxiliarnode; backtracknode.parent != nullptr; backtracknode = *backtracknode.parent)
-			{
-				last_path.PushBack(backtracknode.position);
-				if (backtracknode.position == origin) { last_path.Flip(); }
-			}
-			continue;
-		}
-		auxiliarnode.FindWalkableAdjacents(AdjacentsList);
-
-		for (int iterations = 0; iterations < AdjacentsList.list.count(); ++iterations)
-		{
-			adjacentnode = AdjacentsList.list[iterations];
-
-			if (ClosedList.Finder(adjacentnode.position) == nullptr)
-			{
-				adjacentnode.CalculateF(destination);
-				ClosedList.list.add(adjacentnode);
-
-				if (OpenList.Finder(adjacentnode.position) != nullptr)
-				{
-					if (OpenList.Finder(adjacentnode.position)->data.g >= adjacentnode.g)
-					{
-						p2List_item<PathNode>* better_path_node = OpenList.Finder(adjacentnode.position);
-						better_path_node->data.parent = adjacentnode.parent;
+			for (int i = 0; i < 4; i++) {
+				uint distance = neighbors[i].DistanceTo(goal);
+				if (CheckBoundaries(neighbors[i])) {
+					if (visited.find(neighbors[i]) == -1) {						
+						frontier.Push(neighbors[i], distance);
+						visited.add(neighbors[i]);
+						breadcrumbs.add(curr);
 					}
 				}
-				else { OpenList.list.add(adjacentnode); }
 			}
 		}
+		Path(goal);
+
 	}
-	return 0;	//steps_number ??
+
+}
+void j1Pathfinding::DrawPath() {
+
+	// Draw path
+	for (uint i = 0; i < path.Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path[i].x, path[i].y);
+		App->render->Blit(PathStep, pos.x, pos.y);
+	}
+
+}
+
+void j1Pathfinding::Path(iPoint goal) {
+
+	path.Clear();
+	iPoint curr = goal;
+	p2List_item<iPoint>* BC_iterator = breadcrumbs.end;
+	path.PushBack(curr);
+
+	if (visited.find(curr) >= 0) {
+		while (BC_iterator != breadcrumbs.start) {
+			curr = breadcrumbs[visited.find(curr)];
+			path.PushBack(curr);
+			BC_iterator = BC_iterator->prev;
+		}
+	}
+
 }

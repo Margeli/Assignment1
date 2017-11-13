@@ -40,7 +40,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene1);
 	AddModule(scene2);
-
+	AddModule(pathfind);
 	//----Entities
 		
 	AddModule(entities);

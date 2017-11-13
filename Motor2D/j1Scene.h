@@ -40,6 +40,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 	
+	bool first_click = true;///
+	iPoint origin, dest;///
 
 private:
 	void PlaceEnemies() const;
