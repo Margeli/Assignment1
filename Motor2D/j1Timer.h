@@ -6,18 +6,16 @@
 class j1Timer
 {
 public:
+
 	j1Timer();
+	~j1Timer();
 
 	void Start();
-	void StartSec();
-	double ReadMs() const;
-	uint64 ReadTicks() const;
 	uint32 Read() const;
 	float ReadSec() const;
 
 private:
-	uint64	started_at;
-	static uint64 frequency;
+	uint32	started_at;
 };
 
 #endif //__j1TIMER_H__
