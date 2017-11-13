@@ -1,6 +1,6 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
-#include "j1FlyingEnemie.h"
+#include "j1FlyingEnemy.h"
 #include "j1Troll.h"
 
 j1EntityManager::j1EntityManager()
@@ -120,7 +120,7 @@ void  j1EntityManager::CheckPlayerPostoSpawn() {
 		{
 			j1Entity* enemy;
 			if (to_spawn[i].type== FLY) {
-				enemy = new j1FlyingEnemie(to_spawn[i].pos);
+				enemy = new j1FlyingEnemy(to_spawn[i].pos);
 			}
 			else if (to_spawn[i].type == TROLL) {
 				enemy = new j1Troll(to_spawn[i].pos);

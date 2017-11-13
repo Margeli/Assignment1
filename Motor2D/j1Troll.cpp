@@ -13,6 +13,10 @@
 #define TROLL_SPEED 1.00f
 #define ADDED_COLLIDER_WIDTH 10
 #define ADDED_COLLIDER_HEIGHT 50
+#define COLLIDER_MARGIN_RIGHT 24
+#define COLLIDER_MARGIN_LEFT 77
+#define TROLL_HEIGHT 100
+
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
@@ -36,23 +40,21 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 
 void j1Troll::OnCollision(Collider* c1, Collider* c2)
 {
-	int margin = 2;
-
 	if (c2->type == COLLIDER_GROUND)
 	{
 		switch (c1->CheckDirection(c2->rect))
 		{
 		case ENTITY_ABOVE:
-			position.y = c2->rect.y - 100;
+			position.y = c2->rect.y - TROLL_HEIGHT;
 			break;
 		case ENTITY_BELOW:
 			position.y = c2->rect.y + c2->rect.h;
 			break;
 		case ENTITY_RIGHT:
-			position.x = c2->rect.x + c2->rect.w;
+			position.x = c2->rect.x + COLLIDER_MARGIN_RIGHT;
 			break;
 		case ENTITY_LEFT:
-			position.x = c2->rect.x - 100 - margin;
+			position.x = c2->rect.x - COLLIDER_MARGIN_LEFT;
 			break;
 		}
 	}
@@ -76,7 +78,7 @@ bool j1Troll::CleanUp()
 {
 	LOG("Unloading Troll.");
 	App->tex->UnLoad(sprites);
-	collider->to_delete = true;
+//	collider->to_delete = true;	//It crahes when closing application, TODO
 	return true;
 }
 

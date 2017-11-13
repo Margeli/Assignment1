@@ -7,14 +7,12 @@
 #include "j1Collisions.h"
 #include "j1Entity.h"
 
-class j1FlyingEnemie : public j1Entity
+class j1FlyingEnemy : public j1Entity
 {
 public:
 
-	j1FlyingEnemie(iPoint pos);
+	j1FlyingEnemy(iPoint pos);
 		
-	
-
 	void OnCollision(Collider* c1, Collider* c2);
 
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
@@ -30,8 +28,6 @@ public:
 		
 	Animation fly_right;
 	Animation fly_left;
-	
-
 };
 
 

@@ -6,7 +6,7 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "p2Log.h"
-#include "j1FlyingEnemie.h"
+#include "j1FlyingEnemy.h"
 #include "Brofiler/Brofiler.h"
 
 #include "j1Map.h"
