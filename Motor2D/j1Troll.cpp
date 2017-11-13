@@ -7,6 +7,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 
+#define GRAVITY 2
 #define TROLL_ATTACK_RANGE 170
 #define TROLL_DETECTION_RANGE 450
 #define TROLL_SPEED 1.00f
@@ -37,7 +38,27 @@ void j1Troll::OnCollision(Collider* c1, Collider* c2)
 {
 	int i=0;
 	i++;
-	//The OnCollision function has to be changed for all.	//TODO 
+
+	int margin = 2;
+
+	if (c2->type == COLLIDER_GROUND)
+	{
+		switch (c1->CheckDirection(c2->rect))
+		{
+		case ENTITY_ABOVE:
+			position.y = c2->rect.y - 100;
+			break;
+		case ENTITY_BELOW:
+			position.y = c2->rect.y + c2->rect.h;
+			break;
+		case ENTITY_RIGHT:
+			position.x = c2->rect.x + c2->rect.w;
+			break;
+		case ENTITY_LEFT:
+			position.x = c2->rect.x - 100 - margin;
+			break;
+		}
+	}
 }
 
 void j1Troll::LoadTrollAnimations()		//FIX ANIMATIONS SIZE (ATTACK CHANGES ITS POSITION)
@@ -64,6 +85,8 @@ bool j1Troll::CleanUp()
 
 bool j1Troll::Update(float dt) 
 {
+	position.y += GRAVITY;
+
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE) == true)
 	{
 		if (App->entities->player->position.x == position.x) //SAME POSITION IN X			
@@ -94,9 +117,6 @@ bool j1Troll::Update(float dt)
 					 animation = &attack_right;
 				 }
 		}
-
-
-
 	}
 	if (collider != nullptr) { collider->SetPos(position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT); }
 	Draw();

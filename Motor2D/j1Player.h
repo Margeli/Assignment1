@@ -32,7 +32,7 @@ public:
 
 	enum Player_Facing
 	{
-		RIGHT = 0,
+		RIGHT = 1,
 		LEFT
 	};
 

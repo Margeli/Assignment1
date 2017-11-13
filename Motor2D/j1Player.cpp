@@ -260,22 +260,22 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		case COLLIDER_GROUND:
 			switch (c1->CheckDirection(c2->rect))
 			{
-			case PLAYER_ABOVE:
+			case ENTITY_ABOVE:
 				position.y = c2->rect.y - PLAYERHEIGHT;
 				double_jump = true;
 				jumping = false;
 				landing = false;
 				if(walking) { App->audio->PlayFx(playersteps); }
 				break;
-			case PLAYER_BELOW:
+			case ENTITY_BELOW:
 				position.y = c2->rect.y + c2->rect.h;
 				jumping = false;
 				landing = true;
 				break;
-			case PLAYER_RIGHT:
+			case ENTITY_RIGHT:
 				position.x = c2->rect.x + c2->rect.w;
 				break;
-			case PLAYER_LEFT:
+			case ENTITY_LEFT:
 				position.x = c2->rect.x - PLAYERWIDTH - margin;
 				break;
 			}

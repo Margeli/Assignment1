@@ -182,14 +182,14 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 		if (r.x <= rect.x) { // excluding player_left
 			up_surface += (r.x + r.w) - rect.x;
 			right_surface += (rect.y + rect.h) - r.y;			
-			if (up_surface > right_surface) { return PLAYER_ABOVE; } // compares with which side the player has more surface with the collider and return its direction; 
-			if (right_surface > up_surface) { return PLAYER_RIGHT; }
+			if (up_surface > right_surface) { return ENTITY_ABOVE; } // compares with which side the player has more surface with the collider and return its direction; 
+			if (right_surface > up_surface) { return ENTITY_RIGHT; }
 		}
 		if (r.x > rect.x) { // excluding player_right
 			up_surface += (rect.x + rect.w) - r.x;
 			left_surface += (rect.y + rect.h) - r.y;			
-			if (up_surface > left_surface) { return PLAYER_ABOVE; }
-			if (left_surface > up_surface) { return PLAYER_LEFT; }
+			if (up_surface > left_surface) { return ENTITY_ABOVE; }
+			if (left_surface > up_surface) { return ENTITY_LEFT; }
 		}
 	}
 
@@ -197,14 +197,14 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 		if (r.x <= rect.x) { // excluding player_left
 			down_surface = (r.x + r.w) - rect.x;
 			right_surface += (r.y + r.h) - rect.y;					
-			if (down_surface > right_surface) { return PLAYER_BELOW; }
-			if (right_surface > down_surface) { return PLAYER_RIGHT; }
+			if (down_surface > right_surface) { return ENTITY_BELOW; }
+			if (right_surface > down_surface) { return ENTITY_RIGHT; }
 		}
 		if (r.x > rect.x) { // excluding player_right
 			down_surface = (rect.x + rect.w) - r.x;
 			left_surface += (r.y + r.h) - rect.y;			
-			if (down_surface > left_surface) { return PLAYER_BELOW; }
-			if (left_surface > down_surface) { return PLAYER_LEFT; }
+			if (down_surface > left_surface) { return ENTITY_BELOW; }
+			if (left_surface > down_surface) { return ENTITY_LEFT; }
 		}
 	}	 
 }
