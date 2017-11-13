@@ -36,9 +36,6 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 
 void j1Troll::OnCollision(Collider* c1, Collider* c2)
 {
-	int i=0;
-	i++;
-
 	int margin = 2;
 
 	if (c2->type == COLLIDER_GROUND)

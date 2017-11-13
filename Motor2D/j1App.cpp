@@ -44,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	//----Entities
 		
 	AddModule(entities);
+
 	
 	//------collider & render (should be the lasts to update)
 	AddModule(collis);

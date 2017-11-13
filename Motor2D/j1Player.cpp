@@ -37,6 +37,8 @@ bool j1Player::Start()
 	jump_speed = 4.5f;
 	jump_limit = 70.0f;
 
+	InitialPlayerPos();
+
 	collider = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, App->entities);	
 
 	sprites = App->tex->Load("textures/character.png");
@@ -248,37 +250,46 @@ void j1Player::JumpReset()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	int margin = 2;
+	int margin = 3;
 	if (!hitted) 
 	{
 		switch (c2->type)
 		{
 		case COLLIDER_ENEMIE:
-			if(player_hurted == false && godmode == false)
-			PlayerHurted();
+		{
+			if (player_hurted == false && godmode == false)
+				PlayerHurted();
 			break;
-		case COLLIDER_GROUND:
-			switch (c1->CheckDirection(c2->rect))
+		}
+		case COLLIDER_GROUND:	
+			CollisionDirection direction = c1->CheckDirection(c2->rect);
+			if (direction == ENTITY_ABOVE) 
 			{
-			case ENTITY_ABOVE:
 				position.y = c2->rect.y - PLAYERHEIGHT;
 				double_jump = true;
 				jumping = false;
 				landing = false;
-				if(walking) { App->audio->PlayFx(playersteps); }
+				if (walking) { App->audio->PlayFx(playersteps); }
 				break;
-			case ENTITY_BELOW:
+			}
+			if (direction == ENTITY_BELOW)
+			{
 				position.y = c2->rect.y + c2->rect.h;
 				jumping = false;
 				landing = true;
 				break;
-			case ENTITY_RIGHT:
-				position.x = c2->rect.x + c2->rect.w;
-				break;
-			case ENTITY_LEFT:
+			}
+			if (direction == ENTITY_LEFT) 
+			{
 				position.x = c2->rect.x - PLAYERWIDTH - margin;
 				break;
 			}
+			if (direction == ENTITY_RIGHT) 
+			{
+				position.x = c2->rect.x + c2->rect.w + margin;
+				break;
+			}
+			
 			break;
 		}
 	}
@@ -315,4 +326,14 @@ void j1Player::LoadPlayerAnimations()
 	walk_right.LoadPlayerAnimations("walk_right");
 	walk_left.LoadPlayerAnimations("walk_left");
 	run_right.LoadPlayerAnimations("run_right");
+}
+
+void j1Player::InitialPlayerPos() {
+
+	if (App->scene1->active){		
+		position = App->scene1->initial_scene_pos;
+	}
+	if (App->scene2->active){	
+		position = App->scene2->initial_scene_pos;		
+	}
 }
