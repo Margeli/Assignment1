@@ -13,7 +13,6 @@
 #include "j1App.h"
 #include "j1EntityManager.h"
 #include "j1Pathfinding.h"
-#include "j1Timer.h"
 #include "Brofiler/Brofiler.h"
 
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -28,12 +27,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	scene1 = new j1Scene();
 	scene2 = new j1Scene2();
 	map = new j1Map();
-	
 	render = new j1Render();
 	collis = new j1Collisions();
 	entities = new j1EntityManager();
 	pathfind = new j1Pathfinding();
-	timer = new j1Timer();
 
 	AddModule(input);
 	AddModule(win);
@@ -110,6 +107,9 @@ bool j1App::Awake()
 		}
 	}
 
+	if (App->render->vsync == true) { state = "ON"; }
+	else { state = "OFF"; }
+
 	return ret;
 }
 
@@ -149,11 +149,13 @@ bool j1App::Update()
 	if(ret == true)
 		ret = PostUpdate();
 
+	if (App->render->vsync == true) { cap = "ON"; }
+	else { cap = "OFF"; }
+
 	FinishUpdate();
 	return ret;
 }
 
-// ---------------------------------------------
 pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 {
 	pugi::xml_node ret;
@@ -168,12 +170,10 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 	return ret;
 }
 
-// ---------------------------------------------
 void j1App::PrepareUpdate()
 {
 }
 
-// ---------------------------------------------
 void j1App::FinishUpdate()
 {
 	if(want_to_save == true)
@@ -182,28 +182,22 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
-	float avg_fps = timer->ReadTicks() / timer->ReadMs();
+	float avg_fps = perftimer.ReadTicks() / perftimer.ReadMs();
 	float FPS = SDL_GetPerformanceFrequency();
-	float seconds_since_start = timer->ReadMs();
+	float seconds_since_start = perftimer.ReadMs();
 	uint32 last_frame_ms = 0;
-	uint64 frame_count = timer->ReadTicks();
+	uint64 frame_count = perftimer.ReadTicks();
 
 	static char title[400];
 
-	if (App->render->vsync == true) { state = "ON"; }
-	else { state = "OFF"; }
-
-	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f Vsync: ",
+	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f Vsync: %s Cap: %s",
 		App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
-		App->map->data.width, FPS, avg_fps, last_frame_ms, seconds_since_start, state.GetString());
+		FPS, avg_fps, last_frame_ms, seconds_since_start, state.GetString(), cap.GetString());
+
 
 	App->win->SetTitle(title);
 
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_REPEAT)
-	{
-
 		//Add vSync On Off and Cap On Off!!
-	}
 }
 
 // Call modules before each loop iteration

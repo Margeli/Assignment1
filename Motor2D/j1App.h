@@ -3,6 +3,8 @@
 
 #include "p2List.h"
 #include "j1Module.h"
+#include "j1Timer.h"
+#include "j1PerfTimer.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -18,6 +20,7 @@ class j1Collisions;
 class j1EntityManager;
 class j1Pathfinding;
 class j1Timer;
+class j1PerfTimer;
 
 class j1App
 {
@@ -92,7 +95,9 @@ public:
 	j1Collisions*		collis = nullptr;
 	j1EntityManager*	entities = nullptr;
 	j1Pathfinding*		pathfind = nullptr;
-	j1Timer*				timer = nullptr;
+
+	j1Timer					timer;
+	j1PerfTimer			perftimer;
 
 private:
 
@@ -104,7 +109,8 @@ private:
 
 	p2SString			title;
 	p2SString			organization;
-	p2SString			state;
+	mutable p2SString 				state;
+	mutable p2SString				cap;
 
 	mutable bool		want_to_save;
 	bool				want_to_load;
