@@ -81,10 +81,10 @@ bool j1Collisions::Update(float dt) {
 	{
 		if (colliders[i] == nullptr)
 			continue;
-		if (colliders[i]->type == COLLIDER_PLAYER) 
+		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMIE)
 		{
 
-			collider1 = colliders[i]; // player collider
+			collider1 = colliders[i]; // player collider or enemie
 
 			for (uint k = 0; k < MAX_COLLIDERS; ++k)
 			{

@@ -15,7 +15,7 @@ public:
 		
 	
 
-	void OnCollision(Collider* c1, int num_enemy);
+	void OnCollision(Collider* c1, Collider* c2);
 
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
 	
