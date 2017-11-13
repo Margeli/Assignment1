@@ -104,6 +104,7 @@ private:
 
 	p2SString			title;
 	p2SString			organization;
+	p2SString			state;
 
 	mutable bool		want_to_save;
 	bool				want_to_load;

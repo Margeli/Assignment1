@@ -33,6 +33,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	int camera_speed;
+	bool vsync = false;
 
 	// Blit
 	void SetViewPort(const SDL_Rect& rect);

@@ -16,7 +16,6 @@
 #include "j1Timer.h"
 #include "Brofiler/Brofiler.h"
 
-
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
@@ -49,8 +48,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 		
 	AddModule(entities);
 	
-	
-
 	//------collider & render (should be the lasts to update)
 	AddModule(collis);
 	AddModule(render);
@@ -192,22 +189,19 @@ void j1App::FinishUpdate()
 
 	static char title[400];
 
-	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  | Map:%dx%d Tiles:%dx%d Tilesets:%d ",
+	if (App->render->vsync == true) { state = "ON"; }
+	else { state = "OFF"; }
+
+	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f Vsync: ",
 		App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
-		App->map->data.width, App->map->data.height,
-		App->map->data.tile_width, App->map->data.tile_height,
-		App->map->data.tilesets.count());
+		App->map->data.width, FPS, avg_fps, last_frame_ms, seconds_since_start, state.GetString());
 
 	App->win->SetTitle(title);
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_REPEAT)
 	{
-		sprintf_s(title, 400, "CAVE KNIGHT | FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f ",
-			FPS, avg_fps, last_frame_ms, seconds_since_start);
 
 		//Add vSync On Off and Cap On Off!!
-
-		App->win->SetTitle(title);
 	}
 }
 
