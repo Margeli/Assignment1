@@ -8,7 +8,6 @@ class j1PerfTimer
 public:
 
 	j1PerfTimer();
-	~j1PerfTimer();
 
 	void Start();
 	double ReadMs() const;

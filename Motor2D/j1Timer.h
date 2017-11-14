@@ -8,7 +8,6 @@ class j1Timer
 public:
 
 	j1Timer();
-	~j1Timer();
 
 	void Start();
 	uint32 Read() const;

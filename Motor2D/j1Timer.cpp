@@ -6,10 +6,6 @@ j1Timer::j1Timer()
 	Start();
 }
 
-j1Timer::~j1Timer()
-{
-}
-
 void j1Timer::Start()
 {
 	started_at = SDL_GetTicks();

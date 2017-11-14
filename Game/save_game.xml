@@ -11,6 +11,7 @@
 	<scene2>
 		<activated true="false" />
 	</scene2>
+	<pathfinding />
 	<:anonymous />
 	<collisions />
 	<renderer>

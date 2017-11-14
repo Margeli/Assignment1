@@ -58,11 +58,10 @@ void j1FlyingEnemy::LoadFlyAnimations()
 	fly_left.LoadEnemyAnimations("fly_left", "fly");
 }
 
-
 bool j1FlyingEnemy::CleanUp()
 {
 	App->tex->UnLoad(sprites);
-	//collider->to_delete = true;	//It crahes when closing application, TODO
+	collider->to_delete = true;	
 	return true;
 }
 bool j1FlyingEnemy::Update(float dt)

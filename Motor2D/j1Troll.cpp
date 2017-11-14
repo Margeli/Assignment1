@@ -78,7 +78,7 @@ bool j1Troll::CleanUp()
 {
 	LOG("Unloading Troll.");
 	App->tex->UnLoad(sprites);
-//	collider->to_delete = true;	//It crahes when closing application, TODO
+	collider->to_delete = true;
 	return true;
 }
 

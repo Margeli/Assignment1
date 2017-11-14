@@ -184,7 +184,7 @@ void j1App::FinishUpdate()
 
 	float avg_fps = perftimer.ReadTicks() / perftimer.ReadMs();
 	float FPS = SDL_GetPerformanceFrequency();
-	float seconds_since_start = perftimer.ReadMs();
+	float seconds_since_start = timer.ReadSec();
 	uint32 last_frame_ms = 0;
 	uint64 frame_count = perftimer.ReadTicks();
 

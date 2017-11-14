@@ -11,9 +11,6 @@ j1PerfTimer::j1PerfTimer()
 	Start();
 }
 
-j1PerfTimer::~j1PerfTimer()
-{}
-
 void j1PerfTimer::Start()
 {
 	started_at = SDL_GetPerformanceCounter();
