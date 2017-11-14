@@ -82,8 +82,10 @@ public:
 	bool Load(const char* path);
 
 	iPoint MapToWorld(int x, int y) const;
+	iPoint WorldToMap(int x, int y) const;
 
 	void PathDrawer();
+	
 
 private:
 	bool LoadMap();
@@ -101,7 +103,7 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
-	SDL_Texture*		node = nullptr;
+
 };
 
 #endif // __j1MAP_H__

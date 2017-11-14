@@ -21,7 +21,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
-	node = App->tex->Load("Game/textures/node.png");
+	
 	folder.create(config.child("folder").child_value());
 
 	return ret;
@@ -59,8 +59,20 @@ void j1Map::Draw()
 			}
 		}	
 	}
-
+	App->pathfind->DrawPath();///
 	first_loop = false;
+}
+
+iPoint j1Map::WorldToMap(int x, int y) const 
+{
+	iPoint ret = {0,0};
+
+	ret.x = x / data.tile_width;
+	ret.y = y / data.tile_height;
+
+	return ret;
+
+
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const
