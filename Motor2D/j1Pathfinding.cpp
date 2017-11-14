@@ -8,6 +8,10 @@
 j1Pathfinding::j1Pathfinding() : j1Module()
 {
 	name.create("pathfinding");
+
+	
+		paths = nullptr;	
+	
 }
 
 j1Pathfinding::~j1Pathfinding()
@@ -24,21 +28,24 @@ bool j1Pathfinding::Start()
 	height = App->map->data.height;
 	return true;
 }
+
 bool j1Pathfinding::CleanUp()
 {
-	ResetPath();
-	path.Clear();	
+	
+		if (paths != nullptr) {
+			paths->Clear();
+			delete paths;
+			paths = nullptr;
+		}
+	
+	
+	
 	App->tex->UnLoad(PathStep);
 
 	return true;
 }
 
-void j1Pathfinding::ResetPath() {
 
-	frontier.Clear();
-	visited.clear();
-	breadcrumbs.clear();
-}
 
 // Utility: return true if pos is inside the map boundaries
 bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
@@ -46,21 +53,21 @@ bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
 	return (pos.x >= 0 && pos.x <= (int)width && pos.y >= 0 && pos.y <= (int)height);
 }
 
-void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination) 
+void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination, Pathfinding* path  ) 
 {
-	ResetPath();
-
+	//if(path)
+	//path->Clear();
 	iPoint goal = App->map->WorldToMap(destination.x, destination.y);
 	iPoint start = App->map->WorldToMap(origin.x, origin.y);
 	if (CheckBoundaries(goal)) {// Check if it's walkable
 
-		frontier.Push(start, 0);
+		path->frontier.Push(start, 0);
 
 		iPoint curr;
-		while (frontier.Count() != 0) {
+		while (path->frontier.Count() != 0) {
 			if (curr == goal)
 				break;
-			frontier.Pop(curr);
+			path->frontier.Pop(curr);
 
 			iPoint neighbors[4];
 			neighbors[0].create(curr.x + 1, curr.y + 0);
@@ -71,43 +78,63 @@ void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			for (int i = 0; i < 4; i++) {
 				uint distance = neighbors[i].DistanceTo(goal);
 				if (CheckBoundaries(neighbors[i])) {
-					if (visited.find(neighbors[i]) == -1) {						
-						frontier.Push(neighbors[i], distance);
-						visited.add(neighbors[i]);
-						breadcrumbs.add(curr);
+					if (path->visited.find(neighbors[i]) == -1) {
+						path->frontier.Push(neighbors[i], distance);
+						path->visited.add(neighbors[i]);
+						path->breadcrumbs.add(curr);
 					}
 				}
 			}
 		}
-		Path(goal);
+		Path(goal, *path);
 
 	}
 
 }
-void j1Pathfinding::DrawPath() {
+void j1Pathfinding::DrawPath(const Pathfinding& path) const {
 
 	// Draw path
-	for (uint i = 0; i < path.Count(); ++i)
+	for (uint i = 0; i < path.path.Count(); ++i)
 	{
-		iPoint pos = App->map->MapToWorld(path[i].x, path[i].y);
+		iPoint pos = App->map->MapToWorld(path.path[i].x, path.path[i].y);
 		App->render->Blit(PathStep, pos.x, pos.y);
 	}
 
 }
 
-void j1Pathfinding::Path(iPoint goal) {
+void j1Pathfinding::Path(iPoint goal, Pathfinding& path) {
 
-	path.Clear();
+	path.path.Clear();
 	iPoint curr = goal;
-	p2List_item<iPoint>* BC_iterator = breadcrumbs.end;
-	path.PushBack(curr);
+	p2List_item<iPoint>* BC_iterator = path.breadcrumbs.end;
+	path.path.PushBack(curr);
 
-	if (visited.find(curr) >= 0) {
-		while (BC_iterator != breadcrumbs.start) {
-			curr = breadcrumbs[visited.find(curr)];
-			path.PushBack(curr);
+	if (path.visited.find(curr) >= 0) {
+		while (BC_iterator != path.breadcrumbs.start) {
+			curr = path.breadcrumbs[path.visited.find(curr)];
+			path.path.PushBack(curr);
 			BC_iterator = BC_iterator->prev;
 		}
 	}
+
+}
+
+Pathfinding* j1Pathfinding::AddPath(const iPoint& origin, const iPoint& destination) {
+
+	Pathfinding* ret = nullptr;			
+			
+	paths = ret;
+	CreatePath(origin, destination, paths);		
+		
+	
+	return ret;
+
+}
+void Pathfinding::Clear() {
+
+	frontier.Clear();
+	visited.clear();
+	breadcrumbs.clear();
+	path.Clear();
 
 }

@@ -7,6 +7,7 @@
 #include "j1Collisions.h"
 #include "j1Entity.h"
 
+class Pathfinding;
 class j1FlyingEnemy : public j1Entity
 {
 public:
@@ -25,6 +26,8 @@ public:
 	bool CleanUp();
 
 public:
+
+	Pathfinding* path = nullptr;
 		
 	Animation fly_right;
 	Animation fly_left;
