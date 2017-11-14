@@ -6,6 +6,7 @@
 #include "j1Entity.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1Audio.h"
 
 #define GRAVITY 2
 #define TROLL_ATTACK_RANGE 170
@@ -17,7 +18,6 @@
 #define COLLIDER_MARGIN_LEFT 77
 #define TROLL_HEIGHT 100
 
-
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
 	LoadTrollAnimations();	
@@ -26,10 +26,20 @@ j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the 
 
 bool j1Troll::Start() 
 {
+	bool ret = true;
 	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, App->entities);
 	sprites = App->tex->Load("textures/Troll1.png");	
+	if (!sprites) { LOG("Error loading troll's textures.");  ret = false; }
 	animation = &idle_left;
+	LoadTrollAudio();
+	return ret;
+}
 
+bool j1Troll::LoadTrollAudio()
+{
+	bool ret = true;
+	troll_death = App->audio->LoadFx("audio/fx/troll_death.wav");
+	if (!sprites) { LOG("Error loading troll's audio.");  ret = false; }
 	return true;
 }
 
@@ -86,8 +96,13 @@ bool j1Troll::Update(float dt)
 {
 	position.y += GRAVITY;
 
-	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE) == true)
+	if (position.y > 600) { App->audio->PlayFx(troll_death);  App->audio->CleanFx(); CleanUp(); }	//	LoadTrollAudio();
+
+	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
+		//troll_path = App->pathfind->FindPath(position, App->entities->player->position);
+		//App->pathfind->DrawPath(*troll_path);
+
 		if (App->entities->player->position.x == position.x) //SAME POSITION IN X			
 		{
 			if(App->entities->player->LEFT) 		animation = &idle_left;
@@ -105,7 +120,7 @@ bool j1Troll::Update(float dt)
 				animation = &walk_right;
 			}
 
-		if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE) == true)	//ATTACK 
+		if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE))	//ATTACK 
 		{
 				 if (App->entities->player->position.x < position.x)
 				{

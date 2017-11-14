@@ -222,7 +222,6 @@ void j1Player::PlayerHurted()
 	else if (facing == LEFT) { animation = &death_left; }
 }
 
-
 void j1Player::LoseOneLife() 
 {
 		if (App->scene1->active) { position = App->scene1->initial_scene_pos; }

@@ -11,6 +11,7 @@
 #define COLLIDER_MARGIN_RIGHT 24
 #define COLLIDER_MARGIN_LEFT 77
 #define FLY_SPEED 0.5f
+#define FLYING_ENEMY_DETECION_RANGE 500
 
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
 {
@@ -69,22 +70,27 @@ bool j1FlyingEnemy::CleanUp()
 }
 bool j1FlyingEnemy::Update(float dt)
 {
+
 	path = App->pathfind->FindPath({position.x+30, position.y+ 30},
-	{ App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT/ 2, });
+	{ App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT-40, });
 	
 	
 	/*
 
-	if (App->entities->player->position.x <= position.x)
+
+	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, FLYING_ENEMY_DETECION_RANGE))
+
 	{
-		position.x -= FLY_SPEED;
-		animation = &fly_left;
+		path = App->pathfind->FindPath(position, App->entities->player->position);
+		App->pathfind->DrawPath(*path);
 	}
+
+	if (App->entities->player->position.x <= position.x) { animation = &fly_left; }
 	else { animation = &fly_right; }
 
-	position.x += rand() % 4;			//Just to make it more fun while pathfinding isn't ready :)
+	position.x += rand() % 3;			
 	position.y -= rand() % 3;
-	position.x -= rand() % 3 ;
+	position.x -= rand() % 3;
 	position.y += rand() % 3;
 	*/
 	if (collider!= nullptr)
