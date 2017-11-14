@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
+#include "j1Timer.h"
 #include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 
@@ -53,33 +54,28 @@ bool j1Scene::PreUpdate()
 
 bool j1Scene::Update(float dt)
 {
+
 	BROFILER_CATEGORY("Scene1_Update", Profiler::Color::Chocolate);
 	App->entities->player->position.y += GRAVITY;
 
-	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)///----------
+	//Pathfinding
+	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)
 	{
-
-
-
-		if (first_click) {
-
+		if (first_click)
+		{
 			App->input->GetMousePosition(origin.x, origin.y);
-
 		}
 		if (!first_click) {
 			App->input->GetMousePosition(dest.x, dest.y);
 			App->pathfind->CreatePath({ origin.x - App->render->camera.x, origin.y - App->render->camera.y }, { dest.x - App->render->camera.x, dest.y - App->render->camera.y });
 			//App->map->Path(p.x - App->render->camera.x, p.y - App->render->camera.y);
-
 		}
 	}
 	if (App->input->GetMouseButtonDown(1) == KEY_UP)
 	{
 		first_click = !first_click;
-	}///---------------------------------------------------------
-
-
-
+	}
+	//---------------------------------------------------------
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 

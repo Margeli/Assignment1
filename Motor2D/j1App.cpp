@@ -182,19 +182,17 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
-	float avg_fps = perftimer.ReadTicks() / perftimer.ReadMs();
-	float FPS = SDL_GetPerformanceFrequency();
+	float dt = timer.Start - timer.ReadSec;
+	float avg_fps = perftimer.ReadTicks() / timer.ReadSec();
+	float FPS = timer.CalcFPS(dt);
 	float seconds_since_start = timer.ReadSec();
 	uint32 last_frame_ms = 0;
 	uint64 frame_count = perftimer.ReadTicks();
 
 	static char title[400];
-
 	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Average FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f Vsync: %s Cap: %s",
 		App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
 		FPS, avg_fps, last_frame_ms, seconds_since_start, state.GetString(), cap.GetString());
-
-
 	App->win->SetTitle(title);
 
 		//Add vSync On Off and Cap On Off!!
