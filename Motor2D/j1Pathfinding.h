@@ -41,7 +41,7 @@ public:
 	
 	
 
-	Pathfinding* AddPath(const iPoint& origin, const iPoint& destination);
+	Pathfinding* FindPath(const iPoint& origin, const iPoint& destination);
 
 
 private:
@@ -60,7 +60,7 @@ private:
 	SDL_Texture*		PathStep = nullptr;
 	
 	
-	Pathfinding*		paths = nullptr;
+	Pathfinding*		path_root = nullptr;
 
 	
 };

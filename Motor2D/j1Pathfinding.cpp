@@ -8,9 +8,10 @@
 j1Pathfinding::j1Pathfinding() : j1Module()
 {
 	name.create("pathfinding");
+	
 
 	
-		paths = nullptr;	
+		path_root = nullptr;	
 	
 }
 
@@ -22,8 +23,9 @@ bool j1Pathfinding::Start()
 {
 	PathStep = App->tex->Load("textures/node.png");
 	if (PathStep == nullptr) {
-		int i = 10;
+		return false;
 	}
+	path_root = new Pathfinding();
 	width = App->map->data.width;
 	height = App->map->data.height;
 	return true;
@@ -32,10 +34,10 @@ bool j1Pathfinding::Start()
 bool j1Pathfinding::CleanUp()
 {
 	
-		if (paths != nullptr) {
-			paths->Clear();
-			delete paths;
-			paths = nullptr;
+		if (path_root != nullptr) {
+			path_root->Clear();
+			delete path_root;
+			path_root = nullptr;
 		}
 	
 	
@@ -55,8 +57,8 @@ bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
 
 void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination, Pathfinding* path  ) 
 {
-	//if(path)
-	//path->Clear();
+	
+	path->Clear();
 	iPoint goal = App->map->WorldToMap(destination.x, destination.y);
 	iPoint start = App->map->WorldToMap(origin.x, origin.y);
 	if (CheckBoundaries(goal)) {// Check if it's walkable
@@ -119,12 +121,12 @@ void j1Pathfinding::Path(iPoint goal, Pathfinding& path) {
 
 }
 
-Pathfinding* j1Pathfinding::AddPath(const iPoint& origin, const iPoint& destination) {
+Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination) {
 
 	Pathfinding* ret = nullptr;			
 			
-	paths = ret;
-	CreatePath(origin, destination, paths);		
+	ret = path_root;
+	CreatePath(origin, destination, path_root);		
 		
 	
 	return ret;

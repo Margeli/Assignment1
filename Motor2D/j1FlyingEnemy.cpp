@@ -67,8 +67,8 @@ bool j1FlyingEnemy::CleanUp()
 }
 bool j1FlyingEnemy::Update(float dt)
 {
-	//path = App->pathfind->AddPath(position, App->entities->player->position);
-	//App->pathfind->DrawPath(*path);///
+	path = App->pathfind->FindPath(position, App->entities->player->position);
+	App->pathfind->DrawPath(*path);///
 	
 	/*
 
