@@ -5371,6 +5371,7 @@
  </layer>
  <layer name="Terrain2" width="100" height="25">
   <properties>
+   <property name="ground" type="int" value="1"/>
    <property name="speed" type="float" value="1"/>
    <property name="xpos" type="int" value="0"/>
    <property name="ypos" type="int" value="50"/>

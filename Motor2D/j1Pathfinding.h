@@ -8,7 +8,7 @@
 #include "p2PQueue.h"
 
 #define INVALID_WALK_CODE 255
-#define DEFAULT_PATH_LENGTH 50
+#define DEFAULT_PATH_LENGTH 70
 #define MAX_PATHS 50
 struct SDL_Texture;
 
@@ -41,10 +41,16 @@ public:
 	
 	
 
-	Pathfinding* FindPath(const iPoint& origin, const iPoint& destination);
+	Pathfinding* FindPath(const iPoint& origin,const iPoint& destination);
 
-
+	// Sets up the walkability map
+	void SetMap(uint width, uint height, uchar* data);
 private:
+
+	// Utility: return the walkability value of a tile
+	uchar GetTileAt(const iPoint& pos) const;
+
+
 
 	//Resets the path list
 	void ResetPath();
@@ -52,11 +58,16 @@ private:
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const iPoint& pos) const;
 
+	bool CheckIsWalkable(const iPoint& pos) const;
+
 	void Path(iPoint goal, Pathfinding& path);
 
 	// size of the map
 	uint				 width;
 	uint				height;
+	// all map walkability values [0..255]
+	uchar*				map;
+
 	SDL_Texture*		PathStep = nullptr;
 	
 	

@@ -6,6 +6,7 @@
 #include "j1Entity.h"
 #include "j1Pathfinding.h"
 
+
 #define GRAVITY 2
 #define COLLIDER_MARGIN_RIGHT 24
 #define COLLIDER_MARGIN_LEFT 77
@@ -63,12 +64,14 @@ bool j1FlyingEnemy::CleanUp()
 {
 	App->tex->UnLoad(sprites);
 	collider->to_delete = true;	
+	path->Clear();
 	return true;
 }
 bool j1FlyingEnemy::Update(float dt)
 {
-	path = App->pathfind->FindPath(position, App->entities->player->position);
-	App->pathfind->DrawPath(*path);///
+	path = App->pathfind->FindPath({position.x+30, position.y+ 30},
+	{ App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT/ 2, });
+	
 	
 	/*
 
@@ -87,5 +90,8 @@ bool j1FlyingEnemy::Update(float dt)
 	if (collider!= nullptr)
 	collider->SetPos(position.x, position.y + 5);
 	Draw();
+	if (App->collis->debug){
+		App->pathfind->DrawPath(*path);///
+	}
 	return true;
 }

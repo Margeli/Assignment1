@@ -9,20 +9,52 @@
 
 #define GROUND_TILES 39	//nº of tiles that have the property ground in Tiled
 
+struct Properties {
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
+
+
 struct Layer 
 {
 	p2SString name;
 	uint width;
 	uint height;
 	float speed;
-	iPoint initial_player_position;
-	iPoint initial_enemie_position;
+	
 	uint* data=nullptr;
+	Properties	properties;
 
 	~Layer();
+
+	inline uint Get(int x, int y) const
+	{
+		return data[(y*width) + x];
+	}
 };
 	
-inline iPoint GetXYfromTile(int x, int y);
+
 
 struct TileSet
 {
@@ -81,9 +113,10 @@ public:
 
 	bool Load(const char* path);
 
-	iPoint MapToWorld(int x, int y) const;
+	inline iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
-
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+	
 	void PathDrawer();
 	
 
@@ -92,6 +125,9 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+	TileSet* GetTilesetFromTileId(int id) const;
 
 	void PutMapColliders(int current_id, iPoint position);
 	bool first_loop = true;

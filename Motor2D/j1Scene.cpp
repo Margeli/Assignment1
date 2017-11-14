@@ -36,8 +36,18 @@ bool j1Scene::Start()
 {
 	if (active) 
 	{
-		App->map->Load("Map1.tmx");
-		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the player position from the last layer loaded from Tiled
+		if (App->map->Load("Map1.tmx")) {
+			int w, h;
+			uchar* data = NULL;
+			if (App->map->CreateWalkabilityMap(w, h, &data))
+				App->pathfind->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+		
+		
+		}
+		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
+			App->map->data.layers.At(2)->data->properties.Get("ypos")}; //Gets the player position from the last layer loaded from Tiled
 		// Should have the initial pos of enemies in a XML
 				
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
@@ -56,28 +66,7 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY("Scene1_Update", Profiler::Color::Chocolate);
 	App->entities->player->position.y += GRAVITY;
 
-	if (App->input->GetMouseButtonDown(1) == KEY_DOWN)///----------
-	{
 
-
-
-		if (first_click) {
-
-			App->input->GetMousePosition(origin.x, origin.y);
-
-		}
-		if (!first_click) {
-			App->input->GetMousePosition(dest.x, dest.y);
-			path = App->pathfind->FindPath({ origin.x - App->render->camera.x, origin.y - App->render->camera.y }, { dest.x - App->render->camera.x, dest.y - App->render->camera.y });
-			//App->map->Path(p.x - App->render->camera.x, p.y - App->render->camera.y);
-
-		}
-	}
-	if (App->input->GetMouseButtonDown(1) == KEY_UP)
-	{
-		first_click = !first_click;
-	}///---------------------------------------------------------
-	
 	
 
 
@@ -108,8 +97,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	App->map->Draw();
-	if (path != nullptr)
-		App->pathfind->DrawPath(*path);///
+	
 	return true;
 }
 
@@ -168,12 +156,12 @@ void j1Scene::SceneChange()
 
 void j1Scene::PlaceEnemies() const{
 
-	App->entities->CreateEntity(TROLL, { 300, 482 });
-	App->entities->CreateEntity(TROLL, { 850, 380 });
+	//App->entities->CreateEntity(TROLL, { 300, 482 });
+	//App->entities->CreateEntity(TROLL, { 850, 380 });
 
 	App->entities->CreateEntity(FLY, { 400, 100 });
-	App->entities->CreateEntity(FLY, { 900, 200 });
-	App->entities->CreateEntity(FLY, { 1400, 100 });
+	//App->entities->CreateEntity(FLY, { 900, 200 });
+	//App->entities->CreateEntity(FLY, { 1400, 100 });
 
 	//App->enemies->AddEnemy(TROLL, 800, 420);
 }

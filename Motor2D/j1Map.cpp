@@ -36,13 +36,62 @@ void j1Map::PathDrawer()		//This function should draw the nodes defined by the l
 	}*/
 }
 
+bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+{
+	bool ret = false;
+	p2List_item<Layer*>* item;
+	item = data.layers.start;
+
+	for (item = data.layers.start; item != NULL; item = item->next)
+	{
+		Layer* layer = item->data;
+
+		if (layer->properties.Get("ground", 0) == 0)
+			continue;
+
+		uchar* map = new uchar[layer->width*layer->height];
+		memset(map, 1, layer->width*layer->height);
+
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int i = (y*layer->width) + x;
+
+				int tile_id = layer->Get(x, y);
+				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
+
+				if (tileset != NULL)
+				{
+					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
+					/*TileType* ts = tileset->GetTileType(tile_id);
+					if(ts != NULL)
+					{
+					map[i] = ts->properties.Get("walkable", 1);
+					}*/
+				}
+			}
+		}
+
+		*buffer = map;
+		width = data.width;
+		height = data.height;
+		ret = true;
+
+		break;
+	}
+
+	return ret;
+}
+
+
 void j1Map::Draw()
 {
 	BROFILER_CATEGORY("Map_Drawing", Profiler::Color::DarkBlue);
 	if (map_loaded == false) { LOG("Couldn't load map.");  return; }
 
 	int tile_num;
-	for (p2List_item<Layer*>* layer_iterator = data.layers.At(0); layer_iterator != nullptr; layer_iterator = layer_iterator->next) 
+	for (p2List_item<Layer*>* layer_iterator = data.layers.start; layer_iterator != nullptr; layer_iterator = layer_iterator->next) 
 	{
 		tile_num = 0;
 		for (int row = 0; row < layer_iterator->data->height; row++) 
@@ -50,7 +99,7 @@ void j1Map::Draw()
 			for (int column = 0; column < layer_iterator->data->width; column++)
 			{
 				uint id = layer_iterator->data->data[tile_num];
-				iPoint position = GetXYfromTile(column, row);
+				iPoint position = MapToWorld(column, row);
 
  				if (first_loop) {PutMapColliders(id, position);}
 
@@ -63,27 +112,26 @@ void j1Map::Draw()
 	first_loop = false;
 }
 
-iPoint j1Map::WorldToMap(int x, int y) const 
+ iPoint j1Map::WorldToMap(int x, int y) const 
 {
-	iPoint ret = {0,0};
+	iPoint ret;
 
 	ret.x = x / data.tile_width;
 	ret.y = y / data.tile_height;
 
 	return ret;
-
-
 }
 
-iPoint j1Map::MapToWorld(int x, int y) const
+inline iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;
 
-	ret.x = x * data.tile_width;
-	ret.y = y * data.tile_height;
+	ret.x = x* App->map->data.tilesets.At(0)->data->tile_width;	
+	ret.y = y* App->map->data.tilesets.At(0)->data->tile_height;
 
 	return ret;
 }
+
 
 SDL_Rect TileSet::GetTileRect(int id) const
 {
@@ -368,14 +416,18 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->height = node.attribute("height").as_uint();
 	layer->width = node.attribute("width").as_uint();
+	LoadProperties(node, layer->properties);
+	layer->speed = layer->properties.Get("speed");
 
-	pugi::xml_node prop = node.child("properties").first_child();	
-	layer->speed = prop.attribute("value").as_float();	
-	prop = prop.next_sibling();
-	layer->initial_player_position.x = prop.attribute("value").as_int();
-	prop = prop.next_sibling();
+	//pugi::xml_node prop = node.child("properties").first_child();	
+	//layer->speed = prop.attribute("value").as_float();	
+	//prop = prop.next_sibling();
+	//layer->initial_player_position.x = prop.attribute("value").as_int();
+	//prop = prop.next_sibling();
 
-	layer->initial_player_position.y = prop.attribute("value").as_int();
+	//layer->initial_player_position.y = prop.attribute("value").as_int();
+
+
 
 	uint data_size = layer->width * layer->height;
 	layer->data= new uint[data_size];
@@ -412,13 +464,63 @@ void j1Map::PutMapColliders(int current_id, iPoint position)
 	}
 }
 
-inline iPoint GetXYfromTile(int x, int y) 
+TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
-	iPoint position;
-	position.x = x* App->map->data.tilesets.At(0)->data->tile_width;
-	position.y = y* App->map->data.tilesets.At(0)->data->tile_height;
+	p2List_item<TileSet*>* item = data.tilesets.start;
+	TileSet* set = item->data;
 
-	return position;
+	while (item)
+	{
+		if (id < item->data->firstgid)
+		{
+			set = item->prev->data;
+			break;
+		}
+		set = item->data;
+		item = item->next;
+	}
+
+	return set;
+}
+
+// Load a group of properties from a node and fill a list with it
+bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+{
+	bool ret = false;
+
+	pugi::xml_node data = node.child("properties");
+
+	if (data != NULL)
+	{
+		pugi::xml_node prop;
+
+		for (prop = data.child("property"); prop; prop = prop.next_sibling("property"))
+		{
+			Properties::Property* p = new Properties::Property();
+
+			p->name = prop.attribute("name").as_string();
+			p->value = prop.attribute("value").as_int();
+
+			properties.list.add(p);
+		}
+	}
+
+	return ret;
+}
+
+
+int Properties::Get(const char* value, int default_value) const
+{
+	p2List_item<Property*>* item = list.start;
+
+	while (item)
+	{
+		if (item->data->name == value)
+			return item->data->value;
+		item = item->next;
+	}
+
+	return default_value;
 }
 
 Layer::~Layer() { RELEASE(data); }

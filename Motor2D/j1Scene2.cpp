@@ -12,6 +12,7 @@
 #include "j1Player.h"
 #include "j1EntityManager.h"
 #include "j1Entity.h"
+#include "j1PathFinding.h"
 #include "Brofiler/Brofiler.h"
 
 j1Scene2::j1Scene2() : j1Module()
@@ -37,8 +38,17 @@ bool j1Scene2::Start()
 {
 	if (active) 
 	{
-		App->map->Load("Map2.tmx");
-		initial_scene_pos = App->map->data.layers.At(2)->data->initial_player_position; //Gets the player position from the last layer loaded from Tiled
+		if (App->map->Load("Map2.tmx")) {
+			int w, h;
+			uchar* data = NULL;
+			if (App->map->CreateWalkabilityMap(w, h, &data))
+				App->pathfind->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+
+		}
+		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
+			App->map->data.layers.At(2)->data->properties.Get("xpos") }; //Gets the player position from the last layer loaded from Tiled
 		// Should have the initial pos of enemies in a XML
 		
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");

@@ -7,7 +7,7 @@
 #include "j1Collisions.h"
 #include "j1Entity.h"
 
-class Pathfinding;
+struct Pathfinding;
 class j1FlyingEnemy : public j1Entity
 {
 public:

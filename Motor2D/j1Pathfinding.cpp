@@ -5,7 +5,7 @@
 #include "j1Render.h"
 #include "j1Map.h"
 
-j1Pathfinding::j1Pathfinding() : j1Module()
+j1Pathfinding::j1Pathfinding() : j1Module(), map(NULL)
 {
 	name.create("pathfinding");
 	
@@ -17,7 +17,7 @@ j1Pathfinding::j1Pathfinding() : j1Module()
 
 j1Pathfinding::~j1Pathfinding()
 {
-	
+	RELEASE_ARRAY(map);
 }
 bool j1Pathfinding::Start()
 {
@@ -33,15 +33,13 @@ bool j1Pathfinding::Start()
 
 bool j1Pathfinding::CleanUp()
 {
-	
-		if (path_root != nullptr) {
-			path_root->Clear();
-			delete path_root;
-			path_root = nullptr;
-		}
-	
-	
-	
+
+	if (path_root != nullptr) {
+		path_root->Clear();
+		delete path_root;
+		path_root = nullptr;
+	}
+	RELEASE_ARRAY(map);
 	App->tex->UnLoad(PathStep);
 
 	return true;
@@ -55,7 +53,14 @@ bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
 	return (pos.x >= 0 && pos.x <= (int)width && pos.y >= 0 && pos.y <= (int)height);
 }
 
-void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination, Pathfinding* path  ) 
+bool j1Pathfinding::CheckIsWalkable(const iPoint& pos) const
+{
+	if (CheckBoundaries(pos) == false) { return false; }
+	uchar num = GetTileAt(pos);
+	return num != INVALID_WALK_CODE && num > 0;
+}
+
+void j1Pathfinding::CreatePath( const iPoint& origin,  const iPoint& destination, Pathfinding* path  ) 
 {
 	
 	path->Clear();
@@ -78,17 +83,19 @@ void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination, 
 			neighbors[3].create(curr.x + 0, curr.y - 1);
 
 			for (int i = 0; i < 4; i++) {
+				
 				uint distance = neighbors[i].DistanceTo(goal);
-				if (CheckBoundaries(neighbors[i])) {
+				if (CheckIsWalkable(neighbors[i])) {
 					if (path->visited.find(neighbors[i]) == -1) {
 						path->frontier.Push(neighbors[i], distance);
 						path->visited.add(neighbors[i]);
 						path->breadcrumbs.add(curr);
 					}
+					Path(goal, *path);
 				}
 			}
 		}
-		Path(goal, *path);
+		
 
 	}
 
@@ -113,30 +120,52 @@ void j1Pathfinding::Path(iPoint goal, Pathfinding& path) {
 
 	if (path.visited.find(curr) >= 0) {
 		while (BC_iterator != path.breadcrumbs.start) {
-			curr = path.breadcrumbs[path.visited.find(curr)];
+			int num = path.visited.find(curr);
+			if (num  == -1) { break; }
+			curr = path.breadcrumbs[num];
 			path.path.PushBack(curr);
 			BC_iterator = BC_iterator->prev;
+
 		}
-	}
-
-}
-
-Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination) {
-
-	Pathfinding* ret = nullptr;			
-			
-	ret = path_root;
-	CreatePath(origin, destination, path_root);		
 		
-	
-	return ret;
+	}
+	path.path.Flip();
+}
+void j1Pathfinding::SetMap(uint width, uint height, uchar* data) {
+
+	this->width = width;
+	this->height = height;
+
+	RELEASE_ARRAY(map);
+	map = new uchar[width*height];
+	memcpy(map, data, width*height);
+}
+
+uchar j1Pathfinding::GetTileAt(const iPoint& pos) const {
+	if (CheckBoundaries(pos))
+		return map[(pos.y*width) + pos.x];
+
+	return INVALID_WALK_CODE;
 
 }
+
 void Pathfinding::Clear() {
 
 	frontier.Clear();
 	visited.clear();
 	breadcrumbs.clear();
 	path.Clear();
+
+}
+
+Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination) {
+
+	Pathfinding* ret = nullptr;
+
+	ret = path_root;
+	CreatePath(origin, destination, path_root);
+
+
+	return ret;
 
 }
