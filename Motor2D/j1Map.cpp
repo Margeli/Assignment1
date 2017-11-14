@@ -59,7 +59,7 @@ void j1Map::Draw()
 			}
 		}	
 	}
-	App->pathfind->DrawPath();///
+	
 	first_loop = false;
 }
 

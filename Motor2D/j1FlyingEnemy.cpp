@@ -4,6 +4,7 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Entity.h"
+#include "j1Pathfinding.h"
 
 #define GRAVITY 2
 #define COLLIDER_MARGIN_RIGHT 24
@@ -66,6 +67,11 @@ bool j1FlyingEnemy::CleanUp()
 }
 bool j1FlyingEnemy::Update(float dt)
 {
+	//path = App->pathfind->AddPath(position, App->entities->player->position);
+	//App->pathfind->DrawPath(*path);///
+	
+	/*
+
 	if (App->entities->player->position.x <= position.x)
 	{
 		position.x -= FLY_SPEED;
@@ -77,7 +83,7 @@ bool j1FlyingEnemy::Update(float dt)
 	position.y -= rand() % 3;
 	position.x -= rand() % 3 ;
 	position.y += rand() % 3;
-
+	*/
 	if (collider!= nullptr)
 	collider->SetPos(position.x, position.y + 5);
 	Draw();

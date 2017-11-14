@@ -9,7 +9,19 @@
 
 #define INVALID_WALK_CODE 255
 #define DEFAULT_PATH_LENGTH 50
+#define MAX_PATHS 50
 struct SDL_Texture;
+
+struct Pathfinding {
+	p2DynArray<iPoint>	path;
+	p2PQueue<iPoint>	frontier;
+	p2List<iPoint>		visited;
+	p2List<iPoint>		breadcrumbs;
+
+	void Clear();
+
+};
+
 
 class j1Pathfinding : public j1Module
 {
@@ -22,31 +34,35 @@ public:
 	bool CleanUp();
 
 	//Draws the path 
-	void DrawPath();
+	void DrawPath(const Pathfinding& path)const ;
+
+	// Main function to request a path from A to B
+	void CreatePath(const iPoint& origin, const iPoint& destination, Pathfinding* path);		
+	
+	
+
+	Pathfinding* AddPath(const iPoint& origin, const iPoint& destination);
+
+
+private:
 
 	//Resets the path list
 	void ResetPath();
 
-	// Main function to request a path from A to B
-	void CreatePath(const iPoint& origin, const iPoint& destination);
-		
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const iPoint& pos) const;
-	
 
-private:
-
-	void Path(iPoint goal);
+	void Path(iPoint goal, Pathfinding& path);
 
 	// size of the map
 	uint				 width;
 	uint				height;
 	SDL_Texture*		PathStep = nullptr;
 	
-	p2PQueue<iPoint>	frontier;
-	p2List<iPoint>		visited;
-	p2List<iPoint>		breadcrumbs;
-	p2DynArray<iPoint>	path;
+	
+	Pathfinding*		paths = nullptr;
+
+	
 };
 
 

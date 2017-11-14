@@ -9,7 +9,7 @@
 #define RIGHT_SCENE_LIMIT 3152
 
 struct SDL_Texture;
-
+class Pathfinding;
 
 class j1Scene : public j1Module
 {
@@ -42,9 +42,11 @@ public:
 	
 	bool first_click = true;///
 	iPoint origin, dest;///
+	Pathfinding* path = nullptr;
 
 private:
 	void PlaceEnemies() const;
+	
 
 };
 

@@ -15,6 +15,10 @@
 
 j1Collisions::j1Collisions(): j1Module()
 {
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i) {
+		colliders[i] = nullptr;	
+	}
 	name.create("collisions");
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
