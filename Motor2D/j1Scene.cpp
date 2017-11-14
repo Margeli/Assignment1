@@ -68,7 +68,7 @@ bool j1Scene::Update(float dt)
 		}
 		if (!first_click) {
 			App->input->GetMousePosition(dest.x, dest.y);
-			App->pathfind->CreatePath({ origin.x - App->render->camera.x, origin.y - App->render->camera.y }, { dest.x - App->render->camera.x, dest.y - App->render->camera.y },path);
+			path = App->pathfind->FindPath({ origin.x - App->render->camera.x, origin.y - App->render->camera.y }, { dest.x - App->render->camera.x, dest.y - App->render->camera.y });
 			//App->map->Path(p.x - App->render->camera.x, p.y - App->render->camera.y);
 
 		}
@@ -78,7 +78,7 @@ bool j1Scene::Update(float dt)
 		first_click = !first_click;
 	}///---------------------------------------------------------
 	
-	if(path!=nullptr)App->pathfind->DrawPath(*path);///
+	
 
 
 
@@ -108,7 +108,8 @@ bool j1Scene::Update(float dt)
 	}
 
 	App->map->Draw();
-
+	if (path != nullptr)
+		App->pathfind->DrawPath(*path);///
 	return true;
 }
 

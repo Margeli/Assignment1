@@ -27,7 +27,7 @@ public:
 
 public:
 
-	Pathfinding* path = nullptr;
+	Pathfinding* path =nullptr;
 		
 	Animation fly_right;
 	Animation fly_left;
