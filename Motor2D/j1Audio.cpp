@@ -13,7 +13,6 @@ j1Audio::j1Audio() : j1Module()
 	name.create("audio");
 }
 
-// Destructor
 j1Audio::~j1Audio()
 {}
 
@@ -170,4 +169,10 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+bool j1Audio::CleanFx()
+{
+	fx.clear();
+	return true;
 }

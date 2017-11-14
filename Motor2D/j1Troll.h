@@ -3,6 +3,7 @@
 
 #include "p2Point.h"
 #include "j1Entity.h"
+#include "j1Pathfinding.h"
 
 class j1Entity;
 
@@ -16,7 +17,9 @@ public:
 	
 	void LoadTrollAnimations();
 
-private:
+	bool LoadTrollAudio();
+
+public:
 
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
 
@@ -25,6 +28,8 @@ private:
 	bool Update(float dt);
 	
 	bool CleanUp();
+
+	Pathfinding* troll_path = nullptr;
 
 	Animation idle_right;
 	Animation walk_right;
@@ -37,6 +42,8 @@ private:
 	Animation jump_left;
 	Animation attack_left;
 	Animation death_left;
+
+	uint troll_death;
 
 };
 #endif // __j1TROLL_H__

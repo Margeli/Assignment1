@@ -89,9 +89,7 @@ void j1Pathfinding::CreatePath(const iPoint& origin, const iPoint& destination, 
 			}
 		}
 		Path(goal, *path);
-
 	}
-
 }
 void j1Pathfinding::DrawPath(const Pathfinding& path) const {
 
@@ -101,24 +99,24 @@ void j1Pathfinding::DrawPath(const Pathfinding& path) const {
 		iPoint pos = App->map->MapToWorld(path.path[i].x, path.path[i].y);
 		App->render->Blit(PathStep, pos.x, pos.y);
 	}
-
 }
 
-void j1Pathfinding::Path(iPoint goal, Pathfinding& path) {
-
+void j1Pathfinding::Path(iPoint goal, Pathfinding& path) 
+{
 	path.path.Clear();
 	iPoint curr = goal;
 	p2List_item<iPoint>* BC_iterator = path.breadcrumbs.end;
 	path.path.PushBack(curr);
 
-	if (path.visited.find(curr) >= 0) {
-		while (BC_iterator != path.breadcrumbs.start) {
+	if (path.visited.find(curr) >= 0)
+	{
+		while (BC_iterator != path.breadcrumbs.start) 
+		{
 			curr = path.breadcrumbs[path.visited.find(curr)];
 			path.path.PushBack(curr);
 			BC_iterator = BC_iterator->prev;
 		}
 	}
-
 }
 
 Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination) {
@@ -128,15 +126,12 @@ Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destina
 	ret = path_root;
 	CreatePath(origin, destination, path_root);		
 		
-	
 	return ret;
-
 }
-void Pathfinding::Clear() {
-
+void Pathfinding::Clear() 
+{
 	frontier.Clear();
 	visited.clear();
 	breadcrumbs.clear();
 	path.Clear();
-
 }
