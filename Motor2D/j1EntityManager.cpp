@@ -11,8 +11,8 @@ j1EntityManager::j1EntityManager()
 j1EntityManager::~j1EntityManager()
 {}
 
-j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position) {
-
+j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position)
+{
 	j1Entity* ret = nullptr;
 	switch (type)
 	{
@@ -26,7 +26,6 @@ j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position) {
 	case TROLL: AddtoSpawningQueue(position, TROLL);
 		break;
 	}
-
 	return ret;
 }
 

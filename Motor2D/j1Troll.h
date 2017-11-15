@@ -44,6 +44,7 @@ public:
 	Animation death_left;
 
 	uint troll_death;
+	uint troll_attack;
 
 };
 #endif // __j1TROLL_H__
