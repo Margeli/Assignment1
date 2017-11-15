@@ -39,7 +39,8 @@ bool j1Troll::LoadTrollAudio()
 {
 	bool ret = true;
 	troll_death = App->audio->LoadFx("audio/fx/troll_death.wav");
-	if (!sprites) { LOG("Error loading troll's audio.");  ret = false; }
+	troll_attack = App->audio->LoadFx("audio/fx/troll_attack.wav");
+	if (!troll_death || !troll_attack) { LOG("Error loading troll's audio.");  ret = false; }
 	return true;
 }
 
@@ -96,7 +97,9 @@ bool j1Troll::Update(float dt)
 {
 	position.y += GRAVITY;
 
-	if (position.y > 600) { App->audio->PlayFx(troll_death);  App->audio->CleanFx(); CleanUp(); }	//	LoadTrollAudio();
+	if (position.y > 800) { App->audio->PlayFx(troll_death);  App->audio->CleanFx();  CleanUp(); }	
+
+	
 
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
@@ -124,10 +127,12 @@ bool j1Troll::Update(float dt)
 		{
 				 if (App->entities->player->position.x < position.x)
 				{
+					 App->audio->PlayFx(troll_attack);
 					 animation = &attack_left;
 				}
 				 else if (App->entities->player->position.x > position.x)
 				 {
+					 App->audio->PlayFx(troll_attack);
 					 animation = &attack_right;
 				 }
 		}
