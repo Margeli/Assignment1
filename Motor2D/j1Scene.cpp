@@ -158,11 +158,11 @@ void j1Scene::SceneChange()
 
 void j1Scene::PlaceEnemies() const{
 
-	App->entities->CreateEntity(TROLL, { 300, 482 });
-	App->entities->CreateEntity(TROLL, { 850, 380 });
+	//App->entities->CreateEntity(TROLL, { 300, 482 });
+	//App->entities->CreateEntity(TROLL, { 850, 380 });
 
 	App->entities->CreateEntity(FLY, { 400, 100 });
-	App->entities->CreateEntity(FLY, { 900, 200 });
+//	App->entities->CreateEntity(FLY, { 900, 200 });
 	//App->entities->CreateEntity(FLY, { 1400, 100 });
 
 	//App->enemies->AddEnemy(TROLL, 800, 420);

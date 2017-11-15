@@ -8,6 +8,8 @@
 #include "j1Entity.h"
 
 struct Pathfinding;
+enum MoveTo;
+
 class j1FlyingEnemy : public j1Entity
 {
 public:
@@ -25,12 +27,18 @@ public:
 	bool Update(float dt);
 	
 	bool CleanUp();
-	void DoStep();
-	int iterations = 0;
+	void Move(Pathfinding& _path);
+
+	
+	
+	
+	
 
 public:
 
 	Pathfinding* path =nullptr;
+	MoveTo direction;
+	
 		
 	Animation fly_right;
 	Animation fly_left;
