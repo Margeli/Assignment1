@@ -27,15 +27,6 @@ bool j1Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-void j1Map::PathDrawer()		//This function should draw the nodes defined by the last path created on the screen.
-{
-	/*for (int iterator = 0; iterator < App->pathfind->GetLastPath.Count(); iterator++)
-	 {
-		iPoint position = App->map->MapToWorld(App->pathfind->GetLastPath.At[iterator]->x, App->pathfind->GetLastPath.At[iterator]->y);
-		App->render->Blit(node, position.x, position.y);
-	}*/
-}
-
 bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
 	bool ret = false;
@@ -133,16 +124,7 @@ inline iPoint j1Map::MapToWorld(int x, int y) const
 }
 
 
-SDL_Rect TileSet::GetTileRect(int id) const
-{
-	int relative_id = id - firstgid;
-	SDL_Rect rect;
-	rect.w = tile_width;
-	rect.h = tile_height;
-	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
-	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
-	return rect;
-}
+
 
 bool j1Map::CleanUp()
 {
@@ -508,6 +490,16 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
+SDL_Rect TileSet::GetTileRect(int id) const
+{
+	int relative_id = id - firstgid;
+	SDL_Rect rect;
+	rect.w = tile_width;
+	rect.h = tile_height;
+	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
+	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
+	return rect;
+}
 
 int Properties::Get(const char* value, int default_value) const
 {

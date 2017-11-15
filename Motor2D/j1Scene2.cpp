@@ -141,10 +141,10 @@ void j1Scene2::SceneChange()
 
 	CleanUp();
 	
+	App->scene1->Start();
 	App->entities->Start();
 	App->collis->Start();
 	App->render->camera = { 0,0 };
-	App->scene1->Start();
 	App->pathfind->Start();
 }
 

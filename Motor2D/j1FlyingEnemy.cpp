@@ -8,9 +8,12 @@
 #include "j1Pathfinding.h"
 
 #define GRAVITY 2
+
 #define COLLIDER_MARGIN_RIGHT 24
 #define COLLIDER_MARGIN_LEFT 77
 #define FLY_SPEED 0.8f
+#define FLY_HEIGHT 50
+#define FLY_WIDTH 40
 #define FLYING_ENEMY_DETECION_RANGE 500
 #define COLLIDER_POS_X 10
 #define COLLIDER_POS_Y 10
@@ -18,12 +21,15 @@
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
 {
 	position = initial_pos = pos;		
-	LoadFlyAnimations();	
+	LoadFlyAnimations();
+	collider = nullptr;
+	sprites = nullptr;
+	animation = nullptr;
 }
 
 bool j1FlyingEnemy::Start()
 {
-	collider = App->collis->AddCollider({ position.x, position.y, 40, 45 }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
+	collider = App->collis->AddCollider({ position.x , position.y, FLY_WIDTH, FLY_HEIGHT }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
 	sprites = App->tex->Load("textures/Fly.png");
 	animation = &fly_left;
 	SetInitialPos();
@@ -43,16 +49,16 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 		switch (c1->CheckDirection(c2->rect))
 		{
 		case ENTITY_ABOVE:
-			position.y = c2->rect.y - 40;
+			position.y = c2->rect.y - FLY_HEIGHT;
 			break;
 		case ENTITY_BELOW:
 			position.y = c2->rect.y + c2->rect.h;
 			break;
 		case ENTITY_RIGHT:
-			position.x = c2->rect.x + COLLIDER_MARGIN_RIGHT;
+			position.x = c2->rect.x + c2->rect.w ;
 			break;
 		case ENTITY_LEFT:
-			position.x = c2->rect.x - COLLIDER_MARGIN_LEFT;
+			position.x = c2->rect.x - FLY_WIDTH;
 			break;
 		}
 	}
@@ -67,30 +73,26 @@ void j1FlyingEnemy::LoadFlyAnimations()
 bool j1FlyingEnemy::CleanUp()
 {
 	App->tex->UnLoad(sprites);
-	collider->to_delete = true;	
+	if (collider)
+		collider->to_delete = true;
+
 	path->Clear();
 	return true;
 }
 
-bool j1FlyingEnemy::Update(float dt)		//TODO
+bool j1FlyingEnemy::Update(float dt)	
 {
-	if (App->entities->player->position.x <= position.x) { animation = &fly_left; }	//This makes the enmies look in the direction where the player is
-	else { animation = &fly_right; }
+	iPoint origin = { position.x +20, position.y +20 };
+	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };
+	path = App->pathfind->FindPath(origin, destination);
 
-	/*position.x += rand() % 2;			//Makes the movement of the fly more real
-	position.y -= rand() % 2;
-	position.x -= rand() % 2;
-	position.y += rand() % 2;*/
+	if (App->entities->player->player_hurted == false && path->path.Count()!=0 ) { Move(*path); }
+
+	if (facing == Facing::RIGHT) { animation = &fly_right; }
+	else if (facing == Facing::LEFT) { animation = &fly_left; }
 
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, FLYING_ENEMY_DETECION_RANGE))
 	{
-		iPoint origin = { position.x + 30, position.y + 30 };
-		iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };	  //TODO: Define magic numbers
-		path = App->pathfind->FindPath(origin, destination);
-
-		if (iterations > 50) { DoStep(); iterations = 0; }
-		else iterations++;
-
 		if (collider != nullptr) { collider->SetPos(position.x + COLLIDER_POS_X, position.y + COLLIDER_POS_Y); }
 		if (App->collis->debug) { App->pathfind->DrawPath(*path); }
 
@@ -99,10 +101,32 @@ bool j1FlyingEnemy::Update(float dt)		//TODO
 	return true;
 }
 
-void j1FlyingEnemy::DoStep() 
-{
-	iPoint to_go;
-	path->path.Pop(to_go);
+void j1FlyingEnemy::Move(Pathfinding& _path) {
 	
-	position =App->map->MapToWorld( to_go.x, to_go.y);
+	direction = App->pathfind->CheckDirection(_path);
+
+	if (direction == MoveTo::M_DOWN)
+	{
+		position.y += FLY_SPEED;		
+		return;
+	}
+
+	if (direction == MoveTo::M_UP)
+	{
+		position.y -= FLY_SPEED;		
+		return;
+	}
+
+	if (direction == MoveTo::M_RIGHT)
+	{	
+		position.x += FLY_SPEED;
+		facing = Facing::RIGHT;
+		return;
+	}
+	if (direction == MoveTo::M_LEFT)
+	{
+		position.x -= FLY_SPEED;	
+		facing = Facing::LEFT;
+		return;
+	}	
 }

@@ -30,15 +30,11 @@ public:
 	void PlayerHurted();
 	void LoseOneLife();
 
-	enum Player_Facing
-	{
-		RIGHT = 1,
-		LEFT
-	};
+	
 
 private:
 
-	Player_Facing facing = RIGHT;
+	Facing facing = Facing::RIGHT;
 
 	void InitialPlayerPos();
 
@@ -62,6 +58,8 @@ private:
 	uint die_fx;
 
 public:
+
+
 
 	int lifes;
 	int points;

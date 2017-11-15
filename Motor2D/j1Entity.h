@@ -13,6 +13,12 @@ struct SDL_Texture;
 enum EntityTypes;
 
 
+enum Facing
+{
+	RIGHT = 1,
+	LEFT
+};
+
 class j1Entity
 {
 public:
@@ -36,6 +42,7 @@ public:
 
 public:
 
+	Facing facing;
 	EntityTypes type;
 	iPoint position;
 	iPoint initial_pos;

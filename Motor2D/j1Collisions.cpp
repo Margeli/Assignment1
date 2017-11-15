@@ -183,15 +183,15 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 	right_surface = left_surface =2;// to evite some problems when it collides, giving priority to left and right 
 	up_surface = 4;// giving more priority to up
 
-	if (r.y >= rect.y) { //excluding player_below
-		if (r.x <= rect.x) { // excluding player_left
+	if (r.y >= rect.y) { //excluding below
+		if (r.x <= rect.x) { // excluding left
 			up_surface += (r.x + r.w) - rect.x;
 			right_surface += (rect.y + rect.h) - r.y;
 			if(right_surface>=App->map->data.tile_height) { return ENTITY_RIGHT; }
 			if (up_surface > right_surface) { return ENTITY_ABOVE; } // compares with which side the player has more surface with the collider and return its direction; 
 			if (right_surface > up_surface) { return ENTITY_RIGHT; }
 		}
-		if (r.x > rect.x) { // excluding player_right
+		if (r.x > rect.x) { // excluding right
 			up_surface += (rect.x + rect.w) - r.x;
 			left_surface += (rect.y + rect.h) - r.y;
 			if (left_surface >= App->map->data.tile_height) { return ENTITY_LEFT; }
@@ -199,15 +199,15 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 			if (left_surface > up_surface) { return ENTITY_LEFT; }
 		}
 	}
-	if (r.y < rect.y) { //excluding player_above
-		if (r.x <= rect.x) { // excluding player_left
+	if (r.y < rect.y) { //excluding above
+		if (r.x <= rect.x) { // excluding left
 			down_surface = (r.x + r.w) - rect.x;
 			right_surface += (r.y + r.h) - rect.y;	
 			if (right_surface >= App->map->data.tile_height) { return ENTITY_RIGHT; }
 			if (down_surface > right_surface) { return ENTITY_BELOW; }
 			if (right_surface > down_surface) { return ENTITY_RIGHT; }
 		}
-		if (r.x > rect.x) { // excluding player_right
+		if (r.x > rect.x) { // excluding right
 			down_surface = (rect.x + rect.w) - r.x;
 			left_surface += (r.y + r.h) - rect.y;		
 			if (left_surface >= App->map->data.tile_height) { return ENTITY_LEFT; }

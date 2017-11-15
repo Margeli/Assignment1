@@ -110,9 +110,9 @@ bool j1Troll::Update(float dt)
 
 		if (App->entities->player->position.x == position.x) //SAME POSITION IN X			
 		{
-			if(App->entities->player->LEFT) 		animation = &idle_left;
-			if(App->entities->player->RIGHT)		animation = &idle_right;		//TROLL SHOULD LOOK RIGHT  //TODO 
-		}
+			//if(App->entities->player->facing==LEFT) 		animation = &idle_left;
+			//if(App->entities->player->RIGHT)		animation = &idle_right;		//TROLL SHOULD LOOK RIGHT  //TODO 
+		}// TROLL SHOULD HAVE SPRITES FACING DEPENDING ON HIS MOVEMENT CHASING THE PLAYER (SEE FLY, SAME CASE)
 
 		else if (App->entities->player->position.x < position.x)	//WALK LEFT
 			{

@@ -113,10 +113,10 @@ void j1Pathfinding::Path(iPoint goal, Pathfinding& path)
 	path.path.Clear();
 	iPoint curr = goal;
 	p2List_item<iPoint>* BC_iterator = path.breadcrumbs.end;
-	path.path.PushBack(curr);
+	path.path.PushBack(curr); //last path point goal
 
 	if (path.visited.find(curr) >= 0) {
-		while (BC_iterator != path.breadcrumbs.start) {
+		while (curr != path.breadcrumbs.start->data) {
 			int num = path.visited.find(curr);
 			if (num  == -1) { break; }
 			curr = path.breadcrumbs[num];
@@ -124,11 +124,9 @@ void j1Pathfinding::Path(iPoint goal, Pathfinding& path)
 			path.path.PushBack(curr);
 			BC_iterator = BC_iterator->prev;
 
-		}
-		
-	}
-
-	//path.path.Flip();
+		}	
+		path.path.Flip();
+	}	
 }
 void j1Pathfinding::SetMap(uint width, uint height, uchar* data) {
 
@@ -151,8 +149,9 @@ uchar j1Pathfinding::GetTileAt(const iPoint& pos) const {
 
 void Pathfinding::Clear() {
 
-	frontier.Clear();
+	
 	visited.clear();
+	frontier.Clear();
 	breadcrumbs.clear();
 	path.Clear();
 
@@ -170,4 +169,23 @@ Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destina
 	return ret;
 
 
+}
+
+MoveTo j1Pathfinding::CheckDirection(Pathfinding& _path) const {
+	
+	iPoint tile_pos = _path.path[0];
+	iPoint tile_to_go =  _path.path[1];	
+	
+	int x_substraction = tile_to_go.x - tile_pos.x;
+	int y_substraction = tile_to_go.y - tile_pos.y;
+
+	if ( x_substraction== 1) { return M_RIGHT; }//RIGHT
+	else if (x_substraction == -1 ) { return M_LEFT; }//LEFT
+
+	else if (y_substraction == 1 ) {return M_DOWN; }//DOWN
+	else if (y_substraction == -1 ) { return M_UP; }//UP
+
+	else {
+		return   NONE;
+	}
 }

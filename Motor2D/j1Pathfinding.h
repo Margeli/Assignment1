@@ -12,6 +12,14 @@
 #define MAX_PATHS 50
 struct SDL_Texture;
 
+enum MoveTo {
+	NONE,
+	M_UP = 1,
+	M_DOWN,
+	M_LEFT,
+	M_RIGHT
+};
+
 struct Pathfinding {
 	p2DynArray<iPoint>	path;
 	p2PQueue<iPoint>	frontier;
@@ -39,7 +47,7 @@ public:
 	// Main function to request a path from A to B
 	void CreatePath(const iPoint& origin, const iPoint& destination, Pathfinding* path);		
 	
-	
+	MoveTo CheckDirection(Pathfinding& _path)const;
 
 	Pathfinding* FindPath(const iPoint& origin,const iPoint& destination);
 

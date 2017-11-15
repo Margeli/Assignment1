@@ -8,6 +8,8 @@
 #include "j1Entity.h"
 
 struct Pathfinding;
+enum MoveTo;
+
 class j1FlyingEnemy : public j1Entity
 {
 public:
@@ -16,7 +18,6 @@ public:
 		
 	void OnCollision(Collider* c1, Collider* c2);
 	
-
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
 	
 	void LoadFlyAnimations();
@@ -25,13 +26,13 @@ public:
 	bool Update(float dt);
 	
 	bool CleanUp();
-	void DoStep();
-	int iterations = 0;
+	void Move(Pathfinding& _path);
 
 public:
 
 	Pathfinding* path =nullptr;
-		
+	MoveTo direction;
+	
 	Animation fly_right;
 	Animation fly_left;
 };
