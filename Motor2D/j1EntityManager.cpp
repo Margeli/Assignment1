@@ -37,7 +37,10 @@ void j1EntityManager::DestroyEntity(j1Entity* entity){
 
 bool j1EntityManager::Start()
 {
-	player = (j1Player*)CreateEntity(PLAYER);
+	if (first_loop) {
+		player = (j1Player*)CreateEntity(PLAYER);
+		first_loop = false;
+	}
 
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
@@ -152,5 +155,18 @@ bool j1EntityManager::Load(pugi::xml_node& data ) {
 bool j1EntityManager::Save(pugi::xml_node& data) const {
 	
 	player->Save(data.append_child(player->name.GetString()));
+	return true;
+}
+
+bool j1EntityManager::EnemiesCleanUp() {
+
+	p2List_item<j1Entity*>* entity_iterator;
+	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
+		if (entity_iterator->data->type == EntityTypes::TROLL || entity_iterator->data->type == EntityTypes::FLY) {
+			entity_iterator->data->CleanUp();
+			DestroyEntity(entity_iterator->data);
+		}
+	}
+
 	return true;
 }
