@@ -8,15 +8,15 @@
 #include "j1Pathfinding.h"
 
 #define GRAVITY 2
-
 #define COLLIDER_MARGIN_RIGHT 24
 #define COLLIDER_MARGIN_LEFT 77
-#define FLY_SPEED 0.8f
+#define FLY_SPEED 1
 #define FLY_HEIGHT 50
-#define FLY_WIDTH 40
+#define FLY_WIDTH 50
 #define FLYING_ENEMY_DETECION_RANGE 500
 #define COLLIDER_POS_X 10
 #define COLLIDER_POS_Y 10
+#define ORIGIN_POSITION 20
 
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
 {
@@ -73,8 +73,7 @@ void j1FlyingEnemy::LoadFlyAnimations()
 bool j1FlyingEnemy::CleanUp()
 {
 	App->tex->UnLoad(sprites);
-	if (collider)
-		collider->to_delete = true;
+	if (collider != nullptr) { collider->to_delete = true; }
 
 	path->Clear();
 	return true;
@@ -82,7 +81,7 @@ bool j1FlyingEnemy::CleanUp()
 
 bool j1FlyingEnemy::Update(float dt)	
 {
-	iPoint origin = { position.x +20, position.y +20 };
+	iPoint origin = { position.x + ORIGIN_POSITION, position.y + ORIGIN_POSITION };
 	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };
 	path = App->pathfind->FindPath(origin, destination);
 
@@ -91,18 +90,23 @@ bool j1FlyingEnemy::Update(float dt)
 	if (facing == Facing::RIGHT) { animation = &fly_right; }
 	else if (facing == Facing::LEFT) { animation = &fly_left; }
 
-	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, FLYING_ENEMY_DETECION_RANGE))
-	{
-		if (collider != nullptr) { collider->SetPos(position.x + COLLIDER_POS_X, position.y + COLLIDER_POS_Y); }
-		if (App->collis->debug) { App->pathfind->DrawPath(*path); }
+	//if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, FLYING_ENEMY_DETECION_RANGE))
+	//{
+	//	if (collider != nullptr) { collider->SetPos(position.x + COLLIDER_POS_X, position.y + COLLIDER_POS_Y); }
+	//	if (App->collis->debug) { App->pathfind->DrawPath(*path); }
+	//}
 
-		Draw();
+	if (collider != nullptr)
+		collider->SetPos(position.x + 10, position.y + 5);
+	Draw();
+	if (App->collis->debug) {
+		App->pathfind->DrawPath(*path);
 	}
 	return true;
 }
 
-void j1FlyingEnemy::Move(Pathfinding& _path) {
-	
+void j1FlyingEnemy::Move(Pathfinding& _path) 
+{
 	direction = App->pathfind->CheckDirection(_path);
 
 	if (direction == MoveTo::M_DOWN)

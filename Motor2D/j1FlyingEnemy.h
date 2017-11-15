@@ -23,9 +23,11 @@ public:
 	void LoadFlyAnimations();
 
 	bool Start();
+
 	bool Update(float dt);
 	
 	bool CleanUp();
+
 	void Move(Pathfinding& _path);
 
 public:

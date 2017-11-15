@@ -58,9 +58,6 @@ private:
 	uint die_fx;
 
 public:
-
-
-
 	int lifes;
 	int points;
 	int max_score = 0;

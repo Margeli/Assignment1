@@ -61,7 +61,6 @@ private:
 
 	Collider* colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-	
 };
 
 #endif// __MODULECOLLISION_H__

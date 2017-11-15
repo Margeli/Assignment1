@@ -29,6 +29,8 @@ public:
 	
 	bool CleanUp();
 
+	void Move(Pathfinding& _path);
+
 	Pathfinding* troll_path = nullptr;
 
 	Animation idle_right;
@@ -45,6 +47,9 @@ public:
 
 	uint troll_death;
 	uint troll_attack;
+
+	Pathfinding* path = nullptr;
+	MoveTo direction;
 
 };
 #endif // __j1TROLL_H__

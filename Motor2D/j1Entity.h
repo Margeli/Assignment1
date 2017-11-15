@@ -12,7 +12,6 @@ struct Animation;
 struct SDL_Texture;
 enum EntityTypes;
 
-
 enum Facing
 {
 	RIGHT = 1,
@@ -55,7 +54,6 @@ public:
 	{};
 	virtual void SetInitialPos();
 	
-
 };
 
 #endif // __j1ENTITY_H__

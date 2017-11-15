@@ -10,13 +10,15 @@
 
 #define GRAVITY 2
 #define TROLL_ATTACK_RANGE 170
-#define TROLL_DETECTION_RANGE 450
+#define TROLL_DETECTION_RANGE 350
 #define TROLL_SPEED 1.00f
 #define ADDED_COLLIDER_WIDTH 10
 #define ADDED_COLLIDER_HEIGHT 50
-#define COLLIDER_MARGIN_RIGHT 24
+#define COLLIDER_MARGIN_RIGHT 25
 #define COLLIDER_MARGIN_LEFT 77
 #define TROLL_HEIGHT 100
+#define ORIGIN_POSITION 20
+#define BOTTOM_SCENE_LIMIT 750
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
@@ -26,7 +28,6 @@ j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the 
 
 bool j1Troll::Start() 
 {
-	
 	bool ret = true;
 	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, App->entities);
 	sprites = App->tex->Load("textures/Troll1.png");	
@@ -73,7 +74,7 @@ void j1Troll::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
-void j1Troll::LoadTrollAnimations()		//FIX ANIMATIONS SIZE (ATTACK CHANGES ITS POSITION)
+void j1Troll::LoadTrollAnimations()		
 {
 	idle_right.LoadEnemyAnimations("idle_right", "troll");
 	idle_left.LoadEnemyAnimations("idle_left", "troll");
@@ -99,33 +100,35 @@ bool j1Troll::Update(float dt)
 {
 	position.y += GRAVITY;
 
-	if (position.y > 800) { App->audio->PlayFx(troll_death);  App->audio->CleanFx();  CleanUp(); }	
-
-	
+	if (position.y > BOTTOM_SCENE_LIMIT) { CleanUp(); } //App->audio->PlayFx(troll_death);  App->audio->CleanFx();	
+	//If the sound is played, it repeats forever. If I use the function clean fx, all the fx in the game are cleaned and don't sound anymore.
 
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
-		//troll_path = App->pathfind->FindPath(position, App->entities->player->position);
-		//App->pathfind->DrawPath(*troll_path);
+		//iPoint origin = { position.x + ORIGIN_POSITION, position.y + ORIGIN_POSITION };
+		//iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };
+		//path = App->pathfind->FindPath(origin, destination);
 
-		if (App->entities->player->position.x == position.x) //SAME POSITION IN X			
+		//if (App->entities->player->player_hurted == false && path->path.Count() != 0) { Move(*path); }
+
+		if (App->entities->player->position.x == position.x) //SAME POS X			
 		{
-			//if(App->entities->player->facing==LEFT) 		animation = &idle_left;
-			//if(App->entities->player->RIGHT)		animation = &idle_right;		//TROLL SHOULD LOOK RIGHT  //TODO 
-		}// TROLL SHOULD HAVE SPRITES FACING DEPENDING ON HIS MOVEMENT CHASING THE PLAYER (SEE FLY, SAME CASE)
+		//	if (facing == Facing::LEFT) { animation = &walk_left; }
+		//	else if (facing == Facing::RIGHT) { animation = &walk_right; }
+		}
+		else if (App->entities->player->position.x < position.x)		//MOVE LEFT
+		{
+			position.x -= TROLL_SPEED;
+			animation = &walk_left;
+		}
+		else if (App->entities->player->position.x > position.x)	//MOVE RIGHT
+		{
+			position.x += TROLL_SPEED;
+			animation = &walk_right;
+		}
 
-		else if (App->entities->player->position.x < position.x)	//WALK LEFT
-			{
-				position.x -= TROLL_SPEED;
-				animation = &walk_left;
-			}
-		else if (App->entities->player->position.x > position.x)	//WALK RIGHT
-			{
-				position.x += TROLL_SPEED;
-				animation = &walk_right;
-			}
-
-		if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE))	//ATTACK 
+	
+		if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE))	 //ATTACK
 		{
 				 if (App->entities->player->position.x < position.x)
 				{
@@ -140,12 +143,36 @@ bool j1Troll::Update(float dt)
 		}
 	}
 	if (collider != nullptr) { collider->SetPos(position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT); }
+
+	if (App->entities->player->hitted == true) { animation = &idle_left; }
+
 	Draw();
 
 	return true;
 }
 
+void j1Troll::Move(Pathfinding& _path)
+{
+	direction = App->pathfind->CheckDirection(_path);
 
+	if (direction == MoveTo::M_DOWN)
+	{
+		position.y += TROLL_SPEED;
+		return;
+	}
 
+	if (direction == MoveTo::M_RIGHT)
+	{
+		position.x += TROLL_SPEED;
+		facing = Facing::RIGHT;
+		return;
+	}
+	if (direction == MoveTo::M_LEFT)
+	{
+		position.x -= TROLL_SPEED;
+		facing = Facing::LEFT;
+		return;
+	}
+}
 
 
