@@ -33,6 +33,8 @@ public:
 	virtual bool PostUpdate();
 	virtual bool PreUpdate();
 	virtual bool CleanUp();
+	bool first_loop = true;
+	bool EnemiesCleanUp();
 	
 	void OnCollision(Collider* c1, Collider* c2);
 

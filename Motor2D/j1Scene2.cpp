@@ -108,7 +108,8 @@ bool j1Scene2::CleanUp()
 	App->map->CleanUp();
 	App->collis->CleanUp();
 	App->tex->CleanUp();
-	App->entities->CleanUp();
+	App->entities->EnemiesCleanUp();
+	App->pathfind->CleanUp();
 	
 	return true;
 }
@@ -144,9 +145,11 @@ void j1Scene2::SceneChange()
 	App->collis->Start();
 	App->render->camera = { 0,0 };
 	App->scene1->Start();
+	App->pathfind->Start();
 }
 
 void j1Scene2::PlaceEnemies() const
 {
+	App->entities->CreateEntity(FLY, { 900, 200 });
 	App->entities->CreateEntity(FLY, { 250, 482 });	//This entity is also created in the first scene!!!		//TODO
 }

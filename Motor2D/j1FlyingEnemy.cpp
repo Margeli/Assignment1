@@ -68,11 +68,12 @@ bool j1FlyingEnemy::CleanUp()
 	path->Clear();
 	return true;
 }
+
 bool j1FlyingEnemy::Update(float dt)
 {
-
-	path = App->pathfind->FindPath({position.x+30, position.y+ 30},
-	{ App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT-40, });
+	iPoint origin = { position.x + 30, position.y + 30 };
+	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };
+	path = App->pathfind->FindPath(origin, destination);
 	
 	
 	/*

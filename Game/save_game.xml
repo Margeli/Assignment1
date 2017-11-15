@@ -14,7 +14,7 @@
 	<pathfinding />
 	<entities>
 		<player>
-			<position x="1" y="95" />
+			<position x="21" y="95" />
 		</player>
 	</entities>
 	<collisions />
