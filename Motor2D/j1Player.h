@@ -92,6 +92,8 @@ public:
 	Animation run_left;
 	Animation attack_left;
 	Animation death_left;
+
+	p2SString name;
 };
 
 

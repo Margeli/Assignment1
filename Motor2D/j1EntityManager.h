@@ -42,6 +42,9 @@ public:
 
 	j1Player* player;
 
+	bool Load(pugi::xml_node& );
+	bool Save(pugi::xml_node& ) const;
+
 
 protected:
 	struct EnemyInfo {

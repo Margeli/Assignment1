@@ -5,7 +5,7 @@
 
 j1EntityManager::j1EntityManager()
 {
-	
+	name.create("entities");
 }
 
 j1EntityManager::~j1EntityManager()
@@ -143,4 +143,14 @@ void  j1EntityManager::CheckPlayerPostoDespawn() {
 			}
 		}
 	}	
+}	
+
+bool j1EntityManager::Load(pugi::xml_node& data ) {
+	player->Load(data.child(player->name.GetString()));
+	return true;
+}
+bool j1EntityManager::Save(pugi::xml_node& data) const {
+	
+	player->Save(data.append_child(player->name.GetString()));
+	return true;
 }

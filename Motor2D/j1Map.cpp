@@ -417,10 +417,10 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer)
 	layer->height = node.attribute("height").as_uint();
 	layer->width = node.attribute("width").as_uint();
 	LoadProperties(node, layer->properties);
-	layer->speed = layer->properties.Get("speed");
+	
 
-	//pugi::xml_node prop = node.child("properties").first_child();	
-	//layer->speed = prop.attribute("value").as_float();	
+	pugi::xml_node prop = node.child("properties").first_child();	
+	layer->speed = prop.attribute("value").as_float();	
 	//prop = prop.next_sibling();
 	//layer->initial_player_position.x = prop.attribute("value").as_int();
 	//prop = prop.next_sibling();
@@ -499,7 +499,7 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 			Properties::Property* p = new Properties::Property();
 
 			p->name = prop.attribute("name").as_string();
-			p->value = prop.attribute("value").as_int();
+			p->value = prop.attribute("value").as_float();
 
 			properties.list.add(p);
 		}

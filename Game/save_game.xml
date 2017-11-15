@@ -12,9 +12,13 @@
 		<activated true="false" />
 	</scene2>
 	<pathfinding />
-	<:anonymous />
+	<entities>
+		<player>
+			<position x="1712" y="543" />
+		</player>
+	</entities>
 	<collisions />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-1100" y="0" />
 	</renderer>
 </game_state>

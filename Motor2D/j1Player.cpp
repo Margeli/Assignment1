@@ -19,6 +19,7 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 {
 	lifes = LIFES;
 	LoadPlayerAnimations();
+	name.create("player");
 }
 
 j1Player::~j1Player() 
