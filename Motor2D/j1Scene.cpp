@@ -34,6 +34,8 @@ bool j1Scene:: Awake(pugi::xml_node&)
 
 bool j1Scene::Start()
 {
+	if (App->scene2->active == true) { active = false; }
+
 	if (active) 
 	{
 		if (App->map->Load("Map1.tmx")) {
@@ -43,8 +45,6 @@ bool j1Scene::Start()
 				App->pathfind->SetMap(w, h, data);
 
 			RELEASE_ARRAY(data);
-		
-		
 		}
 		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
 			App->map->data.layers.At(2)->data->properties.Get("ypos")}; //Gets the player position from the last layer loaded from Tiled
@@ -65,11 +65,6 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene1_Update", Profiler::Color::Chocolate);
 	App->entities->player->position.y += GRAVITY;
-
-
-	
-
-
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 
@@ -156,8 +151,8 @@ void j1Scene::SceneChange()
 	App->pathfind->Start();
 }
 
-void j1Scene::PlaceEnemies() const{
-
+void j1Scene::PlaceEnemies() const
+{
 	App->entities->CreateEntity(TROLL, { 300, 482 });
 	App->entities->CreateEntity(TROLL, { 850, 380 });
 

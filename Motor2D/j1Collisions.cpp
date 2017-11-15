@@ -60,7 +60,6 @@ bool j1Collisions::PreUpdate()
 	return true;
 }
 
-
 bool j1Collisions::CleanUp()
 {
 	LOG("Freeing all colliders");

@@ -6,15 +6,15 @@
 	<audio />
 	<map />
 	<scene1>
-		<activated true="false" />
+		<activated true="true" />
 	</scene1>
 	<scene2>
-		<activated true="true" />
+		<activated true="false" />
 	</scene2>
 	<pathfinding />
 	<entities>
 		<player>
-			<position x="21" y="95" />
+			<position x="50" y="344" />
 		</player>
 	</entities>
 	<collisions />

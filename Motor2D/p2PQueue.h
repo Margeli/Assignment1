@@ -151,8 +151,8 @@ public:
 	{
 		p2PQueue_item<tdata>*   p_data;
 		p2PQueue_item<tdata>*   p_next;
-		p_data = start;
-
+		p_data = start;														//0xC Uninitialized memory
+																					
 		while (p_data != NULL)
 		{
 			p_next = p_data->next;

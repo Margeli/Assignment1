@@ -7,12 +7,13 @@
 #include "j1Entity.h"
 #include "j1Pathfinding.h"
 
-
 #define GRAVITY 2
 #define COLLIDER_MARGIN_RIGHT 24
 #define COLLIDER_MARGIN_LEFT 77
-#define FLY_SPEED 0.5f
+#define FLY_SPEED 0.8f
 #define FLYING_ENEMY_DETECION_RANGE 500
+#define COLLIDER_POS_X 10
+#define COLLIDER_POS_Y 10
 
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
 {
@@ -22,7 +23,7 @@ j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY)
 
 bool j1FlyingEnemy::Start()
 {
-	collider = App->collis->AddCollider({ position.x, position.y, 50, 60 }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
+	collider = App->collis->AddCollider({ position.x, position.y, 40, 45 }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
 	sprites = App->tex->Load("textures/Fly.png");
 	animation = &fly_left;
 	SetInitialPos();
@@ -35,9 +36,9 @@ bool j1FlyingEnemy::IsPointInCircle(float playposX, float playposY, float enempo
 	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
 }
 
-void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
+void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)		
 {
-	/*if (c2->type == COLLIDER_GROUND)
+	if (c2->type == COLLIDER_GROUND)
 	{
 		switch (c1->CheckDirection(c2->rect))
 		{
@@ -54,7 +55,7 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 			position.x = c2->rect.x - COLLIDER_MARGIN_LEFT;
 			break;
 		}
-	}*/
+	}
 }
 
 void j1FlyingEnemy::LoadFlyAnimations()
@@ -71,48 +72,35 @@ bool j1FlyingEnemy::CleanUp()
 	return true;
 }
 
-bool j1FlyingEnemy::Update(float dt)
+bool j1FlyingEnemy::Update(float dt)		//TODO
 {
-	iPoint origin = { position.x + 30, position.y + 30 };
-	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };
-	path = App->pathfind->FindPath(origin, destination);
-	if (iterations > 100) {
-
-		DoStep();
-		iterations = 0;
-
-	}
-	else iterations++;
-	
-	
-	/*
-
-
-	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, FLYING_ENEMY_DETECION_RANGE))
-
-	{
-		path = App->pathfind->FindPath(position, App->entities->player->position);
-		App->pathfind->DrawPath(*path);
-	}
-
-	if (App->entities->player->position.x <= position.x) { animation = &fly_left; }
+	if (App->entities->player->position.x <= position.x) { animation = &fly_left; }	//This makes the enmies look in the direction where the player is
 	else { animation = &fly_right; }
 
-	position.x += rand() % 3;			
-	position.y -= rand() % 3;
-	position.x -= rand() % 3;
-	position.y += rand() % 3;
-	*/
-	if (collider!= nullptr)
-	collider->SetPos(position.x, position.y + 5);
-	Draw();
-	if (App->collis->debug){
-		App->pathfind->DrawPath(*path);///
+	/*position.x += rand() % 2;			//Makes the movement of the fly more real
+	position.y -= rand() % 2;
+	position.x -= rand() % 2;
+	position.y += rand() % 2;*/
+
+	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, FLYING_ENEMY_DETECION_RANGE))
+	{
+		iPoint origin = { position.x + 30, position.y + 30 };
+		iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };	  //TODO: Define magic numbers
+		path = App->pathfind->FindPath(origin, destination);
+
+		if (iterations > 50) { DoStep(); iterations = 0; }
+		else iterations++;
+
+		if (collider != nullptr) { collider->SetPos(position.x + COLLIDER_POS_X, position.y + COLLIDER_POS_Y); }
+		if (App->collis->debug) { App->pathfind->DrawPath(*path); }
+
+		Draw();
 	}
 	return true;
 }
-void j1FlyingEnemy::DoStep() {
-	
+
+void j1FlyingEnemy::DoStep() 
+{
 	iPoint to_go;
 	path->path.Pop(to_go);
 	
