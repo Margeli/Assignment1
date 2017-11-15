@@ -148,11 +148,11 @@ void j1Scene::SceneChange()
 	App->scene1->active = false;
 
 	CleanUp();	
-	
+
+	App->scene2->Start();
 	App->entities->Start();
 	App->collis->Start();
-	App->render->camera = { 0,0 };
-	App->scene2->Start();
+	App->render->camera = { 0,0 };	
 	App->pathfind->Start();
 }
 

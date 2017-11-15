@@ -17,7 +17,10 @@
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
 {
 	position = initial_pos = pos;		
-	LoadFlyAnimations();	
+	LoadFlyAnimations();
+	collider = nullptr;
+	sprites = nullptr;
+	animation = nullptr;
 }
 
 bool j1FlyingEnemy::Start()
@@ -66,7 +69,9 @@ void j1FlyingEnemy::LoadFlyAnimations()
 bool j1FlyingEnemy::CleanUp()
 {
 	App->tex->UnLoad(sprites);
-	collider->to_delete = true;	
+	if (collider)
+		collider->to_delete = true;
+
 	path->Clear();
 	return true;
 }
@@ -78,7 +83,7 @@ bool j1FlyingEnemy::Update(float dt)
 	path = App->pathfind->FindPath(origin, destination);
 
 
-	if (App->entities->player->player_hurted == false) { Move(*path); }
+	if (App->entities->player->player_hurted == false && path->path.Count()!=0 ) { Move(*path); }
 	if (facing == Facing::RIGHT) {
 		animation = &fly_right;
 	}
