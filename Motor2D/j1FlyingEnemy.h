@@ -15,6 +15,7 @@ public:
 	j1FlyingEnemy(iPoint pos);
 		
 	void OnCollision(Collider* c1, Collider* c2);
+	
 
 	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
 	
@@ -24,6 +25,8 @@ public:
 	bool Update(float dt);
 	
 	bool CleanUp();
+	void DoStep();
+	int iterations = 0;
 
 public:
 

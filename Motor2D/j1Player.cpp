@@ -206,6 +206,7 @@ void j1Player::Dead()
 	App->audio->PlayFx(lose_fx, 0);
 	lifes = LIFES;
 	points = 0;
+	App->entities->SetInitialPos();
 	
 	if (App->scene1->active) { position = App->scene1->initial_scene_pos; }
 	else if (App->scene2->active) { App->scene2->SceneChange(); }
@@ -218,6 +219,7 @@ void j1Player::PlayerHurted()
 	use_input = false;
 	walking = false;
 	App->audio->PlayFx(die_fx);
+	
 
 	if (facing == RIGHT) { animation = &death_right; }
 	else if (facing == LEFT) { animation = &death_left; }
@@ -228,6 +230,7 @@ void j1Player::LoseOneLife()
 		if (App->scene1->active) { position = App->scene1->initial_scene_pos; }
 		if (App->scene2->active) { position = App->scene2->initial_scene_pos; }
 
+		App->entities->SetInitialPos();
 		App->render->camera.x = 0;
 		animation->Reset();
 		animation = &idle_right;

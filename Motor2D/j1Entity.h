@@ -38,6 +38,7 @@ public:
 
 	EntityTypes type;
 	iPoint position;
+	iPoint initial_pos;
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 	SDL_Texture* sprites = nullptr;
@@ -45,7 +46,7 @@ public:
 	virtual void Draw();
 	virtual void OnCollision(Collider* c1, Collider* c2)
 	{};
-	
+	virtual void SetInitialPos();
 	
 
 };

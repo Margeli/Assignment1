@@ -1,5 +1,6 @@
 #include "j1FlyingEnemy.h"
 #include "j1App.h"
+#include "j1Map.h"
 #include "j1Textures.h"
 #include "j1EntityManager.h"
 #include "j1Player.h"
@@ -15,7 +16,7 @@
 
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
 {
-	position = pos;		
+	position = initial_pos = pos;		
 	LoadFlyAnimations();	
 }
 
@@ -24,6 +25,7 @@ bool j1FlyingEnemy::Start()
 	collider = App->collis->AddCollider({ position.x, position.y, 50, 60 }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
 	sprites = App->tex->Load("textures/Fly.png");
 	animation = &fly_left;
+	SetInitialPos();
 
 	return true;
 }
@@ -35,7 +37,7 @@ bool j1FlyingEnemy::IsPointInCircle(float playposX, float playposY, float enempo
 
 void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == COLLIDER_GROUND)
+	/*if (c2->type == COLLIDER_GROUND)
 	{
 		switch (c1->CheckDirection(c2->rect))
 		{
@@ -52,7 +54,7 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 			position.x = c2->rect.x - COLLIDER_MARGIN_LEFT;
 			break;
 		}
-	}
+	}*/
 }
 
 void j1FlyingEnemy::LoadFlyAnimations()
@@ -74,6 +76,13 @@ bool j1FlyingEnemy::Update(float dt)
 	iPoint origin = { position.x + 30, position.y + 30 };
 	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };
 	path = App->pathfind->FindPath(origin, destination);
+	if (iterations > 100) {
+
+		DoStep();
+		iterations = 0;
+
+	}
+	else iterations++;
 	
 	
 	/*
@@ -101,4 +110,11 @@ bool j1FlyingEnemy::Update(float dt)
 		App->pathfind->DrawPath(*path);///
 	}
 	return true;
+}
+void j1FlyingEnemy::DoStep() {
+	
+	iPoint to_go;
+	path->path.Pop(to_go);
+	
+	position =App->map->MapToWorld( to_go.x, to_go.y);
 }

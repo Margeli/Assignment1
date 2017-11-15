@@ -21,17 +21,19 @@
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
 	LoadTrollAnimations();	
-	position = pos;
+	position = initial_pos = pos;
 }
 
 bool j1Troll::Start() 
 {
+	
 	bool ret = true;
 	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, App->entities);
 	sprites = App->tex->Load("textures/Troll1.png");	
 	if (!sprites) { LOG("Error loading troll's textures.");  ret = false; }
 	animation = &idle_left;
 	LoadTrollAudio();
+	SetInitialPos();
 	return ret;
 }
 
@@ -137,4 +139,8 @@ bool j1Troll::Update(float dt)
 
 	return true;
 }
+
+
+
+
 

@@ -13,4 +13,8 @@ void j1Entity::Draw() {
 	App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 
 }
+void j1Entity::SetInitialPos() {
 
+	position = initial_pos;
+
+}

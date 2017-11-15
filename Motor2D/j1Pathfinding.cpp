@@ -128,7 +128,7 @@ void j1Pathfinding::Path(iPoint goal, Pathfinding& path)
 		
 	}
 
-	path.path.Flip();
+	//path.path.Flip();
 }
 void j1Pathfinding::SetMap(uint width, uint height, uchar* data) {
 

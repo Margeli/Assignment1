@@ -170,3 +170,13 @@ bool j1EntityManager::EnemiesCleanUp() {
 
 	return true;
 }
+
+void j1EntityManager::SetInitialPos() { // sets position to initial pos except player
+
+	p2List_item<j1Entity*>* entity_iterator;
+	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
+		if (entity_iterator->data->type != EntityTypes::PLAYER ) {
+			entity_iterator->data->SetInitialPos();			
+		}
+	}
+}
