@@ -6,19 +6,19 @@
 	<audio />
 	<map />
 	<scene1>
-		<activated true="true" />
+		<activated true="false" />
 	</scene1>
 	<scene2>
-		<activated true="false" />
+		<activated true="true" />
 	</scene2>
 	<pathfinding />
 	<entities>
 		<player>
-			<position x="1712" y="543" />
+			<position x="1" y="95" />
 		</player>
 	</entities>
 	<collisions />
 	<renderer>
-		<camera x="-1100" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
