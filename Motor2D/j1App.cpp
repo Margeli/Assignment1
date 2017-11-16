@@ -15,6 +15,8 @@
 #include "j1Pathfinding.h"
 #include "Brofiler/Brofiler.h"
 
+#define ONE_TIME_UNIT 1000
+
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
@@ -95,7 +97,7 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
-		frame_rate_cap_count = app_config.attribute("framerate_cap").as_uint();
+		frame_rate_cap_count = app_config.attribute("cap").as_uint();
 	}
 
 	if(ret == true)
@@ -176,8 +178,10 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	dt = one_frame_time.ReadSec();
-	if (dt > (float)frame_rate_cap_count / 1000)
-		dt = (float)frame_rate_cap_count / 1000;
+	if (dt > (float)frame_rate_cap_count / ONE_TIME_UNIT)
+	{
+		dt = (float)frame_rate_cap_count / ONE_TIME_UNIT;
+	}
 	one_frame_time.Start();
 }
 
@@ -189,24 +193,23 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
-	if (last_sec_frame_time.Read() > 1000)
+	if (last_sec_frame_time.Read() > ONE_TIME_UNIT)
 	{
 		last_sec_frame_time.Start();
 		prev_last_sec_frame_count = last_sec_frame_count;
 		last_sec_frame_count = 0;
 	}
+	PERF_START(perf_timer);
+
+	last_frame_ms = one_frame_time.Read();
+	frames_on_last_update = prev_last_sec_frame_count;
 
 	float FPS = float(frame_counter) / timer.ReadSec();
 	float seconds_since_start = timer.ReadSec();
-	uint32 last_frame_ms = one_frame_time.Read();
-	uint32 frames_on_last_update = prev_last_sec_frame_count;
+	float delay_time = (ONE_TIME_UNIT / frame_rate_cap_count) - last_frame_ms;
 
-	PERF_START(perf_timer);
-	float waiting_time = (1000 / frame_rate_cap_count) - last_frame_ms;
-	if (cap_on) { SDL_Delay(waiting_time); }
-
-	if (cap_on) { cap = "ON"; }	else { cap = "OFF"; }
-	if (vsync_on) { state = "ON"; }		else { state = "OFF"; }
+	if (cap_on) { SDL_Delay(delay_time); cap = "ON"; } else { cap = "OFF"; }
+	if (render->vsync == true) { state = "ON"; }	else { state = "OFF"; }
 
 	static char title[400];
 	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Last Frame Ms: %02u  Last second frames: %i Vsync: %s Cap: %s",
