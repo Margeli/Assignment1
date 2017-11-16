@@ -6,6 +6,7 @@
 #include "j1Collisions.h"
 #include "j1Map.h"
 #include "Brofiler/Brofiler.h"
+#include "j1EntityManager.h"
 #include "j1Pathfinding.h"
 #include <math.h>
 
@@ -27,7 +28,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer, EntityTypes type) const
 {
 	bool ret = false;
 	p2List_item<Layer*>* item;
@@ -36,10 +37,14 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	for (item = data.layers.start; item != NULL; item = item->next)
 	{
 		Layer* layer = item->data;
-
-		if (layer->properties.Get("ground", 0) == 0)
-			continue;
-
+		if (type == EntityTypes::FLY) {
+			if (layer->properties.Get("ground", 0) == 0)
+				continue;
+		}
+		if (type == EntityTypes::TROLL) {
+			if (layer->properties.Get("Path", 0) == 0)
+				continue;		
+		}
 		uchar* map = new uchar[layer->width*layer->height];
 		memset(map, 1, layer->width*layer->height);
 
@@ -92,7 +97,8 @@ void j1Map::Draw()
 				uint id = layer_iterator->data->data[tile_num];
 				iPoint position = MapToWorld(column, row);
 
- 				if (first_loop) {PutMapColliders(id, position);}
+ 				if (first_loop&&layer_iterator->data->properties.Get("ground", 0)) {
+					PutMapColliders(id, position);}
 
 				App->render->Blit(data.tilesets.At(0)->data->texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id),layer_iterator->data->speed);
 				tile_num++;			

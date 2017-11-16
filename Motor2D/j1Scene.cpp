@@ -40,11 +40,16 @@ bool j1Scene::Start()
 	{
 		if (App->map->Load("Map1.tmx")) {
 			int w, h;
-			uchar* data = NULL;
-			if (App->map->CreateWalkabilityMap(w, h, &data))
-				App->pathfind->SetMap(w, h, data);
-
-			RELEASE_ARRAY(data);
+			uchar* data = NULL;			
+			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::FLY)) {//creates walkabilty map for flying enemies
+				App->pathfind->SetMap(w, h, data, EntityTypes::FLY);
+				RELEASE_ARRAY(data);
+			}
+			
+			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::TROLL)) {//creates walkability map for ground enemies
+				App->pathfind->SetMap(w, h, data, EntityTypes::TROLL);
+				RELEASE_ARRAY(data);
+			}
 		}
 		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
 			App->map->data.layers.At(2)->data->properties.Get("ypos")}; //Gets the player position from the last layer loaded from Tiled
@@ -156,12 +161,14 @@ void j1Scene::SceneChange()
 
 void j1Scene::PlaceEnemies() const
 {
-//	App->entities->CreateEntity(TROLL, { 300, 482 });
-//	App->entities->CreateEntity(TROLL, { 850, 380 });
+
+	App->entities->CreateEntity(TROLL, { 300, 482 });
+	//App->entities->CreateEntity(TROLL, { 850, 380 });
 //	App->entities->CreateEntity(TROLL, { 1800, 400 });
 	//App->entities->CreateEntity(TROLL, { 2700, 470 });
 
-	//App->entities->CreateEntity(FLY, { 400, 100 });
+	//App->entities->CreateEntity(FLY, { 200, 100 });
+
 	//App->entities->CreateEntity(FLY, { 2400, 200 });
 	//App->entities->CreateEntity(FLY, { 1400, 100 });
 

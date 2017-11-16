@@ -8,17 +8,17 @@
 #include "j1Scene2.h"
 #include "j1Audio.h"
 
-#define GRAVITY 2
+
 #define TROLL_ATTACK_RANGE 170
 #define TROLL_DETECTION_RANGE 350
 #define TROLL_SPEED 1.00f
 #define ADDED_COLLIDER_WIDTH 10
 #define ADDED_COLLIDER_HEIGHT 50
-#define COLLIDER_MARGIN_RIGHT 25
-#define COLLIDER_MARGIN_LEFT 77
 #define TROLL_HEIGHT 100
-#define ORIGIN_POSITION 20
-#define BOTTOM_SCENE_LIMIT 750
+#define TROLL_WIDTH 50
+#define PATH_DISPLACEMENT_x 30
+#define PATH_DISPLACEMENT_y 70
+
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
@@ -65,10 +65,10 @@ void j1Troll::OnCollision(Collider* c1, Collider* c2)
 			position.y = c2->rect.y + c2->rect.h;
 			break;
 		case ENTITY_RIGHT:
-			position.x = c2->rect.x + COLLIDER_MARGIN_RIGHT;
+			position.x = c2->rect.x + c2->rect.w;
 			break;
 		case ENTITY_LEFT:
-			position.x = c2->rect.x - COLLIDER_MARGIN_LEFT;
+			position.x = c2->rect.x - TROLL_WIDTH;
 			break;
 		}
 	}
@@ -93,11 +93,13 @@ bool j1Troll::CleanUp()
 	LOG("Unloading Troll.");
 	App->tex->UnLoad(sprites);
 	collider->to_delete = true;
+	path->Clear();
 	return true;
 }
 
 bool j1Troll::Update(float dt) 
 {
+	/*
 	position.y += GRAVITY;
 
 	if (position.y > BOTTOM_SCENE_LIMIT) { CleanUp(); } //App->audio->PlayFx(troll_death);  App->audio->CleanFx();	
@@ -141,12 +143,31 @@ bool j1Troll::Update(float dt)
 					 animation = &attack_right;
 				 }
 		}
+	}*/
+
+	iPoint origin = { position.x + PATH_DISPLACEMENT_x, position.y + PATH_DISPLACEMENT_y };
+	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };
+
+	path = App->pathfind->FindPath(origin, destination, type);
+
+	if (path != NULL) {
+		if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0) {
+			Move(*path);
+		}
+		else { path->Clear(); }
 	}
+	if (facing == Facing::RIGHT) { animation = &walk_right; }
+	else if (facing == Facing::LEFT) { animation = &walk_left; }
+
+
 	if (collider != nullptr) { collider->SetPos(position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT); }
 
 	if (App->entities->player->hitted == true) { animation = &idle_left; }
 
 	Draw();
+	if (App->collis->debug && path != NULL) {
+		App->pathfind->DrawPath(*path);
+	}
 
 	return true;
 }
@@ -173,6 +194,7 @@ void j1Troll::Move(Pathfinding& _path)
 		facing = Facing::LEFT;
 		return;
 	}
+	
 }
 
 

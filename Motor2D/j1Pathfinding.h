@@ -12,6 +12,7 @@
 #define MAX_PATHS 50
 struct SDL_Texture;
 
+enum EntityTypes;
 enum MoveTo {
 	NONE,
 	M_UP = 1,
@@ -45,18 +46,18 @@ public:
 	void DrawPath(const Pathfinding& path)const ;
 
 	// Main function to request a path from A to B
-	void CreatePath(const iPoint& origin, const iPoint& destination, Pathfinding* path);		
+	void CreatePath(const iPoint& origin, const iPoint& destination, Pathfinding* path, EntityTypes type);		
 	
 	MoveTo CheckDirection(Pathfinding& _path)const;
 
-	Pathfinding* FindPath(const iPoint& origin,const iPoint& destination);
+	Pathfinding* FindPath(const iPoint& origin,const iPoint& destination, EntityTypes type);
 
 	// Sets up the walkability map
-	void SetMap(uint width, uint height, uchar* data);
+	void SetMap(uint width, uint height, uchar* data, EntityTypes type);
 private:
 
 	// Utility: return the walkability value of a tile
-	uchar GetTileAt(const iPoint& pos) const;
+	uchar GetTileAt(const iPoint& pos, EntityTypes type) const;
 
 
 
@@ -66,7 +67,7 @@ private:
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const iPoint& pos) const;
 
-	bool CheckIsWalkable(const iPoint& pos) const;
+	bool CheckIsWalkable(const iPoint& pos, EntityTypes type) const;
 
 	void Path(iPoint goal, Pathfinding& path);
 
@@ -74,7 +75,8 @@ private:
 	uint				 width;
 	uint				height;
 	// all map walkability values [0..255]
-	uchar*				map;
+	uchar*				fly_map;
+	uchar*				ground_map;
 
 	SDL_Texture*		PathStep = nullptr;
 	
