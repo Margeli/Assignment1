@@ -30,6 +30,9 @@ public:
 
 	void Move(Pathfinding& _path);
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 public:
 
 	Pathfinding* path = nullptr;

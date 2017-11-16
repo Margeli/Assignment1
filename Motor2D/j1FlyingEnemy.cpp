@@ -138,4 +138,18 @@ void j1FlyingEnemy::Move(Pathfinding& _path)
 		return;
 	}	
 	
+} 
+
+bool j1FlyingEnemy::Save(pugi::xml_node& data ) const {
+	
+	pugi::xml_node pos = data.append_child("position");
+
+	pos.append_attribute("x") = position.x;
+	pos.append_attribute("y") = position.y;
+
+	return true;
+}
+bool j1FlyingEnemy::Load(pugi::xml_node& data) {
+
+	return true;
 }

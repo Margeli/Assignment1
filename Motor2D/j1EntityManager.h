@@ -58,7 +58,7 @@ protected:
 	p2List<j1Entity*> entities;
 private:
 	void AddtoSpawningQueue(iPoint pos, EntityTypes t);
-
+	void SpawnListReset();
 	void CheckPlayerPostoSpawn();
 	void CheckPlayerPostoDespawn();
 };

@@ -29,7 +29,11 @@ public:
 	
 	bool CleanUp();
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	void Move(Pathfinding& _path);
+
 
 	Pathfinding* troll_path = nullptr;
 

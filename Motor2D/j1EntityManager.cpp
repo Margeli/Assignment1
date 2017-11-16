@@ -75,6 +75,7 @@ bool j1EntityManager::PostUpdate()
 }
 bool j1EntityManager::CleanUp()
 {
+	SpawnListReset();
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->CleanUp();}
@@ -143,18 +144,65 @@ void  j1EntityManager::CheckPlayerPostoDespawn()
 
 bool j1EntityManager::Load(pugi::xml_node& data ) 
 {
-	player->Load(data.child(player->name.GetString()));
+	SpawnListReset();
+	EnemiesCleanUp();
+	player->Load(data.child(player->name.GetString()));// player loading
+
+	
+	for (pugi::xml_node trolls = data.child("troll").child("position"); trolls; trolls = trolls.next_sibling()) {
+		iPoint trollpos = { trolls.attribute("x").as_int(), trolls.attribute("y").as_int() };
+		CreateEntity(TROLL, trollpos);
+	}
+	for (pugi::xml_node flies = data.child("fly").child("position"); flies; flies= flies.next_sibling()) {
+		iPoint flypos = { flies.attribute("x").as_int(), flies.attribute("y").as_int() };
+		CreateEntity(FLY, flypos);
+	}
+
+
 	return true;
 }
 
 bool j1EntityManager::Save(pugi::xml_node& data) const
 {
 	player->Save(data.append_child(player->name.GetString()));
+
+	pugi::xml_node trolls = data.append_child("troll");
+	pugi::xml_node flies = data.append_child("fly");
+
+	p2List_item<j1Entity*>* entity_iterator;
+	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)//iterates over all enemies spawned
+	{
+		if (entity_iterator->data->type == TROLL) 
+		{
+			entity_iterator->data->Save(trolls);
+		}
+		if (entity_iterator->data->type == FLY)
+		{
+			entity_iterator->data->Save(flies);
+		}
+	}
+
+	for (int i = 0; i < MAX_ENTITIES - 1; ++i) { //iterates over all enemies on the spawning queue
+		if (to_spawn[i].type != EntityTypes::NOTYPE) {
+			if (to_spawn[i].type == TROLL) {
+				pugi::xml_node troll_pos = trolls.append_child("position");
+				troll_pos.append_attribute("x") = to_spawn[i].pos.x;
+				troll_pos.append_attribute("y") = to_spawn[i].pos.y;			
+			}
+			if (to_spawn[i].type == FLY) {
+				pugi::xml_node fly_pos = flies.append_child("position");
+				fly_pos.append_attribute("x") = to_spawn[i].pos.x;
+				fly_pos.append_attribute("y") = to_spawn[i].pos.y;
+			}
+		}
+	
+	}
+
 	return true;
 }
 
 bool j1EntityManager::EnemiesCleanUp() {
-
+	SpawnListReset();
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
 		if (entity_iterator->data->type == EntityTypes::TROLL || entity_iterator->data->type == EntityTypes::FLY) {
@@ -173,4 +221,12 @@ void j1EntityManager::SetInitialPos()  // Sets the enemies to their initial posi
 	{
 		if (entity_iterator->data->type != EntityTypes::PLAYER) { entity_iterator->data->SetInitialPos(); }
 	}
+}
+
+
+void j1EntityManager::SpawnListReset() {
+	for (int i = 0; i < MAX_ENTITIES; i++) {
+		to_spawn[i].type = EntityTypes::NOTYPE;			
+	}
+
 }
