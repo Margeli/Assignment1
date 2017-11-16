@@ -53,6 +53,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	load_game = "save_game.xml";
 	save_game = "save_game.xml";
+
+	PERF_PEEK(perf_timer);
 }
 
 j1App::~j1App()
@@ -93,6 +95,7 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+		frame_rate_cap_count = app_config.attribute("framerate_cap").as_uint();
 	}
 
 	if(ret == true)
@@ -149,9 +152,6 @@ bool j1App::Update()
 	if(ret == true)
 		ret = PostUpdate();
 
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)  { cap = "ON"; }	//TODO: If cap to 30
-	else { cap = "OFF"; }
-
 	FinishUpdate();
 	return ret;
 }
@@ -172,6 +172,13 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 
 void j1App::PrepareUpdate()
 {
+	frame_counter++;
+	last_sec_frame_count++;
+
+	dt = one_frame_time.ReadSec();
+	if (dt > (float)frame_rate_cap_count / 1000)
+		dt = (float)frame_rate_cap_count / 1000;
+	one_frame_time.Start();
 }
 
 void j1App::FinishUpdate()
@@ -182,19 +189,30 @@ void j1App::FinishUpdate()
 	if(want_to_load == true)
 		LoadGameNow();
 
-	frame_counter = perf_timer.ReadTicks();
-	seconds_since_start = timer.ReadSec();
-	last_frame_ms = last_frame_time.Read();
-	FPS = frame_counter /  seconds_since_start;
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
 
-	//if (App->scene1->active && !App->scene2->active) { level = "Level 1"; }
-	//	else if (App->scene2->active && !App->scene1->active) { level = "Level 2"; }	//Optional add level in which the player is
+	float FPS = float(frame_counter) / timer.ReadSec();
+	float seconds_since_start = timer.ReadSec();
+	uint32 last_frame_ms = one_frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	static char title[400];	
+	PERF_START(perf_timer);
+	float waiting_time = (1000 / frame_rate_cap_count) - last_frame_ms;
+	if (cap_on) { SDL_Delay(waiting_time); }
 
-	sprintf_s(title, 400, "CAVE KNIGHT |  | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Last Frame Ms: %u  Seconds since start: %.2f Vsync: %s Cap: %s",
-		 App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
-		 FPS, last_frame_ms, seconds_since_start, state.GetString(), cap.GetString());
+	if (cap_on) { cap = "ON"; }	else { cap = "OFF"; }
+	if (vsync_on) { state = "ON"; }		else { state = "OFF"; }
+
+	static char title[400];
+	sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Last Frame Ms: %02u  Last second frames: %i Vsync: %s Cap: %s",
+		App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
+		FPS, last_frame_ms, frames_on_last_update, state.GetString(), cap.GetString());
+
 	App->win->SetTitle(title);
 }
 

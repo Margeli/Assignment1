@@ -57,6 +57,9 @@ public:
 	void SaveGame() const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
+	bool	cap_on = false;
+	bool vsync_on = false;
+
 private:
 
 	// Load config file
@@ -96,15 +99,13 @@ public:
 	j1EntityManager*	entities = nullptr;
 	j1Pathfinding*		pathfind = nullptr;
 
-	j1Timer				timer;
-	j1PerfTimer			perf_timer;
-
 private:
 
 	p2List<j1Module*>	modules;
 	uint				frames;
 	int					argc;
 	char**				args;
+	float					dt;
 
 	p2SString			title;
 	p2SString			organization;
@@ -117,19 +118,15 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
-	uint64				frame_counter = 0;
-	uint32				last_frame_ms;
-
-	float seconds_since_start;
-	float actual_game_time;
-	float FPS;
-	float dt;
-
-	j1Timer				last_frame_time;
+	j1PerfTimer			perf_timer;
+	j1Timer				timer;
+	j1Timer				one_frame_time;
 	j1Timer				last_sec_frame_time;
 
-	uint16_t			framerate_cap;
-	int					capped_ms = -1;
+	uint64				frame_counter = 0;
+	uint32				last_sec_frame_count = 0;
+	uint32				prev_last_sec_frame_count = 0;
+	uint32				frame_rate_cap_count = 0;
 };
 
 extern j1App* App; 

@@ -30,8 +30,6 @@ public:
 	void PlayerHurted();
 	void LoseOneLife();
 
-	
-
 private:
 
 	Facing facing = Facing::RIGHT;
@@ -60,7 +58,7 @@ private:
 
 public:
 	int lifes;
-	int points;
+	int points = 0;
 	int max_score = 0;
 	float speed;
 

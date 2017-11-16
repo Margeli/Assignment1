@@ -74,6 +74,8 @@ bool j1Scene::Update(float dt)
 	{
 		App->entities->player->position = initial_scene_pos;		App->render->camera.x = 0;
 	}
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == false) { App->cap_on = true; }
+	else if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == true) { App->cap_on = false; }
 
 	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->position.x++; }
 

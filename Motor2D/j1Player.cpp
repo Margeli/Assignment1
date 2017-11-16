@@ -266,7 +266,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			{
 				//if (c2->type == FLY) { }
 				//else if (c2->type == TROLL) { App->audio->PlayFx(troll_death); c2->to_delete = true; }
-
+				points += 10;
 				App->audio->PlayFx(troll_death); c2->to_delete = true;
 			}
 			else
