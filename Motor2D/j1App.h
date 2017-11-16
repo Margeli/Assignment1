@@ -127,6 +127,9 @@ private:
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 	uint32				frame_rate_cap_count = 0;
+
+	uint32 last_frame_ms;
+	uint32 frames_on_last_update;
 };
 
 extern j1App* App; 
