@@ -44,24 +44,24 @@ bool j1FlyingEnemy::IsPointInCircle(iPoint playpos, iPoint enempos, float radi) 
 
 void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)		
 {
-	//if (c2->type == COLLIDER_GROUND)
-	//{
-	//	switch (c1->CheckDirection(c2->rect))
-	//	{
-	//	case ENTITY_ABOVE:
-	//		position.y = c2->rect.y - FLY_HEIGHT;
-	//		break;
-	//	case ENTITY_BELOW:
-	//		position.y = c2->rect.y + c2->rect.h;
-	//		break;
-	//	case ENTITY_RIGHT:
-	//		position.x = c2->rect.x + c2->rect.w ;
-	//		break;
-	//	case ENTITY_LEFT:
-	//		position.x = c2->rect.x - FLY_WIDTH;
-	//		break;
-	//	}
-	//}
+	if (c2->type == COLLIDER_GROUND)
+	{
+		switch (c1->CheckDirection(c2->rect))
+		{
+		case ENTITY_ABOVE:
+			position.y = c2->rect.y - FLY_HEIGHT;
+			break;
+		case ENTITY_BELOW:
+			position.y = c2->rect.y + c2->rect.h;
+			break;
+		case ENTITY_RIGHT:
+			position.x = c2->rect.x + c2->rect.w ;
+			break;
+		case ENTITY_LEFT:
+			position.x = c2->rect.x - FLY_WIDTH;
+			break;
+		}
+	}
 }
 
 void j1FlyingEnemy::LoadFlyAnimations()
