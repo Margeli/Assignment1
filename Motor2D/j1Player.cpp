@@ -10,6 +10,7 @@
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "p2Defs.h"
+#include "j1Troll.h"
 #include "j1Animation.h"
 #include "Brofiler/Brofiler.h"
 #include "j1EntityManager.h"
@@ -50,6 +51,7 @@ bool j1Player::Start()
 
 	lose_fx = App->audio->LoadFx("audio/fx/lose.wav");
 	die_fx = App->audio->LoadFx("audio/fx/player_death.wav");
+	troll_death = App->audio->LoadFx("audio/fx/troll_death.wav");
 
 	if (sword_sound == 0)
 		sword_sound = App->audio->LoadFx("audio/fx/sword_attack.wav");
@@ -256,46 +258,48 @@ void j1Player::JumpReset()
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	int margin = 3;
-	if (!hitted) 
+	if (!hitted)
 	{
-		switch (c2->type)
+		CollisionDirection direction = c1->CheckDirection(c2->rect);
+		if (c2->type == COLLIDER_ENEMIE)
 		{
-		case COLLIDER_ENEMIE:
-		{
-			if (player_hurted == false && godmode == false)
-				PlayerHurted();
-			break;
+			if (direction == ENTITY_ABOVE)
+			{
+					App->audio->PlayFx(troll_death);
+					c2->to_delete = true; 
+				
+			}
+			else
+			{
+				if (player_hurted == false && godmode == false)
+					PlayerHurted();
+			}
 		}
-		case COLLIDER_GROUND:	
-			CollisionDirection direction = c1->CheckDirection(c2->rect);
-			if (direction == ENTITY_ABOVE) 
+		else if (c2->type == COLLIDER_GROUND)
+		{
+			direction = c1->CheckDirection(c2->rect);
+			if (direction == ENTITY_ABOVE)
 			{
 				position.y = c2->rect.y - PLAYERHEIGHT;
 				double_jump = true;
 				jumping = false;
 				landing = false;
-				if (walking) { App->audio->PlayFx(playersteps); }
-				break;
+				if (walking == true) { App->audio->PlayFx(playersteps); }
 			}
 			if (direction == ENTITY_BELOW)
 			{
 				position.y = c2->rect.y + c2->rect.h;
 				jumping = false;
 				landing = true;
-				break;
 			}
-			if (direction == ENTITY_LEFT) 
+			if (direction == ENTITY_LEFT)
 			{
 				position.x = c2->rect.x - PLAYERWIDTH - margin;
-				break;
 			}
-			if (direction == ENTITY_RIGHT) 
+			if (direction == ENTITY_RIGHT)
 			{
 				position.x = c2->rect.x + c2->rect.w + margin;
-				break;
 			}
-			
-			break;
 		}
 	}
 }

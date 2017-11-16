@@ -29,7 +29,6 @@ public:
 	void Dead();
 	void PlayerHurted();
 	void LoseOneLife();
-
 	
 
 private:
@@ -56,6 +55,7 @@ private:
 	uint lose_fx;
 	uint hurt_fx;
 	uint die_fx;
+	uint troll_death;
 
 public:
 	int lifes;
@@ -64,12 +64,15 @@ public:
 	float speed;
 
 	Uint32 hit_time;
+	Uint32 enemy_hit_time;
 
 	bool camera_movement = false;
 	bool use_input = true;
 	bool dead = false;
 	bool hitted = false;
 	bool player_hurted = false;
+	bool enemy_hurted = false;
+
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
