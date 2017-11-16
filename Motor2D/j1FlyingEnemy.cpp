@@ -85,7 +85,7 @@ bool j1FlyingEnemy::Update(float dt)
 	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT -20, };
 	if (IsPointInCircle(App->entities->player->position, position, FLYING_ENEMY_DETECION_RANGE)) {
 		
-		path = App->pathfind->FindPath(origin, destination);
+		path = App->pathfind->FindPath(origin, destination, type);
 	}
 	if (path != NULL) {
 		if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0) {
@@ -137,4 +137,5 @@ void j1FlyingEnemy::Move(Pathfinding& _path)
 		facing = Facing::LEFT;
 		return;
 	}	
+	
 }

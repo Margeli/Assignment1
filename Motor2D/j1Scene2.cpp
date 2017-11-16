@@ -41,11 +41,14 @@ bool j1Scene2::Start()
 		if (App->map->Load("Map2.tmx")) {
 			int w, h;
 			uchar* data = NULL;
-			if (App->map->CreateWalkabilityMap(w, h, &data))
-				App->pathfind->SetMap(w, h, data);
-
-			RELEASE_ARRAY(data);
-
+			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::FLY)) {//creates walkabilty map for flying enemies
+				App->pathfind->SetMap(w, h, data, EntityTypes::FLY);
+				RELEASE_ARRAY(data);
+			}
+			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::TROLL)) {//creates walkability map for ground enemies
+				App->pathfind->SetMap(w, h, data, EntityTypes::TROLL);
+				RELEASE_ARRAY(data);
+			}
 		}
 		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
 			App->map->data.layers.At(2)->data->properties.Get("xpos") }; //Gets the player position from the last layer loaded from Tiled

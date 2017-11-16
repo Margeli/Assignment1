@@ -4,8 +4,9 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Map.h"
+#include "j1EntityManager.h"
 
-j1Pathfinding::j1Pathfinding() : j1Module(), map(NULL)
+j1Pathfinding::j1Pathfinding() : j1Module(), fly_map(NULL), ground_map(NULL)
 {
 	name.create("pathfinding");
 	
@@ -17,7 +18,8 @@ j1Pathfinding::j1Pathfinding() : j1Module(), map(NULL)
 
 j1Pathfinding::~j1Pathfinding()
 {
-	RELEASE_ARRAY(map);
+	RELEASE_ARRAY(fly_map);
+	RELEASE_ARRAY(ground_map);
 }
 bool j1Pathfinding::Start()
 {
@@ -39,7 +41,8 @@ bool j1Pathfinding::CleanUp()
 		delete path_root;
 		path_root = nullptr;
 	}
-	RELEASE_ARRAY(map);
+	RELEASE_ARRAY(fly_map);
+	RELEASE_ARRAY(ground_map);
 	App->tex->UnLoad(PathStep);
 
 	return true;
@@ -53,14 +56,14 @@ bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
 	return (pos.x >= 0 && pos.x <= (int)width && pos.y >= 0 && pos.y <= (int)height);
 }
 
-bool j1Pathfinding::CheckIsWalkable(const iPoint& pos) const
+bool j1Pathfinding::CheckIsWalkable(const iPoint& pos, EntityTypes type) const
 {
 	if (CheckBoundaries(pos) == false) { return false; }
-	uchar num = GetTileAt(pos);
+	uchar num = GetTileAt(pos, type);
 	return num != INVALID_WALK_CODE && num > 0;
 }
 
-void j1Pathfinding::CreatePath( const iPoint& origin,  const iPoint& destination, Pathfinding* path) 
+void j1Pathfinding::CreatePath( const iPoint& origin,  const iPoint& destination, Pathfinding* path, EntityTypes type) 
 {
 	path->Clear();
 	iPoint goal = App->map->WorldToMap(destination.x, destination.y);
@@ -84,7 +87,7 @@ void j1Pathfinding::CreatePath( const iPoint& origin,  const iPoint& destination
 			for (int i = 0; i < 4; i++) {
 				
 				uint distance = neighbors[i].DistanceTo(goal);
-				if (CheckIsWalkable(neighbors[i])) {
+				if (CheckIsWalkable(neighbors[i], type)) {
 					if (path->visited.find(neighbors[i]) == -1) {
 						path->frontier.Push(neighbors[i], distance);
 						path->visited.add(neighbors[i]);
@@ -127,20 +130,32 @@ void j1Pathfinding::Path(iPoint goal, Pathfinding& path)
 		path.path.Flip();
 	}	
 }
-void j1Pathfinding::SetMap(uint width, uint height, uchar* data) {
+void j1Pathfinding::SetMap(uint width, uint height, uchar* data, EntityTypes type) {
 
 	this->width = width;
 	this->height = height;
-
-	RELEASE_ARRAY(map);
-	map = new uchar[width*height];
-	memcpy(map, data, width*height);
-
+	if (type == EntityTypes::FLY) {
+		RELEASE_ARRAY(fly_map);
+		fly_map = new uchar[width*height];
+		memcpy(fly_map, data, width*height);
+	}
+	if (type == EntityTypes::TROLL) {
+		RELEASE_ARRAY(ground_map);
+		ground_map = new uchar[width*height];
+		memcpy(ground_map, data, width*height);
+	
+	}
 }
 
-uchar j1Pathfinding::GetTileAt(const iPoint& pos) const {
-	if (CheckBoundaries(pos))
-		return map[(pos.y*width) + pos.x];
+uchar j1Pathfinding::GetTileAt(const iPoint& pos, EntityTypes type) const {
+	if (CheckBoundaries(pos)) {
+		if (type == EntityTypes::FLY) {
+			return fly_map[(pos.y*width) + pos.x];
+		}
+		if (type == EntityTypes::TROLL) {
+			return ground_map[(pos.y*width) + pos.x];
+		}
+	}
 
 	return INVALID_WALK_CODE;
 
@@ -157,12 +172,12 @@ void Pathfinding::Clear() {
 
 }
 
-Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination) {
+Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination, EntityTypes type) {
 
 	Pathfinding* ret = nullptr;
 
 	ret = path_root;
-	CreatePath(origin, destination, path_root);
+	CreatePath(origin, destination, path_root, type);
 
 
 	return ret;
@@ -172,19 +187,19 @@ Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destina
 
 MoveTo j1Pathfinding::CheckDirection(Pathfinding& _path) const {
 	
-	iPoint tile_pos = _path.path[0];
-	iPoint tile_to_go =  _path.path[1];	
-	
-	int x_substraction = tile_to_go.x - tile_pos.x;
-	int y_substraction = tile_to_go.y - tile_pos.y;
+	if (_path.path.Count() >= 2) {
+		iPoint tile_pos = _path.path[0];
+		iPoint tile_to_go = _path.path[1];
 
-	if ( x_substraction== 1) { return M_RIGHT; }//RIGHT
-	else if (x_substraction == -1 ) { return M_LEFT; }//LEFT
+		int x_substraction = tile_to_go.x - tile_pos.x;
+		int y_substraction = tile_to_go.y - tile_pos.y;
 
-	else if (y_substraction == 1 ) {return M_DOWN; }//DOWN
-	else if (y_substraction == -1 ) { return M_UP; }//UP
+		if (x_substraction == 1) { return M_RIGHT; }//RIGHT
+		else if (x_substraction == -1) { return M_LEFT; }//LEFT
 
-	else {
-		return   NONE;
+		else if (y_substraction == 1) { return M_DOWN; }//DOWN
+		else if (y_substraction == -1) { return M_UP; }//UP
+		else { return NONE; }
 	}
+	else {	return NONE;}
 }

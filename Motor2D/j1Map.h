@@ -9,6 +9,8 @@
 
 #define GROUND_TILES 39	//nº of tiles that have the property ground in Tiled
 
+enum EntityTypes;
+
 struct Properties {
 	struct Property
 	{
@@ -115,7 +117,7 @@ public:
 
 	inline iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
-	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer, EntityTypes type) const;
 	
 	void PathDrawer();
 	
