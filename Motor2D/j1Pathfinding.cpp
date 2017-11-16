@@ -60,9 +60,8 @@ bool j1Pathfinding::CheckIsWalkable(const iPoint& pos) const
 	return num != INVALID_WALK_CODE && num > 0;
 }
 
-void j1Pathfinding::CreatePath( const iPoint& origin,  const iPoint& destination, Pathfinding* path  ) 
+void j1Pathfinding::CreatePath( const iPoint& origin,  const iPoint& destination, Pathfinding* path) 
 {
-	
 	path->Clear();
 	iPoint goal = App->map->WorldToMap(destination.x, destination.y);
 	iPoint start = App->map->WorldToMap(origin.x, origin.y);
@@ -150,7 +149,7 @@ uchar j1Pathfinding::GetTileAt(const iPoint& pos) const {
 void Pathfinding::Clear() {
 
 	
-	visited.clear();
+	visited.clear();				//TODO
 	frontier.Clear();
 	breadcrumbs.clear();
 	path.Clear();

@@ -15,6 +15,9 @@
 #include "j1EntityManager.h"
 #include "SDL/include/SDL_timer.h"
 
+#define JUMP_SPEED 4.5f
+#define JUMP_LIMIT 70.0f
+
 j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 {
 	lifes = LIFES;
@@ -35,8 +38,8 @@ bool j1Player::Start()
 
 	speed = SPEED;
 	animation = &idle_right;
-	jump_speed = 4.5f;
-	jump_limit = 70.0f;
+	jump_speed = JUMP_SPEED;
+	jump_limit = JUMP_LIMIT;
 
 	InitialPlayerPos();
 
@@ -83,8 +86,8 @@ bool j1Player::Update(float dt)
 		{
 			App->audio->PlayFx(sword_sound);
 
-			if (facing = LEFT) { animation = &attack_left; }
-			if (facing = RIGHT) { animation = &attack_right; }
+			if (facing == Facing::LEFT) { animation = &attack_left; }
+			else if (facing == Facing::RIGHT) { animation = &attack_right; }
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP )
 		{
@@ -96,7 +99,7 @@ bool j1Player::Update(float dt)
 		{
 			walking = true;
 			position.x += speed * 1.25f;
-			facing = RIGHT;
+			facing = Facing::RIGHT;
 
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 			if (animation != &jump_right) { animation = &run_right; }
@@ -106,7 +109,7 @@ bool j1Player::Update(float dt)
 		{
 			walking = true;
 			position.x += speed;
-			facing = RIGHT;
+			facing = Facing::RIGHT;
 
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 			if (animation != &jump_right) {animation = &walk_right; }
@@ -121,8 +124,8 @@ bool j1Player::Update(float dt)
 		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) 	//RUNNING LEFT
 		{
 			walking = true;
-			position.x -= speed * 1.00f;
-			facing = LEFT;
+			position.x -= speed * 1.25f;
+			facing = Facing::LEFT;
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 			if (animation != &jump_right) { animation = &run_right; }
 		}
@@ -131,7 +134,7 @@ bool j1Player::Update(float dt)
 		{
 			walking = true;
 			position.x -= speed;
-			facing = LEFT;
+			facing = Facing::LEFT;
 			if (animation != &jump_right) { animation = &walk_left; }
 		}
 
@@ -220,9 +223,8 @@ void j1Player::PlayerHurted()
 	walking = false;
 	App->audio->PlayFx(die_fx);
 	
-
-	if (facing == RIGHT) { animation = &death_right; }
-	else if (facing == LEFT) { animation = &death_left; }
+	if (facing == Facing::RIGHT) { animation = &death_right; }
+	else if (facing == Facing::LEFT) { animation = &death_left; }
 }
 
 void j1Player::LoseOneLife() 
