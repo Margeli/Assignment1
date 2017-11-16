@@ -7911,7 +7911,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="GroundEnemiesPath" width="100" height="25">
+ <layer name="EnemyGroundPath" width="100" height="25">
   <properties>
    <property name="Path" type="int" value="1"/>
    <property name="speed" type="float" value="1"/>
