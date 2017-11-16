@@ -11,8 +11,8 @@
 #define COLLIDER_MARGIN_RIGHT 24
 #define COLLIDER_MARGIN_LEFT 77
 #define FLY_SPEED 1
-#define FLY_HEIGHT 50
-#define FLY_WIDTH 50
+#define FLY_HEIGHT 45
+#define FLY_WIDTH 35
 #define FLYING_ENEMY_DETECION_RANGE 500
 #define COLLIDER_POS_X 10
 #define COLLIDER_POS_Y 10
@@ -37,9 +37,9 @@ bool j1FlyingEnemy::Start()
 	return true;
 }
 
-bool j1FlyingEnemy::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const	//Creates a circular detection area
+bool j1FlyingEnemy::IsPointInCircle(iPoint playpos, iPoint enempos, float radi) const	//Creates a circular detection area
 {
-	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
+	return ((playpos.x - enempos.x)*(playpos.x - enempos.x) + (playpos.y - enempos.y)*(playpos.y - enempos.y)) < radi*radi;
 }
 
 void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)		
@@ -82,24 +82,28 @@ bool j1FlyingEnemy::CleanUp()
 bool j1FlyingEnemy::Update(float dt)	
 {
 	iPoint origin = { position.x + ORIGIN_POSITION, position.y + ORIGIN_POSITION };
-	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 40, };
-	path = App->pathfind->FindPath(origin, destination);
-
-	if (App->entities->player->player_hurted == false && path->path.Count()!=0 ) { Move(*path); }
+	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT -20, };
+	if (IsPointInCircle(App->entities->player->position, position, FLYING_ENEMY_DETECION_RANGE)) {
+		
+		path = App->pathfind->FindPath(origin, destination);
+	}
+	if (path != NULL) {
+		if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0) {
+			Move(*path);
+		}
+		else { path->Clear(); }
+	}
+	
 
 	if (facing == Facing::RIGHT) { animation = &fly_right; }
 	else if (facing == Facing::LEFT) { animation = &fly_left; }
 
-	//if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, FLYING_ENEMY_DETECION_RANGE))
-	//{
-	//	if (collider != nullptr) { collider->SetPos(position.x + COLLIDER_POS_X, position.y + COLLIDER_POS_Y); }
-	//	if (App->collis->debug) { App->pathfind->DrawPath(*path); }
-	//}
+	
 
 	if (collider != nullptr)
 		collider->SetPos(position.x + 10, position.y + 5);
 	Draw();
-	if (App->collis->debug) {
+	if (App->collis->debug && path!= NULL) {
 		App->pathfind->DrawPath(*path);
 	}
 	return true;

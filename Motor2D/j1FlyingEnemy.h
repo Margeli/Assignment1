@@ -18,7 +18,7 @@ public:
 		
 	void OnCollision(Collider* c1, Collider* c2);
 	
-	bool IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const;
+	bool IsPointInCircle(iPoint playpos, iPoint enempos, float radi) const;
 	
 	void LoadFlyAnimations();
 
