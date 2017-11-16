@@ -146,15 +146,12 @@ uchar j1Pathfinding::GetTileAt(const iPoint& pos) const {
 
 }
 
-void Pathfinding::Clear() {
-
-	
+void Pathfinding::Clear() 
+{
 	visited.clear();				//TODO
 	frontier.Clear();
 	breadcrumbs.clear();
 	path.Clear();
-
-
 }
 
 Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination) {

@@ -183,7 +183,7 @@ bool j1Player::Update(float dt)
 
 		if (jumping)
 		{
-			if ((jump_pos - position.y < jump_limit) && !landing) { position.y -= jump_speed; }
+			if ((jump_pos - 50 - position.y < jump_limit) && !landing) { position.y -= jump_speed; }
 			else { landing = true; }
 		}
 	}
@@ -253,6 +253,7 @@ void j1Player::JumpReset()
 	can_jump = false;
 	double_jump = true;
 }
+
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	int margin = 3;
@@ -263,9 +264,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (direction == ENTITY_ABOVE)
 			{
-				App->audio->PlayFx(troll_death);
-				c2->to_delete = true;
+				//if (c2->type == FLY) { }
+				//else if (c2->type == TROLL) { App->audio->PlayFx(troll_death); c2->to_delete = true; }
 
+				App->audio->PlayFx(troll_death); c2->to_delete = true;
 			}
 			else
 			{
