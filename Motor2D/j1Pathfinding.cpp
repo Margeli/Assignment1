@@ -161,15 +161,12 @@ uchar j1Pathfinding::GetTileAt(const iPoint& pos, EntityTypes type) const {
 
 }
 
-void Pathfinding::Clear() {
-
-	
+void Pathfinding::Clear() 
+{
 	visited.clear();				//TODO
 	frontier.Clear();
 	breadcrumbs.clear();
 	path.Clear();
-
-
 }
 
 Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destination, EntityTypes type) {

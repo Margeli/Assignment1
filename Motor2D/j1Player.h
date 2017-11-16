@@ -56,6 +56,7 @@ private:
 	uint lose_fx;
 	uint hurt_fx;
 	uint die_fx;
+	uint troll_death;
 
 public:
 	int lifes;
