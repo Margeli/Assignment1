@@ -15,7 +15,7 @@
 #define ADDED_COLLIDER_HEIGHT 50
 #define TROLL_HEIGHT 100
 #define TROLL_WIDTH 50
-#define PATH_DISPLACEMENT_x 30
+#define PATH_DISPLACEMENT_x 55
 #define PATH_DISPLACEMENT_y 70
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
@@ -101,8 +101,8 @@ bool j1Troll::Update(float dt)
 
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
-		iPoint origin = { position.x + PATH_DISPLACEMENT_x, position.y + PATH_DISPLACEMENT_y };
-		iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };	//why 20?
+		iPoint origin = {   (position.x + PATH_DISPLACEMENT_x),(position.y + PATH_DISPLACEMENT_y) };
+		iPoint destination = { (App->entities->player->position.x + PLAYERWIDTH / 2), (App->entities->player->position.y + PLAYERHEIGHT - 20) };	//why 20?
 
 		path = App->pathfind->FindPath(origin, destination, type);
 
