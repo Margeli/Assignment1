@@ -209,6 +209,7 @@
         <animation x="0" y="600" w="100" h="100"/>
         <animation x="100" y="600" w="100" h="100"/>
         <animation x="200" y="600" w="100" h="100"/>
+        <animation x="600" y="600" w="100" h="100"/>
         <animation x="300" y="600" w="100" h="100"/>
         <animation x="400" y="600" w="100" h="100"/>
         <animation x="500" y="600" w="100" h="100"/>
@@ -219,6 +220,7 @@
         <animation x="0" y="700" w="100" h="100"/>
         <animation x="100" y="700" w="100" h="100"/>
         <animation x="200" y="700" w="100" h="100"/>
+        <animation x="600" y="700" w="100" h="100"/>
         <animation x="300" y="700" w="100" h="100"/>
         <animation x="400" y="700" w="100" h="100"/>
         <animation x="500" y="700" w="100" h="100"/>

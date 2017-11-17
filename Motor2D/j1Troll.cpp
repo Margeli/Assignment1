@@ -8,7 +8,6 @@
 #include "j1Scene2.h"
 #include "j1Audio.h"
 
-
 #define TROLL_ATTACK_RANGE 200
 #define TROLL_DETECTION_RANGE 350
 #define TROLL_SPEED 1.00f
@@ -18,7 +17,6 @@
 #define TROLL_WIDTH 50
 #define PATH_DISPLACEMENT_x 30
 #define PATH_DISPLACEMENT_y 70
-
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
@@ -99,50 +97,55 @@ bool j1Troll::CleanUp()
 
 bool j1Troll::Update(float dt) 
 {
+	position.y += GRAVITY;
+
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
 		iPoint origin = { position.x + PATH_DISPLACEMENT_x, position.y + PATH_DISPLACEMENT_y };
-		iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };
+		iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };	//why 20?
 
 		path = App->pathfind->FindPath(origin, destination, type);
 
 		if (path != nullptr)
 		{
-			if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0) {
+			if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0) 
+			{
 				Move(*path);
+
+				if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE))
+				{
+					if (App->entities->player->position.x < position.x)
+					{
+						App->audio->PlayFx(troll_attack);
+						animation = &attack_left;
+					}
+					else if (App->entities->player->position.x > position.x)
+					{
+						App->audio->PlayFx(troll_attack);
+						animation = &attack_right;
+					}
+				}
 			}
 			else { path->Clear(); }
 		}
-		//	if (facing == Facing::RIGHT) { animation = &walk_right; }
-		//	else if (facing == Facing::LEFT) { animation = &walk_left; }
-
-		if (collider != nullptr) { collider->SetPos(position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT); }
-
-		if (App->entities->player->hitted == true) { animation = &idle_left; }
 
 		if (App->collis->debug && path != nullptr) { App->pathfind->DrawPath(*path); }
 
-		if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE))
-		{
-			if (App->entities->player->position.x < position.x)
-			{
-				App->audio->PlayFx(troll_attack);
-				animation = &attack_left;
-			}
-			else if (App->entities->player->position.x > position.x)
-			{
-				App->audio->PlayFx(troll_attack);
-				animation = &attack_right;
-			}
-		}
-		Draw();
+		/*if (App->entities->player->position.x < position.x)	{ animation = &walk_left; }
+		else if (App->entities->player->position.x > position.x)	{ animation = &walk_right; }*/
+
 	}
 	else
 	{
-		if(App->entities->player->position.x < position.x) { animation = &idle_left; }
-
+		if (App->entities->player->position.x < position.x) { animation = &idle_left; }
+		else if (App->entities->player->position.x > position.x) { animation = &idle_right; }
 	}
-	
+
+	if (collider != nullptr) { collider->SetPos(position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT); }
+
+	if (App->entities->player->hitted == true) { animation = &idle_left; }
+
+	Draw();
 
 	return true;
 }
@@ -159,12 +162,14 @@ void j1Troll::Move(Pathfinding& _path)
 
 	if (direction == MoveTo::M_RIGHT)
 	{
+		animation = &walk_right;
 		position.x += TROLL_SPEED;
 		facing = Facing::RIGHT;
 		return;
 	}
 	if (direction == MoveTo::M_LEFT)
 	{
+		animation = &walk_left;
 		position.x -= TROLL_SPEED;
 		facing = Facing::LEFT;
 		return;

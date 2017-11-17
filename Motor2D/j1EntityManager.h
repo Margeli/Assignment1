@@ -5,9 +5,10 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Entity.h"
+#include "p2Defs.h"
 
 #define MAX_ENTITIES 50
-#define SPAWN_MARGIN 1000
+#define SPAWN_MARGIN 2000
 
 enum EntityTypes
 {

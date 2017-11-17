@@ -32,6 +32,7 @@ j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position)
 void j1EntityManager::DestroyEntity(j1Entity* entity)
 {
 	int num = entities.find(entity);
+	RELEASE(entities.At(num)->data);
 	entities.del(entities.At(num));
 }
 

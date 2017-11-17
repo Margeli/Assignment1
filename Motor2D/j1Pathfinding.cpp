@@ -158,7 +158,6 @@ uchar j1Pathfinding::GetTileAt(const iPoint& pos, EntityTypes type) const {
 	}
 
 	return INVALID_WALK_CODE;
-
 }
 
 void Pathfinding::Clear() 
@@ -176,10 +175,7 @@ Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destina
 	ret = path_root;
 	CreatePath(origin, destination, path_root, type);
 
-
 	return ret;
-
-
 }
 
 MoveTo j1Pathfinding::CheckDirection(Pathfinding& _path) const {
