@@ -227,24 +227,24 @@
         <animation x="600" y="700" w="100" h="100"/>
       </attack_left>
 
-      <death_right loop="true" speed="0.08f">
-      <animation x="0" y="800" w="100" h="100"/>
-      <animation x="100" y="800" w="100" h="100"/>
-      <animation x="200" y="800" w="100" h="100"/>
-      <animation x="300" y="800" w="100" h="100"/>
-      <animation x="395" y="800" w="100" h="100"/>
-      <animation x="500" y="800" w="100" h="100"/>
-      <animation x="600" y="800" w="100," h="100"/>
+      <death_right loop="false" speed="0.08f">
+        <animation x="0" y="800" w="100" h="100"/>
+        <animation x="100" y="800" w="100" h="100"/>
+        <animation x="200" y="800" w="100" h="100"/>
+        <animation x="300" y="800" w="100" h="100"/>
+        <animation x="395" y="800" w="100" h="100"/>
+        <animation x="500" y="800" w="100" h="100"/>
+        <animation x="600" y="800" w="100," h="100"/>
       </death_right>
 
-      <death_left loop="true" speed="0.08f">
-      <animation x="0" y="900" w="100" h="100"/>
-      <animation x="100" y="900" w="100" h="100"/>
-      <animation x="200" y="900" w="100" h="100"/>
-      <animation x="300" y="900" w="100" h="100"/>
-      <animation x="400" y="900" w="100" h="100"/>
-      <animation x="500" y="900" w="100" h="100"/>
-      <animation x="600" y="900" w="100" h="100"/>
+      <death_left loop="false" speed="0.08f">
+        <animation x="0" y="900" w="100" h="100"/>
+        <animation x="100" y="900" w="100" h="100"/>
+        <animation x="200" y="900" w="100" h="100"/>
+        <animation x="300" y="900" w="100" h="100"/>
+        <animation x="400" y="900" w="100" h="100"/>
+        <animation x="500" y="900" w="100" h="100"/>
+        <animation x="600" y="900" w="100" h="100"/>
       </death_left>
      
     </troll>

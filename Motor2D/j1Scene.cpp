@@ -165,9 +165,9 @@ void j1Scene::PlaceEnemies() const
 {
 
 	//App->entities->CreateEntity(TROLL, { 300, 482 });
-	App->entities->CreateEntity(TROLL, { 850, 380 });
+	App->entities->CreateEntity(TROLL, { 50, 440 });
 
-	//App->entities->CreateEntity(FLY, { 890, 380 });
+	App->entities->CreateEntity(FLY, { 890, 380 });
 	//App->entities->CreateEntity(TROLL, { 1800, 400 });
 	//App->entities->CreateEntity(TROLL, { 2700, 470 });
 

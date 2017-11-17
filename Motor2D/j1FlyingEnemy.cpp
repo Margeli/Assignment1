@@ -47,7 +47,21 @@ bool j1FlyingEnemy::IsPointInCircle(iPoint playpos, iPoint enempos, float radi) 
 
 void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)		
 {
-	if (c2->type == COLLIDER_GROUND)
+	CollisionDirection direction;
+	if (c2->type == COLLIDER_PLAYER)
+	{
+		direction = c1->CheckDirection(c2->rect);
+		if (direction == ENTITY_BELOW) {			
+			App->entities->player->LittleJump();
+			App->entities->player->points += 10;
+			collider->to_delete = true;
+			path->Clear();
+			App->entities->DestroyEntity(this);
+		}
+	}
+
+
+	else if (c2->type == COLLIDER_GROUND)
 	{
 		switch (c1->CheckDirection(c2->rect))
 		{

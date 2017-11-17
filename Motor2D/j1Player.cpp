@@ -187,6 +187,13 @@ bool j1Player::Update(float dt)
 			else { landing = true; }
 		}
 	}
+	if (littlejump) {
+		position.y -= jump_speed;
+		littlejumphigh++;
+		if (littlejumphigh == LITTLEJUMPHIGH) {
+			littlejump = false;
+		}
+	}
 
 	if (hitted && hit_time - SDL_GetTicks() > 1000) { hitted = false; } // 1 second of invulnerability  if hitted. 
 	
@@ -273,11 +280,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 				position.y = c2->rect.y - PLAYERHEIGHT;
 				double_jump = true;
 				jumping = false;
-				landing = false;
+				landing = false;				
 				if (walking == true) { App->audio->PlayFx(playersteps); }
 			}
 			if (direction == ENTITY_BELOW)
 			{
+				littlejump = false;
 				position.y = c2->rect.y + c2->rect.h;
 				jumping = false;
 				landing = true;
@@ -335,4 +343,8 @@ void j1Player::InitialPlayerPos() {
 	if (App->scene2->active){	
 		position = App->scene2->initial_scene_pos;		
 	}
+}
+void j1Player::LittleJump() {
+	littlejump = true;
+	littlejumphigh = 0;
 }

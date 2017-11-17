@@ -58,5 +58,7 @@ public:
 	Pathfinding* path = nullptr;
 	MoveTo direction;
 
+	private:
+		
 };
 #endif // __j1TROLL_H__

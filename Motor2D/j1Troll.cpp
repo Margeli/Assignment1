@@ -59,6 +59,7 @@ void j1Troll::troll_dead()
 	App->entities->player->points += 10;
 	App->audio->PlayFx(troll_death);
 	death_pos = position;
+	path->Clear();
 	collider->to_delete = true;
 	if (facing == Facing::LEFT) { animation = &death_left; }
 	else if (facing == Facing::RIGHT) { animation = &death_right; }
@@ -67,11 +68,14 @@ void j1Troll::troll_dead()
 
 void j1Troll::OnCollision(Collider* c1, Collider* c2)
 {
-	CollisionDirection direction = c1->CheckDirection(c2->rect);
+	CollisionDirection direction; 
 	if (c2->type == COLLIDER_PLAYER)
 	{
 		direction = c1->CheckDirection(c2->rect);
-		if (direction == ENTITY_BELOW) { troll_dead(); }
+		if (direction == ENTITY_BELOW) { 
+			troll_dead();
+			App->entities->player->LittleJump();
+		}
 		
 	}
 
@@ -128,6 +132,7 @@ bool j1Troll::Update(float dt)
 	{ // when troll dies
 		if (animation == &death_left || animation == &death_right)
 		{
+			
 			if (animation->Finished() == true)
 			{
 
