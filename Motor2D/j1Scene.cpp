@@ -82,6 +82,8 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == false) { App->cap_on = true; }
 	else if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == true) { App->cap_on = false; }
 
+	//if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN) { App->render->vsync = !App->render->vsync; }
+
 	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->position.x++; }
 
 	//CAMERA MOVEMENT

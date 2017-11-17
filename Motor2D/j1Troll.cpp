@@ -50,24 +50,43 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
 }
 
+void j1Troll::troll_is_death()
+{
+	App->entities->player->points += 10;
+	App->audio->PlayFx(troll_death);	
+	if (facing == Facing::LEFT) { animation = &death_left; }
+	else if (facing == Facing::RIGHT) { animation = &death_right; }
+	
+}
+
 void j1Troll::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == COLLIDER_GROUND)
+	CollisionDirection direction = c1->CheckDirection(c2->rect);
+	if (c2->type == COLLIDER_PLAYER)
 	{
-		switch (c1->CheckDirection(c2->rect))
+		direction = c1->CheckDirection(c2->rect);
+		if (direction == ENTITY_BELOW) { troll_is_death(); }
+		if (animation->Finished() == true) { App->entities->DestroyEntity(this); }
+	}
+
+	else if (c2->type == COLLIDER_GROUND)
+	{
+		direction = c1->CheckDirection(c2->rect);
+		if (direction == ENTITY_ABOVE)
 		{
-		case ENTITY_ABOVE:
 			position.y = c2->rect.y - TROLL_HEIGHT;
-			break;
-		case ENTITY_BELOW:
+		}
+		else if (direction == ENTITY_BELOW)
+		{
 			position.y = c2->rect.y + c2->rect.h;
-			break;
-		case ENTITY_RIGHT:
+		}
+		else if (direction == ENTITY_RIGHT)
+		{
 			position.x = c2->rect.x + c2->rect.w;
-			break;
-		case ENTITY_LEFT:
+		}
+		else if (direction == ENTITY_LEFT)
+		{
 			position.x = c2->rect.x - TROLL_WIDTH;
-			break;
 		}
 	}
 }

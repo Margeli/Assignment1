@@ -260,19 +260,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (!hitted)
 	{
 		CollisionDirection direction = c1->CheckDirection(c2->rect);
-		if (c2->type == COLLIDER_ENEMIE)
+		if (c2->type == COLLIDER_ENEMIE && direction != ENTITY_ABOVE)
 		{
-			if (direction == ENTITY_ABOVE)
-			{
-				points += 10;
-				App->audio->PlayFx(troll_death); 
-				c2->to_delete = true;
-			}
-			else
-			{
-				if (player_hurted == false && godmode == false)
-					PlayerHurted();
-			}
+			if (player_hurted == false && godmode == false)
+				PlayerHurted();
 		}
 		else if (c2->type == COLLIDER_GROUND)
 		{

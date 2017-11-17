@@ -34,6 +34,7 @@ public:
 
 	void Move(Pathfinding& _path);
 
+	void troll_is_death();
 
 	Pathfinding* troll_path = nullptr;
 
