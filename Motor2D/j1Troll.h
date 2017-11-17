@@ -34,7 +34,9 @@ public:
 
 	void Move(Pathfinding& _path);
 
-	void troll_is_death();
+	void troll_dead();
+	bool dead = false;
+	iPoint death_pos;
 
 	Pathfinding* troll_path = nullptr;
 

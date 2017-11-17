@@ -6,6 +6,7 @@
 #include "j1Player.h"
 #include "j1Entity.h"
 #include "j1Pathfinding.h"
+#include "p2Log.h"
 
 #define GRAVITY 2
 #define COLLIDER_MARGIN_RIGHT 24
@@ -29,12 +30,14 @@ j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY)
 
 bool j1FlyingEnemy::Start()
 {
+	bool ret = true;
 	collider = App->collis->AddCollider({ position.x , position.y, FLY_WIDTH, FLY_HEIGHT }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
 	sprites = App->tex->Load("textures/Fly.png");
+	if (!sprites) { LOG("Error loading fly's textures.");  ret = false; }
 	animation = &fly_left;
 	SetInitialPos();
 
-	return true;
+	return ret;
 }
 
 bool j1FlyingEnemy::IsPointInCircle(iPoint playpos, iPoint enempos, float radi) const	//Creates a circular detection area

@@ -22,6 +22,9 @@ j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the 
 {
 	LoadTrollAnimations();	
 	position = initial_pos = pos;
+	collider = nullptr;
+	sprites = nullptr;
+	animation = nullptr;
 }
 
 bool j1Troll::Start() 
@@ -50,10 +53,13 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 	return ((playposX - enemposX)*(playposX - enemposX) + (playposY - enemposY)*(playposY - enemposY)) < radi*radi;
 }
 
-void j1Troll::troll_is_death()
+void j1Troll::troll_dead()
 {
+	dead = true;
 	App->entities->player->points += 10;
-	App->audio->PlayFx(troll_death);	
+	App->audio->PlayFx(troll_death);
+	death_pos = position;
+	collider->to_delete = true;
 	if (facing == Facing::LEFT) { animation = &death_left; }
 	else if (facing == Facing::RIGHT) { animation = &death_right; }
 	
@@ -65,8 +71,8 @@ void j1Troll::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_PLAYER)
 	{
 		direction = c1->CheckDirection(c2->rect);
-		if (direction == ENTITY_BELOW) { troll_is_death(); }
-		if (animation->Finished() == true) { App->entities->DestroyEntity(this); }
+		if (direction == ENTITY_BELOW) { troll_dead(); }
+		
 	}
 
 	else if (c2->type == COLLIDER_GROUND)
@@ -110,14 +116,35 @@ bool j1Troll::CleanUp()
 	LOG("Unloading Troll.");
 	App->tex->UnLoad(sprites);
 	collider->to_delete = true;
-	path->Clear();
+	//path->Clear();
 	return true;
 }
 
 bool j1Troll::Update(float dt) 
 {
-	position.y += GRAVITY;
+	position.y += GRAVITY;	
 
+	if (dead == true) 
+	{ // when troll dies
+		if (animation == &death_left || animation == &death_right)
+		{
+			if (animation->Finished() == true)
+			{
+
+				App->entities->DestroyEntity(this);
+				
+				return true;
+			}
+
+			else
+			{
+				position = death_pos;
+				Draw();
+				return true;
+			}
+		}
+	}
+	
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
 		iPoint origin = {   (position.x + PATH_DISPLACEMENT_x),(position.y + PATH_DISPLACEMENT_y) };
@@ -125,7 +152,7 @@ bool j1Troll::Update(float dt)
 
 		path = App->pathfind->FindPath(origin, destination, type);
 
-		if (path != nullptr)
+		if (path != NULL)
 		{
 			if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0) 
 			{
@@ -133,31 +160,23 @@ bool j1Troll::Update(float dt)
 
 				if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE))
 				{
-					if (App->entities->player->position.x < position.x)
-					{
+					if(facing == LEFT){
 						App->audio->PlayFx(troll_attack);
 						animation = &attack_left;
 					}
-					else if (App->entities->player->position.x > position.x)
-					{
+					else if (facing == RIGHT){
 						App->audio->PlayFx(troll_attack);
 						animation = &attack_right;
 					}
 				}
 			}
 			else { path->Clear(); }
-		}
-
-		if (App->collis->debug && path != nullptr) { App->pathfind->DrawPath(*path); }
-
-		/*if (App->entities->player->position.x < position.x)	{ animation = &walk_left; }
-		else if (App->entities->player->position.x > position.x)	{ animation = &walk_right; }*/
-
+		}		
 	}
 	else
 	{
-		if (App->entities->player->position.x < position.x) { animation = &idle_left; }
-		else if (App->entities->player->position.x > position.x) { animation = &idle_right; }
+		if (facing == LEFT) { animation = &idle_left; }
+		else if (facing== RIGHT) { animation = &idle_right; }
 	}
 
 	if (collider != nullptr) { collider->SetPos(position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT); }
@@ -165,6 +184,8 @@ bool j1Troll::Update(float dt)
 	if (App->entities->player->hitted == true) { animation = &idle_left; }
 
 	Draw();
+	if (App->collis->debug && path != NULL) {
+		App->pathfind->DrawPath(*path); }
 
 	return true;
 }
