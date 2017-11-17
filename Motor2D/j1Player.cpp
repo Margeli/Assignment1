@@ -15,8 +15,8 @@
 #include "j1EntityManager.h"
 #include "SDL/include/SDL_timer.h"
 
-#define JUMP_SPEED 4.5f
-#define JUMP_LIMIT 70.0f
+#define JUMP_SPEED 6.5f
+#define JUMP_LIMIT 50.0f
 
 j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 {
