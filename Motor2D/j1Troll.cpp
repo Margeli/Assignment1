@@ -45,7 +45,7 @@ bool j1Troll::LoadTrollAudio()
 	troll_death = App->audio->LoadFx("audio/fx/troll_death.wav");
 	troll_attack = App->audio->LoadFx("audio/fx/troll_attack.wav");
 	if (!troll_death || !troll_attack) { LOG("Error loading troll's audio.");  ret = false; }
-	return true;
+	return ret;
 }
 
 bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, float enemposY, float radi) const
@@ -63,7 +63,6 @@ void j1Troll::troll_dead()
 	collider->to_delete = true;
 	if (facing == Facing::LEFT) { animation = &death_left; }
 	else if (facing == Facing::RIGHT) { animation = &death_right; }
-	
 }
 
 void j1Troll::OnCollision(Collider* c1, Collider* c2)

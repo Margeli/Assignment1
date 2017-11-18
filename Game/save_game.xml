@@ -14,19 +14,16 @@
 	<pathfinding />
 	<entities>
 		<player>
-			<position x="479" y="191" />
+			<position x="34" y="479" />
 		</player>
-		<troll>
-			<position x="300" y="476" />
-			<position x="850" y="380" />
-			<position x="1800" y="400" />
-			<position x="2700" y="470" />
-		</troll>
+		<troll />
 		<fly>
-			<position x="221" y="83" />
-			<position x="1400" y="100" />
-			<position x="2400" y="200" />
+			<position x="890" y="380" />
 		</fly>
+		<collect>
+			<position x="300" y="7970" />
+			<position x="700" y="7870" />
+		</collect>
 	</entities>
 	<collisions />
 	<renderer>

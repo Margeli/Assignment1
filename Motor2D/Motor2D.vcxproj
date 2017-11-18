@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="j1Collectables.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Animation.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="j1Scene2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="j1Collectables.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Animation.h" />
     <ClInclude Include="j1Collisions.h" />
@@ -139,7 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\animations.xml" />
-    <Xml Include="..\Game\config.xml" />
+    <Xml Include="..\Game\config.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="..\Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>

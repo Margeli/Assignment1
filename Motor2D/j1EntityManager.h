@@ -15,10 +15,9 @@ enum EntityTypes
 	NOTYPE,
 	PLAYER,
 	TROLL,
-	FLY
+	FLY,
+	COLLECT
 };
-
-
 
 class j1Player;
 class j1Entity;
