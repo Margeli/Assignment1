@@ -181,5 +181,6 @@ void j1Scene::PlaceEnemies() const
 	App->entities->CreateEntity(COLLECT, { 1320, 150 });
 	App->entities->CreateEntity(COLLECT, { 2000, 180 });
 	App->entities->CreateEntity(COLLECT, { 2157, 113 });
+
 }
 

@@ -144,28 +144,14 @@ bool j1Player::Update(float dt)
 			walking = false;
 			if (animation == &walk_left) { animation = &idle_left; }	
 			else if (animation == &walk_right) { animation = &idle_right; }
-		}
+		}			
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
-		{
-			if (animation == &jump_right) { animation = &idle_right; }
-			else if (animation == &jump_left) { animation = &idle_left; }
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) )
-		{
-			if (animation == &jump_right) { animation = &walk_left; }
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) )
-		{
-			if (animation == &jump_right) { animation = &walk_right; }
-		}
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
-			if (animation == &walk_left || animation == &idle_left) {animation = &jump_left; }
+			if (facing == LEFT) {animation = &jump_left; }
 				
-			else if (animation == &walk_right || animation == &idle_right) { animation = &jump_right; }
+			else if (facing == RIGHT) { animation = &jump_right; }
 				
 			if (jumping == false && landing == false) { can_jump = true; }
 				

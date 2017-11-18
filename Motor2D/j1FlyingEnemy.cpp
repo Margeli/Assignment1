@@ -9,11 +9,9 @@
 #include "p2Log.h"
 #include "j1Audio.h"
 
-#define GRAVITY 2
-#define COLLIDER_MARGIN_RIGHT 24
-#define COLLIDER_MARGIN_LEFT 77
+
 #define FLY_SPEED 1
-#define FLY_HEIGHT 45
+#define FLY_HEIGHT 40
 #define FLY_WIDTH 35
 #define FLYING_ENEMY_DETECION_RANGE 500
 #define COLLIDER_POS_X 10
