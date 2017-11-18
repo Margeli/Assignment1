@@ -42,7 +42,7 @@ j1Collisions::j1Collisions(): j1Module()
 	matrix[COLLIDER_ATTACK][COLLIDER_ATTACK] = false;
 
 	matrix[COLLIDER_PICKUP][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_PICKUP][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PICKUP][COLLIDER_GROUND] = false;
 	matrix[COLLIDER_PICKUP][COLLIDER_ENEMIE] = false;
 	matrix[COLLIDER_PICKUP][COLLIDER_ATTACK] = false;
 }

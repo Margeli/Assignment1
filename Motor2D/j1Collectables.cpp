@@ -55,26 +55,7 @@ void j1Collectables::OnCollision(Collider* c1, Collider* c2)
 		found = true;
 		collider->to_delete = true;
 	}
-	else if (c2->type == COLLIDER_GROUND)
-	{
-		direction = c1->CheckDirection(c2->rect);
-		if (direction == ENTITY_ABOVE)
-		{
-			position.y = c2->rect.y - PICKUP_SIZE;
-		}
-		else if (direction == ENTITY_BELOW)
-		{
-			position.y = c2->rect.y + c2->rect.h;
-		}
-		else if (direction == ENTITY_RIGHT)
-		{
-			position.x = c2->rect.x + c2->rect.w;
-		}
-		else if (direction == ENTITY_LEFT)
-		{
-			position.x = c2->rect.x - PICKUP_SIZE;
-		}
-	}
+	
 }
 
 bool j1Collectables::CleanUp()
