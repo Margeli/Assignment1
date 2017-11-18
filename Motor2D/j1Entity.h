@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "j1Animation.h"
 #include "j1Collisions.h"
+#include "Brofiler/Brofiler.h"
 
 struct Collider;
 struct Animation;

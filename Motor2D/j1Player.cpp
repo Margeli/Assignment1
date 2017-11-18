@@ -149,13 +149,14 @@ bool j1Player::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
-			if (facing == LEFT) {animation = &jump_left; }
-				
-			else if (facing == RIGHT) { animation = &jump_right; }
-				
 			if (jumping == false && landing == false) { can_jump = true; }
-				
+
 			if (jumping == true && double_jump == true) { can_jump = true; double_jump = false; }
+
+			if (facing == LEFT && can_jump) {animation = &jump_left; }
+				
+			else if (facing == RIGHT&& can_jump) { animation = &jump_right; }			
+			
 		}
 
 		if (can_jump)

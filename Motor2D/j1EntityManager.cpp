@@ -3,6 +3,7 @@
 #include "j1FlyingEnemy.h"
 #include "j1Troll.h"
 #include "j1Collectables.h"
+#include "Brofiler/Brofiler.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -55,7 +56,7 @@ bool j1EntityManager::Start()
 bool j1EntityManager::PreUpdate()
 {
 	CheckPlayerPostoSpawn();	// Spawn enemies (TROLL|FLY) depending on player pos
-
+	BROFILER_CATEGORY("EntityManagerPreUpdate", Profiler::Color::Bisque);
 	p2List_item<j1Entity*>* entity_iterator; 
 	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->PreUpdate();}
@@ -64,6 +65,7 @@ bool j1EntityManager::PreUpdate()
 
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("EntityManagerUpdate", Profiler::Color::Bisque);
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->Update(dt);}
@@ -73,7 +75,7 @@ bool j1EntityManager::Update(float dt)
 bool j1EntityManager::PostUpdate()
 {
 	CheckPlayerPostoDespawn(); // Despawn enemies (TROLL|FLY|COLLECT) depending on player pos
-
+	BROFILER_CATEGORY("EntityManagerPostUpdate", Profiler::Color::Bisque);
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->PostUpdate();}

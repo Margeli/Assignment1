@@ -27,6 +27,7 @@ bool j1Collectables::Start()
 	if (!sprites) { LOG("Error loading  textures.");  ret = false; }
 	LoadAudio();
 	SetInitialPos();
+	animation = &idle;
 	return ret;
 }
 
@@ -42,7 +43,7 @@ bool j1Collectables::LoadAudio()
 void j1Collectables::LoadAnimation()
 {
 	idle.LoadEnemyAnimations("idle", "collect");
-	found_anim.LoadEnemyAnimations("found", "collect");
+	
 }
 
 void j1Collectables::OnCollision(Collider* c1, Collider* c2)
@@ -80,16 +81,23 @@ bool j1Collectables::CleanUp()
 {
 	LOG("Unloading collectable.");
 	App->tex->UnLoad(sprites);
-	collider->to_delete = true;
+	
 	return true;
 }
 
 bool j1Collectables::Update(float dt)
 {
-	position.y += GRAVITY;
 
-	if (found == true) { App->audio->PlayFx(pick_up); animation = &found_anim; 	found = false; }
-	else 	animation = &idle;
+	BROFILER_CATEGORY("EntityFLYUpdate", Profiler::Color::Bisque);
+	
+
+	if (found == true) { 
+		App->audio->PlayFx(pick_up); 		
+		CleanUp();
+		App->entities->DestroyEntity(this);
+		return true;
+	}
+	
 	if (collider != nullptr) { collider->SetPos(position.x, position.y); }
 	Draw();
 	return true;

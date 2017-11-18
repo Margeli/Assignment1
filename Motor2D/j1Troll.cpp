@@ -11,7 +11,7 @@
 #define TROLL_ATTACK_RANGE 200
 #define TROLL_DETECTION_RANGE 350
 #define TROLL_SPEED 1.00f
-#define ADDED_COLLIDER_WIDTH 10
+#define ADDED_COLLIDER_WIDTH 15
 #define ADDED_COLLIDER_HEIGHT 50
 #define TROLL_HEIGHT 100
 #define TROLL_WIDTH 50
@@ -117,14 +117,15 @@ void j1Troll::LoadTrollAnimations()
 bool j1Troll::CleanUp() 
 {
 	LOG("Unloading Troll.");
-	App->tex->UnLoad(sprites);
-	collider->to_delete = true;
+	App->tex->UnLoad(sprites);	
 	//path->Clear();
 	return true;
 }
 
 bool j1Troll::Update(float dt) 
 {
+
+	BROFILER_CATEGORY("EntityTROLLUpdate", Profiler::Color::Bisque);
 	position.y += GRAVITY;	
 
 	if (dead == true) 

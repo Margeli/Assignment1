@@ -148,9 +148,7 @@
       <idle loop="true" speed ="1.0f">
         <animation x="0" y="0" w="31" h="32"/>
       </idle>
-      <dead loop="false" speed="1.0f">
-        <animation x="0" y="0" w="0" h="0"/>
-      </dead>
+     
     </collect>
     
     <troll>

@@ -91,15 +91,15 @@ void j1FlyingEnemy::LoadFlyAnimations()
 bool j1FlyingEnemy::CleanUp()
 {
 	App->tex->UnLoad(sprites);
-	collider->to_delete = true;
-
+	
 	//path->Clear();
 	return true;
 }
 
 bool j1FlyingEnemy::Update(float dt)	
 {
-	iPoint origin = { position.x + ORIGIN_POSITION + 20, position.y + ORIGIN_POSITION };
+	BROFILER_CATEGORY("EntityFLYUpdate", Profiler::Color::Bisque);
+	iPoint origin = { position.x + ORIGIN_POSITION , position.y + ORIGIN_POSITION };
 	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };
 	if (IsPointInCircle(App->entities->player->position, position, FLYING_ENEMY_DETECION_RANGE)) {
 		

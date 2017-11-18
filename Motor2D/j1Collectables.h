@@ -32,7 +32,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	Animation idle;
-	Animation found_anim;
+	
 
 	iPoint found_pos;
 	bool found = false;
