@@ -12,7 +12,6 @@
 #include "j1Player.h"
 #include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
-
 #include "j1Pathfinding.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -163,18 +162,25 @@ void j1Scene::SceneChange()
 
 void j1Scene::PlaceEnemies() const
 {
-
-	//App->entities->CreateEntity(TROLL, { 300, 482 });
 	App->entities->CreateEntity(TROLL, { 50, 440 });
+	App->entities->CreateEntity(TROLL, { 1800, 400 });
+	App->entities->CreateEntity(TROLL, { 2700, 470 });
 
-	App->entities->CreateEntity(TROLL, { 890, 380 });
-	//App->entities->CreateEntity(TROLL, { 1800, 400 });
-	//App->entities->CreateEntity(TROLL, { 2700, 470 });
+	App->entities->CreateEntity(FLY, { 890, 380 });
+	App->entities->CreateEntity(FLY, { 1400, 100 });
+	App->entities->CreateEntity(FLY, { 2400, 200 });
+	App->entities->CreateEntity(FLY, { 100, 600 });
 
-	//App->entities->CreateEntity(FLY, { 400, 100 });
-
-	//App->entities->CreateEntity(FLY, { 2400, 200 });
-	//App->entities->CreateEntity(FLY, { 1400, 100 });
+	App->entities->CreateEntity(COLLECT, { 1025, 600 });
+	App->entities->CreateEntity(COLLECT, { 1700, 100 });
+	App->entities->CreateEntity(COLLECT, { 3000, 400 });
+	App->entities->CreateEntity(COLLECT, { 650, 175 });
+	App->entities->CreateEntity(COLLECT, { 830, 270 });
+	App->entities->CreateEntity(COLLECT, { 1129, 150 });
+	App->entities->CreateEntity(COLLECT, { 1225, 150 });
+	App->entities->CreateEntity(COLLECT, { 1320, 150 });
+	App->entities->CreateEntity(COLLECT, { 2000, 180 });
+	App->entities->CreateEntity(COLLECT, { 2157, 113 });
 
 }
 

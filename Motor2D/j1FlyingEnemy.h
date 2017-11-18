@@ -40,6 +40,9 @@ public:
 	
 	Animation fly_right;
 	Animation fly_left;
+
+	uint fly_death;
+	uint fly_attack;
 };
 
 

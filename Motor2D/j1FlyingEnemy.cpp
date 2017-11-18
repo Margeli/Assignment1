@@ -7,6 +7,7 @@
 #include "j1Entity.h"
 #include "j1Pathfinding.h"
 #include "p2Log.h"
+#include "j1Audio.h"
 
 
 #define FLY_SPEED 1
@@ -31,6 +32,8 @@ bool j1FlyingEnemy::Start()
 	bool ret = true;
 	collider = App->collis->AddCollider({ position.x , position.y, FLY_WIDTH, FLY_HEIGHT }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
 	sprites = App->tex->Load("textures/Fly.png");
+	fly_death = App->audio->LoadFx("audio/fx/fly_death.wav");
+	fly_attack = App->audio->LoadFx("audio/fx/fly_attack.wav");
 	if (!sprites) { LOG("Error loading fly's textures.");  ret = false; }
 	animation = &fly_left;
 	SetInitialPos();
@@ -49,7 +52,9 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_PLAYER)
 	{
 		direction = c1->CheckDirection(c2->rect);
-		if (direction == ENTITY_BELOW) {			
+		if (direction == ENTITY_BELOW) 
+		{			
+			App->audio->PlayFx(fly_death);
 			App->entities->player->LittleJump();
 			App->entities->player->points += 10;
 			collider->to_delete = true;
@@ -57,8 +62,6 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 			App->entities->DestroyEntity(this);
 		}
 	}
-
-
 	else if (c2->type == COLLIDER_GROUND)
 	{
 		switch (c1->CheckDirection(c2->rect))
@@ -109,11 +112,8 @@ bool j1FlyingEnemy::Update(float dt)
 		else { path->Clear(); }
 	}
 	
-
 	if (facing == Facing::RIGHT) { animation = &fly_right; }
 	else if (facing == Facing::LEFT) { animation = &fly_left; }
-
-	
 
 	if (collider != nullptr)
 		collider->SetPos(position.x + 10, position.y + 5);

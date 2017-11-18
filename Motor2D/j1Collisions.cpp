@@ -40,6 +40,11 @@ j1Collisions::j1Collisions(): j1Module()
 	matrix[COLLIDER_ATTACK][COLLIDER_GROUND] = false;
 	matrix[COLLIDER_ATTACK][COLLIDER_ENEMIE] = true;
 	matrix[COLLIDER_ATTACK][COLLIDER_ATTACK] = false;
+
+	matrix[COLLIDER_PICKUP][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_PICKUP][COLLIDER_GROUND] = true;
+	matrix[COLLIDER_PICKUP][COLLIDER_ENEMIE] = false;
+	matrix[COLLIDER_PICKUP][COLLIDER_ATTACK] = false;
 }
 
 j1Collisions::~j1Collisions(){}
@@ -86,7 +91,7 @@ bool j1Collisions::Update(float dt) {
 	{
 		if (colliders[i] == nullptr)
 			continue;
-		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMIE)
+		if (colliders[i]->type == COLLIDER_PLAYER || colliders[i]->type == COLLIDER_ENEMIE || colliders[i]->type == COLLIDER_PICKUP)
 		{
 
 			collider1 = colliders[i]; // player collider or enemie
@@ -140,6 +145,8 @@ void j1Collisions::DebugDraw() {
 		case COLLIDER_ENEMIE:	//red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);	
 			break;
+		case COLLIDER_PICKUP:		//pink
+			App->render->DrawQuad(colliders[i]->rect, 200, 0, 200, alpha);
 		}
 	}
 }

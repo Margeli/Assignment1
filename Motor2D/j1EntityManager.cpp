@@ -2,6 +2,7 @@
 #include "j1Player.h"
 #include "j1FlyingEnemy.h"
 #include "j1Troll.h"
+#include "j1Collectables.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -25,6 +26,10 @@ j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position)
 
 	case TROLL: AddtoSpawningQueue(position, TROLL);
 		break;
+	
+	case COLLECT: AddtoSpawningQueue(position, COLLECT);
+		break;
+
 	}
 	return ret;
 }
@@ -41,7 +46,7 @@ bool j1EntityManager::Start()
 	if (first_loop) { player = (j1Player*)CreateEntity(PLAYER); first_loop = false; }
 
 	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
+	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next) {
 		entity_iterator->data->Start();
 	}
 	return true;
@@ -52,7 +57,7 @@ bool j1EntityManager::PreUpdate()
 	CheckPlayerPostoSpawn();	// Spawn enemies (TROLL|FLY) depending on player pos
 
 	p2List_item<j1Entity*>* entity_iterator; 
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
+	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->PreUpdate();}
 	return true;
 }
@@ -60,17 +65,17 @@ bool j1EntityManager::PreUpdate()
 bool j1EntityManager::Update(float dt)
 {
 	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
+	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->Update(dt);}
 	return true;
 }
 
 bool j1EntityManager::PostUpdate()
 {
-	CheckPlayerPostoDespawn(); // Despawn enemies (TROLL|FLY) depending on player pos
+	CheckPlayerPostoDespawn(); // Despawn enemies (TROLL|FLY|COLLECT) depending on player pos
 
 	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
+	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->PostUpdate();}
 	return true;
 }
@@ -78,7 +83,7 @@ bool j1EntityManager::CleanUp()
 {
 	SpawnListReset();
 	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
+	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->CleanUp();}
 	return true;
 }
@@ -86,7 +91,7 @@ bool j1EntityManager::CleanUp()
 void j1EntityManager::OnCollision(Collider* c1, Collider* c2) 
 {
 	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
+	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{
 		if (entity_iterator->data->collider == c1)
 		{
@@ -115,13 +120,15 @@ void  j1EntityManager::CheckPlayerPostoSpawn()
 	{
 		if (to_spawn[i].type != EntityTypes::NOTYPE && player->position.x+SPAWN_MARGIN>=to_spawn[i].pos.x) // need limit spawn depending on camera position 
 		{
-			j1Entity* enemy;
-			if (to_spawn[i].type== FLY) { enemy = new j1FlyingEnemy(to_spawn[i].pos); }
+			j1Entity* entity;
+			if (to_spawn[i].type== FLY) { entity = new j1FlyingEnemy(to_spawn[i].pos); }
 
-			else if (to_spawn[i].type == TROLL) { enemy = new j1Troll(to_spawn[i].pos); }
+			else if (to_spawn[i].type == TROLL) { entity = new j1Troll(to_spawn[i].pos); }
 
-			entities.add(enemy);
-			enemy->Start();
+			else if (to_spawn[i].type == COLLECT) { entity = new j1Collectables(to_spawn[i].pos); }
+
+			entities.add(entity);
+			entity->Start();
 			to_spawn[i].type = EntityTypes::NOTYPE;			
 		}
 	}
@@ -132,7 +139,7 @@ void  j1EntityManager::CheckPlayerPostoDespawn()
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
 	{
-		if ((entity_iterator->data->type == TROLL) || (entity_iterator->data->type == FLY))
+		if ((entity_iterator->data->type == TROLL) || (entity_iterator->data->type == FLY) || (entity_iterator->data->type == COLLECT))
 		{
 			if (entity_iterator->data->position.x + SPAWN_MARGIN < player->position.x)
 			{
@@ -158,7 +165,10 @@ bool j1EntityManager::Load(pugi::xml_node& data )
 		iPoint flypos = { flies.attribute("x").as_int(), flies.attribute("y").as_int() };
 		CreateEntity(FLY, flypos);
 	}
-
+	for (pugi::xml_node pickups = data.child("collect").child("position"); pickups; pickups = pickups.next_sibling()) {
+		iPoint pickuppos = { pickups.attribute("x").as_int(), pickups.attribute("y").as_int() };
+		CreateEntity(COLLECT, pickuppos);
+	}
 
 	return true;
 }
@@ -169,6 +179,7 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 
 	pugi::xml_node trolls = data.append_child("troll");
 	pugi::xml_node flies = data.append_child("fly");
+	pugi::xml_node pickups = data.append_child("collect");
 
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)//iterates over all enemies spawned
@@ -180,6 +191,10 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 		if (entity_iterator->data->type == FLY)
 		{
 			entity_iterator->data->Save(flies);
+		}
+		if (entity_iterator->data->type == COLLECT)
+		{
+			entity_iterator->data->Save(pickups);
 		}
 	}
 
@@ -195,8 +210,12 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 				fly_pos.append_attribute("x") = to_spawn[i].pos.x;
 				fly_pos.append_attribute("y") = to_spawn[i].pos.y;
 			}
+			if (to_spawn[i].type == COLLECT) {
+				pugi::xml_node pick_pos = pickups.append_child("position");
+				pick_pos.append_attribute("x") = to_spawn[i].pos.x;
+				pick_pos.append_attribute("y") = to_spawn[i].pos.y;
+			}
 		}
-	
 	}
 
 	return true;
@@ -206,7 +225,7 @@ bool j1EntityManager::EnemiesCleanUp() {
 	SpawnListReset();
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
-		if (entity_iterator->data->type == EntityTypes::TROLL || entity_iterator->data->type == EntityTypes::FLY) {
+		if (entity_iterator->data->type == EntityTypes::TROLL || entity_iterator->data->type == EntityTypes::FLY || entity_iterator->data->type == EntityTypes::COLLECT) {
 			entity_iterator->data->CleanUp();
 			DestroyEntity(entity_iterator->data);
 		}
