@@ -15,7 +15,7 @@
 #define ADDED_COLLIDER_HEIGHT 50
 #define TROLL_HEIGHT 100
 #define TROLL_WIDTH 50
-#define PATH_DISPLACEMENT_x 55
+#define PATH_DISPLACEMENT_x 40
 #define PATH_DISPLACEMENT_y 70
 
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
@@ -30,7 +30,7 @@ j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the 
 bool j1Troll::Start() 
 {
 	bool ret = true;
-	collider = App->collis->AddCollider({ position.x, position.y, 66, 50 }, COLLIDER_ENEMIE, App->entities);
+	collider = App->collis->AddCollider({ position.x, position.y, 60, 50 }, COLLIDER_ENEMIE, App->entities);
 	sprites = App->tex->Load("textures/Troll1.png");	
 	if (!sprites) { LOG("Error loading troll's textures.");  ret = false; }
 	animation = &idle_left;
