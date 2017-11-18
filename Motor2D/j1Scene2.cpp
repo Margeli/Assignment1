@@ -155,7 +155,14 @@ void j1Scene2::SceneChange()
 
 void j1Scene2::PlaceEnemies() const
 {
-	App->entities->CreateEntity(FLY, { 800, 200 });
+	App->entities->CreateEntity(FLY, { 2800, 200 });
 	App->entities->CreateEntity(FLY, { 900, 200 });
-	App->entities->CreateEntity(FLY, { 250, 482 });	//This entity is also created in the first scene!!!		//TODO
+	App->entities->CreateEntity(FLY, { 250, 482 });	
+
+	App->entities->CreateEntity(TROLL, { 150, 400 });
+	App->entities->CreateEntity(TROLL, { 500, 40 });
+
+	App->entities->CreateEntity(COLLECT, { 200, 600 });
+	App->entities->CreateEntity(COLLECT, { 3000, 400 });
+	App->entities->CreateEntity(COLLECT, { 650, 175 });
 }

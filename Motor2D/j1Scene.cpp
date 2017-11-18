@@ -163,12 +163,12 @@ void j1Scene::SceneChange()
 void j1Scene::PlaceEnemies() const
 {
 	App->entities->CreateEntity(TROLL, { 50, 440 });
-	App->entities->CreateEntity(TROLL, { 1800, 400 });
-	App->entities->CreateEntity(TROLL, { 2700, 470 });
+	App->entities->CreateEntity(TROLL, { 1810, 390 });
+	App->entities->CreateEntity(TROLL, { 2710, 460 });
+	App->entities->CreateEntity(TROLL, { 700, 360 });
 
-	App->entities->CreateEntity(FLY, { 890, 380 });
 	App->entities->CreateEntity(FLY, { 1400, 100 });
-	App->entities->CreateEntity(FLY, { 2400, 200 });
+	App->entities->CreateEntity(FLY, { 2000, 200 });
 	App->entities->CreateEntity(FLY, { 100, 600 });
 
 	App->entities->CreateEntity(COLLECT, { 1025, 600 });
@@ -176,8 +176,6 @@ void j1Scene::PlaceEnemies() const
 	App->entities->CreateEntity(COLLECT, { 3000, 400 });
 	App->entities->CreateEntity(COLLECT, { 650, 175 });
 	App->entities->CreateEntity(COLLECT, { 830, 270 });
-	App->entities->CreateEntity(COLLECT, { 1129, 150 });
-	App->entities->CreateEntity(COLLECT, { 1225, 150 });
 	App->entities->CreateEntity(COLLECT, { 1320, 150 });
 	App->entities->CreateEntity(COLLECT, { 2000, 180 });
 	App->entities->CreateEntity(COLLECT, { 2157, 113 });
