@@ -9,7 +9,6 @@
 #include "p2Log.h"
 #include "j1Audio.h"
 
-
 #define FLY_SPEED 1
 #define FLY_HEIGHT 40
 #define FLY_WIDTH 35

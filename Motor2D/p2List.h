@@ -138,7 +138,7 @@ public:
 	{
 		p2List_item<tdata>*   p_data;
 		p2List_item<tdata>*   p_next;
-		p_data = start;										//TODO
+ 		p_data = start;										//TODO
 
 		while(p_data != NULL)
 		{

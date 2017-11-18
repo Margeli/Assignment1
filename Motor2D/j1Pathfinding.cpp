@@ -172,6 +172,9 @@ Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destina
 
 	Pathfinding* ret = nullptr;
 
+	if (CheckIsWalkable(destination, type) == false) {
+		return ret;
+	}
 	ret = path_root;
 	CreatePath(origin, destination, path_root, type);
 

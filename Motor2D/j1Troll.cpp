@@ -59,7 +59,7 @@ void j1Troll::troll_dead()
 	App->entities->player->points += 10;
 	App->audio->PlayFx(troll_death);
 	death_pos = position;
-	path->Clear();
+	if (path != NULL) { path->Clear(); }
 	collider->to_delete = true;
 	if (facing == Facing::LEFT) { animation = &death_left; }
 	else if (facing == Facing::RIGHT) { animation = &death_right; }
