@@ -258,7 +258,7 @@ void j1Player::JumpReset()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	int margin = 3;
+	int margin =2;
 	if (!hitted)
 	{
 		CollisionDirection direction = c1->CheckDirection(c2->rect);
@@ -270,6 +270,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		else if (c2->type == COLLIDER_GROUND)
 		{
 			direction = c1->CheckDirection(c2->rect);
+			if (direction == NO_COLLISION) { return; }
 			if (direction == ENTITY_ABOVE)
 			{
 				fposition.y = c2->rect.y - PLAYERHEIGHT;
