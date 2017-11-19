@@ -52,7 +52,7 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_PLAYER)
 	{
 		direction = c1->CheckDirection(c2->rect);
-		if (direction == ENTITY_BELOW) 
+		if (direction == ENTITY_BELOW && !App->entities->player->player_hurted)
 		{			
 			App->audio->PlayFx(fly_death);
 			App->entities->player->LittleJump();

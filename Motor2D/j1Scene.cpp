@@ -162,23 +162,8 @@ void j1Scene::SceneChange()
 
 void j1Scene::PlaceEnemies() const
 {
-	App->entities->CreateEntity(TROLL, { 50, 440 });
-	App->entities->CreateEntity(TROLL, { 1810, 390 });
-	App->entities->CreateEntity(TROLL, { 2710, 460 });
-	App->entities->CreateEntity(TROLL, { 700, 360 });
-
-	App->entities->CreateEntity(FLY, { 1400, 100 });
-	App->entities->CreateEntity(FLY, { 2000, 200 });
-	App->entities->CreateEntity(FLY, { 100, 600 });
-
-	App->entities->CreateEntity(COLLECT, { 1025, 610 });
-	App->entities->CreateEntity(COLLECT, { 1700, 130 });
-	App->entities->CreateEntity(COLLECT, { 3000, 480 });
-	App->entities->CreateEntity(COLLECT, { 650, 163 });
-	App->entities->CreateEntity(COLLECT, { 830, 259 });
-	App->entities->CreateEntity(COLLECT, { 1320, 130 });
-	App->entities->CreateEntity(COLLECT, { 2000, 162 });
-	App->entities->CreateEntity(COLLECT, { 2157, 99 });
-
+	for (p2List_item<ObjectGroup*>* object = App->map->data.objects.start; object; object = object->next) {
+		App->entities->CreateEntity(object->data->type, { object->data->x, object->data->y });
+	}
 }
 

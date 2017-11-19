@@ -150,8 +150,24 @@ bool j1Map::CleanUp()
 
 	p2List_item<Layer*>* item2;
 	item2 = data.layers.start;
+	while (item2 != NULL)
+	{
+		RELEASE(item2->data);
+		item2 = item2->next;
+	}
 	data.layers.clear();
+
 	
+	p2List_item<ObjectGroup*>* item3;
+	item3 = data.objects.start;
+	while (item3 != NULL)
+	{
+		RELEASE(item3->data);
+		item3 = item3->next;
+	}
+	data.objects.clear();
+
+
 	first_loop = true;
 
 	map_file.reset();
@@ -208,6 +224,18 @@ bool j1Map::Load(const char* file_name)
 		}
 
 		data.layers.add(map_layer);
+	}
+
+	pugi::xml_node object;
+	for (object = map_file.child("map").child("objectgroup").child("object"); object&&ret; object = object.next_sibling("object"))
+	{
+		ObjectGroup* map_object = new ObjectGroup();
+		if (ret == true)
+		{
+			ret = LoadObjectGroup(object, map_object);
+		}
+
+		data.objects.add(map_object);
 	}
 
 	if(ret == true)
@@ -430,6 +458,23 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer)
 	for (uint i = 0; i < data_size; i++) {
 		layer->data[i] = tile_node_iterator.attribute("gid").as_uint();
 		tile_node_iterator = tile_node_iterator.next_sibling();
+	}
+	return true;
+}
+
+bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* object) {
+	
+	object->x = node.attribute("x").as_uint();
+	object->y = node.attribute("y").as_uint();
+	p2SString tpe = node.attribute("type").as_string();
+	if (tpe == "Troll") {
+		object->type = TROLL;	
+	}
+	if (tpe == "Fly") {
+		object->type = FLY;
+	}
+	if (tpe == "Pickup") {
+		object->type = COLLECT;
 	}
 	return true;
 }

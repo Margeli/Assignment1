@@ -72,7 +72,7 @@ void j1Troll::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_PLAYER)
 	{
 		direction = c1->CheckDirection(c2->rect);
-		if (direction == ENTITY_BELOW) { 
+		if (direction == ENTITY_BELOW && !App->entities->player->player_hurted) { 
 			troll_dead();
 			App->entities->player->LittleJump();
 		}

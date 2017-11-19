@@ -38,6 +38,12 @@ struct Properties {
 };
 
 
+struct ObjectGroup {
+	EntityTypes type;
+	int x;
+	int y;
+};
+
 struct Layer 
 {
 	p2SString name;
@@ -97,7 +103,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<Layer*>		layers;
-
+	p2List<ObjectGroup*> objects;
 };
 
 class j1Map : public j1Module
@@ -128,6 +134,7 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+	bool LoadObjectGroup(pugi::xml_node& node, ObjectGroup* object);
 
 	TileSet* GetTilesetFromTileId(int id) const;
 
