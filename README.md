@@ -6,6 +6,11 @@
 
 Map tiles and character sprites art are from  [Open Art](https://opengameart.org/)  , both free without copyright. 
 
+## Innovation
+
+- Loading the enemies from Tiled.
+- Loading animations from XML.
+
 ## Features
 
 - Two levels (improved).
