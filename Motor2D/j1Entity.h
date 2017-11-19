@@ -8,6 +8,8 @@
 #include "j1Collisions.h"
 #include "Brofiler/Brofiler.h"
 
+#define GRAVITY 2
+
 struct Collider;
 struct Animation;
 struct SDL_Texture;
@@ -48,6 +50,8 @@ public:
 	Facing facing = Facing::LEFT;
 	EntityTypes type;
 	iPoint position;
+	fPoint fposition;
+	float speed;
 	iPoint initial_pos;
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;

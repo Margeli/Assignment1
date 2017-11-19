@@ -236,7 +236,7 @@ bool j1EntityManager::EnemiesCleanUp() {
 	return true;
 }
 
-void j1EntityManager::SetInitialPos()  // Sets the enemies to their initial position
+void j1EntityManager::SetEnemiesInitialPos()  // Sets the enemies to their initial position
 {
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) 

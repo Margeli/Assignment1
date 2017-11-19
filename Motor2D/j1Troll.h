@@ -32,11 +32,11 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	void Move(Pathfinding& _path);
+	void Move(Pathfinding& _path, float dt);
 
 	void troll_dead();
 	bool dead = false;
-	iPoint death_pos;
+	fPoint death_pos;
 
 	Pathfinding* troll_path = nullptr;
 

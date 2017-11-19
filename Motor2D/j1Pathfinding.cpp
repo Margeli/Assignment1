@@ -58,7 +58,7 @@ bool j1Pathfinding::CheckBoundaries(const iPoint& pos) const
 
 bool j1Pathfinding::CheckIsWalkable(const iPoint& pos, EntityTypes type) const
 {
-	if (CheckBoundaries(pos) == false) { return false; }
+	CheckBoundaries(pos);
 	uchar num = GetTileAt(pos, type);
 	return num != INVALID_WALK_CODE && num > 0;
 }
@@ -172,9 +172,7 @@ Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destina
 
 	Pathfinding* ret = nullptr;
 
-	if (CheckIsWalkable(destination, type) == false) {
-		return ret;
-	}
+	
 	ret = path_root;
 	CreatePath(origin, destination, path_root, type);
 

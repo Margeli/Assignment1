@@ -64,7 +64,7 @@ public:
 	int lifes;
 	int points = 0;
 	int max_score = 0;
-	float speed;
+	
 
 	Uint32 hit_time;
 

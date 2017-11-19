@@ -29,6 +29,7 @@ j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY)
 bool j1FlyingEnemy::Start()
 {
 	bool ret = true;
+	fposition = { (float)position.x, (float)position.y };
 	collider = App->collis->AddCollider({ position.x , position.y, FLY_WIDTH, FLY_HEIGHT }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
 	sprites = App->tex->Load("textures/Fly.png");
 	fly_death = App->audio->LoadFx("audio/fx/fly_death.wav");
@@ -66,16 +67,16 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 		switch (c1->CheckDirection(c2->rect))
 		{
 		case ENTITY_ABOVE:
-			position.y = c2->rect.y - FLY_HEIGHT;
+			fposition.y = c2->rect.y - FLY_HEIGHT;
 			break;
 		case ENTITY_BELOW:
-			position.y = c2->rect.y + c2->rect.h;
+			fposition.y = c2->rect.y + c2->rect.h;
 			break;
 		case ENTITY_RIGHT:
-			position.x = c2->rect.x + c2->rect.w ;
+			fposition.x = c2->rect.x + c2->rect.w ;
 			break;
 		case ENTITY_LEFT:
-			position.x = c2->rect.x - FLY_WIDTH;
+			fposition.x = c2->rect.x - FLY_WIDTH;
 			break;
 		}
 	}
@@ -106,7 +107,7 @@ bool j1FlyingEnemy::Update(float dt)
 	}
 	if (path != NULL) {
 		if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0) {
-			Move(*path);
+			Move(*path, dt);
 		}
 		else { path->Clear(); }
 	}
@@ -115,7 +116,7 @@ bool j1FlyingEnemy::Update(float dt)
 	else if (facing == Facing::LEFT) { animation = &fly_left; }
 
 	if (collider != nullptr)
-		collider->SetPos(position.x + 10, position.y + 5);
+		collider->SetPos(fposition.x + 10, fposition.y + 5);
 	Draw();
 	if (App->collis->debug && path!= NULL) {
 		App->pathfind->DrawPath(*path);
@@ -123,31 +124,33 @@ bool j1FlyingEnemy::Update(float dt)
 	return true;
 }
 
-void j1FlyingEnemy::Move(Pathfinding& _path) 
+void j1FlyingEnemy::Move(Pathfinding& _path, float dt) 
 {
+	speed = FLY_SPEED + FLY_SPEED* dt;
+
 	direction = App->pathfind->CheckDirection(_path);
 
 	if (direction == MoveTo::M_DOWN)
 	{
-		position.y += FLY_SPEED;		
+		fposition.y += FLY_SPEED;		
 		return;
 	}
 
 	if (direction == MoveTo::M_UP)
 	{
-		position.y -= FLY_SPEED;		
+		fposition.y -= FLY_SPEED;		
 		return;
 	}
 
 	if (direction == MoveTo::M_RIGHT)
 	{	
-		position.x += FLY_SPEED;
+		fposition.x += FLY_SPEED;
 		facing = Facing::RIGHT;
 		return;
 	}
 	if (direction == MoveTo::M_LEFT)
 	{
-		position.x -= FLY_SPEED;	
+		fposition.x -= FLY_SPEED;	
 		facing = Facing::LEFT;
 		return;
 	}	

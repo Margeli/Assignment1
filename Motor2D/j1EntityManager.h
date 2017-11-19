@@ -35,7 +35,7 @@ public:
 	virtual bool CleanUp();
 	bool first_loop = true;
 	bool EnemiesCleanUp();
-	void SetInitialPos();
+	void SetEnemiesInitialPos();
 	
 	void OnCollision(Collider* c1, Collider* c2);
 

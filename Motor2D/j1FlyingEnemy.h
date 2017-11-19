@@ -28,7 +28,7 @@ public:
 	
 	bool CleanUp();
 
-	void Move(Pathfinding& _path);
+	void Move(Pathfinding& _path, float dt);
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;

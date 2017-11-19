@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "j1Render.h"
 
-#define GRAVITY 2
+
 #define BOTTOM_SCENE_LIMIT 750
 #define RIGHT_SCENE_LIMIT 3152
 
