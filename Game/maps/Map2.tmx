@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" nextobjectid="46">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" nextobjectid="70">
  <tileset firstgid="1" name="stage1tile1" tilewidth="32" tileheight="32" tilecount="192" columns="8">
   <image source="mylevel1_tiles.png" width="256" height="768"/>
   <terraintypes>
@@ -7879,27 +7879,30 @@
    <tile gid="1"/>
   </data>
  </layer>
- <objectgroup name="Enemies" visible="0">
-  <object id="45" name="Enemy Spawn 4" type="Fly" x="900.909" y="510.576" width="56" height="54">
-   <properties>
-    <property name="Enemy" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="44" name="Enemy Spawn 3" type="Troll" x="2437.03" y="553.121" width="56" height="54">
-   <properties>
-    <property name="Enemy" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="43" name="Enemy Spawn 2" type="Troll" x="500.667" y="74.3333" width="56" height="54">
-   <properties>
-    <property name="Enemy" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="42" name="Enemy Spawn 1" type="Troll" x="210" y="553" width="56" height="54">
-   <properties>
-    <property name="Enemy" type="bool" value="true"/>
-   </properties>
-  </object>
+ <objectgroup name="Enemies">
+  <object id="47" name="troll_spawn" type="Troll" x="735" y="537" width="100" height="100"/>
+  <object id="48" name="troll_spawn" type="Troll" x="1420" y="572" width="100" height="100"/>
+  <object id="49" name="troll_spawn" type="Troll" x="2483" y="506" width="100" height="100"/>
+  <object id="50" name="pickup_spawn" type="Pickup" x="286" y="417" width="32" height="32"/>
+  <object id="51" name="pickup_spawn" type="Pickup" x="257" y="62" width="32" height="32"/>
+  <object id="52" name="pickup_spawn" type="Pickup" x="933" y="126" width="32" height="32"/>
+  <object id="53" name="pickup_spawn" type="Pickup" x="1465" y="126" width="32" height="32"/>
+  <object id="54" name="pickup_spawn" type="Pickup" x="1341" y="703" width="32" height="32"/>
+  <object id="55" name="pickup_spawn" type="Pickup" x="1537" y="704" width="32" height="32"/>
+  <object id="56" name="pickup_spawn" type="Pickup" x="1951" y="381" width="32" height="32"/>
+  <object id="57" name="pickup_spawn" type="Pickup" x="1473" y="347" width="32" height="32"/>
+  <object id="58" name="pickup_spawn" type="Pickup" x="2545" y="319" width="32" height="32"/>
+  <object id="59" name="pickup_spawn" type="Pickup" x="2501" y="256" width="32" height="32"/>
+  <object id="60" name="pickup_spawn" type="Pickup" x="2337" y="574" width="32" height="32"/>
+  <object id="61" name="pickup_spawn" type="Pickup" x="3164" y="126" width="32" height="32"/>
+  <object id="62" name="pickup_spawn" type="Pickup" x="3129" y="126" width="32" height="32"/>
+  <object id="63" name="pickup_spawn" type="Pickup" x="3147" y="92" width="32" height="32"/>
+  <object id="64" name="fly_spawn" type="Fly" x="1295" y="205" width="60" height="60"/>
+  <object id="65" name="fly_spawn" type="Fly" x="2026" y="189" width="60" height="60"/>
+  <object id="66" name="fly_spawn" type="Fly" x="2216" y="633" width="60" height="60"/>
+  <object id="67" name="fly_spawn" type="Fly" x="2814" y="107" width="60" height="60"/>
+  <object id="68" name="fly_spawn" type="Fly" x="3052" y="675" width="60" height="60"/>
+  <object id="69" name="fly_spawn" type="Fly" x="301" y="541" width="60" height="60"/>
  </objectgroup>
  <layer name="EnemyGroundPath2" width="100" height="25">
   <properties>

@@ -23,6 +23,9 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 	lifes = LIFES;
 	LoadPlayerAnimations();
 	name.create("player");
+	jump_speed = JUMP_SPEED;
+	jump_limit = JUMP_LIMIT;
+	speed = SPEED;
 }
 
 j1Player::~j1Player() 
@@ -36,10 +39,9 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Loading player.");
 	
-	speed = SPEED;
+	
 	animation = &idle_right;
-	jump_speed = JUMP_SPEED;
-	jump_limit = JUMP_LIMIT;
+	
 
 	fposition = {(float) position.x, (float)position.y };
 	InitialPlayerPos();
@@ -206,6 +208,7 @@ bool j1Player::Update(float dt)
 
 void j1Player::Dead()
 {
+	CleanUp();
 	App->audio->PlayFx(lose_fx, 0);
 	lifes = LIFES;
 	points = 0;
@@ -215,6 +218,7 @@ void j1Player::Dead()
 
 void j1Player::PlayerHurted() 
 {
+	
 	player_hurted = true;
 	hit_time = SDL_GetTicks();
 	use_input = false;
@@ -231,6 +235,8 @@ void j1Player::LoseOneLife()
 		if (App->scene2->active) { position = App->scene2->initial_scene_pos; }
 
 		SetInitialPos();
+		
+		
 		App->entities->SetEnemiesInitialPos();
 		App->render->camera.x = 0;
 		animation->Reset();
@@ -296,8 +302,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	position.x = data.child("position").attribute("x").as_int();
-	position.y = data.child("position").attribute("y").as_int();
+	fposition.x = data.child("position").attribute("x").as_float();
+	fposition.y = data.child("position").attribute("y").as_float();
 
 	return true;
 }
@@ -306,8 +312,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node pos= data.append_child("position");
 
-	pos.append_attribute("x") = position.x;
-	pos.append_attribute("y") = position.y;
+	pos.append_attribute("x") = fposition.x;
+	pos.append_attribute("y") = fposition.y;
 
 	return true;
 }

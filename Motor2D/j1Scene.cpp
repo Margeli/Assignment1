@@ -153,6 +153,7 @@ void j1Scene::SceneChange()
 	CleanUp();	
 
 	App->scene2->Start();
+	App->entities->first_loop = true;
 	App->entities->Start();
 	App->collis->Start();
 	App->render->camera = { 0,0 };	

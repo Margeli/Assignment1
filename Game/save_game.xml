@@ -14,31 +14,22 @@
 	<pathfinding />
 	<entities>
 		<player>
-			<position x="35" y="481" />
+			<position x="3083.00488" y="95" />
 		</player>
 		<troll>
-			<position x="1810" y="382" />
-			<position x="700" y="382" />
-			<position x="2710" y="460" />
+			<position x="1678" y="510" />
 		</troll>
 		<fly>
-			<position x="1400" y="100" />
-			<position x="2016" y="224" />
-			<position x="364" y="636" />
+			<position x="1422" y="212" />
 		</fly>
 		<collect>
-			<position x="1025" y="610" />
-			<position x="1700" y="130" />
-			<position x="650" y="163" />
-			<position x="830" y="259" />
-			<position x="1320" y="130" />
-			<position x="2000" y="162" />
-			<position x="3000" y="400" />
-			<position x="2157" y="99" />
+			<position x="1742" y="125" />
+			<position x="1682" y="126" />
+			<position x="2625" y="189" />
 		</collect>
 	</entities>
 	<collisions />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-2176" y="0" />
 	</renderer>
 </game_state>

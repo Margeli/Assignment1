@@ -8,8 +8,8 @@
 #include "j1Scene2.h"
 #include "j1Audio.h"
 
-#define TROLL_ATTACK_RANGE 200
-#define TROLL_DETECTION_RANGE 350
+#define TROLL_ATTACK_RANGE 150
+#define TROLL_DETECTION_RANGE 250
 #define TROLL_SPEED 1.00f
 #define ADDED_COLLIDER_WIDTH 15
 #define ADDED_COLLIDER_HEIGHT 50
@@ -120,6 +120,9 @@ bool j1Troll::CleanUp()
 {
 	LOG("Unloading Troll.");
 	App->tex->UnLoad(sprites);	
+	if (collider!=nullptr)
+		collider->to_delete = true;
+	
 	//path->Clear();
 	return true;
 }
@@ -159,11 +162,13 @@ bool j1Troll::Update(float dt)
 		iPoint destination = { (int)(App->entities->player->position.x + PLAYERWIDTH / 2), (int)(App->entities->player->position.y + PLAYERHEIGHT - 20) };	//why 20?
 	
 		
-		
+		if (path != nullptr) {
+			path->Clear();
+		}
 			path = App->pathfind->FindPath(origin, destination, type);
-			if (path != NULL)
+		if (path->breadcrumbs.start != nullptr)//cheak if path is created
 			{
-				if (App->entities->player->player_hurted == false && path->breadcrumbs.count() != 0)
+				if (App->entities->player->player_hurted == false)
 				{
 					Move(*path, dt);
 					if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_ATTACK_RANGE))
@@ -214,7 +219,7 @@ void j1Troll::Move(Pathfinding& _path, float dt)
 
 	if (direction == MoveTo::M_RIGHT)
 	{
-		animation = &walk_right;
+	animation = &walk_right;
 		fposition.x += speed;
 		facing = Facing::RIGHT;
 		return;
