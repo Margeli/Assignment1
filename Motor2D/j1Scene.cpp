@@ -171,14 +171,14 @@ void j1Scene::PlaceEnemies() const
 	App->entities->CreateEntity(FLY, { 2000, 200 });
 	App->entities->CreateEntity(FLY, { 100, 600 });
 
-	App->entities->CreateEntity(COLLECT, { 1025, 600 });
-	App->entities->CreateEntity(COLLECT, { 1700, 100 });
-	App->entities->CreateEntity(COLLECT, { 3000, 400 });
-	App->entities->CreateEntity(COLLECT, { 650, 175 });
-	App->entities->CreateEntity(COLLECT, { 830, 270 });
-	App->entities->CreateEntity(COLLECT, { 1320, 150 });
-	App->entities->CreateEntity(COLLECT, { 2000, 180 });
-	App->entities->CreateEntity(COLLECT, { 2157, 113 });
+	App->entities->CreateEntity(COLLECT, { 1025, 610 });
+	App->entities->CreateEntity(COLLECT, { 1700, 130 });
+	App->entities->CreateEntity(COLLECT, { 3000, 480 });
+	App->entities->CreateEntity(COLLECT, { 650, 163 });
+	App->entities->CreateEntity(COLLECT, { 830, 259 });
+	App->entities->CreateEntity(COLLECT, { 1320, 130 });
+	App->entities->CreateEntity(COLLECT, { 2000, 162 });
+	App->entities->CreateEntity(COLLECT, { 2157, 99 });
 
 }
 

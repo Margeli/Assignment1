@@ -6,28 +6,35 @@
 	<audio />
 	<map />
 	<scene1>
-		<activated true="false" />
+		<activated true="true" />
 	</scene1>
 	<scene2>
-		<activated true="true" />
+		<activated true="false" />
 	</scene2>
 	<pathfinding />
 	<entities>
 		<player>
-
-			<position x="1" y="95" />
+			<position x="35" y="481" />
 		</player>
 		<troll>
-			<position x="150" y="508" />
-			<position x="512" y="28" />
+			<position x="1810" y="382" />
+			<position x="700" y="382" />
+			<position x="2710" y="460" />
 		</troll>
-		<fly />
-
+		<fly>
+			<position x="1400" y="100" />
+			<position x="2016" y="224" />
+			<position x="364" y="636" />
+		</fly>
 		<collect>
-			<position x="1700" y="192" />
-			<position x="704" y="160" />
-			<position x="830" y="660" />
+			<position x="1025" y="610" />
+			<position x="1700" y="130" />
+			<position x="650" y="163" />
+			<position x="830" y="259" />
+			<position x="1320" y="130" />
+			<position x="2000" y="162" />
 			<position x="3000" y="400" />
+			<position x="2157" y="99" />
 		</collect>
 	</entities>
 	<collisions />
