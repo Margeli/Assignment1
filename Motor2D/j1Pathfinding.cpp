@@ -174,6 +174,9 @@ Pathfinding* j1Pathfinding::FindPath(const iPoint& origin, const iPoint& destina
 
 	
 	ret = path_root;
+	iPoint dest_check = App->map->WorldToMap(destination.x, destination.y);
+
+	if (CheckIsWalkable(dest_check,type))
 	CreatePath(origin, destination, path_root, type);
 
 	return ret;

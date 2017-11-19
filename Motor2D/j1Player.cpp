@@ -209,12 +209,8 @@ void j1Player::Dead()
 	App->audio->PlayFx(lose_fx, 0);
 	lifes = LIFES;
 	points = 0;
-	App->entities->SetEnemiesInitialPos();
-	
-	if (App->scene1->active) { 
-		App->scene1->CleanUp();
-		App->scene1->Start(); }
-	else if (App->scene2->active) { App->scene2->SceneChange(); }
+	App->scene2->SceneChange();//prepares all to respawn in the first scene correctly
+	Start();
 }
 
 void j1Player::PlayerHurted() 

@@ -29,6 +29,7 @@ j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the 
 
 bool j1Troll::Start() 
 {
+	
 	bool ret = true;
 	fposition = { (float)position.x, (float)position.y };
 	collider = App->collis->AddCollider({ position.x + ADDED_COLLIDER_WIDTH, position.y+ ADDED_COLLIDER_HEIGHT, 54, 50 }, COLLIDER_ENEMIE, App->entities);
@@ -153,6 +154,7 @@ bool j1Troll::Update(float dt)
 	
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
+		
 		iPoint origin = { (int)(position.x + PATH_DISPLACEMENT_x),(int)(position.y + PATH_DISPLACEMENT_y) };
 		iPoint destination = { (int)(App->entities->player->position.x + PLAYERWIDTH / 2), (int)(App->entities->player->position.y + PLAYERHEIGHT - 20) };	//why 20?
 	

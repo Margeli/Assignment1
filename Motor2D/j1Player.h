@@ -10,7 +10,7 @@
 struct SDL_Texture;
 
 #define SPEED 1
-#define LIFES 5
+#define LIFES 1
 #define PLAYERHEIGHT 65
 #define PLAYERWIDTH 45
 #define LITTLEJUMPHIGH 15
