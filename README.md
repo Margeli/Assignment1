@@ -22,6 +22,9 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Pathfinding (A*) for enemies AI.
 - Sound effects.
 - FPS handler.
+- UML of the Entities system.
+- Pick-ups.
+- Despawn of the enemies.
 
 ## Controlls
 
@@ -34,7 +37,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - "F5" to save the current state.
 - "F6" to load the previous state.
 - "F7" to see FPS and other info (hold key).
-- "F8" to show colliders.
+- "F8" to show colliders and enemie's path to the player.
 - "F9" to activate god mode.
 - "F10" to desactivate god mode.
 - "F11" to cap FPS to 30.
