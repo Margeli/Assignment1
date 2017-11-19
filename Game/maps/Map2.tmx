@@ -5374,7 +5374,7 @@
    <property name="ground" type="int" value="1"/>
    <property name="speed" type="float" value="1"/>
    <property name="xpos" type="int" value="0"/>
-   <property name="ypos" type="int" value="50"/>
+   <property name="ypos" type="int" value="90"/>
   </properties>
   <data>
    <tile gid="43"/>
@@ -7884,7 +7884,6 @@
   <object id="48" name="troll_spawn" type="Troll" x="1420" y="572" width="100" height="100"/>
   <object id="49" name="troll_spawn" type="Troll" x="2483" y="506" width="100" height="100"/>
   <object id="50" name="pickup_spawn" type="Pickup" x="286" y="417" width="32" height="32"/>
-  <object id="51" name="pickup_spawn" type="Pickup" x="257" y="62" width="32" height="32"/>
   <object id="52" name="pickup_spawn" type="Pickup" x="933" y="126" width="32" height="32"/>
   <object id="53" name="pickup_spawn" type="Pickup" x="1465" y="126" width="32" height="32"/>
   <object id="54" name="pickup_spawn" type="Pickup" x="1341" y="703" width="32" height="32"/>

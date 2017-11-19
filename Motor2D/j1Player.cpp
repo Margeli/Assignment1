@@ -234,7 +234,7 @@ void j1Player::LoseOneLife()
 		if (App->scene1->active) { position = App->scene1->initial_scene_pos; }
 		if (App->scene2->active) { position = App->scene2->initial_scene_pos; }
 
-		SetInitialPos();
+		InitialPlayerPos();
 		
 		
 		App->entities->SetEnemiesInitialPos();
@@ -336,10 +336,10 @@ void j1Player::LoadPlayerAnimations()
 void j1Player::InitialPlayerPos() {
 
 	if (App->scene1->active){		
-		position = App->scene1->initial_scene_pos;
+		fposition = { (float)App->scene1->initial_scene_pos.x, (float)App->scene1->initial_scene_pos.y };
 	}
 	if (App->scene2->active){	
-		position = App->scene2->initial_scene_pos;		
+		fposition = { (float)App->scene2->initial_scene_pos.x, (float)App->scene2->initial_scene_pos.y };
 	}
 }
 void j1Player::LittleJump() {

@@ -51,7 +51,7 @@ bool j1Scene2::Start()
 			}
 		}
 		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
-			App->map->data.layers.At(2)->data->properties.Get("xpos") }; //Gets the player position from the last layer loaded from Tiled
+			App->map->data.layers.At(2)->data->properties.Get("ypos") }; //Gets the player position from the last layer loaded from Tiled
 		// Should have the initial pos of enemies in a XML
 		
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
@@ -83,7 +83,7 @@ bool j1Scene2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == false) { App->cap_on = true; }
 	else if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == true) { App->cap_on = false; }
 
-	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->position.x++; }
+	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->fposition.x++; }
 
 	//CAMERA MOVEMENT
 	if (App->entities->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5) && (App->render->camera.x> CAMERA_LIMIT)) {
@@ -91,8 +91,10 @@ bool j1Scene2::Update(float dt)
 
 	else { App->entities->player->camera_movement = false; }
 
-	if (App->entities->player->position.y >= BOTTOM_SCENE_LIMIT && App->entities->player->player_hurted == false) { App->entities->player->LoseOneLife(); }
-
+	if (App->entities->player->position.y >= BOTTOM_SCENE_LIMIT && App->entities->player->player_hurted == false) { App->entities->player->PlayerHurted(); }
+	if ((App->entities->player->position.x < HIGH_LIMIT || App->entities->player->position.y < HIGH_LIMIT)&& App->entities->player->player_hurted == false) {
+		App->entities->player->fposition = { (float)initial_scene_pos.x,(float) initial_scene_pos.y };
+	}
 	App->map->Draw();
 
 	return true;
@@ -148,9 +150,11 @@ void j1Scene2::SceneChange()
 	
 	App->scene1->Start();
 	App->entities->Start();
+	
 	App->collis->Start();
 	App->render->camera = { 0,0 };
 	App->pathfind->Start();
+	App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
 }
 
 void j1Scene2::PlaceEnemies() const

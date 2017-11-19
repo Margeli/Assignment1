@@ -6,6 +6,7 @@
 
 
 #define BOTTOM_SCENE_LIMIT 750
+#define HIGH_LIMIT -15
 #define RIGHT_SCENE_LIMIT 3152
 
 struct SDL_Texture;

@@ -76,14 +76,15 @@ bool j1Scene::Update(float dt)
 		
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->entities->player->position = initial_scene_pos;		App->render->camera.x = 0;
+		App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
+		App->render->camera.x = 0;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == false) { App->cap_on = true; }
 	else if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == true) { App->cap_on = false; }
 
 	//if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN) { App->render->vsync = !App->render->vsync; }
 
-	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->position.x++; }
+	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->fposition.x++; }
 
 	//CAMERA MOVEMENT
 	if ((App->entities->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT))
@@ -153,11 +154,12 @@ void j1Scene::SceneChange()
 	CleanUp();	
 
 	App->scene2->Start();
-	App->entities->first_loop = true;
+	//App->entities->first_loop = true;
 	App->entities->Start();
 	App->collis->Start();
 	App->render->camera = { 0,0 };	
 	App->pathfind->Start();
+	App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
 }
 
 
