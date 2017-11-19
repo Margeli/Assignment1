@@ -14,7 +14,6 @@
 	<pathfinding />
 	<entities>
 		<player>
-
 			<position x="1" y="95" />
 		</player>
 		<troll>
@@ -22,7 +21,6 @@
 			<position x="512" y="28" />
 		</troll>
 		<fly />
-
 		<collect>
 			<position x="1700" y="192" />
 			<position x="704" y="160" />

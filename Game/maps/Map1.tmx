@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" nextobjectid="11">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" nextobjectid="29">
  <tileset firstgid="1" name="stage1tile1" tilewidth="32" tileheight="32" tilecount="192" columns="8">
   <image source="mylevel1_tiles.png" width="256" height="768"/>
   <terraintypes>
@@ -7890,22 +7890,95 @@
   </data>
  </layer>
  <objectgroup name="Enemies" opacity="0.97">
-  <object id="8" name="Enemy Spawn 4" type="Troll" x="2663" y="519" width="56" height="54">
+  <properties>
+   <property name="Spawn" type="int" value="1"/>
+  </properties>
+  <object id="9" name="troll_spawn" type="Troll" x="246.758" y="475.97" width="100" height="100">
    <properties>
     <property name="Enemy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="7" name="Enemy Spawn 3" type="Troll" x="1633" y="553" width="56" height="54">
+  <object id="11" name="troll_spawn" type="Troll" x="738" y="377" width="100" height="100">
    <properties>
     <property name="Enemy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="2" name="Enemy Spawn 2" type="Troll" x="760" y="423" width="56" height="54">
+  <object id="12" name="troll_spawn" type="Troll" x="1615" y="503" width="100" height="100">
    <properties>
     <property name="Enemy" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="9" name="Enemy Spawn 1" type="Troll" x="235.758" y="519.97" width="56" height="54">
+  <object id="13" name="troll_spawn" type="Troll" x="2642" y="473" width="100" height="100">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="fly_spawn" type="Fly" x="868" y="90" width="60" height="60">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="15" name="fly_spawn" type="Fly" x="1825" y="273" width="60" height="60">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="16" name="fly_spawn" type="Fly" x="2504" y="278" width="60" height="60">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="17" name="pickup_spawn" type="Pickup" x="1045" y="608" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="19" name="troll_spawn" type="Troll" x="918" y="366" width="100" height="100">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="20" name="pickup_spawn" type="Pickup" x="1004" y="608" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="21" name="pickup_spawn" type="Pickup" x="642" y="157" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="22" name="pickup_spawn" type="Pickup" x="992" y="190" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="23" name="pickup_spawn" type="Pickup" x="289" y="255" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="24" name="pickup_spawn" type="Pickup" x="1742" y="125" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="25" name="pickup_spawn" type="Pickup" x="1682" y="126" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="26" name="pickup_spawn" type="Pickup" x="2096" y="416" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="27" name="pickup_spawn" type="Pickup" x="2945" y="319" width="32" height="32">
+   <properties>
+    <property name="Enemy" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="28" name="pickup_spawn" type="Pickup" x="2625" y="189" width="32" height="32">
    <properties>
     <property name="Enemy" type="bool" value="true"/>
    </properties>
