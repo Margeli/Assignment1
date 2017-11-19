@@ -10,11 +10,11 @@
 #include "j1Audio.h"
 
 #define FLY_SPEED 1
-#define FLY_HEIGHT 40
-#define FLY_WIDTH 35
+#define FLY_HEIGHT 32
+#define FLY_WIDTH 32
 #define FLYING_ENEMY_DETECION_RANGE 500
 #define COLLIDER_POS_X 10
-#define COLLIDER_POS_Y 10
+#define COLLIDER_POS_Y 15
 #define ORIGIN_POSITION 20
 
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
@@ -30,7 +30,7 @@ bool j1FlyingEnemy::Start()
 {
 	bool ret = true;
 	fposition = { (float)position.x, (float)position.y };
-	collider = App->collis->AddCollider({ position.x , position.y, FLY_WIDTH, FLY_HEIGHT }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
+	collider = App->collis->AddCollider({ position.x + COLLIDER_POS_X, position.y+ COLLIDER_POS_Y, FLY_WIDTH, FLY_HEIGHT }, COLLIDER_ENEMIE, App->entities);	// Should have the initial pos of enemies in a XML
 	sprites = App->tex->Load("textures/Fly.png");
 	fly_death = App->audio->LoadFx("audio/fx/fly_death.wav");
 	fly_attack = App->audio->LoadFx("audio/fx/fly_attack.wav");
@@ -116,7 +116,7 @@ bool j1FlyingEnemy::Update(float dt)
 	else if (facing == Facing::LEFT) { animation = &fly_left; }
 
 	if (collider != nullptr)
-		collider->SetPos(fposition.x + 10, fposition.y + 5);
+		collider->SetPos(fposition.x + COLLIDER_POS_X, fposition.y + COLLIDER_POS_Y);
 	Draw();
 	if (App->collis->debug && path!= NULL) {
 		App->pathfind->DrawPath(*path);

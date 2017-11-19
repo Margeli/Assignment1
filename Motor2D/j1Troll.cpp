@@ -31,7 +31,7 @@ bool j1Troll::Start()
 {
 	bool ret = true;
 	fposition = { (float)position.x, (float)position.y };
-	collider = App->collis->AddCollider({ position.x, position.y, 54, 50 }, COLLIDER_ENEMIE, App->entities);
+	collider = App->collis->AddCollider({ position.x + ADDED_COLLIDER_WIDTH, position.y+ ADDED_COLLIDER_HEIGHT, 54, 50 }, COLLIDER_ENEMIE, App->entities);
 	sprites = App->tex->Load("textures/Troll1.png");	
 	if (!sprites) { LOG("Error loading troll's textures.");  ret = false; }
 	animation = &idle_left;
