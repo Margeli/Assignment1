@@ -10,12 +10,12 @@
 #include "j1Audio.h"
 
 #define FLY_SPEED 1
-#define FLY_HEIGHT 32
-#define FLY_WIDTH 32
+#define FLY_HEIGHT 50
+#define FLY_WIDTH 40
 #define FLYING_ENEMY_DETECION_RANGE 500
-#define COLLIDER_POS_X 10
+#define COLLIDER_POS_X 5
 #define COLLIDER_POS_Y 15
-#define ORIGIN_POSITION 20
+#define ORIGIN_POSITION 30
 
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
 {
@@ -62,7 +62,7 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 			App->entities->DestroyEntity(this);
 		}
 	}
-	else if (c2->type == COLLIDER_GROUND)
+	/*else if (c2->type == COLLIDER_GROUND)
 	{
 		switch (c1->CheckDirection(c2->rect))
 		{
@@ -78,8 +78,8 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 		case ENTITY_LEFT:
 			fposition.x = c2->rect.x - FLY_WIDTH;
 			break;
-		}
-	}
+		}*/
+	
 }
 
 void j1FlyingEnemy::LoadFlyAnimations()
@@ -99,7 +99,7 @@ bool j1FlyingEnemy::CleanUp()
 bool j1FlyingEnemy::Update(float dt)	
 {
 	BROFILER_CATEGORY("EntityFLYUpdate", Profiler::Color::Bisque);
-	iPoint origin = { position.x + ORIGIN_POSITION , position.y + ORIGIN_POSITION };
+	iPoint origin = { position.x + ORIGIN_POSITION, position.y + ORIGIN_POSITION+10 };
 	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };
 	if (IsPointInCircle(App->entities->player->position, position, FLYING_ENEMY_DETECION_RANGE)) {
 		
