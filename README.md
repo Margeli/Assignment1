@@ -30,6 +30,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - UML of the Entities system.
 - Pick-ups.
 - Despawn of the enemies.
+- Enemies can be killed by jumping above them.
 
 ## Controlls
 
