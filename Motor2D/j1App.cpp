@@ -9,6 +9,7 @@
 #include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1SceneMenu.h"
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1EntityManager.h"
@@ -28,6 +29,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene1 = new j1Scene();
 	scene2 = new j1Scene2();
+	menu = new j1SceneMenu();
 	map = new j1Map();
 	render = new j1Render();
 	collis = new j1Collisions();
@@ -42,6 +44,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene1);
 	AddModule(scene2);
+	AddModule(menu);
 	AddModule(pathfind);
 	//----Entities
 		

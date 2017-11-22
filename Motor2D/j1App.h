@@ -15,6 +15,7 @@ class j1Textures;
 class j1Audio;
 class j1Scene;
 class j1Scene2;
+class j1SceneMenu;
 class j1Map;
 class j1Collisions;
 class j1EntityManager;
@@ -94,6 +95,7 @@ public:
 	j1Audio*			audio = nullptr;
 	j1Scene*			scene1 = nullptr;
 	j1Scene2*			scene2 = nullptr;
+	j1SceneMenu*		menu = nullptr;
 	j1Map*				map = nullptr;	
 	j1Collisions*		collis = nullptr;
 	j1EntityManager*	entities = nullptr;
