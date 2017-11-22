@@ -10,7 +10,7 @@
 
 #define TROLL_ATTACK_RANGE 150
 #define TROLL_DETECTION_RANGE 250
-#define TROLL_SPEED 1.00f
+#define TROLL_SPEED 3.00f
 #define ADDED_COLLIDER_WIDTH 15
 #define ADDED_COLLIDER_HEIGHT 50
 #define TROLL_HEIGHT 100
@@ -120,7 +120,7 @@ bool j1Troll::CleanUp()
 {
 	LOG("Unloading Troll.");
 	App->tex->UnLoad(sprites);	
-	if (collider!=nullptr)
+	if (App->collis->CollidersNum()!=0)
 		collider->to_delete = true;
 	
 	//path->Clear();

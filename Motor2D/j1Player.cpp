@@ -15,8 +15,13 @@
 #include "j1EntityManager.h"
 #include "SDL/include/SDL_timer.h"
 
-#define JUMP_SPEED 6.5f
-#define JUMP_LIMIT 50.0f
+
+#define LIFES 5
+#define SPEED 3
+#define JUMP_SPEED 10.0f
+#define JUMP_LIMIT 30.0f
+#define LITTLEJUMPHIGH 15
+
 
 j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 {
@@ -25,6 +30,7 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 	name.create("player");
 	jump_speed = JUMP_SPEED;
 	jump_limit = JUMP_LIMIT;
+	littlejumphigh = LITTLEJUMPHIGH;
 	speed = SPEED;
 }
 

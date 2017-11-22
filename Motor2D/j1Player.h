@@ -9,11 +9,8 @@
 
 struct SDL_Texture;
 
-#define SPEED 1
-#define LIFES 5
 #define PLAYERHEIGHT 65
 #define PLAYERWIDTH 45
-#define LITTLEJUMPHIGH 15
 
 class j1Player : public j1Entity
 {
@@ -48,7 +45,7 @@ private:
 	bool double_jump = true;
 	void JumpReset();	
 	bool littlejump = false;
-	uint littlejumphigh = LITTLEJUMPHIGH;
+	uint littlejumphigh;
 	bool godmode = false;
 	void LoadPlayerAnimations();
 

@@ -54,11 +54,14 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool CleanUp();
+	uint CollidersNum() const;
 
 	bool EraseCollider(Collider* collider);
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	void DebugDraw();
 	bool debug = false;
+
+
 private:
 
 	Collider* colliders[MAX_COLLIDERS];

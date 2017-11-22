@@ -9,7 +9,7 @@
 #include "p2Log.h"
 #include "j1Audio.h"
 
-#define FLY_SPEED 1
+#define FLY_SPEED 2
 #define FLY_HEIGHT 50
 #define FLY_WIDTH 40
 #define FLYING_ENEMY_DETECION_RANGE 500

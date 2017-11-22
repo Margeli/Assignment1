@@ -10,7 +10,7 @@
 
 #define TROLL_ATTACK_RANGE 150
 #define TROLL_DETECTION_RANGE 250
-#define TROLL_SPEED 1.00f
+#define TROLL_SPEED 3.00f
 #define ADDED_COLLIDER_WIDTH 15
 #define ADDED_COLLIDER_HEIGHT 50
 #define TROLL_HEIGHT 100
@@ -156,7 +156,7 @@ bool j1Troll2::Update(float dt)
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
 		iPoint origin = { (int)(position.x + PATH_DISPLACEMENT_x),(int)(position.y + PATH_DISPLACEMENT_y) };
-		iPoint destination = { (int)(App->entities->player->position.x + PLAYERWIDTH / 2), (int)(App->entities->player->position.y + PLAYERHEIGHT - 20) };	
+		iPoint destination = { (int)(App->entities->player->position.x +PLAYERWIDTH / 2), (int)(App->entities->player->position.y + PLAYERHEIGHT - 20) };
 
 		if (path != nullptr) 
 		{

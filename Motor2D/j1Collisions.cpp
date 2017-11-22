@@ -166,7 +166,19 @@ Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module*
 	}
 	return ret;
 }
+ uint j1Collisions::CollidersNum() const {
+	
+	int j = 0;
 
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+
+		if (colliders[i] != nullptr) { j++; }
+	}
+
+	return j;
+
+}
 bool j1Collisions::EraseCollider(Collider* collider)
 {
 	if (collider != nullptr)
@@ -189,7 +201,7 @@ CollisionDirection Collider::CheckDirection(const SDL_Rect& r) const {
 	uint up_surface, down_surface;	
 	right_surface = left_surface =2;// to evite some problems when it collides, giving priority to left and right 
 	up_surface = 3;// giving more priority to up
-	int minvalue =5;
+	int minvalue =9;
 	if (r.y >= rect.y) { //excluding below
 		if (r.x <= rect.x) { // excluding left
 			up_surface += (r.x + r.w) - rect.x;

@@ -8,7 +8,7 @@
 #include "j1Collisions.h"
 #include "Brofiler/Brofiler.h"
 
-#define GRAVITY 2
+#define GRAVITY 5
 
 struct Collider;
 struct Animation;
