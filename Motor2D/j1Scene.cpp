@@ -79,8 +79,8 @@ bool j1Scene::Update(float dt)
 		App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
 		App->render->camera.x = 0;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == false) { App->cap_on = true; }
-	else if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN && App->cap_on == true) { App->cap_on = false; }
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN ) { App->cap_on = !App->cap_on; }
+	
 
 	//if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN) { App->render->vsync = !App->render->vsync; }
 

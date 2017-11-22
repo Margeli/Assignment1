@@ -211,7 +211,15 @@ void j1App::FinishUpdate()
 	float seconds_since_start = timer.ReadSec();
 	float delay_time = (ONE_TIME_UNIT / frame_rate_cap_count) - last_frame_ms;
 
-	if (cap_on) { SDL_Delay(delay_time); cap = "ON"; } else { cap = "OFF"; }
+	if (delay_time > (ONE_TIME_UNIT / frame_rate_cap_count))
+		delay_time = (ONE_TIME_UNIT / frame_rate_cap_count);
+
+
+	if (cap_on) {
+		SDL_Delay(delay_time);
+		cap = "ON";
+	}
+	else { cap = "OFF"; }
 	if (render->vsync == true) { state = "ON"; }	else { state = "OFF"; }
 
 	static char title[400];
