@@ -9,7 +9,7 @@
 
 struct SDL_Texture;
 
-#define PLAYERHEIGHT 65
+#define PLAYERHEIGHT 69
 #define PLAYERWIDTH 45
 
 class j1Player : public j1Entity
