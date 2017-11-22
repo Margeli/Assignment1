@@ -16,6 +16,7 @@ enum EntityTypes
 	PLAYER,
 	TROLL,
 	TROLL2,
+	TROLL3,
 	FLY,
 	COLLECT
 };

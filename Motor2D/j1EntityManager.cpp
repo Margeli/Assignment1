@@ -3,6 +3,7 @@
 #include "j1FlyingEnemy.h"
 #include "j1Troll.h"
 #include "j1Troll2.h"
+#include "j1Troll3.h"
 #include "j1Collectables.h"
 #include "Brofiler/Brofiler.h"
 
@@ -31,7 +32,10 @@ j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position)
 	
 	case TROLL2: AddtoSpawningQueue(position, TROLL2);
 		break;
-	
+
+	case TROLL3: AddtoSpawningQueue(position, TROLL3);
+		break;
+
 	case COLLECT: AddtoSpawningQueue(position, COLLECT);
 		break;
 
@@ -133,6 +137,8 @@ void  j1EntityManager::CheckPlayerPostoSpawn()
 
 			else if (to_spawn[i].type == TROLL2) { entity = new j1Troll2(to_spawn[i].pos); }
 
+			else if (to_spawn[i].type == TROLL3) { entity = new j1Troll3(to_spawn[i].pos); }
+
 			else if (to_spawn[i].type == COLLECT) { entity = new j1Collectables(to_spawn[i].pos); }
 
 			entities.add(entity);
@@ -147,7 +153,7 @@ void  j1EntityManager::CheckPlayerPostoDespawn()
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
 	{
-		if ((entity_iterator->data->type == TROLL) || (entity_iterator->data->type == FLY) || (entity_iterator->data->type == COLLECT) || (entity_iterator->data->type == TROLL2))
+		if ((entity_iterator->data->type == TROLL) || (entity_iterator->data->type == FLY) || (entity_iterator->data->type == COLLECT) || (entity_iterator->data->type == TROLL2) || (entity_iterator->data->type == TROLL3))
 		{
 			if (entity_iterator->data->position.x + SPAWN_MARGIN < player->position.x)
 			{
@@ -180,6 +186,10 @@ bool j1EntityManager::Load(pugi::xml_node& data )
 		iPoint troll2pos = { troll2.attribute("x").as_int(), troll2.attribute("y").as_int() };
 		CreateEntity(TROLL2, troll2pos);
 	}
+	for (pugi::xml_node troll3 = data.child("troll2").child("position"); troll3; troll3 = troll3.next_sibling()) {
+		iPoint troll3pos = { troll3.attribute("x").as_int(), troll3.attribute("y").as_int() };
+		CreateEntity(TROLL3, troll3pos);
+	}
 
 	return true;
 }
@@ -189,9 +199,10 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 	player->Save(data.append_child(player->name.GetString()));
 
 	pugi::xml_node trolls = data.append_child("troll");
+	pugi::xml_node troll2 = data.append_child("troll2");
+	pugi::xml_node troll3 = data.append_child("troll3");
 	pugi::xml_node flies = data.append_child("fly");
 	pugi::xml_node pickups = data.append_child("collect");
-	pugi::xml_node troll2 = data.append_child("troll2");
 
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)//iterates over all enemies spawned
@@ -212,6 +223,10 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 		{
 			entity_iterator->data->Save(troll2);
 		}
+		if (entity_iterator->data->type == TROLL3)
+		{
+			entity_iterator->data->Save(troll3);
+		}
 	}
 
 	for (int i = 0; i < MAX_ENTITIES - 1; ++i) { //iterates over all enemies on the spawning queue
@@ -225,6 +240,11 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 				pugi::xml_node troll2_pos = troll2.append_child("position");
 				troll2_pos.append_attribute("x") = to_spawn[i].pos.x;
 				troll2_pos.append_attribute("y") = to_spawn[i].pos.y;
+			}
+			if (to_spawn[i].type == TROLL3) {
+				pugi::xml_node troll3_pos = troll3.append_child("position");
+				troll3_pos.append_attribute("x") = to_spawn[i].pos.x;
+				troll3_pos.append_attribute("y") = to_spawn[i].pos.y;
 			}
 			if (to_spawn[i].type == FLY) {
 				pugi::xml_node fly_pos = flies.append_child("position");
@@ -246,7 +266,8 @@ bool j1EntityManager::EnemiesCleanUp() {
 	SpawnListReset();
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
-		if (entity_iterator->data->type == EntityTypes::TROLL || entity_iterator->data->type == EntityTypes::FLY || entity_iterator->data->type == EntityTypes::COLLECT || entity_iterator->data->type == EntityTypes::TROLL2) {
+		if (entity_iterator->data->type == EntityTypes::TROLL || entity_iterator->data->type == EntityTypes::FLY || entity_iterator->data->type == EntityTypes::COLLECT || entity_iterator->data->type == EntityTypes::TROLL2 || entity_iterator->data->type == EntityTypes::TROLL3) 
+		{
 			entity_iterator->data->CleanUp();
 			DestroyEntity(entity_iterator->data);
 		}
