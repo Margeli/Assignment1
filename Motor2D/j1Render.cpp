@@ -7,7 +7,7 @@
 #include "j1Input.h"
 #include "Brofiler/Brofiler.h"	
 
-//#define VSYNC true
+#define CAMERA_SPEED 3
 
 j1Render::j1Render() : j1Module()
 {
@@ -21,7 +21,7 @@ j1Render::j1Render() : j1Module()
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
 
-	camera_speed = 1;
+	camera_speed = CAMERA_SPEED;
 }
 
 j1Render::~j1Render()

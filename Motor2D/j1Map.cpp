@@ -91,9 +91,12 @@ void j1Map::Draw()
 	{
 		tile_num = 0;
 		SDL_Texture* texture = data.tilesets.At(0)->data->texture;
-		for (int row = 0; row < layer_iterator->data->height; row++) 
+		uint layer_height = layer_iterator->data->height;
+		uint layer_width = layer_iterator->data->width;
+		float layer_speed = layer_iterator->data->speed;
+		for (int row = 0; row < layer_height ; row++) 
 		{
-			for (int column = 0; column < layer_iterator->data->width; column++)
+			for (int column = 0; column < layer_width; column++)
 			{
 				uint id = layer_iterator->data->data[tile_num];
 				iPoint position = MapToWorld(column, row);
@@ -102,7 +105,7 @@ void j1Map::Draw()
  				if (first_loop&&layer_iterator->data->properties.Get("ground", 0)) {
 					PutMapColliders(id, position);}
 				
-				App->render->Blit(texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id),layer_iterator->data->speed);
+				App->render->Blit(texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id),layer_speed);
 				tile_num++;			
 			}
 		}	
