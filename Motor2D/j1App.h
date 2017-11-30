@@ -5,6 +5,8 @@
 #include "j1Module.h"
 #include "j1Timer.h"
 #include "j1PerfTimer.h"
+#include "j1Fonts.h"
+#include "j1Gui.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -22,6 +24,8 @@ class j1EntityManager;
 class j1Pathfinding;
 class j1Timer;
 class j1PerfTimer;
+class j1Fonts;
+class j1Gui;
 
 class j1App
 {
@@ -88,18 +92,20 @@ private:
 public:
 
 	// Modules
-	j1Window*			win = nullptr;
-	j1Input*			input = nullptr;
-	j1Render*			render = nullptr;
-	j1Textures*			tex = nullptr;
-	j1Audio*			audio = nullptr;
-	j1Scene*			scene1 = nullptr;
-	j1Scene2*			scene2 = nullptr;
-	j1SceneMenu*		menu = nullptr;
-	j1Map*				map = nullptr;	
-	j1Collisions*		collis = nullptr;
-	j1EntityManager*	entities = nullptr;
-	j1Pathfinding*		pathfind = nullptr;
+	j1Window*			win = NULL;
+	j1Input*			input = NULL;
+	j1Render*			render = NULL;
+	j1Textures*			tex = NULL;
+	j1Audio*			audio = NULL;
+	j1Scene*			scene1 = NULL;
+	j1Scene2*			scene2 = NULL;
+	j1SceneMenu*		menu = NULL;
+	j1Map*				map = NULL;
+	j1Collisions*		collis = NULL;
+	j1EntityManager*	entities = NULL;
+	j1Pathfinding*		pathfind = NULL;
+	j1Fonts*			font = NULL;
+	j1Gui*				gui = NULL;
 
 private:
 

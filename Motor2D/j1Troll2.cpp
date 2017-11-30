@@ -186,7 +186,7 @@ bool j1Troll2::Update(float dt)
 
 		else
 		{
-			if (facing == LEFT) { animation = &idle_left; }
+			if (facing ==LEFT) { animation = &idle_left; }
 			else if (facing == RIGHT) { animation = &idle_right; }
 		}
 	}

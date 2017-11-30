@@ -198,7 +198,7 @@ MoveTo j1Pathfinding::CheckDirection(Pathfinding& _path) const {
 
 		else if (y_substraction == 1) { return M_DOWN; }//DOWN
 		else if (y_substraction == -1) { return M_UP; }//UP
-		else { return NONE; }
+		else { return NO_MOVE; }
 	}
-	else {	return NONE;}
+	else {	return NO_MOVE;}
 }
