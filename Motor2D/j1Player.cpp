@@ -166,7 +166,7 @@ bool j1Player::Update(float dt)
 
 			if (facing == LEFT && can_jump) {animation = &jump_left; }
 				
-			else if (facing == RIGHT&& can_jump) { animation = &jump_right; }			
+			else if (facing == RIGHT&& can_jump) { animation = &jump_right; }
 			
 		}
 

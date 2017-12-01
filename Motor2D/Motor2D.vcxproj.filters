@@ -79,6 +79,33 @@
     <ClCompile Include="j1Troll3.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="GuiButton.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiCheck.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiImage.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiInput.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiLabel.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiWindow.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1UI_Elem.cpp">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -181,6 +208,33 @@
     <ClInclude Include="j1Troll3.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="GuiButton.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCheck.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiImage.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiInput.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiLabel.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiWindow.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1UI_Elem.h">
+      <Filter>Desenvolupament  ========\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -203,6 +257,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Entities">
       <UniqueIdentifier>{82027012-0242-4e60-b8f0-a706b959ad79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\GUI">
+      <UniqueIdentifier>{b0e1605c-836d-4bb8-af8f-ed7028089485}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,10 @@ struct Collider;
 
 class j1App;
 
+class j1UI_Elem;
+
+enum ButtonEvent;
+
 class j1Module
 {
 public:
@@ -76,6 +80,8 @@ public:
 
 
 	}
+
+	virtual void OnEventChange(j1UI_Elem* elem, ButtonEvent event) const {}
 
 public:
 

@@ -14,7 +14,7 @@ struct SDL_Texture;
 
 enum EntityTypes;
 enum MoveTo {
-	NONE,
+	NO_MOVE,
 	M_UP = 1,
 	M_DOWN,
 	M_LEFT,

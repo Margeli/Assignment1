@@ -35,6 +35,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collis = new j1Collisions();
 	entities = new j1EntityManager();
 	pathfind = new j1Pathfinding();
+	font = new j1Fonts();
+	gui = new j1Gui();
 
 	AddModule(input);
 	AddModule(win);
@@ -46,10 +48,13 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene2);
 	AddModule(menu);
 	AddModule(pathfind);
+	AddModule(font);
 	//----Entities
 		
 	AddModule(entities);
 
+	//GUI
+	AddModule(gui);
 	
 	//------collider & render (should be the lasts to update)
 	AddModule(collis);

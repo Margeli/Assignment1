@@ -56,6 +56,7 @@ bool j1Scene::Start()
 				
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
 		PlaceEnemies();
+		
 	}
 	return true;
 }
@@ -99,8 +100,10 @@ bool j1Scene::Update(float dt)
 		LOG("End of level 1!");
 		SceneChange();
 	}
+	
 
 	App->map->Draw();
+
 	
 	return true;
 }

@@ -78,12 +78,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GuiButton.cpp" />
+    <ClCompile Include="GuiCheck.cpp" />
+    <ClCompile Include="GuiImage.cpp" />
+    <ClCompile Include="GuiInput.cpp" />
+    <ClCompile Include="GuiLabel.cpp" />
+    <ClCompile Include="GuiWindow.cpp" />
     <ClCompile Include="j1Collectables.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Animation.cpp" />
     <ClCompile Include="j1Collisions.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1FlyingEnemy.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -98,6 +106,7 @@
     <ClCompile Include="j1Troll.cpp" />
     <ClCompile Include="j1Troll2.cpp" />
     <ClCompile Include="j1Troll3.cpp" />
+    <ClCompile Include="j1UI_Elem.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
@@ -106,12 +115,20 @@
     <ClCompile Include="j1Scene2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GuiButton.h" />
+    <ClInclude Include="GuiCheck.h" />
+    <ClInclude Include="GuiImage.h" />
+    <ClInclude Include="GuiInput.h" />
+    <ClInclude Include="GuiLabel.h" />
+    <ClInclude Include="GuiWindow.h" />
     <ClInclude Include="j1Collectables.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Animation.h" />
     <ClInclude Include="j1Collisions.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1FlyingEnemy.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
@@ -122,6 +139,7 @@
     <ClInclude Include="j1Troll.h" />
     <ClInclude Include="j1Troll2.h" />
     <ClInclude Include="j1Troll3.h" />
+    <ClInclude Include="j1UI_Elem.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />

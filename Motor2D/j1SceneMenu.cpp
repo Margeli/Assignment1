@@ -10,7 +10,7 @@
 
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
-	name.create("Menu");
+	name.create("menu");
 }
 
 j1SceneMenu::~j1SceneMenu()
@@ -72,3 +72,37 @@ void j1SceneMenu::SceneChange()
 }
 
 
+void j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event) const {
+	/*if (elem == web) {
+	if (event == ButtonEvent::RIGHT_CLICK) {
+	web->ChangeText("RIGHT CLICK");
+	}
+	if (event == ButtonEvent::MOUSE_INSIDE || event == ButtonEvent::MOUSE_OUTSIDE) {
+	web->ChangeText("WoWps.org TBC");
+	}
+	if (event == ButtonEvent::LEFT_CLICK) {
+	web->ChangeText("LEFT CLICK");
+	}
+	}*/
+	
+	if (event == ButtonEvent::MOUSE_INSIDE) {
+		elem->StateChanging(HOVER);
+		LOG("Entering");
+	}
+	if (event == ButtonEvent::MOUSE_OUTSIDE) {
+		elem->StateChanging(IDLE);
+		LOG("Leaving");
+	}
+	if (event == ButtonEvent::RIGHT_CLICK) {
+		elem->StateChanging(PRESSED_R);
+	}
+	if (event == ButtonEvent::LEFT_CLICK) {
+		elem->StateChanging(PRESSED_L);
+	}
+	if (event == ButtonEvent::LEFT_CLICK_UP) {
+		elem->StateChanging(UP_L);
+	}
+	if (event == ButtonEvent::RIGHT_CLICK_UP) {
+		elem->StateChanging(UP_R);
+	}
+}
