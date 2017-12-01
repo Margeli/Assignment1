@@ -6,45 +6,40 @@
 #include "j1Input.h"
 #include "p2Log.h"
 
-
-GuiWindow::GuiWindow(Alignment alignment) : j1UI_Elem(UIType::INPUTBOX, Alignment::NO_ALIGN) {
+GuiWindow::GuiWindow(Alignment alignment) : j1UI_Elem(UIType::INPUTBOX, Alignment::NO_ALIGN) 
+{
 	align = alignment;
 }
 
-
 GuiWindow::~GuiWindow()
+{}
+
+bool GuiWindow::Start() 
 {
-}
-
-bool GuiWindow::Start() {
-
 	tex = App->gui->GetAtlas();
 	rect = { 30, 542, 422, 454 };
-
 	PutWindowButtons();
-
 	return true;
 }
 
-bool GuiWindow::CleanUp() {
-	
+bool GuiWindow::CleanUp() 
+{
 	//App->tex->UnLoad(tex);
 	return true;
-
 }
-bool GuiWindow::Update(float dt) {
-	if (moving) {	
-		Drag();		
-	}
 
+bool GuiWindow::Update(float dt) 
+{
+	if (moving) { Drag(); }
 	UpdateAlignment();
 	App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
 	return true;
 }
 
-void GuiWindow::StateChanging(ButtonState status) {
-
-	switch (status) {
+void GuiWindow::StateChanging(ButtonState status) 
+{
+	switch (status) 
+	{
 	case IDLE:
 		state = status;
 		break;
@@ -62,44 +57,48 @@ void GuiWindow::StateChanging(ButtonState status) {
 	}
 }
 
-void GuiWindow::Drag() {
+void GuiWindow::Drag() 
+{
 	iPoint mouse_position;
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
-
 	displacement.x += ( mouse_position.x- click_pos.x);
 	displacement.y += (mouse_position.y - click_pos.y);
 	DragWindowElements({ mouse_position.x - click_pos.x , mouse_position.y - click_pos.y });
-
 	click_pos = mouse_position;
-
 }
 
-void GuiWindow::StartDrag() {
-
+void GuiWindow::StartDrag() 
+{
 	iPoint mouse_position;
 	App->input->GetMousePosition(mouse_position.x, mouse_position.y);
 	click_pos = mouse_position;
 
 	moving = true;
 }
-void GuiWindow::EndDrag() {
-	
-	click_pos = {0,0};
 
+void GuiWindow::EndDrag() 
+{
+	click_pos = {0,0};
 	moving = false;
 }
-void GuiWindow::PutWindowButtons() {
-	if (num_buttons > MAX_BUTTON_NUM) {
+
+void GuiWindow::PutWindowButtons() 
+{
+	if (num_buttons > MAX_BUTTON_NUM) 
+	{
 		LOG("Exceded max num buttons");
 		num_buttons = MAX_BUTTON_NUM;
 	}
 	iPoint localPos = { position.x + displacement.x, position.y + displacement.y };
-	for (int i = 0; i < num_buttons; i++) {
+	for (int i = 0; i < num_buttons; i++) 
+	{
 		p2SString butt_text;
-		if (win_buttons_txt.count() <= i) {
+		if (win_buttons_txt.count() <= i) 
+		{
 			butt_text = nullptr;
 		}
-		else {
+		else 
+		{
 			butt_text = win_buttons_txt.At(i)->data;
 		}
 		GuiButton* butt;

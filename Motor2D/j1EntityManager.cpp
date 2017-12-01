@@ -21,24 +21,12 @@ j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position)
 	switch (type)
 	{
 	case PLAYER: ret = new j1Player();
-		if (ret != nullptr)
-			entities.add(ret);
-		break;
-	case FLY: AddtoSpawningQueue(position, FLY);
-		break;
-
-	case TROLL: AddtoSpawningQueue(position, TROLL);
-		break;
-	
-	case TROLL2: AddtoSpawningQueue(position, TROLL2);
-		break;
-
-	case TROLL3: AddtoSpawningQueue(position, TROLL3);
-		break;
-
-	case COLLECT: AddtoSpawningQueue(position, COLLECT);
-		break;
-
+		if (ret != nullptr) entities.add(ret); break;
+	case FLY: AddtoSpawningQueue(position, FLY); break;
+	case TROLL: AddtoSpawningQueue(position, TROLL); break;
+	case TROLL2: AddtoSpawningQueue(position, TROLL2); break;
+	case TROLL3: AddtoSpawningQueue(position, TROLL3); break;
+	case COLLECT: AddtoSpawningQueue(position, COLLECT); break;
 	}
 	return ret;
 }
@@ -53,11 +41,7 @@ void j1EntityManager::DestroyEntity(j1Entity* entity)
 bool j1EntityManager::Start()
 {
 	if (first_loop) { player = (j1Player*)CreateEntity(PLAYER); first_loop = false; }
-
-	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next) {
-		entity_iterator->data->Start();
-	}
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next) { entity_iterator->data->Start(); }
 	return true;
 }
 
@@ -65,8 +49,7 @@ bool j1EntityManager::PreUpdate()
 {
 	CheckPlayerPostoSpawn();	// Spawn enemies (TROLL|FLY) depending on player pos
 	BROFILER_CATEGORY("EntityManagerPreUpdate", Profiler::Color::Bisque);
-	p2List_item<j1Entity*>* entity_iterator; 
-	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->PreUpdate();}
 	return true;
 }
@@ -74,8 +57,7 @@ bool j1EntityManager::PreUpdate()
 bool j1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("EntityManagerUpdate", Profiler::Color::Bisque);
-	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->Update(dt);}
 	return true;
 }
@@ -84,30 +66,23 @@ bool j1EntityManager::PostUpdate()
 {
 	CheckPlayerPostoDespawn(); // Despawn enemies (TROLL|FLY|COLLECT) depending on player pos
 	BROFILER_CATEGORY("EntityManagerPostUpdate", Profiler::Color::Bisque);
-	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->PostUpdate();}
 	return true;
 }
 bool j1EntityManager::CleanUp()
 {
 	SpawnListReset();
-	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->CleanUp();}
 	return true;
 }
 
 void j1EntityManager::OnCollision(Collider* c1, Collider* c2) 
 {
-	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator!=NULL; entity_iterator = entity_iterator->next)
 	{
-		if (entity_iterator->data->collider == c1)
-		{
-			entity_iterator->data->OnCollision(c1, c2);
-			break;
-		}
+		if (entity_iterator->data->collider == c1) { entity_iterator->data->OnCollision(c1, c2); 	break; }
 	}
 }
 
@@ -150,8 +125,8 @@ void  j1EntityManager::CheckPlayerPostoSpawn()
 
 void  j1EntityManager::CheckPlayerPostoDespawn()
 {
-	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
+
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
 	{
 		if ((entity_iterator->data->type == TROLL) || (entity_iterator->data->type == FLY) || (entity_iterator->data->type == COLLECT) || (entity_iterator->data->type == TROLL2) || (entity_iterator->data->type == TROLL3))
 		{
@@ -205,31 +180,17 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 	pugi::xml_node pickups = data.append_child("collect");
 
 	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)//iterates over all enemies spawned
+	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)	//iterates over all enemies spawned
 	{
-		if (entity_iterator->data->type == TROLL) 
-		{
-			entity_iterator->data->Save(trolls);
-		}
-		if (entity_iterator->data->type == FLY)
-		{
-			entity_iterator->data->Save(flies);
-		}
-		if (entity_iterator->data->type == COLLECT)
-		{
-			entity_iterator->data->Save(pickups);
-		}
-		if (entity_iterator->data->type == TROLL2)
-		{
-			entity_iterator->data->Save(troll2);
-		}
-		if (entity_iterator->data->type == TROLL3)
-		{
-			entity_iterator->data->Save(troll3);
-		}
+		if (entity_iterator->data->type == TROLL) { entity_iterator->data->Save(trolls); }
+		if (entity_iterator->data->type == FLY) { entity_iterator->data->Save(flies); }
+		if (entity_iterator->data->type == COLLECT) { entity_iterator->data->Save(pickups); }
+		if (entity_iterator->data->type == TROLL2) { entity_iterator->data->Save(troll2); }
+		if (entity_iterator->data->type == TROLL3) { entity_iterator->data->Save(troll3); }
 	}
-
-	for (int i = 0; i < MAX_ENTITIES - 1; ++i) { //iterates over all enemies on the spawning queue
+	//iterates over all enemies on the spawning queue
+	for (int i = 0; i < MAX_ENTITIES - 1; ++i) 
+	{ 
 		if (to_spawn[i].type != EntityTypes::NOTYPE) {
 			if (to_spawn[i].type == TROLL) {
 				pugi::xml_node troll_pos = trolls.append_child("position");
@@ -262,7 +223,8 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 	return true;
 }
 
-bool j1EntityManager::EnemiesCleanUp() {
+bool j1EntityManager::EnemiesCleanUp() 
+{
 	SpawnListReset();
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
@@ -272,23 +234,18 @@ bool j1EntityManager::EnemiesCleanUp() {
 			DestroyEntity(entity_iterator->data);
 		}
 	}
-
 	return true;
 }
 
 void j1EntityManager::SetEnemiesInitialPos()  // Sets the enemies to their initial position
 {
-	p2List_item<j1Entity*>* entity_iterator;
-	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) 
+	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)
 	{
 		if (entity_iterator->data->type != EntityTypes::PLAYER) { entity_iterator->data->SetInitialPos(); }
 	}
 }
 
-
-void j1EntityManager::SpawnListReset() {
-	for (int i = 0; i < MAX_ENTITIES; i++) {
-		to_spawn[i].type = EntityTypes::NOTYPE;			
-	}
-
+void j1EntityManager::SpawnListReset() 
+{
+	for (int i = 0; i < MAX_ENTITIES; i++) { to_spawn[i].type = EntityTypes::NOTYPE; }
 }

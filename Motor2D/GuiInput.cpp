@@ -4,30 +4,26 @@
 #include "j1App.h"
 #include "j1Render.h"
 
-
-GuiInput::GuiInput(Alignment alignment) : j1UI_Elem(UIType::INPUTBOX, Alignment::NO_ALIGN) {
+GuiInput::GuiInput(Alignment alignment) : j1UI_Elem(UIType::INPUTBOX, Alignment::NO_ALIGN) 
+{
 	align = alignment;
 }
 
-
 GuiInput::~GuiInput()
+{}
+
+bool GuiInput::Start() 
 {
-}
-
-bool GuiInput::Start() {
-
-	
 	return true;
 }
 
-bool GuiInput::CleanUp() {
-
+bool GuiInput::CleanUp() 
+{
 	//App->tex->UnLoad(tex);
 	return true;
-
 }
-bool GuiInput::Update(float dt) {
-
+bool GuiInput::Update(float dt) 
+{
 	UpdateAlignment();
 	App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
 	return true;

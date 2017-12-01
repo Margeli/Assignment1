@@ -6,51 +6,45 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 
-
-GuiButton::GuiButton(Alignment alignment) : j1UI_Elem(UIType::BUTTON, Alignment::NO_ALIGN) {
+GuiButton::GuiButton(Alignment alignment) : j1UI_Elem(UIType::BUTTON, Alignment::NO_ALIGN)
+{
 	align = alignment;
-	
 }
-
 
 GuiButton::~GuiButton()
+{}
+
+bool GuiButton::Start() 
 {
-}
-
-bool GuiButton::Start() {
-
 	up = LoadTexture("");// "gui/wow ui/BUTTONS/UI-DialogBox-Button-Up.png");
 	down = LoadTexture("");//gui/wow ui/BUTTONS/UI-DialogBox-Button-Down.png");
 	press = LoadTexture("");// gui / wow ui / BUTTONS / UI - DialogBox - Button - Disabled.png");
 	rect = { 0,0,128,32 };
 	AddButtonText();
 	tex = up;
-	
 
 	return true;
 }
 
-bool GuiButton::CleanUp() {
-
+bool GuiButton::CleanUp() 
+{
 	//App->tex->UnLoad(tex);
 	return true;
-
 }
-bool GuiButton::Update(float dt) {
-
-	
+bool GuiButton::Update(float dt) 
+{
 	UpdateAlignment();
 	App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
-
 	return true;
 }
-void GuiButton::AddButtonText() {
 
+void GuiButton::AddButtonText() 
+{
 	int width, heigh;
-
 	App->font->CalcSize(text.GetString(), width, heigh);
 
-	switch (align) {
+	switch (align) 
+	{
 	case NO_ALIGN:
 		buttontext = App->gui->AddText(NO_ALIGN, text, { displacement.x , displacement.y + 2 }, MORPHEUS, { 255, 255,0,255 });
 		break;
@@ -64,13 +58,12 @@ void GuiButton::AddButtonText() {
 		buttontext = App->gui->AddText(align, text, { displacement.x + (rect.w -width)/2 , displacement.y + 2 }, MORPHEUS, { 255, 255,0,255 });
 		break;
 	}
-			
-	
 }
 
-void GuiButton::StateChanging(ButtonState status) {
-
-	switch(status){
+void GuiButton::StateChanging(ButtonState status) 
+{
+	switch(status)
+	{
 	case IDLE:
 		//tex = up;
 		state = status;
@@ -86,19 +79,19 @@ void GuiButton::StateChanging(ButtonState status) {
 	}
 }
 
-void GuiButton::ChangeButtonTxt(p2SString txt) {
-
+void GuiButton::ChangeButtonTxt(p2SString txt) 
+{
 	buttontext->ChangeText(txt);
 }
 
-void GuiButton::Drag(iPoint displace) {
-
+void GuiButton::Drag(iPoint displace) 
+{
 	displacement.x += displace.x;
 	displacement.y += displace.y;
 	DragButtonElements(displace);
 }
 
-void GuiButton::DragButtonElements(iPoint displace){
-	
+void GuiButton::DragButtonElements(iPoint displace)
+{
 	buttontext->Drag(displace);
-	}
+}

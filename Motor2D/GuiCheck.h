@@ -3,15 +3,11 @@
 
 #include "j1UI_Elem.h"
 
-
-// ---------------------------------------------------
 class GuiCheck : public j1UI_Elem
 {
 public:
 
 	GuiCheck(Alignment alignment = NO_ALIGN);
-
-	// Destructor
 	virtual ~GuiCheck();
 	bool Start();
 	bool CleanUp();
@@ -19,12 +15,10 @@ public:
 
 	p2SString text;
 	bool pressed = false;
-
 	void StateChanging(ButtonState state);
 
 private:
 	void AddCheckText() const ;
-
 	SDL_Texture* check;
 };
 
