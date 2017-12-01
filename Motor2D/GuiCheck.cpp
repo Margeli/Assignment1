@@ -18,8 +18,8 @@ GuiCheck::~GuiCheck()
 
 bool GuiCheck::Start() {
 
-	tex = LoadTexture("gui/wow ui/BUTTONS/UI-CheckBox-Down.png");
-	check = LoadTexture("gui/wow ui/BUTTONS/UI-CheckBox-Check.png");
+	tex = LoadTexture("");// gui / wow ui / BUTTONS / UI - CheckBox - Down.png");
+	check = LoadTexture("");//gui/wow ui/BUTTONS/UI-CheckBox-Check.png");
 	rect = { 0,0,32,32 };
 
 	AddCheckText();

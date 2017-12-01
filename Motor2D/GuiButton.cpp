@@ -19,9 +19,9 @@ GuiButton::~GuiButton()
 
 bool GuiButton::Start() {
 
-	up = LoadTexture("gui/wow ui/BUTTONS/UI-DialogBox-Button-Up.png");
-	down = LoadTexture("gui/wow ui/BUTTONS/UI-DialogBox-Button-Down.png");
-	press = LoadTexture("gui/wow ui/BUTTONS/UI-DialogBox-Button-Disabled.png");
+	up = LoadTexture("");// "gui/wow ui/BUTTONS/UI-DialogBox-Button-Up.png");
+	down = LoadTexture("");//gui/wow ui/BUTTONS/UI-DialogBox-Button-Down.png");
+	press = LoadTexture("");// gui / wow ui / BUTTONS / UI - DialogBox - Button - Disabled.png");
 	rect = { 0,0,128,32 };
 	AddButtonText();
 	tex = up;
@@ -72,15 +72,15 @@ void GuiButton::StateChanging(ButtonState status) {
 
 	switch(status){
 	case IDLE:
-		tex = up;
+		//tex = up;
 		state = status;
 		break;
 	case HOVER:
-		tex = down;
+		//tex = down;
 		state = status;
 		break;
 	case PRESSED_L:
-		tex = press;
+		//tex = press;
 		state = status;
 		break;
 	}

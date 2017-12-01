@@ -6,6 +6,10 @@
 
 struct SDL_Texture;
 
+class GuiWindow;
+class jUI_Elem;
+enum ButtonEvent;
+
 class j1SceneMenu : public j1Module
 {
 public:
@@ -30,6 +34,9 @@ public:
 
 	bool fading = false;
 
+	GuiWindow* window;
+
+	void OnEventChange(j1UI_Elem* elem, ButtonEvent event) const;
 };
 
 #endif // __j1SCENE_MENU_H__
