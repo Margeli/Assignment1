@@ -104,11 +104,7 @@ bool j1Scene::Update(float dt)
 		LOG("End of level 1!");
 		SceneChange();
 	}
-	
-
 	App->map->Draw();
-
-	
 	return true;
 }
 
@@ -136,9 +132,7 @@ bool j1Scene::CleanUp()
 bool j1Scene::Load(pugi::xml_node& data)
 {
 	pugi::xml_node activated = data.child("activated");
-
 	bool scene_active = activated.attribute("true").as_bool();
-
 	if ((scene_active == false) && active) { SceneChange(); }			
 
 	return true;
@@ -147,7 +141,6 @@ bool j1Scene::Load(pugi::xml_node& data)
 bool j1Scene::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node activated = data.append_child("activated");
-
 	activated.append_attribute("true") = active;
 
 	return true;
@@ -169,11 +162,9 @@ void j1Scene::SceneChange()
 	App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
 }
 
-
 void j1Scene::PlaceEnemies() const
 {
-	for (p2List_item<ObjectGroup*>* object = App->map->data.objects.start; object; object = object->next) {
-		App->entities->CreateEntity(object->data->type, { object->data->x, object->data->y });
-	}
+	for (p2List_item<ObjectGroup*>* object = App->map->data.objects.start; object; object = object->next) 
+	{App->entities->CreateEntity(object->data->type, { object->data->x, object->data->y });}
 }
 

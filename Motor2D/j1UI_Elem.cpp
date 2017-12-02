@@ -6,38 +6,24 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 
+j1UI_Elem::j1UI_Elem(UIType type, Alignment align, j1Module* listener) : type(type), align(align), listener(listener) {}
 
-j1UI_Elem::j1UI_Elem(UIType type, Alignment align, j1Module* listener) : type(type), align(align), listener(listener)
+bool j1UI_Elem::Start() { return true; }
+
+bool j1UI_Elem::CleanUp() { return true; }
+
+j1UI_Elem::~j1UI_Elem() {}
+
+SDL_Texture* j1UI_Elem::LoadTexture(p2SString path) 
 {
-	
-}
-
-bool j1UI_Elem::Start() {
-
-
-	return true;
-}
-
-bool j1UI_Elem::CleanUp() {
-
-	
-
-	return true; 
-}
-
-j1UI_Elem::~j1UI_Elem()
-{
-}
-
-SDL_Texture* j1UI_Elem::LoadTexture(p2SString path) {
-
 	SDL_Texture* ret = App->tex->Load(path.GetString());
 	return ret;
 }
 
-void j1UI_Elem::UpdateAlignment() {
-
-	switch (align) {
+void j1UI_Elem::UpdateAlignment() 
+{
+	switch (align) 
+	{
 	case NO_ALIGN:
 		break;
 	case ALIGN_CENTERED:
@@ -53,17 +39,11 @@ void j1UI_Elem::UpdateAlignment() {
 		position.y = -App->render->camera.y;
 		break;
 	}
-	
-
 }
 
-bool j1UI_Elem::Update(float dt) {
+bool j1UI_Elem::Update(float dt) { return true; }
 
-	
-	
-	return true;
-}
-void j1UI_Elem::DebugDraw() {
-	
+void j1UI_Elem::DebugDraw() 
+{
 	App->render->DrawQuad({position.x+ displacement.x, position.y+displacement.y, rect.w, rect.h }, 255, 255, 0, 100, false);
 }

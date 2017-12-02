@@ -14,8 +14,8 @@ GuiImage::~GuiImage()
 
 bool GuiImage::Start() 
 {
-	if (tex==nullptr)
-		tex = App->gui->GetAtlas();
+	if (tex == nullptr) { tex = App->gui->GetAtlas(); }
+	
 	return true;
 }
 
@@ -28,8 +28,7 @@ bool GuiImage::CleanUp()
 bool GuiImage::Update(float dt) 
 {
 	UpdateAlignment();
-	if (draw) {
-		App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
-	}
+	if (draw) { App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect); }
+		
 	return true;
 }

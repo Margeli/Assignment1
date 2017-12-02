@@ -2,39 +2,45 @@
 #include "j1Gui.h"
 #include "j1App.h"
 
-
+#define HEART_POS 20
+#define BANANA_POS_Y 10
+#define BANANA_POS_X 80
 
 j1PlayerGui::j1PlayerGui()
 {
-	for (int i = 0; i < LIFES; i++) {
+	for (int i = 0; i < LIFES; i++) 
+	{
 		full_heart[i] = nullptr;
 		empty_heart[i] = nullptr;
 	}
 }
 
-
 j1PlayerGui::~j1PlayerGui()
+{}
+
+bool j1PlayerGui::Start() 
 {
-}
-
-bool j1PlayerGui::Start() {
-
-	//---------PLAYER LIFES----
-	for (int i = 0; i < LIFES; i++) {
-		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts2.png", { 0,0,32, 35 }, { 40 * i, 20 }); //need to fins the right coords for the rect and imporve the heart image
-		empty_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts2.png", { 32,0,32, 35 }, { 40 * i, 20 });
-		}
+	for (int i = 0; i < LIFES; i++) 
+	{
+		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts.png", { 0,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS }); 
+		empty_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts.png", { 32,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS });
+	}
 	DrawHearts(App->entities->player->lifes);
-	//---------SCORE-------
+
+	p2SString bannanatext = { "%i", App->entities->player->points };
+	SDL_Color bananacolor = { 255, 255, 255, 255 };
+
+	points_img = App->gui->AddImage(ALIGN_RIGHT, "gui/banapoints.png", { 0, 0, 43, 47 }, { -BANANA_POS_X, BANANA_POS_Y });
+	points_text = App->gui->AddText(ALIGN_RIGHT, bannanatext, { 300, -300 }, DEFAULT, bananacolor);
+
 	//------TIME----
 	//------COINS----
-
 
 	return true;
 }
 
-bool j1PlayerGui::Update(float dt) {
-
+bool j1PlayerGui::Update(float dt) 
+{
 	return true;
 }
 
