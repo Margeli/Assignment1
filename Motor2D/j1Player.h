@@ -8,9 +8,11 @@
 #include "j1Entity.h"
 
 struct SDL_Texture;
+class GuiImage;
 
 #define PLAYERHEIGHT 69
 #define PLAYERWIDTH 45
+#define LIFES 5
 
 class j1Player : public j1Entity
 {
@@ -29,35 +31,6 @@ public:
 	void LoseOneLife();
 	void LittleJump();
 
-private:
-
-	Facing facing = Facing::RIGHT;
-
-	void InitialPlayerPos();
-
-	float jump_limit;
-	float jump_pos;
-	float jump_speed;	
-	bool walking = false;
-	bool landing = false;
-	bool can_jump = false;
-	bool jumping = false;
-	bool double_jump = true;
-	void JumpReset();	
-	bool littlejump = false;
-	uint littlejumphigh;
-	bool godmode = false;
-	void LoadPlayerAnimations();
-
-	uint jump_sound;
-	uint sword_sound;
-	uint playersteps;
-	uint lose_fx;
-	uint hurt_fx;
-	uint die_fx;
-	uint troll_death;
-
-public:
 	int lifes;
 	int points = 0;
 	int max_score = 0;
@@ -89,6 +62,39 @@ public:
 	Animation death_left;
 
 	p2SString name;
+
+private:
+
+	Facing facing = Facing::RIGHT;
+
+	void InitialPlayerPos();
+
+	float jump_limit;
+	float jump_pos;
+	float jump_speed;
+	bool walking = false;
+	bool landing = false;
+	bool can_jump = false;
+	bool jumping = false;
+	bool double_jump = true;
+	void JumpReset();
+	bool littlejump = false;
+	uint littlejumphigh;
+	bool godmode = false;
+	void LoadPlayerAnimations();
+	void AddPlayerGui();
+	void UpdatePlayerGui();
+
+	uint jump_sound;
+	uint sword_sound;
+	uint playersteps;
+	uint lose_fx;
+	uint hurt_fx;
+	uint die_fx;
+	uint troll_death;
+
+	GuiImage* full_heart[LIFES];
+	GuiImage* empty_heart[LIFES];
 };
 
 

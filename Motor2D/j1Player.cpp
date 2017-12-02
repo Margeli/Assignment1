@@ -13,10 +13,11 @@
 #include "j1Animation.h"
 #include "Brofiler/Brofiler.h"
 #include "j1EntityManager.h"
+#include "j1Gui.h"
 #include "SDL/include/SDL_timer.h"
 
 
-#define LIFES 5
+
 #define SPEED 3
 #define JUMP_SPEED 10.0f
 #define JUMP_LIMIT 30.0f
@@ -71,6 +72,10 @@ bool j1Player::Start()
 		playersteps = App->audio->LoadFx("audio/fx/player_steps.wav");
 
 	JumpReset();
+
+	//---PLAYER GUI---
+	AddPlayerGui();
+	
 
 	return ret;
 }
@@ -206,7 +211,8 @@ bool j1Player::Update(float dt)
 
 	if (fposition.y >= BOTTOM_SCENE_LIMIT && lifes < 1) { App->audio->PlayFx(lose_fx, 0); }
 
-	
+	UpdatePlayerGui();
+
 	Draw();
 	
 	return true;
@@ -246,14 +252,17 @@ void j1Player::LoseOneLife()
 		App->entities->SetEnemiesInitialPos();
 		App->render->camera.x = 0;
 		animation->Reset();
-		animation = &idle_right;
-		lifes--;
+		animation = &idle_right;		
 		walking = false;
 		hit_time = SDL_GetTicks();
 		hitted = true;
 		player_hurted = false;
 		use_input = true;
 		JumpReset();
+
+		lifes--;
+		full_heart[lifes]->draw = false;
+		empty_heart[lifes]->draw = true;
 }
 
 void j1Player::JumpReset() 
@@ -351,4 +360,20 @@ void j1Player::InitialPlayerPos() {
 void j1Player::LittleJump() {
 	littlejump = true;
 	littlejumphigh = 0;
+}
+
+void j1Player::AddPlayerGui() {
+	
+
+	for (int i = 0; i < LIFES; i++) {
+		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts2.png", { 0,0,32, 35 }, { 40*i, 20 }, (j1Module*)this); //need to fins the right coords for the rect and imporve the heart image
+		empty_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts2.png", { 32,0,32, 35 }, { 40 * i, 20 }, (j1Module*)this); 
+		empty_heart[i]->draw = false;
+
+	}
+}
+
+void j1Player::UpdatePlayerGui() {
+
+	
 }

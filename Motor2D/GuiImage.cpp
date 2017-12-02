@@ -28,6 +28,8 @@ bool GuiImage::CleanUp()
 bool GuiImage::Update(float dt) 
 {
 	UpdateAlignment();
-	App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
+	if (draw) {
+		App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
+	}
 	return true;
 }
