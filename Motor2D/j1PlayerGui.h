@@ -4,6 +4,7 @@
 #include "j1Player.h"
 
 class GuiImage;
+class GuiLabel;
 
 class j1PlayerGui
 {
@@ -21,6 +22,9 @@ public:
 private:
 	GuiImage* full_heart[LIFES];
 	GuiImage* empty_heart[LIFES];
+
+	GuiImage* points_img;
+	GuiLabel* points_text;
 };
 
 #endif //__j1PLAYERGUI_H__
