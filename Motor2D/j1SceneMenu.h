@@ -5,8 +5,9 @@
 #include "j1Render.h"
 
 struct SDL_Texture;
-
+class SDL_Rect;
 class GuiWindow;
+class GuiButton;
 class jUI_Elem;
 enum ButtonEvent;
 
@@ -24,7 +25,7 @@ public:
 
 	bool PreUpdate();
 
-	bool Update();
+	bool Update(float dt);
 
 	bool PostUpdate();
 
@@ -34,9 +35,22 @@ public:
 
 	bool fading = false;
 
-	GuiWindow* window;
+	
 
 	void OnEventChange(j1UI_Elem* elem, ButtonEvent event) const;
+
+private:
+
+	GuiWindow*	window = nullptr;
+
+	GuiButton*	play = nullptr;
+	GuiButton*	cont = nullptr;
+	GuiButton*	settings = nullptr;
+	GuiButton*	credits = nullptr;
+	GuiButton*	exit = nullptr;
+
+	SDL_Texture* background = nullptr;
+	SDL_Rect	background_rect;
 };
 
 #endif // __j1SCENE_MENU_H__

@@ -7,6 +7,8 @@
 #include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
+#include "j1EntityManager.h"
+#include "j1Player.h"
 
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
@@ -29,7 +31,14 @@ bool j1SceneMenu::Start()
 {
 	if (App->scene1->active == true) { active = false; }
 	else if (App->scene2->active == true) { active = false; }
-		
+	if (active) {
+		background = App->tex->Load("textures/menu_back.png");
+		background_rect = { 0,0,1920, 1080 };
+
+		//---Buttons
+		play = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,0 }, this);
+		play->rect = { 0,0, 281, 93 };
+	}
 	return true;
 }
 
@@ -38,10 +47,11 @@ bool j1SceneMenu::PreUpdate()
 	return true;
 }
 
-bool j1SceneMenu::Update()
+bool j1SceneMenu::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { SceneChange(); }
 
+	App->render->Blit(background, 0, 0,&background_rect);
 	return true;
 }
 
@@ -66,8 +76,11 @@ void j1SceneMenu::SceneChange()
 	App->menu->active = false;
 
 	CleanUp();
-
+	
+	
 	App->scene1->Start();
+	App->entities->CreatePlayer();
+	App->entities->player->Start();
 	App->render->camera = { 0,0 };
 }
 

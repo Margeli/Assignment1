@@ -42,7 +42,7 @@ void j1EntityManager::DestroyEntity(j1Entity* entity)
 
 bool j1EntityManager::Start()
 {
-	if (first_loop) { player = (j1Player*)CreateEntity(PLAYER); first_loop = false; }
+
 	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next) { entity_iterator->data->Start(); }
 	return true;
 }
@@ -250,4 +250,9 @@ void j1EntityManager::SetEnemiesInitialPos()  // Sets the enemies to their initi
 void j1EntityManager::SpawnListReset() 
 {
 	for (int i = 0; i < MAX_ENTITIES; i++) { to_spawn[i].type = EntityTypes::NOTYPE; }
+}
+
+void j1EntityManager::CreatePlayer() {
+
+	player = (j1Player*)CreateEntity(PLAYER);
 }

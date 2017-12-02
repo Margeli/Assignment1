@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1SceneMenu.h"
 #include "j1Scene.h"
 #include "j1Scene2.h"
 #include "j1Player.h"
@@ -28,7 +29,8 @@ bool j1Scene2::Awake(pugi::xml_node&)
 	LOG("Loading Scene2");
 	bool ret = true;
 
-	if (App->scene2->active == false) { LOG("Unable to load Scene 2."); ret = false; }
+	if (active == false) { LOG("Scene 2 not active"); }
+	if (App->menu->active == true) { active = false; }
 	if (App->scene1->active == true) { active = false; }
 
 	return ret;
