@@ -9,6 +9,7 @@
 
 struct SDL_Texture;
 class GuiImage;
+class j1PlayerGui;
 
 #define PLAYERHEIGHT 69
 #define PLAYERWIDTH 45
@@ -35,6 +36,7 @@ public:
 	int points = 0;
 	int max_score = 0;
 	
+	j1PlayerGui* playerGui;
 
 	Uint32 hit_time;
 
@@ -82,9 +84,7 @@ private:
 	uint littlejumphigh;
 	bool godmode = false;
 	void LoadPlayerAnimations();
-	void AddPlayerGui();
-	void UpdatePlayerGui();
-
+	
 	uint jump_sound;
 	uint sword_sound;
 	uint playersteps;
@@ -93,8 +93,7 @@ private:
 	uint die_fx;
 	uint troll_death;
 
-	GuiImage* full_heart[LIFES];
-	GuiImage* empty_heart[LIFES];
+	
 };
 
 

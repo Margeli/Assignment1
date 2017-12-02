@@ -13,7 +13,9 @@ j1EntityManager::j1EntityManager()
 }
 
 j1EntityManager::~j1EntityManager()
-{}
+{
+
+}
 
 j1Entity* j1EntityManager::CreateEntity(EntityTypes type, iPoint position)
 {

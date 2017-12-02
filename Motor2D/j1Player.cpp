@@ -13,7 +13,7 @@
 #include "j1Animation.h"
 #include "Brofiler/Brofiler.h"
 #include "j1EntityManager.h"
-#include "j1Gui.h"
+#include "j1PlayerGui.h"
 #include "SDL/include/SDL_timer.h"
 
 
@@ -33,10 +33,14 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 	jump_limit = JUMP_LIMIT;
 	littlejumphigh = LITTLEJUMPHIGH;
 	speed = SPEED;
+
+	playerGui = new j1PlayerGui();
 }
 
 j1Player::~j1Player() 
-{}
+{
+	RELEASE(playerGui);
+}
 
 bool j1Player::Awake(pugi::xml_node& conf)
 { return true; }
@@ -73,8 +77,8 @@ bool j1Player::Start()
 
 	JumpReset();
 
-	//---PLAYER GUI---
-	AddPlayerGui();
+	
+	playerGui->Start();
 	
 
 	return ret;
@@ -211,10 +215,11 @@ bool j1Player::Update(float dt)
 
 	if (fposition.y >= BOTTOM_SCENE_LIMIT && lifes < 1) { App->audio->PlayFx(lose_fx, 0); }
 
-	UpdatePlayerGui();
+	playerGui->Update(dt);
 
 	Draw();
 	
+
 	return true;
 }
 
@@ -261,8 +266,8 @@ void j1Player::LoseOneLife()
 		JumpReset();
 
 		lifes--;
-		full_heart[lifes]->draw = false;
-		empty_heart[lifes]->draw = true;
+		playerGui->DrawHearts(lifes);
+		
 }
 
 void j1Player::JumpReset() 
@@ -362,18 +367,4 @@ void j1Player::LittleJump() {
 	littlejumphigh = 0;
 }
 
-void j1Player::AddPlayerGui() {
-	
 
-	for (int i = 0; i < LIFES; i++) {
-		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts2.png", { 0,0,32, 35 }, { 40*i, 20 }, (j1Module*)this); //need to fins the right coords for the rect and imporve the heart image
-		empty_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts2.png", { 32,0,32, 35 }, { 40 * i, 20 }, (j1Module*)this); 
-		empty_heart[i]->draw = false;
-
-	}
-}
-
-void j1Player::UpdatePlayerGui() {
-
-	
-}
