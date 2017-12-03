@@ -40,7 +40,7 @@ bool j1SceneMenu::Start()
 		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png");
 
 		cont = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,310 }, this);
-		cont->SetButtonTex("gui/Buttons/ContinueButton.png", "gui/Buttons/ContinueButtonHover.png");
+		cont->SetButtonTex("gui/Buttons/ContinueButton.png", "gui/Buttons/ContinueButtonHover.png", "gui/Buttons/ContinueButtonPressed.png");
 
 		settings = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,420 }, this);
 		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png");
@@ -61,7 +61,7 @@ bool j1SceneMenu::PreUpdate()
 
 bool j1SceneMenu::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) { SceneChange(); }
+	
 
 	App->render->Blit(background, 0, 0,&background_rect);
 	return true;
@@ -97,7 +97,7 @@ void j1SceneMenu::SceneChange()
 }
 
 
-bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event) const {
+bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event)  {
 	/*if (elem == exit) {
 	if (event == ButtonEvent::RIGHT_CLICK) {
 	web->ChangeText("RIGHT CLICK");
@@ -136,5 +136,12 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event) const {
 			return false;
 		}
 	}
+	if (elem == play) {
+		if (event == ButtonEvent::LEFT_CLICK) {
+			SceneChange();
+		}
+	}
+
+
 	return true;
 }

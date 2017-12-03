@@ -37,7 +37,7 @@ public:
 
 	
 
-	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event) const;
+	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event) ;
 
 private:
 

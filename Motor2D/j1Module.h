@@ -81,7 +81,7 @@ public:
 
 	}
 
-	virtual bool OnEventChange(j1UI_Elem* elem, ButtonEvent event) const { return true; }
+	virtual bool OnEventChange(j1UI_Elem* elem, ButtonEvent event)  { return true; }
 
 public:
 

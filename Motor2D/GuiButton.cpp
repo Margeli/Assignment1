@@ -71,7 +71,8 @@ void GuiButton::StateChanging(ButtonState status)
 		state = status;
 		break;
 	case PRESSED_L:
-		//tex = press;
+		if (press!= NULL)
+		tex = press;
 		state = status;
 		break;
 	}
@@ -94,9 +95,10 @@ void GuiButton::DragButtonElements(iPoint displace)
 	buttontext->Drag(displace);
 }
 
-void GuiButton::SetButtonTex(p2SString path_idle, p2SString path_hover) {
+void GuiButton::SetButtonTex(p2SString path_idle, p2SString path_hover, p2SString path_pressed) {
 
 	up = LoadTexture(path_idle);
 	down = LoadTexture(path_hover);
+	press = LoadTexture(path_pressed);
 	
 }

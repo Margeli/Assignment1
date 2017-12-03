@@ -20,7 +20,7 @@ public:
 	void ChangeButtonTxt(p2SString txt);
 	void Drag(iPoint displace);
 	
-	void SetButtonTex(p2SString path_idle, p2SString path_hover);
+	void SetButtonTex(p2SString path_idle, p2SString path_hover, p2SString path_pressed = nullptr);
 
 private:
 	SDL_Texture* up;
