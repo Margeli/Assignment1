@@ -36,8 +36,20 @@ bool j1SceneMenu::Start()
 		background_rect = { 0,0,1920, 1080 };
 
 		//---Buttons
-		play = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,0 }, this);
-		play->rect = { 0,0, 281, 93 };
+		play = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,200 }, this);
+		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png");
+
+		cont = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,310 }, this);
+		cont->SetButtonTex("gui/Buttons/ContinueButton.png", "gui/Buttons/ContinueButtonHover.png");
+
+		settings = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,420 }, this);
+		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png");
+
+		credits = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,530 }, this);
+		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png");
+
+		exit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,640 }, this);
+		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png");
 	}
 	return true;
 }
@@ -85,8 +97,8 @@ void j1SceneMenu::SceneChange()
 }
 
 
-void j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event) const {
-	/*if (elem == web) {
+bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event) const {
+	/*if (elem == exit) {
 	if (event == ButtonEvent::RIGHT_CLICK) {
 	web->ChangeText("RIGHT CLICK");
 	}
@@ -97,25 +109,32 @@ void j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event) const {
 	web->ChangeText("LEFT CLICK");
 	}
 	}*/
+	switch (event) {
 	
-	if (event == ButtonEvent::MOUSE_INSIDE) {
+	case ButtonEvent::MOUSE_INSIDE:
 		elem->StateChanging(HOVER);
-		LOG("Entering");
-	}
-	if (event == ButtonEvent::MOUSE_OUTSIDE) {
+		break;
+	case ButtonEvent::MOUSE_OUTSIDE:
 		elem->StateChanging(IDLE);
-		LOG("Leaving");
-	}
-	if (event == ButtonEvent::RIGHT_CLICK) {
+		break;
+	case ButtonEvent::RIGHT_CLICK:
 		elem->StateChanging(PRESSED_R);
-	}
-	if (event == ButtonEvent::LEFT_CLICK) {
+		break;
+	case ButtonEvent::LEFT_CLICK:
 		elem->StateChanging(PRESSED_L);
-	}
-	if (event == ButtonEvent::LEFT_CLICK_UP) {
+		break;
+	case ButtonEvent::LEFT_CLICK_UP:
 		elem->StateChanging(UP_L);
-	}
-	if (event == ButtonEvent::RIGHT_CLICK_UP) {
+		break;
+	case ButtonEvent::RIGHT_CLICK_UP:
 		elem->StateChanging(UP_R);
+		break;
 	}
+	
+	if (elem == exit) {
+		if (event == ButtonEvent::LEFT_CLICK) {
+			return false;
+		}
+	}
+	return true;
 }

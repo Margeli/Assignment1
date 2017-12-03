@@ -36,11 +36,13 @@ bool j1Gui::Start()
 
 bool j1Gui::PreUpdate() 
 {
+
+	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {	debug = !debug;}	
 	UpdateElemEvent();
-	ManageElemEvent();
+	ret = ManageElemEvent();
 	
-	return true;
+	return ret;
 }
 
 bool j1Gui::Update(float dt)
@@ -109,16 +111,18 @@ void j1Gui::UpdateElemEvent() const
 	}
 }
 
-void j1Gui::ManageElemEvent() 
+bool j1Gui::ManageElemEvent() 
 {
-	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL; elem = elem->next)
+	bool ret = true;
+	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL && ret != false; elem = elem->next)
 	{
 		if ((elem->data->event != elem->data->previous_event)
 			&& elem->data->listener != nullptr) {
-			elem->data->listener->OnEventChange(elem->data, elem->data->event);
+			ret = elem->data->listener->OnEventChange(elem->data, elem->data->event);
 			elem->data->previous_event = elem->data->event;
 		}
 	}
+	return ret;
 }
 
 void j1Gui::DestroyElement(j1UI_Elem* elem) 

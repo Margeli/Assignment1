@@ -64,7 +64,7 @@ public:
 private:
 	j1UI_Elem* AddElement(UIType type, Alignment aligment = Alignment::NO_ALIGN);
 	void UpdateElemEvent() const;
-	void ManageElemEvent();
+	bool ManageElemEvent();
 
 	p2List<j1UI_Elem*> elements;
 	SDL_Texture* atlas;
