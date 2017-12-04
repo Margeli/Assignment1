@@ -8,6 +8,7 @@
 #include "j1App.h"
 
 #define GROUND_TILES 39	//nº of tiles that have the property ground in Tiled
+#define LEFT_LIMIT_RENDER 40
 
 enum EntityTypes;
 

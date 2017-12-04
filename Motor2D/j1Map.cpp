@@ -107,7 +107,7 @@ void j1Map::Draw()
 				if (first_loop&&layer_iterator->data->properties.Get("ground", 0)) {
 					PutMapColliders(id, position);
 				}
-				if (position.x <= camera + SCREEN_WIDTH)//need to improve (not all layers load at the same speed)
+				if ((position.x <= camera*layer_speed + SCREEN_WIDTH) &&( position.x>=camera*layer_speed- LEFT_LIMIT_RENDER))//need to improve (not all layers load at the same speed)
 					App->render->Blit(texture, position.x, position.y, &data.tilesets.At(0)->data->GetTileRect(id), layer_speed);
 				tile_num++;
 			}
