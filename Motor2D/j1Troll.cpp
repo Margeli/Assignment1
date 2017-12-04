@@ -56,6 +56,7 @@ bool j1Troll::IsPointInCircle(float playposX, float playposY, float enemposX, fl
 
 void j1Troll::troll_dead()
 {
+	App->render->camera.y++;
 	dead = true;
 	App->entities->player->points += 10;
 	App->audio->PlayFx(troll_death);

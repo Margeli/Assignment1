@@ -79,6 +79,20 @@ bool j1SceneMenu::CleanUp()
 {
 	LOG("Unloading  menu.");
 	App->tex->CleanUp();
+	if (exit != NULL)
+		exit->CleanUp();
+	if (credits != NULL)
+		credits->CleanUp();
+	if (settings != NULL)
+		settings->CleanUp();
+	if (cont != NULL)
+		cont->CleanUp();
+	if (play != NULL)
+		play->CleanUp();
+	if (window != NULL)
+		window->CleanUp();
+
+
 	return true;
 }
 
@@ -93,7 +107,7 @@ void j1SceneMenu::SceneChange()
 	App->scene1->Start();
 	App->entities->CreatePlayer();
 	App->entities->player->Start();
-	App->render->camera = { 0,0 };
+	App->render->SetCameraInitialPos();
 }
 
 

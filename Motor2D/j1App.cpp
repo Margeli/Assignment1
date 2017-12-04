@@ -129,6 +129,8 @@ bool j1App::Awake()
 // Called before the first frame
 bool j1App::Start()
 {
+	BROFILER_CATEGORY("App_Start", Profiler::Color::DarkCyan);
+
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.start;
@@ -182,6 +184,8 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 
 void j1App::PrepareUpdate()
 {
+
+	BROFILER_CATEGORY("App_PrepareUpdate", Profiler::Color::DarkCyan);
 	frame_counter++;
 	last_sec_frame_count++;
 
@@ -195,7 +199,9 @@ void j1App::PrepareUpdate()
 
 void j1App::FinishUpdate()
 {
+	BROFILER_CATEGORY("App_FinishUpdate", Profiler::Color::DarkCyan);
 	if(want_to_save == true)
+		
 		SavegameNow();
 
 	if(want_to_load == true)
@@ -309,6 +315,7 @@ bool j1App::PostUpdate()
 // Called before quitting
 bool j1App::CleanUp()
 {
+	BROFILER_CATEGORY("App_CleanUp", Profiler::Color::Cyan);
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.end;
@@ -374,6 +381,8 @@ void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
 
 bool j1App::LoadGameNow()
 {
+	BROFILER_CATEGORY("LoadingGame", Profiler::Color::DarkCyan);
+
 	bool ret = false;
 
 	pugi::xml_document data;
@@ -411,6 +420,8 @@ bool j1App::LoadGameNow()
 
 bool j1App::SavegameNow() const
 {
+	BROFILER_CATEGORY("SavingGame", Profiler::Color::DarkCyan);
+
 	bool ret = true;
 
 	LOG("Saving Game State to %s...", save_game.GetString());

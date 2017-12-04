@@ -25,6 +25,7 @@ private:
 
 	GuiImage* points_img;
 	GuiLabel* points_text;
+	
 };
 
 #endif //__j1PLAYERGUI_H__

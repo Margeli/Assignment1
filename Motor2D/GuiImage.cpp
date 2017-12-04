@@ -3,6 +3,7 @@
 #include "j1UI_Elem.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Textures.h"
 
 GuiImage::GuiImage(Alignment alignment): j1UI_Elem(UIType::IMAGE, Alignment::NO_ALIGN)
 {
@@ -21,7 +22,9 @@ bool GuiImage::Start()
 
 bool GuiImage::CleanUp()
 {
-	//App->tex->UnLoad(tex);
+	if(tex != nullptr)
+	App->tex->UnLoad(tex);
+	to_delete = true;
 	return true;
 }
 

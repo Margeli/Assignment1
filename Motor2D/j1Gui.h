@@ -59,12 +59,13 @@ public:
 	GuiLabel* AddText(Alignment align, p2SString text, iPoint displacement = { 0,0 }, FontType= DEFAULT, SDL_Color color = { 255,255,255,255 }, j1Module* listener = nullptr);
 	GuiWindow* AddWindow(Alignment align, uint num_buttons, p2SString title, iPoint displacement = { 0,0 }, j1Module* listener = nullptr);
 
-	void DestroyElement(j1UI_Elem* elem);
+	
 
 private:
 	j1UI_Elem* AddElement(UIType type, Alignment aligment = Alignment::NO_ALIGN);
 	void UpdateElemEvent() const;
 	bool ManageElemEvent();
+	void DestroyElement(j1UI_Elem* elem);
 
 	p2List<j1UI_Elem*> elements;
 	SDL_Texture* atlas;

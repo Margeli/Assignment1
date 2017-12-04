@@ -45,5 +45,6 @@ bool j1UI_Elem::Update(float dt) { return true; }
 
 void j1UI_Elem::DebugDraw() 
 {
+	
 	App->render->DrawQuad({position.x+ displacement.x, position.y+displacement.y, rect.w, rect.h }, 255, 255, 0, 100, false);
 }

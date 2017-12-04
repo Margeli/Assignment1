@@ -4,32 +4,12 @@
 #include "j1App.h"
 #include "j1Fonts.h"
 #include "j1Render.h"
+#include "j1Textures.h"
 
 GuiLabel::GuiLabel(Alignment alignment) : j1UI_Elem(UIType::LABEL, Alignment::NO_ALIGN) 
 {
-	align = alignment;
-	int font_size = 14;
-	const char* path;
-	if (font_frizqt == nullptr) 
-	{
-		path = "fonts/wow/FRIZQT__.ttf";
-		font_frizqt = App->font->Load(path, font_size);
-	}
-	if (font_morpheus == nullptr) 
-	{
-		path = "fonts/wow/MORPHEUS.ttf";
-		font_morpheus = App->font->Load(path, font_size);
-	}
-	if (font_skurri == nullptr) 
-	{
-		path = "fonts/wow/skurri.ttf";
-		font_morpheus = App->font->Load(path, font_size);
-	}
-	if (font_arialn == nullptr) 
-	{
-		path = "fonts/wow/ARIALN.ttf";
-		font_morpheus = App->font->Load(path, font_size);
-	}
+	align = alignment;	
+	
 }
 
 GuiLabel::~GuiLabel()
@@ -38,7 +18,7 @@ GuiLabel::~GuiLabel()
 bool GuiLabel::Start() 
 {
 	int width, height;
-	App->font->CalcSize(text.GetString(), width, height);
+	App->font->CalcSize(text.GetString(), width, height, text_font);
 	rect.w = width;
 	rect.h = height;
 	return true;
@@ -46,23 +26,35 @@ bool GuiLabel::Start()
 
 bool GuiLabel::CleanUp() 
 {
+	to_delete = true;
+	App->tex->UnLoad(tex);
+
 	return true;
 }
 
-void GuiLabel::CreateText(p2SString txt, SDL_Color color, FontType font) 
+void GuiLabel::CreateText(p2SString txt, SDL_Color color, FontType font)
 {
 	_TTF_Font* fnt = nullptr;
-	switch (font) 
+	int font_size = DEFAULT_FONT_SIZE;
+	const char* path = nullptr;
+	switch (font)
 	{
 	case FRIZQT:
-		fnt = font_frizqt;	break;
+		path = "fonts/wow/FRIZQT__.ttf";	
+		break;
 	case MORPHEUS:
-		fnt = font_morpheus;	break;
+		path = "fonts/wow/MORPHEUS.ttf";		
+		break;
 	case SKURRI:
-		fnt = font_skurri;	break;
+		path = "fonts/wow/skurri.ttf";
+		break;
 	case ARIALN:
-		fnt = font_arialn;	break;
+		path= "fonts/wow/ARIALN.ttf";
+		break;
 	}
+	fnt = App->font->Load(path, font_size);
+
+
 	text_color = color;
 	text_font = fnt;
 	text = txt;

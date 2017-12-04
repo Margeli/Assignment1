@@ -29,7 +29,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
-	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL; elem = elem->next) { elem->data->Start(); }
+	//for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL; elem = elem->next) { elem->data->Start(); }
 
 	return true;
 }
@@ -38,6 +38,14 @@ bool j1Gui::PreUpdate()
 {
 
 	bool ret = true;
+
+	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL; elem = elem->next)
+	{ 
+		if (elem->data->to_delete)
+			DestroyElement(elem->data);
+	}
+
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {	debug = !debug;}	
 	UpdateElemEvent();
 	ret = ManageElemEvent();
@@ -172,6 +180,7 @@ GuiImage* j1Gui::AddImage(Alignment align, char* path, SDL_Rect texture, iPoint 
 	image->rect = texture;
 	image->displacement = displacement;
 	image->listener = listener;
+	image->Start();
 	if (path != nullptr) 
 	{	
 		p2SString pat = path;
@@ -186,6 +195,7 @@ GuiButton* j1Gui::AddButton(Alignment align, p2SString text, iPoint displacement
 	button->displacement = displacement;
 	button->text = text;	
 	button->listener = listener;
+	button->Start();
 	return button;
 }
 
@@ -195,6 +205,7 @@ GuiCheck* j1Gui::AddCheck(Alignment align, p2SString text, iPoint displacement, 
 	check->displacement = displacement;
 	check->text = text;
 	check->listener = listener;
+	check->Start();
 	return check;
 }
 
@@ -204,6 +215,7 @@ GuiLabel* j1Gui::AddText(Alignment align, p2SString text, iPoint displacement,Fo
 	tex->CreateText(text, color, font);
 	tex->displacement = displacement;
 	tex->listener = listener;
+	tex->Start();
 	return tex;
 }
 
@@ -214,5 +226,6 @@ GuiWindow* j1Gui::AddWindow(Alignment align, uint num_buttons, p2SString title, 
 	window->num_buttons = num_buttons;
 	window->title = title;
 	window->listener = listener;
+	window->Start();
 	return window;
 }

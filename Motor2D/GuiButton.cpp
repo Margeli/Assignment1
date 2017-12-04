@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
+#include "j1Textures.h"
 
 GuiButton::GuiButton(Alignment alignment) : j1UI_Elem(UIType::BUTTON, Alignment::NO_ALIGN)
 {
@@ -27,6 +28,16 @@ bool GuiButton::Start()
 bool GuiButton::CleanUp() 
 {
 	//App->tex->UnLoad(tex);
+
+	to_delete = true;
+	if(tex!=nullptr)
+	App->tex->UnLoad(tex);
+	App->tex->UnLoad(up);
+	App->tex->UnLoad(down);
+	App->tex->UnLoad(press);
+	buttontext->CleanUp();
+
+
 	return true;
 }
 bool GuiButton::Update(float dt) 
@@ -100,5 +111,6 @@ void GuiButton::SetButtonTex(p2SString path_idle, p2SString path_hover, p2SStrin
 	up = LoadTexture(path_idle);
 	down = LoadTexture(path_hover);
 	press = LoadTexture(path_pressed);
+	tex = up;
 	
 }

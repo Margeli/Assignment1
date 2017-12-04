@@ -97,6 +97,7 @@ public:
 	iPoint displacement;
 	j1Module* listener;
 	bool draw = true;
+	bool to_delete = false;
 
 
 private:
