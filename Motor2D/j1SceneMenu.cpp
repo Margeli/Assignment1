@@ -38,18 +38,23 @@ bool j1SceneMenu::Start()
 		//---Buttons
 		play = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,200 }, this);
 		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png");
+		menu_elems.add(play);
 
 		cont = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,300 }, this);
 		cont->SetButtonTex("gui/Buttons/ContinueButton.png", "gui/Buttons/ContinueButtonHover.png", "gui/Buttons/ContinueButtonPressed.png");
+		menu_elems.add(cont);
 
 		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);
 		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png");
+		menu_elems.add(settings);
 
 		credits = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,500 }, this);
 		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png");
+		menu_elems.add(credits);
 
 		exit = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,600 }, this);
 		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png");
+		menu_elems.add(exit);
 	}
 	return true;
 }
@@ -77,6 +82,7 @@ bool j1SceneMenu::PostUpdate()
 bool j1SceneMenu::CleanUp()
 {
 	LOG("Unloading  menu.");
+<<<<<<< HEAD
 	App->tex->CleanUp();
 	if (exit != nullptr)
 		exit->CleanUp();
@@ -90,6 +96,14 @@ bool j1SceneMenu::CleanUp()
 		play->CleanUp();
 	if (window != nullptr)
 		window->CleanUp();
+=======
+
+	for (p2List_item<j1UI_Elem*>* elem = menu_elems.end; elem!=nullptr; elem = elem->prev) {		
+		elem->data->CleanUp();
+		menu_elems.del(elem);
+			
+	}
+>>>>>>> 3cfd1af7a3c367288717b577cedae28acaa3545c
 
 	return true;
 }

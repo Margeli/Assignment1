@@ -31,7 +31,7 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 	jump_limit = JUMP_LIMIT;
 	littlejumphigh = LITTLEJUMPHIGH;
 	speed = SPEED;
-
+	
 	playerGui = new j1PlayerGui();
 }
 
