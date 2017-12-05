@@ -35,6 +35,7 @@ public:
 	int lifes;
 	int points = 0;
 	int max_score = 0;
+	int pickups_counter = 0;
 	
 	j1PlayerGui* playerGui;
 

@@ -18,7 +18,7 @@ GuiButton::~GuiButton()
 bool GuiButton::Start() 
 {
 	
-	rect = { 0,0, 513, 95 };
+	rect = { 0,0, 339, 63 };
 	AddButtonText();
 	tex = up;
 

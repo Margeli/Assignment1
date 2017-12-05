@@ -16,8 +16,6 @@
 #include "j1PlayerGui.h"
 #include "SDL/include/SDL_timer.h"
 
-
-
 #define SPEED 3
 #define JUMP_SPEED 10.0f
 #define JUMP_LIMIT 30.0f

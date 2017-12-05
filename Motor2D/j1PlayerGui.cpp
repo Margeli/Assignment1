@@ -1,6 +1,7 @@
 #include "j1PlayerGui.h"
 #include "j1Gui.h"
 #include "j1App.h"
+#include "j1Collectables.h"
 
 #define HEART_POS 20
 #define BANANA_POS_Y 10
@@ -28,10 +29,11 @@ bool j1PlayerGui::Start()
 	DrawHearts(App->entities->player->lifes);
 
 	
-	SDL_Color bananacolor = { 255, 255, 255, 255 };
+	SDL_Color bananacolor = { 255, 255, 0, 255 };
 
-	points_img = App->gui->AddImage(ALIGN_RIGHT, "gui/banapoints.png", { 0, 0, 43, 47 }, {BANANA_POS_X, BANANA_POS_Y});
+	points_img = App->gui->AddImage(ALIGN_CENTERED, "gui/banapoints.png", { 0, 0, 43, 40 }, { HEART_POS, HEART_POS});
 	points_text = App->gui->AddText(ALIGN_RIGHT, "0", {-40, 20 }, MORPHEUS, bananacolor);
+	pickups_text = App->gui->AddText(ALIGN_CENTERED, "0", { 50, 20 }, MORPHEUS, bananacolor);
 
 	//------TIME----
 	//------COINS----
@@ -44,6 +46,8 @@ bool j1PlayerGui::Update(float dt)
 	p2SString player_score = { " %i", App->entities->player->points };
 	points_text->ChangeText(player_score);
 
+	p2SString player_pickups = { "%i", App->entities->player->pickups_counter };
+	pickups_text->ChangeText(player_pickups);
 
 	return true;
 }

@@ -54,6 +54,7 @@ void j1Collectables::OnCollision(Collider* c1, Collider* c2)
 		App->entities->player->points += 50;
 		found = true;
 		collider->to_delete = true;
+		App->entities->player->pickups_counter++;
 	}
 	
 }

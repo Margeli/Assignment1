@@ -33,22 +33,22 @@ bool j1SceneMenu::Start()
 	else if (App->scene2->active == true) { active = false; }
 	if (active) {
 		background = App->tex->Load("textures/menu_back.png");
-		background_rect = { 0,0,1920, 1080 };
+		background_rect = { 0,0,1024, 768 };
 
 		//---Buttons
-		play = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,200 }, this);
+		play = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,200 }, this);
 		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png");
 
-		cont = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,310 }, this);
+		cont = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,300 }, this);
 		cont->SetButtonTex("gui/Buttons/ContinueButton.png", "gui/Buttons/ContinueButtonHover.png", "gui/Buttons/ContinueButtonPressed.png");
 
-		settings = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,420 }, this);
+		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);
 		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png");
 
-		credits = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,530 }, this);
+		credits = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,500 }, this);
 		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png");
 
-		exit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0,640 }, this);
+		exit = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,600 }, this);
 		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png");
 	}
 	return true;
@@ -62,7 +62,6 @@ bool j1SceneMenu::PreUpdate()
 bool j1SceneMenu::Update(float dt)
 {
 	
-
 	App->render->Blit(background, 0, 0,&background_rect);
 	return true;
 }
@@ -79,19 +78,18 @@ bool j1SceneMenu::CleanUp()
 {
 	LOG("Unloading  menu.");
 	App->tex->CleanUp();
-	if (exit != NULL)
+	if (exit != nullptr)
 		exit->CleanUp();
-	if (credits != NULL)
+	if (credits != nullptr)
 		credits->CleanUp();
-	if (settings != NULL)
+	if (settings != nullptr)
 		settings->CleanUp();
-	if (cont != NULL)
+	if (cont != nullptr)
 		cont->CleanUp();
-	if (play != NULL)
+	if (play != nullptr)
 		play->CleanUp();
-	if (window != NULL)
+	if (window != nullptr)
 		window->CleanUp();
-
 
 	return true;
 }
@@ -111,7 +109,8 @@ void j1SceneMenu::SceneChange()
 }
 
 
-bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event)  {
+bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event)  
+{
 	/*if (elem == exit) {
 	if (event == ButtonEvent::RIGHT_CLICK) {
 	web->ChangeText("RIGHT CLICK");

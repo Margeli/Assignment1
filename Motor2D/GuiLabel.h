@@ -1,8 +1,6 @@
 #ifndef __GUILABEL_H__
 #define __GUILABEL_H__
 
-
-
 #include "j1UI_Elem.h"
 #include "SDL_TTF\include\SDL_ttf.h"
 

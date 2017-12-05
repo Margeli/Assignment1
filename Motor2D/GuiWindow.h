@@ -5,30 +5,27 @@
 #include "p2List.h"
 #include "p2SString.h"
 
-
 #define MAX_BUTTON_NUM 10
 
 class GuiButton;
 class GuiLabel;
-// ---------------------------------------------------
+
 class GuiWindow : public j1UI_Elem
 {
 public:
 
 	GuiWindow(Alignment alignment = NO_ALIGN);
 
-	// Destructor
 	virtual ~GuiWindow();
 	bool Start();
 	bool CleanUp();
 	bool Update(float dt);
 
-
 	p2SString title;
 	uint num_buttons;
 
 	void StateChanging(ButtonState state);
-	void PushButtonName( p2SString txt); //Sets the name of the buttons in order
+	void PushButtonName(p2SString txt); //Sets the name of the buttons in order
 
 private:
 
@@ -41,8 +38,6 @@ private:
 	void EndDrag();
 	void PutWindowButtons();
 	void DragWindowElements(iPoint displace);
-
-
 };
 
 #endif // __GUIWINDOW_H__

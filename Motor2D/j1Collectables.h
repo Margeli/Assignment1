@@ -33,7 +33,6 @@ public:
 
 	Animation idle;
 	
-
 	iPoint found_pos;
 	bool found = false;
 private:

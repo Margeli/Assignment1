@@ -25,6 +25,7 @@ private:
 
 	GuiImage* points_img;
 	GuiLabel* points_text;
+	GuiLabel* pickups_text;
 	
 };
 
