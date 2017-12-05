@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "j1Render.h"
+#include "p2List.h"
 
 struct SDL_Texture;
 class SDL_Rect;
@@ -41,7 +42,7 @@ public:
 
 private:
 
-	GuiWindow*	window = nullptr;
+	//GuiWindow*	window = nullptr;
 
 	GuiButton*	play = nullptr;
 	GuiButton*	cont = nullptr;
@@ -51,6 +52,8 @@ private:
 
 	SDL_Texture* background = nullptr;
 	SDL_Rect	background_rect;
+
+	p2List<j1UI_Elem*> menu_elems;
 };
 
 #endif // __j1SCENE_MENU_H__

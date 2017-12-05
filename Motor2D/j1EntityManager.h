@@ -45,7 +45,7 @@ public:
 
 	j1Entity* CreateEntity(EntityTypes type, iPoint position = {0,0});// position in the player case it's irrevelant since its modified in the start()
 
-	j1Player* player;
+	j1Player* player = nullptr;
 
 	bool Load(pugi::xml_node& );
 	bool Save(pugi::xml_node& ) const;

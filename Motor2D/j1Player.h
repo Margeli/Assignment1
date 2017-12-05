@@ -32,6 +32,7 @@ public:
 	void LoseOneLife();
 	void LittleJump();
 
+
 	int lifes;
 	int points = 0;
 	int max_score = 0;
