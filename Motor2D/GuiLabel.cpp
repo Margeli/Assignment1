@@ -40,16 +40,19 @@ void GuiLabel::CreateText(p2SString txt, SDL_Color color, FontType font)
 	switch (font)
 	{
 	case FRIZQT:
-		path = "fonts/wow/FRIZQT__.ttf";	
+		path = "fonts/FRIZQT__.ttf";	
 		break;
 	case MORPHEUS:
-		path = "fonts/wow/MORPHEUS.ttf";		
+		path = "fonts/MORPHEUS.ttf";		
 		break;
 	case SKURRI:
-		path = "fonts/wow/skurri.ttf";
+		path = "fonts/skurri.ttf";
 		break;
 	case ARIALN:
-		path= "fonts/wow/ARIALN.ttf";
+		path= "fonts/ARIALN.ttf";
+		break;
+	case ZEALAND:
+		path = "fonts/DK Zealand.otf";
 		break;
 	}
 	fnt = App->font->Load(path, font_size);
@@ -70,6 +73,7 @@ bool GuiLabel::Update(float dt)
 
 void GuiLabel::ChangeText(p2SString newtext) 
 {
+	text = newtext;	
 	tex = App->font->Print(newtext.GetString(), text_color, text_font);
 }
 

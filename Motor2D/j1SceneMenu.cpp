@@ -42,6 +42,7 @@ bool j1SceneMenu::Start()
 
 		cont = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,300 }, this);
 		cont->SetButtonTex("gui/Buttons/ContinueButton.png", "gui/Buttons/ContinueButtonHover.png", "gui/Buttons/ContinueButtonPressed.png");
+		cont->active = false;
 		menu_elems.add(cont);
 
 		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);
@@ -82,28 +83,13 @@ bool j1SceneMenu::PostUpdate()
 bool j1SceneMenu::CleanUp()
 {
 	LOG("Unloading  menu.");
-<<<<<<< HEAD
-	App->tex->CleanUp();
-	if (exit != nullptr)
-		exit->CleanUp();
-	if (credits != nullptr)
-		credits->CleanUp();
-	if (settings != nullptr)
-		settings->CleanUp();
-	if (cont != nullptr)
-		cont->CleanUp();
-	if (play != nullptr)
-		play->CleanUp();
-	if (window != nullptr)
-		window->CleanUp();
-=======
 
 	for (p2List_item<j1UI_Elem*>* elem = menu_elems.end; elem!=nullptr; elem = elem->prev) {		
 		elem->data->CleanUp();
 		menu_elems.del(elem);
 			
 	}
->>>>>>> 3cfd1af7a3c367288717b577cedae28acaa3545c
+
 
 	return true;
 }

@@ -42,6 +42,10 @@ bool GuiButton::CleanUp()
 }
 bool GuiButton::Update(float dt) 
 {
+	if (active == false) {
+		
+		tex = press;//texture pressed and disable its the same
+	}
 	UpdateAlignment();
 	App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
 	return true;

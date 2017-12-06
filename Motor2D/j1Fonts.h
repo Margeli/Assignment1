@@ -5,7 +5,7 @@
 #include "SDL\include\SDL_pixels.h"
 
 #define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf"
-#define DEFAULT_FONT_SIZE 24
+#define DEFAULT_FONT_SIZE 32
 
 struct SDL_Texture;
 struct _TTF_Font;

@@ -32,8 +32,8 @@ bool j1PlayerGui::Start()
 	SDL_Color bananacolor = { 255, 255, 0, 255 };
 
 	points_img = App->gui->AddImage(ALIGN_CENTERED, "gui/banapoints.png", { 0, 0, 43, 40 }, { HEART_POS, HEART_POS});
-	points_text = App->gui->AddText(ALIGN_RIGHT, "0", {-40, 20 }, MORPHEUS, bananacolor);
-	pickups_text = App->gui->AddText(ALIGN_CENTERED, "0", { 50, 20 }, MORPHEUS, bananacolor);
+	points_text = App->gui->AddText(ALIGN_RIGHT, "0", {-40, 20 }, ZEALAND, bananacolor);
+	pickups_text = App->gui->AddText(ALIGN_CENTERED, "0", { 50, 20 }, ZEALAND, bananacolor);
 
 	//------TIME----
 	//------COINS----
@@ -44,7 +44,8 @@ bool j1PlayerGui::Start()
 bool j1PlayerGui::Update(float dt) 
 {
 	p2SString player_score = { " %i", App->entities->player->points };
-	points_text->ChangeText(player_score);
+	
+	points_text->ChangeText(player_score);//update the same label or change it itereatively
 
 	p2SString player_pickups = { "%i", App->entities->player->pickups_counter };
 	pickups_text->ChangeText(player_pickups);

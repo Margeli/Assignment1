@@ -22,10 +22,13 @@ public:
 	
 	void SetButtonTex(p2SString path_idle, p2SString path_hover, p2SString path_pressed = nullptr);
 
+	bool active = true;
+
 private:
 	SDL_Texture* up;
 	SDL_Texture* down;
 	SDL_Texture* press;
+	
 
 	void AddButtonText();
 	void DragButtonElements(iPoint displace);

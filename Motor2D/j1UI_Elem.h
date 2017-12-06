@@ -7,7 +7,7 @@
 
 struct SDL_Texture;
 
-enum FontType { DEFAULT = 0, ARIALN, FRIZQT, MORPHEUS, SKURRI };
+enum FontType { ARIALN, FRIZQT, MORPHEUS, SKURRI, ZEALAND };
 enum UIType { CHECK = 1, IMAGE, BUTTON, INPUTBOX,LABEL,  WINDOW };
 enum ButtonState { IDLE = 0, HOVER, PRESSED_R, UP_R, PRESSED_L, UP_L, DISABLED };
 enum ButtonEvent { MOUSE_INSIDE = 1, MOUSE_OUTSIDE, LEFT_CLICK, LEFT_CLICK_UP, RIGHT_CLICK, RIGHT_CLICK_UP };
@@ -51,6 +51,7 @@ public:
 	j1Module* listener;
 	bool draw = true;
 	bool to_delete = false;
+	
 
 
 private:
