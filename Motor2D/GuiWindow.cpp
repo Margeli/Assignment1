@@ -16,9 +16,12 @@ GuiWindow::~GuiWindow()
 
 bool GuiWindow::Start() 
 {
-	tex = App->gui->GetAtlas();
-	rect = { 30, 542, 422, 454 };
+	if (tex != nullptr) {
+		tex = App->gui->GetAtlas();
+		rect = { 30, 542, 422, 454 };
+	}
 	PutWindowButtons();
+	state = IDLE;
 	return true;
 }
 

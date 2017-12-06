@@ -42,7 +42,10 @@ public:
 
 private:
 
-	//GuiWindow*	window = nullptr;
+	void CreateSettingWindow();
+	bool settingwindowcreated = false;
+
+	GuiWindow*	window = nullptr;
 
 	GuiButton*	play = nullptr;
 	GuiButton*	cont = nullptr;

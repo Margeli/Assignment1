@@ -109,20 +109,27 @@ void j1SceneMenu::SceneChange()
 }
 
 
-bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event)  
+bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)  
 {
-	/*if (elem == exit) {
-	if (event == ButtonEvent::RIGHT_CLICK) {
-	web->ChangeText("RIGHT CLICK");
+	if (elem == settings)
+	{
+		if (evnt == ButtonEvent::LEFT_CLICK) {
+			if (!settingwindowcreated)
+				CreateSettingWindow();
+		}
 	}
-	if (event == ButtonEvent::MOUSE_INSIDE || event == ButtonEvent::MOUSE_OUTSIDE) {
-	web->ChangeText("WoWps.org TBC");
+	if (elem == exit) {
+		if (evnt == ButtonEvent::LEFT_CLICK) {
+			return false;
+		}
 	}
-	if (event == ButtonEvent::LEFT_CLICK) {
-	web->ChangeText("LEFT CLICK");
+	if (elem == play) {
+		if (evnt == ButtonEvent::LEFT_CLICK) {
+			SceneChange();
+		}
 	}
-	}*/
-	switch (event) {
+
+	switch (evnt) {
 	
 	case ButtonEvent::MOUSE_INSIDE:
 		elem->StateChanging(HOVER);
@@ -144,17 +151,13 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 		break;
 	}
 	
-	if (elem == exit) {
-		if (event == ButtonEvent::LEFT_CLICK) {
-			return false;
-		}
-	}
-	if (elem == play) {
-		if (event == ButtonEvent::LEFT_CLICK) {
-			SceneChange();
-		}
-	}
-
-
 	return true;
+}
+
+void j1SceneMenu::CreateSettingWindow() {
+
+	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, {0,20},this);
+	window->tex = window->LoadTexture("gui/Settings/window.png");
+	window->rect = { 0,0, 741, 768 };
+	settingwindowcreated = true;
 }
