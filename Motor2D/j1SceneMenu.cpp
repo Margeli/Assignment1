@@ -13,6 +13,10 @@
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
 	name.create("menu");
+
+	for (int i = 0; i < 10; i++) {
+		winsoundtile[i] = nullptr;
+	}
 }
 
 j1SceneMenu::~j1SceneMenu()
@@ -111,53 +115,120 @@ void j1SceneMenu::SceneChange()
 
 bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)  
 {
-	if (elem == settings)
-	{
-		if (evnt == ButtonEvent::LEFT_CLICK) {
-			if (!settingwindowcreated)
-				CreateSettingWindow();
+	if (!settingwindowcreated) {
+		if (elem == settings)
+		{
+			if (evnt == ButtonEvent::LEFT_CLICK) {
+				if (!settingwindowcreated)
+					CreateSettingWindow();
+			}
 		}
-	}
-	if (elem == exit) {
-		if (evnt == ButtonEvent::LEFT_CLICK) {
-			return false;
+		if (elem == exit) {
+			if (evnt == ButtonEvent::LEFT_CLICK) {
+				return false;
+			}
 		}
-	}
-	if (elem == play) {
-		if (evnt == ButtonEvent::LEFT_CLICK) {
-			SceneChange();
+		if (elem == play) {
+			if (evnt == ButtonEvent::LEFT_CLICK) {
+				SceneChange();
+			}
 		}
-	}
 
-	switch (evnt) {
-	
-	case ButtonEvent::MOUSE_INSIDE:
-		elem->StateChanging(HOVER);
-		break;
-	case ButtonEvent::MOUSE_OUTSIDE:
-		elem->StateChanging(IDLE);
-		break;
-	case ButtonEvent::RIGHT_CLICK:
-		elem->StateChanging(PRESSED_R);
-		break;
-	case ButtonEvent::LEFT_CLICK:
-		elem->StateChanging(PRESSED_L);
-		break;
-	case ButtonEvent::LEFT_CLICK_UP:
-		elem->StateChanging(UP_L);
-		break;
-	case ButtonEvent::RIGHT_CLICK_UP:
-		elem->StateChanging(UP_R);
-		break;
+		switch (evnt) {
+
+		case ButtonEvent::MOUSE_INSIDE:
+			elem->StateChanging(HOVER);
+			break;
+		case ButtonEvent::MOUSE_OUTSIDE:
+			elem->StateChanging(IDLE);
+			break;
+		case ButtonEvent::RIGHT_CLICK:
+			elem->StateChanging(PRESSED_R);
+			break;
+		case ButtonEvent::LEFT_CLICK:
+			elem->StateChanging(PRESSED_L);
+			break;
+		case ButtonEvent::LEFT_CLICK_UP:
+			elem->StateChanging(UP_L);
+			break;
+		case ButtonEvent::RIGHT_CLICK_UP:
+			elem->StateChanging(UP_R);
+			break;
+		}
 	}
+	else {
 	
+		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus){
+			switch (evnt) {
+			case ButtonEvent::LEFT_CLICK:
+				elem->StateChanging(PRESSED_L);
+				if (elem == winquit) DestroySettingWindow();
+
+				break;
+			case ButtonEvent::LEFT_CLICK_UP:
+				elem->StateChanging(UP_L);
+				break;
+			case ButtonEvent::MOUSE_INSIDE:
+				elem->StateChanging(HOVER);
+				break;
+			case ButtonEvent::MOUSE_OUTSIDE:
+				elem->StateChanging(IDLE);
+				break;
+			}		
+		}
+		
+	
+	
+	}
 	return true;
 }
 
 void j1SceneMenu::CreateSettingWindow() {
 
+	settings->StateChanging(IDLE);
+	
 	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, {0,20},this);
 	window->tex = window->LoadTexture("gui/Settings/window.png");
 	window->rect = { 0,0, 741, 768 };
+
+	winquit = App->gui->AddButton(ALIGN_CENTERED,  nullptr, { -320,120 }, this);
+	winquit->SetButtonTex("gui/Settings/QuitButt.png", "gui/Settings/QuitButtPressed.png");	
+	winquit->rect = { 0,0, 61, 72 };
+	window->AddWindowElement(winquit);
+
+	winsoundmin = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -310,420 }, this);
+	winsoundmin->SetButtonTex("gui/Settings/MinusButt.png", "gui/Settings/MinusButtPressed.png");
+	winsoundmin->rect = { 0,0, 69, 80 };
+	window->AddWindowElement(winsoundmin);
+
+	winsoundplus = App->gui->AddButton(ALIGN_CENTERED, nullptr, {310,420 }, this);
+	winsoundplus->SetButtonTex("gui/Settings/PlusButt.png", "gui/Settings/PlusButtPressed.png");
+	winsoundplus->rect = { 0,0, 72, 84 };
+	window->AddWindowElement(winsoundplus);
+
+	winsoundbar = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/back_bar.png", {0,0,543,88}, { 0,420 });
+	window->AddWindowElement(winsoundbar);
+	winsetticon = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/SettingsIcon.png", { 0,0,68,82 }, { 0,100 });
+	window->AddWindowElement(winsetticon);
+	winsoundtxt = App->gui->AddText(ALIGN_CENTERED, "SOUND", { 0,370 });
+	window->AddWindowElement(winsoundtxt);
+
 	settingwindowcreated = true;
+}
+
+void j1SceneMenu::DestroySettingWindow() {
+	window->to_delete = true;
+	winquit->to_delete = true;
+	winsoundplus->to_delete = true;
+	winsoundmin->to_delete = true;
+	winsoundbar->to_delete = true;
+	winsetticon->to_delete = true;
+	winsoundtxt->to_delete = true;
+
+	for (int i = 0; i < 10; i++) {
+		if(winsoundtile[i]!=nullptr)
+		winsoundtile[i]->to_delete = true;
+	}
+
+	settingwindowcreated = false;
 }

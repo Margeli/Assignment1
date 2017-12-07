@@ -9,6 +9,8 @@ struct SDL_Texture;
 class SDL_Rect;
 class GuiWindow;
 class GuiButton;
+class GuiImage;
+class GuiLabel;
 class jUI_Elem;
 enum ButtonEvent;
 
@@ -43,9 +45,17 @@ public:
 private:
 
 	void CreateSettingWindow();
+	void DestroySettingWindow();
 	bool settingwindowcreated = false;
 
 	GuiWindow*	window = nullptr;
+	GuiButton* winquit = nullptr;
+	GuiButton* winsoundmin = nullptr;
+	GuiButton* winsoundplus = nullptr;
+	GuiImage* winsoundbar = nullptr;
+	GuiImage* winsetticon = nullptr;
+	GuiLabel* winsoundtxt = nullptr;
+	GuiImage* winsoundtile[10];
 
 	GuiButton*	play = nullptr;
 	GuiButton*	cont = nullptr;

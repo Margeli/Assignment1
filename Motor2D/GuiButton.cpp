@@ -40,6 +40,15 @@ bool GuiButton::CleanUp()
 
 	return true;
 }
+bool GuiButton::PreUpdate() {
+
+	if (to_delete)
+	{
+		buttontext->to_delete= true;
+	}
+	return true;
+}
+
 bool GuiButton::Update(float dt) 
 {
 	if (active == false) {

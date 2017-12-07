@@ -25,6 +25,8 @@ public:
 
 	virtual bool Start();
 
+	virtual bool PreUpdate() { return true; };
+
 	virtual bool Update(float dt);
 
 	virtual bool PostUpdate() { return true; };
@@ -34,6 +36,8 @@ public:
 	void UpdateAlignment();
 
 	virtual void DebugDraw();
+
+	virtual void Drag(iPoint displace) {};
 
 	virtual void StateChanging(ButtonState state) {};
 

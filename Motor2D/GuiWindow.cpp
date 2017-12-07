@@ -21,7 +21,10 @@ bool GuiWindow::Start()
 		rect = { 30, 542, 422, 454 };
 	}
 	PutWindowButtons();
-	state = IDLE;
+
+	event = LEFT_CLICK; // to avoid dragging when the window is created
+	previous_event = LEFT_CLICK;
+	
 	return true;
 }
 
@@ -116,6 +119,9 @@ void GuiWindow::DragWindowElements(iPoint displace) {
 	for (p2List_item<GuiButton*>* button = win_buttons.start; button; button = button->next) {
 		button->data->Drag(displace);	
 	}
+	for (p2List_item<j1UI_Elem*>* elem = win_elems.start; elem; elem = elem->next) {
+		elem->data->Drag(displace);
+	}
 }
 
 void GuiWindow::PushButtonName( p2SString txt) {
@@ -125,4 +131,7 @@ void GuiWindow::PushButtonName( p2SString txt) {
 		return;
 	}
 	win_buttons_txt.add(txt);
+}
+void GuiWindow::AddWindowElement(j1UI_Elem* elem){
+	win_elems.add(elem);
 }

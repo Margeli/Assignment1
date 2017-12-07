@@ -42,8 +42,10 @@ bool j1Gui::PreUpdate()
 
 	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL; elem = elem->next)
 	{ 
+		elem->data->PreUpdate();
 		if (elem->data->to_delete)
 			DestroyElement(elem->data);
+		
 	}
 
 

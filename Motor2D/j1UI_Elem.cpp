@@ -16,6 +16,7 @@ j1UI_Elem::~j1UI_Elem() {}
 
 SDL_Texture* j1UI_Elem::LoadTexture(p2SString path) 
 {
+
 	SDL_Texture* ret = App->tex->Load(path.GetString());
 	return ret;
 }

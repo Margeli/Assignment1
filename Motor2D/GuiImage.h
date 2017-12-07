@@ -12,6 +12,7 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
+	void Drag(iPoint displace);
 };
 
 #endif // __GUIIMAGE_H__

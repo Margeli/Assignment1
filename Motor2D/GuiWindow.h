@@ -9,6 +9,7 @@
 
 class GuiButton;
 class GuiLabel;
+class j1UI_Elem;
 
 class GuiWindow : public j1UI_Elem
 {
@@ -24,11 +25,12 @@ public:
 	p2SString title;
 	uint num_buttons;
 
+	void AddWindowElement(j1UI_Elem* elem);
 	void StateChanging(ButtonState state);
 	void PushButtonName(p2SString txt); //Sets the name of the buttons in order
 
 private:
-
+	p2List<j1UI_Elem*> win_elems;
 	p2List<GuiButton*> win_buttons;
 	p2List<p2SString> win_buttons_txt;
 	GuiLabel* win_text;

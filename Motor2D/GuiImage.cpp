@@ -35,3 +35,10 @@ bool GuiImage::Update(float dt)
 		
 	return true;
 }
+
+void GuiImage::Drag(iPoint displace)
+{
+	displacement.x += displace.x;
+	displacement.y += displace.y;
+	
+}

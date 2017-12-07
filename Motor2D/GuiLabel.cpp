@@ -73,6 +73,7 @@ bool GuiLabel::Update(float dt)
 
 void GuiLabel::ChangeText(p2SString newtext) 
 {
+	App->tex->UnLoad(tex);
 	text = newtext;	
 	tex = App->font->Print(newtext.GetString(), text_color, text_font);
 }

@@ -13,6 +13,7 @@ public:
 	virtual ~GuiButton();
 	bool Start();
 	bool CleanUp();
+	bool PreUpdate();
 	bool Update(float dt);
 
 	p2SString text;
