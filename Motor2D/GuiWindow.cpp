@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "p2Log.h"
+#include "j1Textures.h"
 
 GuiWindow::GuiWindow(Alignment alignment) : j1UI_Elem(UIType::INPUTBOX, Alignment::NO_ALIGN) 
 {
@@ -30,13 +31,30 @@ bool GuiWindow::Start()
 
 bool GuiWindow::CleanUp() 
 {
+	to_delete = true;
+	App->tex->UnLoad(tex);
+
+	if (win_text) { win_text->CleanUp(); }
+
+	for (p2List_item<GuiButton*>* button = win_buttons.start; button; button = button->next) {
+		button->data->CleanUp();
+	}
+	win_buttons.clear();
+	for (p2List_item<j1UI_Elem*>* elem = win_elems.start; elem; elem = elem->next) {
+		elem->data->CleanUp();
+	}
+	win_elems.clear();
+	for (p2List_item<p2SString>* string = win_buttons_txt.start; string; string = string->next) {
+		string->data.Clear();
+	}
+	win_buttons_txt.clear();
 	//App->tex->UnLoad(tex);
 	return true;
 }
 
 bool GuiWindow::Update(float dt) 
 {
-	if (moving) { Drag(); }
+	if (moving && can_move) { Drag(); }
 	UpdateAlignment();
 	App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);
 	return true;
@@ -53,11 +71,13 @@ void GuiWindow::StateChanging(ButtonState status)
 		state = status;
 		break;
 	case PRESSED_L:
-		StartDrag();		
+		if (can_move)
+			StartDrag();
 		state = status;
 		break;
 	case UP_L:
-		EndDrag();
+		if (can_move)
+			EndDrag();
 		state = status;
 		break;
 	}

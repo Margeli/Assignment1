@@ -33,7 +33,7 @@ private:
 
 	void AddButtonText();
 	void DragButtonElements(iPoint displace);
-	GuiLabel* buttontext;
+	GuiLabel* buttontext = nullptr;
 
 };
 

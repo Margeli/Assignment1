@@ -1,4 +1,3 @@
-
 #include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
@@ -125,7 +124,7 @@ void j1Gui::UpdateElemEvent() const
 bool j1Gui::ManageElemEvent() 
 {
 	bool ret = true;
-	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL && ret != false; elem = elem->next)
+	for (p2List_item<j1UI_Elem*>* elem = elements.end; elem != NULL && ret != false; elem = elem->prev)
 	{
 		if ((elem->data->event != elem->data->previous_event)
 			&& elem->data->listener != nullptr) {

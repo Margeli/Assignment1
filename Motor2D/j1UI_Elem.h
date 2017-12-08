@@ -56,7 +56,7 @@ public:
 	bool draw = true;
 	bool to_delete = false;
 	
-
+	bool can_move = true;
 
 private:
 	bool Blit() const { return true; }

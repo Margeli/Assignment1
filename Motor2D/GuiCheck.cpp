@@ -4,6 +4,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Input.h"
+#include "j1Textures.h"
 
 GuiCheck::GuiCheck(Alignment alignment) : j1UI_Elem(UIType::CHECK, Alignment::NO_ALIGN) 
 {
@@ -25,7 +26,11 @@ bool GuiCheck::Start()
 
 bool GuiCheck::CleanUp() 
 {
-	//App->tex->UnLoad(tex);
+	to_delete = true;
+	App->tex->UnLoad(tex);
+	App->tex->UnLoad(check);
+	checktxt->CleanUp();
+
 	return true;
 }
 
@@ -37,9 +42,9 @@ bool GuiCheck::Update(float dt)
 	return true;
 }
 
-void GuiCheck::AddCheckText() const 
-{
-	App->gui->AddText(align, text, { displacement.x+ 30 , displacement.y + 5 }, MORPHEUS, { 255, 255,0,255 });
+void GuiCheck::AddCheckText() {
+
+	checktxt = App->gui->AddText(align, text, { displacement.x+ 30 , displacement.y + 5 }, MORPHEUS, { 255, 255,0,255 });
 }
 
 void GuiCheck::StateChanging(ButtonState status) 

@@ -3,6 +3,8 @@
 
 #include "j1UI_Elem.h"
 
+class GuiLabel;
+
 class GuiCheck : public j1UI_Elem
 {
 public:
@@ -18,8 +20,9 @@ public:
 	void StateChanging(ButtonState state);
 
 private:
-	void AddCheckText() const ;
+	void AddCheckText();
 	SDL_Texture* check;
+	GuiLabel* checktxt = nullptr;
 };
 
 #endif // __GUICHECK_H__
