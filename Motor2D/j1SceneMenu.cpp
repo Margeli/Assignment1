@@ -10,6 +10,8 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 
+#define DEFAULT_BAR_LENGHT 5
+
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
 	name.create("menu");
@@ -163,6 +165,8 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 			case ButtonEvent::LEFT_CLICK:
 				elem->StateChanging(PRESSED_L);
 				if (elem == winquit) DestroySettingWindow();
+				if (elem == winsoundmin) ShiftVolumeLeft();
+				if (elem == winsoundplus) ShiftVolumeRight();
 
 				break;
 			case ButtonEvent::LEFT_CLICK_UP:
@@ -196,22 +200,41 @@ void j1SceneMenu::CreateSettingWindow() {
 	winquit->rect = { 0,0, 61, 72 };
 	window->AddWindowElement(winquit);
 
-	winsoundmin = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -310,420 }, this);
+	winsetticon = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/SettingsIcon.png", { 0,0,68,82 }, { 0,100 });
+	window->AddWindowElement(winsetticon);
+
+
+
+	int winsoundbar_y = 370;
+	winsoundtxt = App->gui->AddText(ALIGN_CENTERED, "SOUND", { 0,winsoundbar_y });
+	window->AddWindowElement(winsoundtxt);
+
+	winsoundmin = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -310,winsoundbar_y + 50 }, this);
 	winsoundmin->SetButtonTex("gui/Settings/MinusButt.png", "gui/Settings/MinusButtPressed.png");
 	winsoundmin->rect = { 0,0, 69, 80 };
 	window->AddWindowElement(winsoundmin);
 
-	winsoundplus = App->gui->AddButton(ALIGN_CENTERED, nullptr, {310,420 }, this);
+	winsoundplus = App->gui->AddButton(ALIGN_CENTERED, nullptr, {310,winsoundbar_y + 50 }, this);
 	winsoundplus->SetButtonTex("gui/Settings/PlusButt.png", "gui/Settings/PlusButtPressed.png");
 	winsoundplus->rect = { 0,0, 72, 84 };
-	window->AddWindowElement(winsoundplus);
+	window->AddWindowElement(winsoundplus);	
 
-	winsoundbar = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/back_bar.png", {0,0,543,88}, { 0,420 });
+	winsoundbar = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/back_bar.png", { 0,0,543,88 }, { 0,winsoundbar_y+50 });
 	window->AddWindowElement(winsoundbar);
-	winsetticon = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/SettingsIcon.png", { 0,0,68,82 }, { 0,100 });
-	window->AddWindowElement(winsetticon);
-	winsoundtxt = App->gui->AddText(ALIGN_CENTERED, "SOUND", { 0,370 });
-	window->AddWindowElement(winsoundtxt);
+
+	winsoundtile[0] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Leftbar.png", { 0,0,48,75 }, { -235,winsoundbar_y+ 57 });
+	window->AddWindowElement(winsoundtile[0]);
+
+	for (int i = 1; i < 9; i++) {
+		winsoundtile[i] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Midbar.png", { 0,0,45,75 }, { -235+ 52*i,winsoundbar_y + 57 });
+		if (i >= DEFAULT_BAR_LENGHT) { winsoundtile[i]->draw = false; }
+		window->AddWindowElement(winsoundtile[i]);
+	}
+	winsoundtile[9] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winsoundbar_y + 57 });
+	winsoundtile[9]->draw = false;
+	window->AddWindowElement(winsoundtile[9]);
+
+
 
 	settingwindowcreated = true;
 }
@@ -231,4 +254,25 @@ void j1SceneMenu::DestroySettingWindow() {
 	}
 
 	settingwindowcreated = false;
+}
+
+void j1SceneMenu::ShiftVolumeLeft() {
+
+	for (int i = 0; i < 10; i++) {
+		if (winsoundtile[i]->draw == false) {
+			winsoundtile[i - 1]->draw = false;
+			return;
+		}
+	}
+	winsoundtile[9]->draw = false;
+}
+
+void j1SceneMenu::ShiftVolumeRight() {
+
+	for (int i = 0; i < 10; i++) {
+		if (winsoundtile[i]->draw == false) {
+			winsoundtile[i]->draw = true;
+			return;
+		}
+	}
 }

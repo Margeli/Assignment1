@@ -46,6 +46,9 @@ private:
 
 	void CreateSettingWindow();
 	void DestroySettingWindow();
+	void ShiftVolumeLeft();
+	void ShiftVolumeRight();
+	
 	bool settingwindowcreated = false;
 
 	GuiWindow*	window = nullptr;
