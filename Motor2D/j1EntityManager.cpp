@@ -76,7 +76,9 @@ bool j1EntityManager::CleanUp()
 {
 	SpawnListReset();
 	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next)
-	{entity_iterator->data->CleanUp();}
+	{entity_iterator->data->CleanUp();
+	DestroyEntity(entity_iterator->data);
+	}
 	return true;
 }
 

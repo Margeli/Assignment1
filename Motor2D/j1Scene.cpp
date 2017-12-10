@@ -161,6 +161,18 @@ void j1Scene::SceneChange()
 	App->pathfind->Start();
 	App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
 }
+void j1Scene::SceneChangeMenu()
+{
+	App->menu->active = true;
+	App->scene1->active = false;
+
+	CleanUp();
+	App->entities->CleanUp();
+	App->entities->active = false;
+
+	App->menu->Start();
+	
+}
 
 void j1Scene::PlaceEnemies() const
 {

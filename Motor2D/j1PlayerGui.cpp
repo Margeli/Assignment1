@@ -9,7 +9,7 @@
 
 j1PlayerGui::j1PlayerGui()
 {
-	for (int i = 0; i < LIFES; i++) 
+	for (int i = 0; i < LIFES; i++)
 	{
 		full_heart[i] = nullptr;
 		empty_heart[i] = nullptr;
@@ -21,6 +21,7 @@ j1PlayerGui::~j1PlayerGui()
 
 bool j1PlayerGui::Start() 
 {
+
 	for (int i = 0; i < LIFES; i++) 
 	{
 		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts.png", { 0,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS }); 
@@ -43,12 +44,13 @@ bool j1PlayerGui::Start()
 
 bool j1PlayerGui::Update(float dt) 
 {
+	p2SString player_pickups = { "%i", App->entities->player->pickups_counter };
 	p2SString player_score = { " %i", App->entities->player->points };
 	
+	pickups_text->ChangeText(player_pickups);		
 	points_text->ChangeText(player_score);//update the same label or change it itereatively
 
-	p2SString player_pickups = { "%i", App->entities->player->pickups_counter };
-	pickups_text->ChangeText(player_pickups);
+	
 
 	return true;
 }
@@ -60,6 +62,8 @@ bool j1PlayerGui::CleanUp() {
 	}
 	points_img->CleanUp();
 	points_text->CleanUp();
+	points_text->CleanUp();
+	pickups_text->CleanUp();
 
 	return true;
 }

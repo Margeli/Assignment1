@@ -31,7 +31,7 @@ public:
 	void PlayerHurted();
 	void LoseOneLife();
 	void LittleJump();
-
+	
 
 	int lifes;
 	int points = 0;

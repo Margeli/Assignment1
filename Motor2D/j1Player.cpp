@@ -32,12 +32,12 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 	littlejumphigh = LITTLEJUMPHIGH;
 	speed = SPEED;
 	
-	playerGui = new j1PlayerGui();
+	
 }
 
 j1Player::~j1Player() 
 {
-	RELEASE(playerGui);
+	
 }
 
 bool j1Player::Awake(pugi::xml_node& conf)
@@ -75,7 +75,7 @@ bool j1Player::Start()
 
 	JumpReset();
 
-	
+	playerGui = new j1PlayerGui();
 	playerGui->Start();
 	
 
@@ -85,9 +85,11 @@ bool j1Player::Start()
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player.");
-	App->tex->UnLoad(sprites);
-	if (collider != nullptr) {	collider->to_delete = true; }
-	
+	App->tex->UnLoad(sprites);	
+	if (collider != nullptr) {
+		collider->to_delete = true; }
+	playerGui->CleanUp();
+	RELEASE(playerGui);
 	return true; 
 }
 
@@ -205,9 +207,7 @@ bool j1Player::Update(float dt)
 	if (collider != nullptr) { collider->SetPos(fposition.x, fposition.y + 5); }
 
 	if (player_hurted && animation->Finished() == true) {
-		LoseOneLife(); }
-
-	if (lifes < 1) { Dead(); }
+		LoseOneLife(); }	
 		
 	if (points > max_score) { max_score = points; }
 
@@ -216,6 +216,9 @@ bool j1Player::Update(float dt)
 	playerGui->Update(dt);
 
 	Draw();
+
+	//----DEAD
+	if (lifes < 1) { Dead(); }
 	
 
 	return true;
@@ -223,12 +226,14 @@ bool j1Player::Update(float dt)
 
 void j1Player::Dead()
 {
-	CleanUp();
+	
 	App->audio->PlayFx(lose_fx, 0);
 	lifes = LIFES;
 	points = 0;
-	App->scene2->SceneChange();//prepares all to respawn in the first scene correctly
-	Start();
+	if (App->scene1->active) { App->scene1->SceneChangeMenu(); }
+	if (App->scene2->active) {
+		position = App->scene2->initial_scene_pos; }
+	
 }
 
 void j1Player::PlayerHurted() 

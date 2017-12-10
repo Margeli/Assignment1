@@ -36,6 +36,8 @@ public:
 
 	void SceneChange();
 
+	void SceneChangeMenu();
+
 	bool fading = false;
 
 	iPoint initial_scene_pos;

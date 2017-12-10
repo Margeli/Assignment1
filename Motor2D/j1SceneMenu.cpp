@@ -9,6 +9,7 @@
 #include "j1Scene2.h"
 #include "j1EntityManager.h"
 #include "j1Player.h"
+#include "j1Pathfinding.h"
 
 #define DEFAULT_BAR_LENGHT 5
 
@@ -112,8 +113,11 @@ void j1SceneMenu::SceneChange()
 	
 	
 	App->scene1->Start();
+	App->entities->active = true;
 	App->entities->CreatePlayer();
-	App->entities->player->Start();
+	App->entities->Start();	
+	App->collis->Start();
+	App->pathfind->Start();
 	App->render->SetCameraInitialPos();
 }
 
