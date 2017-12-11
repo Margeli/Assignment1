@@ -130,7 +130,7 @@ bool j1Troll::Update(float dt)
 {
 
 	BROFILER_CATEGORY("EntityTROLLUpdate", Profiler::Color::Bisque);
-	fposition.y += GRAVITY + GRAVITY*dt;	
+	//fposition.y += GRAVITY + GRAVITY*dt;	
 
 	if (dead == true) 
 	{ // when troll dies

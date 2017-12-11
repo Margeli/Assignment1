@@ -17,9 +17,9 @@
 #include "SDL/include/SDL_timer.h"
 
 #define SPEED 3
-#define JUMP_SPEED 10.0f
+#define JUMP_SPEED 15.0f
 #define JUMP_LIMIT 30.0f
-#define LITTLEJUMPHIGH 15
+#define LITTLEJUMPHIGH 5
 
 
 j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
