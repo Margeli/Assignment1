@@ -117,6 +117,8 @@ bool j1Scene2::CleanUp()
 	App->collis->CleanUp();
 	App->tex->CleanUp();
 	App->entities->EnemiesCleanUp();
+	if (App->entities->player)
+		App->entities->player->CleanUp();
 	App->pathfind->CleanUp();
 	
 	return true;
@@ -149,13 +151,25 @@ void j1Scene2::SceneChange()
 
 	CleanUp();
 	
-	App->scene1->Start();
 	App->entities->Start();
+	App->scene1->Start();	
 	
 	App->collis->Start();
 	App->render->SetCameraInitialPos();
 	App->pathfind->Start();
 	App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
+}
+void j1Scene2::SceneChangeMenu()
+{
+	App->menu->active = true;
+	App->scene2->active = false;
+
+	CleanUp();
+	App->entities->CleanUp();
+	App->entities->active = false;
+
+	App->menu->Start();
+
 }
 
 void j1Scene2::PlaceEnemies() const

@@ -54,6 +54,7 @@ bool j1PlayerGui::Update(float dt)
 
 	int sec = timer.ReadSec();
 	if (sec > last_sec) {
+		sec += base_time;
 		if (sec > 999) { sec = 999; }
 		p2SString time_txt = { "%03i", sec };
 		timer_text->ChangeText(time_txt);
@@ -89,4 +90,23 @@ void j1PlayerGui::DrawHearts(int current_lifes) {
 	for (int i = LIFES-1; i >= current_lifes; i--) {
 		empty_heart[i]->draw = true;
 	}
+}
+
+bool j1PlayerGui::Load(pugi::xml_node& data)
+{
+	pugi::xml_node gui = data; 
+	App->entities->player->pickups_counter = data.child("pickups").attribute("value").as_int();
+	App->entities->player->points = data.child("score").attribute("value").as_int();
+	base_time = data.child("time").attribute("value").as_int();
+	return true;
+}
+
+bool j1PlayerGui::Save(pugi::xml_node& data) const
+{
+	pugi::xml_node gui = data;
+
+	gui.append_child("pickups").append_attribute("value") = App->entities->player->pickups_counter;
+	gui.append_child("score").append_attribute("value") = App->entities->player->points;
+	gui.append_child("time").append_attribute("value") = (int)timer.ReadSec();
+	return true;
 }

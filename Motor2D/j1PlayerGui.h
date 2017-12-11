@@ -20,6 +20,9 @@ public:
 
 	void DrawHearts(int current_lifes);
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 	j1Timer		timer;
 	GuiImage* full_heart[LIFES];
@@ -30,6 +33,7 @@ private:
 	GuiLabel* pickups_text;
 	GuiLabel* timer_text;
 	uint last_sec;
+	uint base_time=0;
 };
 
 #endif //__j1PLAYERGUI_H__

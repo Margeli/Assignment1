@@ -79,6 +79,7 @@ bool j1EntityManager::CleanUp()
 	{entity_iterator->data->CleanUp();
 	DestroyEntity(entity_iterator->data);
 	}
+	player = nullptr;
 	return true;
 }
 
@@ -145,7 +146,7 @@ void  j1EntityManager::CheckPlayerPostoDespawn()
 
 bool j1EntityManager::Load(pugi::xml_node& data ) 
 {
-	SpawnListReset();
+	
 	EnemiesCleanUp();
 	player->Load(data.child(player->name.GetString()));
 	

@@ -28,6 +28,8 @@ public:
 
 	void SceneChange();
 
+	void SceneChangeMenu();
+
 	iPoint initial_scene_pos;
 	
 	bool Load(pugi::xml_node&);

@@ -91,6 +91,8 @@ void j1FlyingEnemy::LoadFlyAnimations()
 bool j1FlyingEnemy::CleanUp()
 {
 	App->tex->UnLoad(sprites);
+	if (App->collis->CollidersNum() != 0)
+		collider->to_delete = true;
 	
 	//path->Clear();
 	return true;

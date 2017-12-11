@@ -231,7 +231,7 @@ void j1Player::Dead()
 	lifes = LIFES;
 	points = 0;
 	if (App->scene1->active) { App->scene1->SceneChangeMenu(); }
-	//if (App->scene2->active) { App->scene2->SceneChangeMenu(); }
+	else if (App->scene2->active) { App->scene2->SceneChangeMenu(); }
 	
 }
 
@@ -327,6 +327,10 @@ bool j1Player::Load(pugi::xml_node& data)
 	fposition.x = data.child("position").attribute("x").as_float();
 	fposition.y = data.child("position").attribute("y").as_float();
 
+	if (playerGui) {
+		playerGui->Load(data.child("gui"));
+	}
+
 	return true;
 }
 
@@ -336,6 +340,13 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 	pos.append_attribute("x") = fposition.x;
 	pos.append_attribute("y") = fposition.y;
+
+	pugi::xml_node lif = data.append_child("lifes");
+	lif.append_attribute("value") = lifes;
+
+	if (playerGui) {
+		playerGui->Save(data.append_child("gui"));
+	}
 
 	return true;
 }

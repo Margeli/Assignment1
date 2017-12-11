@@ -63,6 +63,8 @@ bool j1Collectables::CleanUp()
 {
 	LOG("Unloading collectable.");
 	App->tex->UnLoad(sprites);
+	if (App->collis->CollidersNum() != 0)
+		collider->to_delete = true;
 	
 	return true;
 }
