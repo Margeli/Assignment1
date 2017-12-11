@@ -124,6 +124,8 @@ bool j1Scene::CleanUp()
 	App->collis->CleanUp();
 	App->tex->CleanUp();
 	App->entities->EnemiesCleanUp();
+	if (App->entities->player)
+	App->entities->player->CleanUp();
 	App->pathfind->CleanUp();
 
 	return true;
@@ -152,10 +154,10 @@ void j1Scene::SceneChange()
 	App->scene1->active = false;
 
 	CleanUp();	
-
+	App->entities->Start();
 	App->scene2->Start();
 	//App->entities->first_loop = true;
-	App->entities->Start();
+	
 	App->collis->Start();
 	App->render->SetCameraInitialPos();
 	App->pathfind->Start();

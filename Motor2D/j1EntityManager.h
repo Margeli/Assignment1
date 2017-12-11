@@ -36,6 +36,7 @@ public:
 	virtual bool PreUpdate();
 	virtual bool CleanUp();
 	bool first_loop = true;
+	bool EnemiesStart();
 	bool EnemiesCleanUp();
 	void SetEnemiesInitialPos();
 	

@@ -231,8 +231,7 @@ void j1Player::Dead()
 	lifes = LIFES;
 	points = 0;
 	if (App->scene1->active) { App->scene1->SceneChangeMenu(); }
-	if (App->scene2->active) {
-		position = App->scene2->initial_scene_pos; }
+	//if (App->scene2->active) { App->scene2->SceneChangeMenu(); }
 	
 }
 

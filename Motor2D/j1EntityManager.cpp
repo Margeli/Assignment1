@@ -232,10 +232,22 @@ bool j1EntityManager::EnemiesCleanUp()
 	SpawnListReset();
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
-		if (entity_iterator->data->type == EntityTypes::TROLL || entity_iterator->data->type == EntityTypes::FLY || entity_iterator->data->type == EntityTypes::COLLECT || entity_iterator->data->type == EntityTypes::TROLL2 || entity_iterator->data->type == EntityTypes::TROLL3) 
+		if (entity_iterator->data->type != EntityTypes::PLAYER) 
 		{
 			entity_iterator->data->CleanUp();
 			DestroyEntity(entity_iterator->data);
+		}
+	}
+	return true;
+}
+bool j1EntityManager::EnemiesStart()
+{
+	
+	p2List_item<j1Entity*>* entity_iterator;
+	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next) {
+		if (entity_iterator->data->type != EntityTypes::PLAYER)
+		{
+			entity_iterator->data->Start();			
 		}
 	}
 	return true;
