@@ -14,6 +14,7 @@
 #include "j1EntityManager.h"
 #include "Brofiler/Brofiler.h"
 #include "j1Pathfinding.h"
+#include "j1FadeToBlack.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -38,7 +39,6 @@ bool j1Scene::Start()
 	if (App->menu->active == true) { active = false; }
 	if (App->scene2->active == true) { active = false; }
 	
-
 	if (active) 
 	{
 		if (App->map->Load("Map1.tmx")) {
@@ -102,7 +102,8 @@ bool j1Scene::Update(float dt)
 	if (App->entities->player->position.x >= RIGHT_SCENE_LIMIT)
 	{ 
 		LOG("End of level 1!");
-		SceneChange();
+		App->fade->FadeToBlack(this, App->scene2, 0.8f); 
+		SceneChange(); 
 	}
 	App->map->Draw();
 	return true;

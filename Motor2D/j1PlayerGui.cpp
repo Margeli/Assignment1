@@ -34,7 +34,7 @@ bool j1PlayerGui::Start()
 	SDL_Color bananacolor = { 255, 255, 0, 255 };
 
 	points_img = App->gui->AddImage(ALIGN_CENTERED, "gui/banapoints.png", { 0, 0, 43, 40 }, { 150, 20 } );
-	points_text = App->gui->AddText(ALIGN_RIGHT, "0", {-40, 20 }, SKURRI, bananacolor);
+	points_text = App->gui->AddText(ALIGN_RIGHT, "0", {-150, 20 }, SKURRI, bananacolor);
 	pickups_text = App->gui->AddText(ALIGN_CENTERED, "0", { 190, 20 }, SKURRI, bananacolor);
 	timer_text = App->gui->AddText(ALIGN_CENTERED, "000", { 0, 20 }, SKURRI, bananacolor);
 
@@ -59,7 +59,6 @@ bool j1PlayerGui::Update(float dt)
 		p2SString time_txt = { "%03i", sec };
 		timer_text->ChangeText(time_txt);
 	}
-	
 
 	return true;
 }

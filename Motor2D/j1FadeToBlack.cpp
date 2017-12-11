@@ -17,7 +17,6 @@ j1FadeToBlack::~j1FadeToBlack()
 // Load assets
 bool j1FadeToBlack::Start()
 {
-	
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
 	return true;
 }

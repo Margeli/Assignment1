@@ -64,6 +64,9 @@ bool j1SceneMenu::Start()
 		exit = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,600 }, this);
 		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png");
 		menu_elems.add(exit);
+
+		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+
 	}
 	return true;
 }
@@ -75,9 +78,7 @@ bool j1SceneMenu::PreUpdate()
 
 bool j1SceneMenu::Update(float dt)
 {
-	if (toChangeScene&&!App->fade->IsFading()) {
-		SceneChange();
-	}
+	if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
 	App->render->Blit(background, 0, 0,&background_rect);
 	return true;
 }
@@ -94,15 +95,9 @@ bool j1SceneMenu::CleanUp()
 {
 	LOG("Unloading  menu.");
 
-	for (p2List_item<j1UI_Elem*>* elem = menu_elems.end; elem!=nullptr; elem = elem->prev) {		
-		elem->data->CleanUp();							
-	}
+	for (p2List_item<j1UI_Elem*>* elem = menu_elems.end; elem != nullptr; elem = elem->prev) { elem->data->CleanUp(); }
 	menu_elems.clear();
-	if (settingwindowcreated)
-	{
-		DestroySettingWindow();
-	}
-
+	if (settingwindowcreated) { DestroySettingWindow(); }
 
 	return true;
 }
@@ -127,29 +122,27 @@ void j1SceneMenu::SceneChange()
 
 bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)  
 {
-	if (!settingwindowcreated) {
+	if (!settingwindowcreated) 
+	{
 		if (elem == settings)
 		{
-			if (evnt == ButtonEvent::LEFT_CLICK) {
-				if (!settingwindowcreated)
-					CreateSettingWindow();
+			if (evnt == ButtonEvent::LEFT_CLICK) 
+			{
+				if (!settingwindowcreated) CreateSettingWindow();
 			}
 		}
-		if (elem == exit) {
-			if (evnt == ButtonEvent::LEFT_CLICK) {
-				return false;
-			}
-		}
-		if (elem == play) {
-			if (evnt == ButtonEvent::LEFT_CLICK) {
+		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) return false; }
+		if (elem == play) 
+		{
+			if (evnt == ButtonEvent::LEFT_CLICK) 
+			{
 				App->fade->FadeToBlack(this, App->scene1, 0.5f);
 				toChangeScene = true;
-				
 			}
 		}
 
-		switch (evnt) {
-
+		switch (evnt) 
+		{
 		case ButtonEvent::MOUSE_INSIDE:
 			elem->StateChanging(HOVER);
 			break;
@@ -170,48 +163,48 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 			break;
 		}
 	}
-	else {
-	
-		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus){
-			switch (evnt) {
+	else 
+	{
+		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus)
+		{
+			switch (evnt) 
+			{
 			case ButtonEvent::LEFT_CLICK:
-				
 				if (elem == winquit) DestroySettingWindow();
-				if (elem == winsoundmin) {
-					ShiftVolumeLeft(); window->can_move = false; }
-				if (elem == winsoundplus){
-					ShiftVolumeRight(); window->can_move = false;}
+				if (elem == winsoundmin) { ShiftVolumeLeft(); window->can_move = false; 
 				
-				elem->StateChanging(PRESSED_L);
+				//SDL_CloseAudio();
+	
+				//Uint32 audio_lenght = SDL_GetQueuedAudioSize();
 
+				//SDL_MixAudio(    ,    ,    , MIX_MAX_VOLUME);		//128/10(Decrease of volume per bar)
+
+				}
+				if (elem == winsoundplus) {ShiftVolumeRight(); window->can_move = false; }
+				elem->StateChanging(PRESSED_L);
 				break;
+
 			case ButtonEvent::LEFT_CLICK_UP:
-			
 				elem->StateChanging(UP_L);
 				break;
+
 			case ButtonEvent::MOUSE_INSIDE:
 				elem->StateChanging(HOVER);
 				break;
+
 			case ButtonEvent::MOUSE_OUTSIDE:
-				if (elem == winsoundmin) {
-					window->can_move = true;
-				}
-				else if (elem == winsoundplus) {
-					window->can_move = true;
-				}
+				if (elem == winsoundmin) { window->can_move = true; }
+				else if (elem == winsoundplus) { window->can_move = true; }
 				elem->StateChanging(IDLE);
 				break;
 			}		
 		}
-		
-	
-	
 	}
 	return true;
 }
 
-void j1SceneMenu::CreateSettingWindow() {
-
+void j1SceneMenu::CreateSettingWindow() 
+{
 	settings->StateChanging(IDLE);
 	
 	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, {0,20},this);
@@ -226,8 +219,6 @@ void j1SceneMenu::CreateSettingWindow() {
 
 	winsetticon = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/SettingsIcon.png", { 0,0,68,82 }, { 0,100 });
 	window->AddWindowElement(winsetticon);
-
-
 
 	int winsoundbar_y = 370;
 	winsoundtxt = App->gui->AddText(ALIGN_CENTERED, "SOUND", { 0,winsoundbar_y });
@@ -258,22 +249,21 @@ void j1SceneMenu::CreateSettingWindow() {
 	winsoundtile[9]->draw = false;
 	window->AddWindowElement(winsoundtile[9]);
 
-
-
 	settingwindowcreated = true;
 }
 
-void j1SceneMenu::DestroySettingWindow() {
+void j1SceneMenu::DestroySettingWindow() 
+{
 	window->CleanUp();
-	
-
 	settingwindowcreated = false;
 }
 
-void j1SceneMenu::ShiftVolumeLeft() {
-
-	for (int i = 0; i < 10; i++) {
-		if (winsoundtile[i]->draw == false) {
+void j1SceneMenu::ShiftVolumeLeft() 
+{
+	for (int i = 0; i < 10; i++) 
+	{
+		if (winsoundtile[i]->draw == false) 
+		{
 			winsoundtile[i - 1]->draw = false;
 			return;
 		}
@@ -281,10 +271,12 @@ void j1SceneMenu::ShiftVolumeLeft() {
 	winsoundtile[9]->draw = false;
 }
 
-void j1SceneMenu::ShiftVolumeRight() {
-
-	for (int i = 0; i < 10; i++) {
-		if (winsoundtile[i]->draw == false) {
+void j1SceneMenu::ShiftVolumeRight() 
+{
+	for (int i = 0; i < 10; i++) 
+	{
+		if (winsoundtile[i]->draw == false) 
+		{
 			winsoundtile[i]->draw = true;
 			return;
 		}

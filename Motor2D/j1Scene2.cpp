@@ -15,6 +15,7 @@
 #include "j1Entity.h"
 #include "j1PathFinding.h"
 #include "Brofiler/Brofiler.h"
+#include "j1FadeToBlack.h"
 
 j1Scene2::j1Scene2() : j1Module()
 {
@@ -76,7 +77,7 @@ bool j1Scene2::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {	SceneChange();	}
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) { App->fade->FadeToBlack(App->scene2, App->scene1, 0.9f); SceneChange(); }
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
