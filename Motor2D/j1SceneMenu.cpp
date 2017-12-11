@@ -10,6 +10,7 @@
 #include "j1EntityManager.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
+#include "j1FadeToBlack.h"
 
 #define DEFAULT_BAR_LENGHT 5
 
@@ -74,7 +75,9 @@ bool j1SceneMenu::PreUpdate()
 
 bool j1SceneMenu::Update(float dt)
 {
-	
+	if (toChangeScene&&!App->fade->IsFading()) {
+		SceneChange();
+	}
 	App->render->Blit(background, 0, 0,&background_rect);
 	return true;
 }
@@ -105,12 +108,10 @@ bool j1SceneMenu::CleanUp()
 }
 
 void j1SceneMenu::SceneChange()
-{
+{		
+	this->active = false;
 	App->scene1->active = true;
-	App->menu->active = false;
-
 	CleanUp();
-	
 	
 	App->scene1->Start();
 	App->entities->active = true;
@@ -119,6 +120,8 @@ void j1SceneMenu::SceneChange()
 	App->collis->Start();
 	App->pathfind->Start();
 	App->render->SetCameraInitialPos();
+
+	toChangeScene = false;
 }
 
 
@@ -139,7 +142,9 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 		}
 		if (elem == play) {
 			if (evnt == ButtonEvent::LEFT_CLICK) {
-				SceneChange();
+				App->fade->FadeToBlack(this, App->scene1, 0.5f);
+				toChangeScene = true;
+				
 			}
 		}
 

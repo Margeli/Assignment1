@@ -109,6 +109,7 @@
     <ClCompile Include="j1PlayerGui.cpp">
       <Filter>Desenvolupament  ========\Entities\Player</Filter>
     </ClCompile>
+    <ClCompile Include="j1FadeToBlack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -241,6 +242,7 @@
     <ClInclude Include="j1PlayerGui.h">
       <Filter>Desenvolupament  ========\Entities\Player</Filter>
     </ClInclude>
+    <ClInclude Include="j1FadeToBlack.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">

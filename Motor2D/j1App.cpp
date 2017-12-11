@@ -13,6 +13,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1EntityManager.h"
+#include "j1FadeToBlack.h"
 #include "j1Pathfinding.h"
 #include "Brofiler/Brofiler.h"
 
@@ -37,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfind = new j1Pathfinding();
 	font = new j1Fonts();
 	gui = new j1Gui();
+	fade = new j1FadeToBlack();
 
 	AddModule(input);
 	AddModule(win);
@@ -55,6 +57,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	//GUI
 	AddModule(gui);
+	AddModule(fade);
+
 	
 	//------collider & render (should be the lasts to update)
 	AddModule(collis);

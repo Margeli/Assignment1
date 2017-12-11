@@ -26,6 +26,7 @@ class j1Timer;
 class j1PerfTimer;
 class j1Fonts;
 class j1Gui;
+class j1FadeToBlack;
 
 class j1App
 {
@@ -106,6 +107,7 @@ public:
 	j1Pathfinding*		pathfind = NULL;
 	j1Fonts*			font = NULL;
 	j1Gui*				gui = NULL;
+	j1FadeToBlack*		fade = NULL;
 
 private:
 

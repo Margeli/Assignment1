@@ -37,7 +37,7 @@ public:
 	void SceneChange();
 
 	bool fading = false;
-
+	
 	
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event) ;
@@ -50,6 +50,7 @@ private:
 	void ShiftVolumeRight();
 	
 	bool settingwindowcreated = false;
+	bool toChangeScene = false;
 
 	GuiWindow*	window = nullptr;
 	GuiButton* winquit = nullptr;
@@ -68,6 +69,8 @@ private:
 
 	SDL_Texture* background = nullptr;
 	SDL_Rect	background_rect;
+
+	
 
 	p2List<j1UI_Elem*> menu_elems;
 };

@@ -1,7 +1,7 @@
 #ifndef __j1WINDOW_H__
 #define __j1WINDOW_H__
 
-#define SCREEN_HEIGHT 480
+#define SCREEN_HEIGHT 768
 #define SCREEN_WIDTH 1024 
 #define SCREEN_SIZE 1
 #define MAP_WIDTH 3200
