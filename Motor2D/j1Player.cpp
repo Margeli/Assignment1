@@ -88,7 +88,8 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(sprites);	
 	if (collider != nullptr) {
 		collider->to_delete = true; }
-	playerGui->CleanUp();
+	if (playerGui)
+		playerGui->CleanUp();
 	RELEASE(playerGui);
 	return true; 
 }
