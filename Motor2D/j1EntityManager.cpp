@@ -66,8 +66,8 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate()
 {
-	CheckPlayerPostoDespawn(); // Despawn enemies (TROLL|FLY|COLLECT) depending on player pos
 	BROFILER_CATEGORY("EntityManagerPostUpdate", Profiler::Color::Bisque);
+	CheckPlayerPostoDespawn(); // Despawn enemies (TROLL|FLY|COLLECT) depending on player pos	
 	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next)
 	{entity_iterator->data->PostUpdate();}
 	return true;

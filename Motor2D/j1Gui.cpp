@@ -7,6 +7,7 @@
 #include "j1Input.h"
 #include "j1Gui.h"
 #include "j1UI_Elem.h"
+#include "Brofiler/Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -36,7 +37,7 @@ bool j1Gui::Start()
 
 bool j1Gui::PreUpdate() 
 {
-
+	BROFILER_CATEGORY("GUI_PreUpdate", Profiler::Color::OrangeRed);
 	bool ret = true;
 
 	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL; elem = elem->next)
@@ -57,6 +58,7 @@ bool j1Gui::PreUpdate()
 
 bool j1Gui::Update(float dt)
 {
+	BROFILER_CATEGORY("GUI_Update", Profiler::Color::OrangeRed);
 	for (p2List_item<j1UI_Elem*>* elem = elements.start; elem != NULL; elem = elem->next)
 	{
 		elem->data->Update(dt);
