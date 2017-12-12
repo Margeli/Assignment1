@@ -44,23 +44,30 @@ private:
 
 	void CreateSettingWindow();
 	void DestroySettingWindow();
-	void ShiftVolumeLeft();
-	void ShiftVolumeRight();
-	void fullScreen();
-
+	void ShiftVolumeBarLeft();
+	void ShiftVolumeBarRight();
+	void ShiftFXBarLeft();
+	void ShiftFXBarRight();
+	
 	bool settingwindowcreated = false;
 	bool toChangeScene = false;
 
 	GuiWindow*	window = nullptr;
 	GuiButton* winquit = nullptr;
-	GuiButton* winsoundmin = nullptr;
-	GuiButton* winsoundplus = nullptr;
 	GuiButton* fullscreen = nullptr;
+	GuiButton* winsoundplus = nullptr;	
+	GuiButton* winsoundmin = nullptr;
+	GuiButton* winfxmin = nullptr;
+	GuiButton* winfxplus = nullptr;
 	GuiImage* winsoundbar = nullptr;
+	GuiImage* winfxbar = nullptr;
 	GuiImage* winsetticon = nullptr;
 	GuiLabel* winsoundtxt = nullptr;
 	GuiLabel* settingsback = nullptr;
 	GuiLabel* fullscreenlabel = nullptr;
+	GuiLabel* winfxtxt = nullptr;
+
+	GuiImage* winfxtile[10];
 	GuiImage* winsoundtile[10];
 
 	GuiButton*	play = nullptr;
