@@ -80,8 +80,11 @@ bool j1SceneMenu::PreUpdate()
 
 bool j1SceneMenu::Update(float dt)
 {
-	if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
-	App->render->Blit(background, 0, 0,&background_rect);
+	if (active) {
+		
+		App->render->Blit(background, 0, 0, &background_rect);
+		if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
+	}
 	return true;
 }
 
@@ -96,8 +99,9 @@ bool j1SceneMenu::PostUpdate()
 bool j1SceneMenu::CleanUp()
 {
 	LOG("Unloading  menu.");
-
-	for (p2List_item<j1UI_Elem*>* elem = menu_elems.end; elem != nullptr; elem = elem->prev) { elem->data->CleanUp(); }
+	App->tex->UnLoad(background);
+	background = nullptr;
+	for (p2List_item<j1UI_Elem*>* elem = menu_elems.end; elem != nullptr; elem = elem->prev) { elem->data->CleanUp(); elem->data = nullptr; }
 	menu_elems.clear();
 	if (settingwindowcreated) { DestroySettingWindow(); }
 
@@ -117,6 +121,7 @@ void j1SceneMenu::SceneChange()
 	App->collis->Start();
 	App->pathfind->Start();
 	App->render->SetCameraInitialPos();
+	App->scene1->Update(0);
 
 	toChangeScene = false;
 }
