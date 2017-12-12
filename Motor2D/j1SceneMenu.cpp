@@ -18,10 +18,7 @@
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
 	name.create("menu");
-
-	for (int i = 0; i < 10; i++) {
-		winsoundtile[i] = nullptr;
-	}
+	for (int i = 0; i < 10; i++) { winsoundtile[i] = nullptr; }
 }
 
 j1SceneMenu::~j1SceneMenu()
@@ -40,7 +37,9 @@ bool j1SceneMenu::Start()
 {
 	if (App->scene1->active == true) { active = false; }
 	else if (App->scene2->active == true) { active = false; }
-	if (active) {
+
+	if (active) 
+	{
 		background = App->tex->Load("textures/menu_back.png");
 		background_rect = { 0,0,1024, 768 };
 
@@ -166,21 +165,26 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 	}
 	else 
 	{
-		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus)
+		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus || elem == fullscreen)
 		{
 			switch (evnt) 
 			{
 			case ButtonEvent::LEFT_CLICK:
 				if (elem == winquit) DestroySettingWindow();
-				if (elem == winsoundmin) { ShiftVolumeLeft(); window->can_move = false; 
-				
-				//SDL_CloseAudio();
-	
-				//Uint32 audio_lenght = SDL_GetQueuedAudioSize();
-
-				//SDL_MixAudio(    ,    ,    , MIX_MAX_VOLUME);		//128/10(Decrease of volume per bar)
-
+				if (elem == fullscreen) 
+				{
+					winfullscr = SDL_WINDOW_FULLSCREEN;
+					SDL_SetWindowFullscreen(App->win->window, winfullscr);
 				}
+				if (elem == winsoundmin) 
+				{ 	
+					ShiftVolumeLeft(); window->can_move = false; 
+				
+					//SDL_CloseAudio();
+					//Uint32 audio_lenght = SDL_GetQueuedAudioSize();
+					//SDL_MixAudio(    ,    ,    , MIX_MAX_VOLUME);		//128/10(Decrease of volume per bar)
+				}
+
 				if (elem == winsoundplus) {ShiftVolumeRight(); window->can_move = false; }
 				elem->StateChanging(PRESSED_L);
 				break;
@@ -211,7 +215,6 @@ void j1SceneMenu::CreateSettingWindow()
 	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, {0,20},this);
 	window->tex = window->LoadTexture("gui/Settings/window.png");
 	window->rect = { 0,0, 741, 768 };
-	
 
 	winquit = App->gui->AddButton(ALIGN_CENTERED,  nullptr, { -320,120 }, this);
 	winquit->SetButtonTex("gui/Settings/QuitButt.png", "gui/Settings/QuitButtPressed.png");	
@@ -220,6 +223,17 @@ void j1SceneMenu::CreateSettingWindow()
 
 	winsetticon = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/SettingsIcon.png", { 0,0,68,82 }, { 0,100 });
 	window->AddWindowElement(winsetticon);
+
+	fullscreen = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -315, 215 }, this);
+	fullscreen->SetButtonTex("gui/Settings/fullscreen.png", "gui/Settings/fullscreenII.png");
+	fullscreen->rect = { 0,0, 50, 50 };
+	window->AddWindowElement(fullscreen);
+
+	settingsback = App->gui->AddText(ALIGN_CENTERED, "BACK", { -230, 135 });
+	window->AddWindowElement(settingsback);
+
+	fullscreenlabel = App->gui->AddText(ALIGN_CENTERED, "FULLSCREEN", { -170, 215 });
+	window->AddWindowElement(fullscreenlabel);
 
 	int winsoundbar_y = 370;
 	winsoundtxt = App->gui->AddText(ALIGN_CENTERED, "SOUND", { 0,winsoundbar_y });

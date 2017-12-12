@@ -46,7 +46,8 @@ private:
 	void DestroySettingWindow();
 	void ShiftVolumeLeft();
 	void ShiftVolumeRight();
-	
+	void fullScreen();
+
 	bool settingwindowcreated = false;
 	bool toChangeScene = false;
 
@@ -54,9 +55,12 @@ private:
 	GuiButton* winquit = nullptr;
 	GuiButton* winsoundmin = nullptr;
 	GuiButton* winsoundplus = nullptr;
+	GuiButton* fullscreen = nullptr;
 	GuiImage* winsoundbar = nullptr;
 	GuiImage* winsetticon = nullptr;
 	GuiLabel* winsoundtxt = nullptr;
+	GuiLabel* settingsback = nullptr;
+	GuiLabel* fullscreenlabel = nullptr;
 	GuiImage* winsoundtile[10];
 
 	GuiButton*	play = nullptr;
@@ -68,7 +72,7 @@ private:
 	SDL_Texture* background = nullptr;
 	SDL_Rect	background_rect;
 
-	
+	Uint32 winfullscr = 0;
 
 	p2List<j1UI_Elem*> menu_elems;
 };
