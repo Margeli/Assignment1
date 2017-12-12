@@ -99,7 +99,14 @@ bool j1App::Awake()
 	pugi::xml_node		app_config;
 
 	bool ret = false;
-		
+	
+	pugi::xml_parse_result result = config_file.load_file(load_game.GetString());
+	if (result)
+	{
+		LOG("save_game.xml loaded succesfully");
+		savefilefound = true;
+	}
+
 	config = LoadConfig(config_file);
 
 	if(config.empty() == false)
