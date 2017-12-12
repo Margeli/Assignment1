@@ -65,6 +65,7 @@ public:
 
 	bool cap_on = true;
 	bool vsync_on = false;
+	bool savefilefound = false;
 
 private:
 
@@ -89,6 +90,8 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
+
+	
 
 public:
 

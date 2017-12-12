@@ -51,7 +51,7 @@ bool j1SceneMenu::Start()
 
 		cont = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,300 }, this);
 		cont->SetButtonTex("gui/Buttons/ContinueButton.png", "gui/Buttons/ContinueButtonHover.png", "gui/Buttons/ContinueButtonPressed.png");
-		cont->active = false;
+		if (!App->savefilefound)cont->active = false;
 		menu_elems.add(cont);
 
 		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);
