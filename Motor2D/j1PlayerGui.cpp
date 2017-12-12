@@ -69,9 +69,9 @@ bool j1PlayerGui::CleanUp() {
 		empty_heart[i]->CleanUp();		
 	}
 	timer_text->CleanUp();
-	points_text->CleanUp();
-	timer_text->CleanUp();
 	pickups_text->CleanUp();
+	points_text->CleanUp();
+	points_img->CleanUp();
 
 	return true;
 }
