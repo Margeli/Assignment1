@@ -21,7 +21,6 @@
 #define JUMP_LIMIT 30.0f
 #define LITTLEJUMPHIGH 5
 
-
 j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 {
 	lifes = LIFES;
@@ -31,14 +30,10 @@ j1Player::j1Player() : j1Entity(EntityTypes::PLAYER)
 	jump_limit = JUMP_LIMIT;
 	littlejumphigh = LITTLEJUMPHIGH;
 	speed = SPEED;
-	
-	
 }
 
 j1Player::~j1Player() 
-{
-	
-}
+{}
 
 bool j1Player::Awake(pugi::xml_node& conf)
 { return true; }
@@ -48,10 +43,7 @@ bool j1Player::Start()
 	bool ret = true;
 	LOG("Loading player.");
 	
-	
 	animation = &idle_right;
-	
-
 	fposition = {(float) position.x, (float)position.y };
 	InitialPlayerPos();
 
@@ -98,12 +90,11 @@ bool j1Player::Update(float dt)
 {	
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
 	speed = SPEED + SPEED *dt;
-	fposition.y += GRAVITY + GRAVITY*dt;
+
+	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
+	//else 	if (godmode == true) { fposition.y; }
 	if (use_input) 
 	{
-		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN ) { godmode = true; }
-		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN ) { godmode = false; }
-
 		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) //----------------ATTACK MOVEMENT
 		{
 			App->audio->PlayFx(sword_sound);
@@ -117,6 +108,15 @@ bool j1Player::Update(float dt)
 			else if (animation == &attack_left) { attack_left.Reset(); animation = &idle_left; }
 		}
 
+		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) { godmode = true; }	//------------------GODMODE
+		if (godmode)
+		{
+			if (facing == Facing::RIGHT) { animation = &walk_right; } else if (facing == Facing::LEFT) { animation = &walk_left; }
+			if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)) { fposition.y -= speed * 1.40f; }
+			if ((App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) { fposition.y += speed * 1.40f; }
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) { godmode = false; }
+
 		if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) //RUNING RIGHT
 		{
 			walking = true;
@@ -127,7 +127,7 @@ bool j1Player::Update(float dt)
 			if (animation != &jump_right) { animation = &run_right; }
 		}
 		
-		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))//-----------WALKING RIGHT
+		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) //-----------WALKING RIGHT
 		{
 			walking = true;
 			fposition.x += speed;

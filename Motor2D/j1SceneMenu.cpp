@@ -11,6 +11,7 @@
 #include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1FadeToBlack.h"
+#include "j1Window.h"
 
 #define DEFAULT_BAR_LENGHT 5
 

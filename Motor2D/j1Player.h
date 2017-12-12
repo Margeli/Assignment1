@@ -47,6 +47,7 @@ public:
 	bool dead = false;
 	bool hitted = false;
 	bool player_hurted = false;
+	bool godmode = false;
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -84,7 +85,6 @@ private:
 	void JumpReset();
 	bool littlejump = false;
 	uint littlejumphigh;
-	bool godmode = false;
 	void LoadPlayerAnimations();
 	
 	uint jump_sound;

@@ -99,6 +99,9 @@ bool j1Scene2::Update(float dt)
 	}
 	App->map->Draw();
 
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) { App->fade->FadeToBlack(this, App->menu, 0.8f); SceneChangeMenu(); }
+
+
 	return true;
 }
 
@@ -166,11 +169,10 @@ void j1Scene2::SceneChangeMenu()
 	App->scene2->active = false;
 
 	CleanUp();
+	App->render->SetCameraInitialPos();
 	App->entities->CleanUp();
 	App->entities->active = false;
-
 	App->menu->Start();
-
 }
 
 void j1Scene2::PlaceEnemies() const

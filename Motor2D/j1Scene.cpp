@@ -86,10 +86,9 @@ bool j1Scene::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN ) { App->cap_on = !App->cap_on; }
 	
-
 	//if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN) { App->render->vsync = !App->render->vsync; }
 
-	if (App->entities->player->position.x <= -App->render->camera.x) { App->entities->player->fposition.x++; }
+	if (App->entities->player->position.x <= -App->render->camera.x && App->entities->player) { App->entities->player->fposition.x++; }		//Keeps the player from getting out the screen
 
 	//CAMERA MOVEMENT
 	if ((App->entities->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT))
@@ -106,6 +105,9 @@ bool j1Scene::Update(float dt)
 		SceneChange(); 
 	}
 	App->map->Draw();
+
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {  App->fade->FadeToBlack(this, App->menu, 0.8f); SceneChangeMenu(); }
+
 	return true;
 }
 
@@ -164,17 +166,17 @@ void j1Scene::SceneChange()
 	App->pathfind->Start();
 	App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
 }
+
 void j1Scene::SceneChangeMenu()
 {
-	App->menu->active = true;
 	App->scene1->active = false;
+	App->menu->active = true;
 
 	CleanUp();
+	App->render->SetCameraInitialPos();
 	App->entities->CleanUp();
 	App->entities->active = false;
-
 	App->menu->Start();
-	
 }
 
 void j1Scene::PlaceEnemies() const

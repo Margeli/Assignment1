@@ -28,8 +28,8 @@ bool j1PlayerGui::Start()
 		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts.png", { 0,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS }); 
 		empty_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts.png", { 32,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS });
 	}
-	DrawHearts(App->entities->player->lifes);
 
+	DrawHearts(App->entities->player->lifes);
 	
 	SDL_Color bananacolor = { 255, 255, 0, 255 };
 
@@ -69,7 +69,7 @@ bool j1PlayerGui::CleanUp() {
 		empty_heart[i]->CleanUp();		
 	}
 	points_img->CleanUp();
-	points_text->CleanUp();
+	points_text->CleanUp();		//TODO
 	points_text->CleanUp();
 	pickups_text->CleanUp();
 
