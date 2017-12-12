@@ -19,6 +19,8 @@
 
 #define ONE_TIME_UNIT 1000
 
+//ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWCANAL)
+
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
