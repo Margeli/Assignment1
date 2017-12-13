@@ -41,6 +41,7 @@ bool j1SceneMenu::Start()
 	else if (App->scene2->active == true) { active = false; }
 
 	button_sound = App->audio->LoadFx("audio/fx/button_sound.wav");
+	door_sound = App->audio->LoadFx("audio/fx/door_sound.wav");
 
 	if (active) 
 	{
@@ -144,7 +145,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				if (!settingwindowcreated)  App->audio->PlayFx(button_sound); CreateSettingWindow();
 			}
 		}
-		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) return false; }
+		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) { App->audio->PlayFx(door_sound);  return false; } }
 		if (elem == play) 
 		{
 			if (evnt == ButtonEvent::LEFT_CLICK) 

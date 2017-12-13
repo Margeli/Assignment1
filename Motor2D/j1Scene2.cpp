@@ -16,6 +16,7 @@
 #include "j1PathFinding.h"
 #include "Brofiler/Brofiler.h"
 #include "j1FadeToBlack.h"
+#include "j1PlayerGui.h"
 
 j1Scene2::j1Scene2() : j1Module()
 {
@@ -73,12 +74,10 @@ bool j1Scene2::Update(float dt)
 	BROFILER_CATEGORY("Scene2_Update", Profiler::Color::Azure);
 	App->entities->player->position.y += GRAVITY;
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (paused)
 	{
-		if (App->render->active == false) { App->render->active = true; }
-		else if (App->render->active == true) { App->render->active = false; }
-
-		//TO FINISH
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { App->ResumeGame(); App->render->active = true; }
+		App->map->Draw(); return true;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
@@ -116,8 +115,12 @@ bool j1Scene2::Update(float dt)
 bool j1Scene2::PostUpdate()
 {
 	bool ret = true;
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) { ret = false; }
-
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		App->render->active = false;
+		App->PauseGame();
+		App->entities->player->playerGui->CreateESCWindow();
+	}
 	return ret;
 }
 

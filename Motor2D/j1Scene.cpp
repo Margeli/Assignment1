@@ -12,6 +12,7 @@
 #include "j1Scene2.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
+#include "j1Entity.h"
 #include "Brofiler/Brofiler.h"
 #include "j1Pathfinding.h"
 #include "j1FadeToBlack.h"
@@ -75,32 +76,22 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene1_Update", Profiler::Color::Chocolate);
-	if (paused) { 
-		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
-		{
-			App->ResumeGame();
-		}
-		App->map->Draw(); 
-		return true; }
+	if (paused) 
+	{ 
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { App->ResumeGame(); App->render->active = true; }
+		App->map->Draw(); return true;
+	}
 	App->entities->player->position.y += GRAVITY;
 
-
-	
-
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
-
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) { App->SaveGame(); }
-		
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		App->entities->player->fposition = { (float)initial_scene_pos.x, (float)initial_scene_pos.y };
 		App->render->camera.x = 0;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN ) { App->cap_on = !App->cap_on; }
-	
-	//if (App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN) { App->render->vsync = !App->render->vsync; }
-
-	if (App->entities->player->position.x <= -App->render->camera.x && App->entities->player) { App->entities->player->fposition.x++; }		//Keeps the player from getting out the screen
+	if (App->entities->player->position.x <= -App->render->camera.x && App->entities->player) { App->entities->player->fposition.x++; }		
 
 	//CAMERA MOVEMENT
 	if ((App->entities->player->position.x > -App->render->camera.x + (3 * SCREEN_WIDTH / 5)) && (App->render->camera.x > CAMERA_LIMIT))
@@ -126,7 +117,9 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		App->render->active = false;
 		App->PauseGame();
 		App->entities->player->playerGui->CreateESCWindow();
 	}

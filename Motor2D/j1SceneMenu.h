@@ -85,6 +85,7 @@ private:
 	Uint32 winfullscr = 0;
 
 	uint button_sound;
+	uint door_sound;
 
 	p2List<j1UI_Elem*> menu_elems;
 };
