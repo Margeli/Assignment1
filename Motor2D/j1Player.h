@@ -68,6 +68,8 @@ public:
 
 	p2SString name;
 
+	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
+
 private:
 
 	Facing facing = Facing::RIGHT;

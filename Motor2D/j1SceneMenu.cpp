@@ -195,14 +195,14 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					window->can_move = false;
 					current_volume -= 12.8f;
 					if (current_volume <= 0) { current_volume = 0; }
-					Mix_VolumeMusic(current_volume);
+					Mix_VolumeMusic(current_volume);					
 				}
 
 				if (elem == winsoundplus)
 				{
 					ShiftVolumeBarRight(); 
 					window->can_move = false; 
-					current_volume += 10;
+					current_volume += 12.8f;
 					if (current_volume > 128) { current_volume = MIX_MAX_VOLUME; }
 					Mix_VolumeMusic(current_volume );
 				}

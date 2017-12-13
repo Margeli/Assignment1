@@ -15,6 +15,8 @@
 #include "Brofiler/Brofiler.h"
 #include "j1Pathfinding.h"
 #include "j1FadeToBlack.h"
+#include "j1PlayerGui.h"
+
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -82,10 +84,7 @@ bool j1Scene::Update(float dt)
 		return true; }
 	App->entities->player->position.y += GRAVITY;
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) 
-	{
-		App->PauseGame();
-	}
+
 	
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
@@ -127,7 +126,10 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) { ret = false; }
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		App->PauseGame();
+		App->entities->player->playerGui->CreateESCWindow();
+	}
 
 	return ret;
 }

@@ -6,6 +6,7 @@
 
 class GuiImage;
 class GuiLabel;
+class GuiWindow;
 
 class j1PlayerGui
 {
@@ -22,6 +23,11 @@ public:
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+	void CreateESCWindow();
+	void DestroyESCWindow();
+
+	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
+	
 
 private:
 	j1Timer		timer;
@@ -34,6 +40,10 @@ private:
 	GuiLabel* timer_text;
 	uint last_sec;
 	uint base_time=0;
+
+	GuiWindow* window;
+
+
 };
 
 #endif //__j1PLAYERGUI_H__

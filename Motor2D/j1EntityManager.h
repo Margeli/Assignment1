@@ -55,6 +55,8 @@ public:
 
 	void CreatePlayer();
 
+	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
+
 protected:
 	struct EnemyInfo {
 		iPoint pos;
