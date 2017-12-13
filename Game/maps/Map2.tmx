@@ -7880,9 +7880,9 @@
   </data>
  </layer>
  <objectgroup name="Enemies">
-  <object id="47" name="troll_spawn" type="Troll" x="735" y="537" width="100" height="100"/>
-  <object id="48" name="troll_spawn" type="Troll" x="1420" y="572" width="100" height="100"/>
-  <object id="49" name="troll_spawn" type="Troll" x="2483" y="506" width="100" height="100"/>
+  <object id="47" name="troll2_spawn" type="Troll2" x="735" y="537" width="100" height="100"/>
+  <object id="48" name="troll3_spawn" type="Troll3" x="1420" y="572" width="100" height="100"/>
+  <object id="49" name="trol3l_spawn" type="Troll3" x="2483" y="506" width="100" height="100"/>
   <object id="50" name="pickup_spawn" type="Pickup" x="286" y="417" width="32" height="32"/>
   <object id="52" name="pickup_spawn" type="Pickup" x="933" y="126" width="32" height="32"/>
   <object id="53" name="pickup_spawn" type="Pickup" x="1465" y="126" width="32" height="32"/>

@@ -16,25 +16,25 @@
 	<fonts />
 	<entities>
 		<player>
-			<position x="52.0900002" y="219" />
+			<position x="66" y="251" />
 			<lifes value="5" />
 			<gui>
-				<pickups value="16" />
-				<score value="940" />
+				<pickups value="6" />
+				<score value="320" />
 				<time value="3" />
 			</gui>
 		</player>
-		<troll>
+		<troll />
+		<troll2>
 			<position x="735" y="541" />
-			<position x="1420" y="573" />
+		</troll2>
+		<troll3>
 			<position x="2483" y="506" />
-		</troll>
-		<troll2 />
-		<troll3 />
+		</troll3>
 		<fly>
 			<position x="1295" y="205" />
 			<position x="2026" y="189" />
-			<position x="249" y="533" />
+			<position x="263" y="525" />
 			<position x="2216" y="633" />
 			<position x="2814" y="107" />
 			<position x="3052" y="675" />
@@ -59,6 +59,6 @@
 	<:anonymous />
 	<collisions />
 	<renderer>
-		<camera x="-3" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

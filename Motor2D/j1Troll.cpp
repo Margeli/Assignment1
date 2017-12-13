@@ -19,7 +19,6 @@
 #define PATH_DISPLACEMENT_y 70
 #define T_GRAVITY 1
 
-
 j1Troll::j1Troll(iPoint pos) : j1Entity(EntityTypes::TROLL)		// Should have the initial pos of enemies in a XML
 {
 	LoadTrollAnimations();	
@@ -143,6 +142,7 @@ bool j1Troll::Update(float dt)
 		return true;
 	}
 	fposition.y += T_GRAVITY + T_GRAVITY*dt;
+	
 	if (dead == true) 
 	{ // when troll dies
 		if (animation == &death_left || animation == &death_right)

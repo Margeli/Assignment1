@@ -9,8 +9,8 @@
 #include "j1Audio.h"
 
 #define TROLL_ATTACK_RANGE 150
-#define TROLL_DETECTION_RANGE 250
-#define TROLL_SPEED 3.00f
+#define TROLL_DETECTION_RANGE 350
+#define TROLL_SPEED 2.00f
 #define ADDED_COLLIDER_WIDTH 15
 #define ADDED_COLLIDER_HEIGHT 50
 #define TROLL_HEIGHT 100
@@ -30,7 +30,6 @@ j1Troll2::j1Troll2(iPoint pos) : j1Entity(EntityTypes::TROLL2)
 
 bool j1Troll2::Start()
 {
-
 	bool ret = true;
 	fposition = { (float)position.x, (float)position.y };
 	collider = App->collis->AddCollider({ position.x + ADDED_COLLIDER_WIDTH, position.y + ADDED_COLLIDER_HEIGHT, 54, 50 }, COLLIDER_ENEMIE, App->entities);
@@ -113,6 +112,8 @@ void j1Troll2::LoadTrollAnimations()
 	attack_left.LoadEnemyAnimations("attack_left", "troll2");
 	death_right.LoadEnemyAnimations("death_right", "troll2");
 	death_left.LoadEnemyAnimations("death_left", "troll2");
+
+
 }
 
 bool j1Troll2::CleanUp()
@@ -130,8 +131,10 @@ bool j1Troll2::Update(float dt)
 {
 
 	BROFILER_CATEGORY("EntityTROLL2Update", Profiler::Color::Bisque);
+
 	if (paused) {
-		if (facing == LEFT)		animation = &idle_left;
+		if (facing == LEFT)		
+			animation = &idle_left;
 		else
 			animation = &idle_right;
 

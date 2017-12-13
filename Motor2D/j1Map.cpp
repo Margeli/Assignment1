@@ -476,6 +476,12 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* object) {
 	if (tpe == "Troll") {
 		object->type = TROLL;	
 	}
+	if (tpe == "Troll2") {
+		object->type = TROLL2;
+	}
+	if (tpe == "Troll3") {
+		object->type = TROLL3;
+	}
 	if (tpe == "Fly") {
 		object->type = FLY;
 	}
