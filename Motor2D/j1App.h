@@ -62,6 +62,9 @@ public:
 	void LoadGame();
 	void SaveGame() const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
+	void PauseGame();
+	void ResumeGame();
+	
 
 	bool cap_on = true;
 	bool vsync_on = false;

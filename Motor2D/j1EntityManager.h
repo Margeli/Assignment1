@@ -29,12 +29,12 @@ class j1EntityManager : public j1Module
 public:
 	j1EntityManager();
 	virtual ~j1EntityManager();
-
-	virtual bool Start();
-	virtual bool Update(float dt);
-	virtual bool PostUpdate();
-	virtual bool PreUpdate();
-	virtual bool CleanUp();
+	void Init();
+	bool Start();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool PreUpdate();
+	bool CleanUp();
 	bool first_loop = true;
 	bool EnemiesStart();
 	bool EnemiesCleanUp();
@@ -50,6 +50,8 @@ public:
 
 	bool Load(pugi::xml_node& );
 	bool Save(pugi::xml_node& ) const;
+
+	bool paused = false;
 
 	void CreatePlayer();
 

@@ -181,6 +181,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				{
 					winfullscr = SDL_WINDOW_FULLSCREEN;
 					SDL_SetWindowFullscreen(App->win->window, winfullscr);
+					window->can_move = false;
 				}
 				if (elem == winsoundmin) 
 				{ 	
@@ -194,6 +195,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				if (elem == winsoundplus) {ShiftVolumeBarRight(); window->can_move = false; }
 				if (elem == winfxplus) { ShiftFXBarRight(); window->can_move = false; }
 				if (elem == winfxmin) { ShiftFXBarLeft(); window->can_move = false; }
+				
 
 				elem->StateChanging(PRESSED_L);
 				break;
@@ -207,10 +209,8 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				break;
 
 			case ButtonEvent::MOUSE_OUTSIDE:
-				if (elem == winsoundmin) { window->can_move = true; }
-				else if (elem == winsoundplus) { window->can_move = true; }
-				else if (elem == winfxmin) { window->can_move = true; }
-				else if (elem == winfxplus) { window->can_move = true; }
+				if (elem == winsoundmin|| elem == winsoundplus || elem == winfxmin|| elem == winfxplus|| elem == fullscreen) { window->can_move = true; }
+				
 				elem->StateChanging(IDLE);
 				break;
 			}		

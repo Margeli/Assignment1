@@ -17,6 +17,7 @@
 #define TROLL_WIDTH 50
 #define PATH_DISPLACEMENT_x 40
 #define PATH_DISPLACEMENT_y 70
+#define T_GRAVITY 1
 
 j1Troll3::j1Troll3(iPoint pos) : j1Entity(EntityTypes::TROLL3)
 {
@@ -129,7 +130,16 @@ bool j1Troll3::Update(float dt)
 {
 
 	BROFILER_CATEGORY("EntityTroll3 Update", Profiler::Color::Bisque);
-	fposition.y += GRAVITY + GRAVITY*dt;
+	if (paused) {
+		if (facing == LEFT)		
+			animation = &idle_left;
+		else
+			animation = &idle_right;
+
+		Draw();
+		return true;
+	}
+	fposition.y += T_GRAVITY + T_GRAVITY*dt;
 
 	if (dead == true)
 	{

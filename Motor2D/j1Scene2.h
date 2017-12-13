@@ -35,6 +35,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	bool paused = false;
+
 private:
 	void PlaceEnemies() const;
 };

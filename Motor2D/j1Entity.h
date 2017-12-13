@@ -56,6 +56,7 @@ public:
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 	SDL_Texture* sprites = nullptr;
+	bool paused = false;
 	
 	virtual void Draw();
 	virtual void OnCollision(Collider* c1, Collider* c2)

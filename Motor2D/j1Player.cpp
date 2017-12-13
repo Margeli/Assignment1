@@ -90,7 +90,7 @@ bool j1Player::Update(float dt)
 {	
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
 	speed = SPEED + SPEED *dt;
-
+	if (paused) { Draw(); return true; }
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
 	//else 	if (godmode == true) { fposition.y; }
 	if (use_input) 

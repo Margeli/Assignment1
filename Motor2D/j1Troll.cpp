@@ -132,8 +132,17 @@ bool j1Troll::Update(float dt)
 {
 
 	BROFILER_CATEGORY("EntityTROLLUpdate", Profiler::Color::Bisque);
-	fposition.y += T_GRAVITY + T_GRAVITY*dt;	
+	
+	if (paused) {
+		if (facing == LEFT)		
+			animation = &idle_left;
+		else
+			animation = &idle_right;
 
+		Draw();
+		return true;
+	}
+	fposition.y += T_GRAVITY + T_GRAVITY*dt;
 	if (dead == true) 
 	{ // when troll dies
 		if (animation == &death_left || animation == &death_right)

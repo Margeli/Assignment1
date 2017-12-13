@@ -300,6 +300,8 @@ bool j1App::DoUpdate()
 		ret = item->data->Update(dt);
 	}
 
+	
+
 	return ret;
 }
 
@@ -464,4 +466,22 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+void j1App::PauseGame()
+{
+	pathfind->active = false;	
+	fade->active = false;
+
+	scene1->paused = true;
+	scene2->paused = true;
+	entities->paused = true;
+}
+void j1App::ResumeGame()
+{
+	pathfind->active = true;
+	fade->active = true;
+
+	entities->paused = false;	
+	scene1->paused = false;
+	scene2->paused = false;	
 }
