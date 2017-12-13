@@ -116,6 +116,9 @@ void j1PlayerGui::CreateESCWindow()
 	window = App->gui->AddWindow(ALIGN_CENTERED,0, nullptr, { 0,100 }, App->entities);
 	window->tex = window->LoadTexture("gui/Settings/ESC_window.png");
 	window->rect = { 0,0, 348, 384 };
+
+	
+	
 }
 
 void j1PlayerGui::DestroyESCWindow()

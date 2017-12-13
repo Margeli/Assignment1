@@ -52,6 +52,7 @@ bool j1SceneMenu::Start()
 		//---Buttons
 		play = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,200 }, this);
 		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png");
+		play->rect= { 0,0,195, 63 };
 		menu_elems.add(play);
 
 		cont = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,300 }, this);
@@ -65,10 +66,12 @@ bool j1SceneMenu::Start()
 
 		credits = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,500 }, this);
 		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png");
+		credits->rect = { 0,0,280, 63 };
 		menu_elems.add(credits);
 
 		exit = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,600 }, this);
 		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png");
+		exit->rect = { 0,0,180, 63 };
 		menu_elems.add(exit);
 
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
