@@ -51,6 +51,7 @@ private:
 	
 	bool settingwindowcreated = false;
 	bool toChangeScene = false;
+	bool fullscreenbool = false;
 
 	int current_volume;
 
@@ -82,6 +83,8 @@ private:
 	SDL_Rect	background_rect;
 
 	Uint32 winfullscr = 0;
+
+	uint button_sound;
 
 	p2List<j1UI_Elem*> menu_elems;
 };

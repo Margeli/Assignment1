@@ -40,6 +40,8 @@ bool j1SceneMenu::Start()
 	if (App->scene1->active == true) { active = false; }
 	else if (App->scene2->active == true) { active = false; }
 
+	button_sound = App->audio->LoadFx("audio/fx/button_sound.wav");
+
 	if (active) 
 	{
 		background = App->tex->Load("textures/menu_back.png");
@@ -139,7 +141,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 		{
 			if (evnt == ButtonEvent::LEFT_CLICK) 
 			{
-				if (!settingwindowcreated) CreateSettingWindow();
+				if (!settingwindowcreated)  App->audio->PlayFx(button_sound); CreateSettingWindow();
 			}
 		}
 		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) return false; }
@@ -147,6 +149,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 		{
 			if (evnt == ButtonEvent::LEFT_CLICK) 
 			{
+				App->audio->PlayFx(button_sound);
 				App->fade->FadeToBlack(this, App->scene1, 0.5f);
 				toChangeScene = true;
 			}
@@ -181,16 +184,28 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 			switch (evnt) 
 			{
 			case ButtonEvent::LEFT_CLICK:
-				if (elem == winquit) DestroySettingWindow();
+				if (elem == winquit) { App->audio->PlayFx(button_sound);  DestroySettingWindow(); }
 
 				if (elem == fullscreen) 
 				{
-					winfullscr = SDL_WINDOW_FULLSCREEN;
-					SDL_SetWindowFullscreen(App->win->window, winfullscr);
+					App->audio->PlayFx(button_sound);
+					if (fullscreenbool == false) 
+					{
+						fullscreenbool = true;
+						winfullscr = SDL_WINDOW_FULLSCREEN;
+						SDL_SetWindowFullscreen(App->win->window, winfullscr);
+					}
+					else 
+					{
+						fullscreenbool = false; 
+						winfullscr = SDL_WINDOW_MINIMIZED;
+						SDL_SetWindowFullscreen(App->win->window, winfullscr);
+					}
 					window->can_move = false;
 				}
 				if (elem == winsoundmin) 
 				{ 	
+					App->audio->PlayFx(button_sound);
 					ShiftVolumeBarLeft(); 
 					window->can_move = false;
 					current_volume -= 12.8f;
@@ -200,6 +215,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 
 				if (elem == winsoundplus)
 				{
+					App->audio->PlayFx(button_sound);
 					ShiftVolumeBarRight(); 
 					window->can_move = false; 
 					current_volume += 10;
@@ -207,8 +223,8 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					Mix_VolumeMusic(current_volume );
 				}
 
-				if (elem == winfxplus) { ShiftFXBarRight(); window->can_move = false; }
-				if (elem == winfxmin) { ShiftFXBarLeft(); window->can_move = false; }
+				if (elem == winfxplus) { App->audio->PlayFx(button_sound); ShiftFXBarRight(); window->can_move = false; }
+				if (elem == winfxmin) { App->audio->PlayFx(button_sound); ShiftFXBarLeft(); window->can_move = false; }
 				
 
 				elem->StateChanging(PRESSED_L);
