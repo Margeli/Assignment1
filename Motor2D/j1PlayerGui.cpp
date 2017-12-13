@@ -111,3 +111,13 @@ bool j1PlayerGui::Save(pugi::xml_node& data) const
 	gui.append_child("time").append_attribute("value") = (int)timer.ReadSec();
 	return true;
 }
+void j1PlayerGui::CreateESCWindow() {
+	
+	window = App->gui->AddWindow(ALIGN_CENTERED, 4, nullptr, { 0,100 }, App->entities);
+
+}
+
+bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) {
+
+	return true;
+}

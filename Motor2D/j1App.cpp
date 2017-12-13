@@ -471,6 +471,7 @@ void j1App::PauseGame()
 {
 	pathfind->active = false;	
 	fade->active = false;
+	collis->active = false;
 
 	scene1->paused = true;
 	scene2->paused = true;
@@ -480,6 +481,7 @@ void j1App::ResumeGame()
 {
 	pathfind->active = true;
 	fade->active = true;
+	collis->active = true;
 
 	entities->paused = false;	
 	scene1->paused = false;
