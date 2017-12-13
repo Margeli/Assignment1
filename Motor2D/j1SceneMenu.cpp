@@ -378,7 +378,7 @@ void j1SceneMenu::CreateSettingWindow()
 
 void j1SceneMenu::CreateCreditsWindow()
 {
-	settings->StateChanging(IDLE);
+	credits->StateChanging(IDLE);
 
 	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, { 0,20 }, this);
 	window->tex = window->LoadTexture("gui/Settings/window.png");
@@ -388,6 +388,9 @@ void j1SceneMenu::CreateCreditsWindow()
 	winquit->SetButtonTex("gui/Settings/QuitButt.png", "gui/Settings/QuitButtPressed.png");
 	winquit->rect = { 0,0, 61, 72 };
 	window->AddWindowElement(winquit);
+
+	license = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/license_txt.png", { 0,0, 741, 768 }, { 0,20 });
+	window->AddWindowElement(license);
 
 	settingsback = App->gui->AddText(ALIGN_CENTERED, "BACK", { -230, 135 });
 	window->AddWindowElement(settingsback);

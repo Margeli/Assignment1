@@ -65,6 +65,7 @@ private:
 	GuiButton* winsoundmin = nullptr;
 	GuiButton* winfxmin = nullptr;
 	GuiButton* winfxplus = nullptr;
+	GuiImage* license = nullptr;
 	GuiImage* winsoundbar = nullptr;
 	GuiImage* winfxbar = nullptr;
 	GuiImage* winsetticon = nullptr;
@@ -72,6 +73,7 @@ private:
 	GuiLabel* settingsback = nullptr;
 	GuiLabel* fullscreenlabel = nullptr;
 	GuiLabel* winfxtxt = nullptr;
+	
 
 	GuiImage* winfxtile[10];
 	GuiImage* winsoundtile[10];
