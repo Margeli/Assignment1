@@ -16,6 +16,7 @@
 	<fonts />
 	<entities>
 		<player>
+<<<<<<< HEAD
 			<position x="49" y="266.770111" />
 			<lifes value="5" />
 			<gui>
@@ -37,6 +38,30 @@
 			<position x="868" y="90" />
 			<position x="1825" y="273" />
 			<position x="2504" y="278" />
+=======
+			<position x="66" y="251" />
+			<lifes value="5" />
+			<gui>
+				<pickups value="6" />
+				<score value="320" />
+				<time value="3" />
+			</gui>
+		</player>
+		<troll />
+		<troll2>
+			<position x="735" y="541" />
+		</troll2>
+		<troll3>
+			<position x="2483" y="506" />
+		</troll3>
+		<fly>
+			<position x="1295" y="205" />
+			<position x="2026" y="189" />
+			<position x="263" y="525" />
+			<position x="2216" y="633" />
+			<position x="2814" y="107" />
+			<position x="3052" y="675" />
+>>>>>>> 3a14d42589550518299208544d6351ab0fd363e4
 		</fly>
 		<collect>
 			<position x="1045" y="608" />

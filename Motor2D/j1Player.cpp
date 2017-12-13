@@ -230,7 +230,8 @@ void j1Player::Dead()
 	
 	App->audio->PlayFx(lose_fx, 0);
 	lifes = LIFES;
-	points = 0;
+	points = 0;	
+	pickups_counter = 0;
 	if (App->scene1->active) { App->scene1->SceneChangeMenu(); }
 	else if (App->scene2->active) { App->scene2->SceneChangeMenu(); }
 	

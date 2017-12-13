@@ -152,7 +152,7 @@ uchar j1Pathfinding::GetTileAt(const iPoint& pos, EntityTypes type) const {
 		if (type == EntityTypes::FLY) {
 			return fly_map[(pos.y*width) + pos.x];
 		}
-		if (type == EntityTypes::TROLL) {
+		if (type == EntityTypes::TROLL || type == TROLL2 || type == TROLL3) {
 			return ground_map[(pos.y*width) + pos.x];
 		}
 	}
