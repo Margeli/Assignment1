@@ -14,6 +14,7 @@
 #include "j1Window.h"
 
 #define DEFAULT_BAR_LENGHT 5
+#define GITHUB_URL "www.github.com/Margeli/Assignment2"
 
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
@@ -93,9 +94,10 @@ bool j1SceneMenu::Update(float dt)
 
 bool j1SceneMenu::PostUpdate()
 {
+	/*
 	static char title[400];
 	sprintf_s(title, 400, "Current volume: %i", current_volume);
-	App->win->SetTitle(title);
+	App->win->SetTitle(title);*/
 
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) { ret = false; }
@@ -264,6 +266,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				if (elem == link) 
 				{
 					//code link to github and add image ...
+					ShellExecute(NULL, "open", GITHUB_URL, NULL, NULL, SW_SHOWNORMAL);
 				}
 				elem->StateChanging(PRESSED_L);
 				break;
@@ -391,6 +394,11 @@ void j1SceneMenu::CreateCreditsWindow()
 
 	license = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/license_txt.png", { 0,0, 741, 768 }, { 0,20 });
 	window->AddWindowElement(license);
+
+	link = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 220,170 }, this);
+	link->SetButtonTex("gui/Settings/github_icon.png", "gui/Settings/github_icon.png");
+	link->rect = {0,0, 128, 128 };
+	window->AddWindowElement(link);
 
 	settingsback = App->gui->AddText(ALIGN_CENTERED, "BACK", { -230, 135 });
 	window->AddWindowElement(settingsback);

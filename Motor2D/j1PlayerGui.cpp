@@ -113,9 +113,9 @@ bool j1PlayerGui::Save(pugi::xml_node& data) const
 }
 void j1PlayerGui::CreateESCWindow()
 {
-	window = App->gui->AddWindow(ALIGN_CENTERED, 4, nullptr, { 0,100 }, App->entities);
+	window = App->gui->AddWindow(ALIGN_CENTERED,0, nullptr, { 0,100 }, App->entities);
 	window->tex = window->LoadTexture("gui/Settings/ESC_window.png");
-	window->rect = { 0,0, 741, 768 };
+	window->rect = { 0,0, 348, 384 };
 }
 
 void j1PlayerGui::DestroyESCWindow()
