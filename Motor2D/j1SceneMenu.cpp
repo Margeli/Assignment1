@@ -35,6 +35,8 @@ bool j1SceneMenu::Awake(pugi::xml_node&)
 
 bool j1SceneMenu::Start()
 {
+	current_volume = MIX_MAX_VOLUME/2;
+
 	if (App->scene1->active == true) { active = false; }
 	else if (App->scene2->active == true) { active = false; }
 
@@ -88,6 +90,10 @@ bool j1SceneMenu::Update(float dt)
 
 bool j1SceneMenu::PostUpdate()
 {
+	static char title[400];
+	sprintf_s(title, 400, "Current volume: %i", current_volume);
+	App->win->SetTitle(title);
+
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) { ret = false; }
 
@@ -184,14 +190,22 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				}
 				if (elem == winsoundmin) 
 				{ 	
-					ShiftVolumeBarRight(); window->can_move = false;
-
-					//SDL_CloseAudio();
-					//Uint32 audio_lenght = SDL_GetQueuedAudioSize();
-					//SDL_MixAudio(    ,    ,    , MIX_MAX_VOLUME);		//128/10(Decrease of volume per bar)
+					ShiftVolumeBarLeft(); 
+					window->can_move = false;
+					current_volume -= 12.8f;
+					if (current_volume <= 0) { current_volume = 0; }
+					Mix_VolumeMusic(current_volume);
 				}
 
-				if (elem == winsoundplus) {ShiftVolumeBarRight(); window->can_move = false; }
+				if (elem == winsoundplus)
+				{
+					ShiftVolumeBarRight(); 
+					window->can_move = false; 
+					current_volume += 10;
+					if (current_volume > 128) { current_volume = MIX_MAX_VOLUME; }
+					Mix_VolumeMusic(current_volume );
+				}
+
 				if (elem == winfxplus) { ShiftFXBarRight(); window->can_move = false; }
 				if (elem == winfxmin) { ShiftFXBarLeft(); window->can_move = false; }
 

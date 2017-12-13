@@ -52,6 +52,8 @@ private:
 	bool settingwindowcreated = false;
 	bool toChangeScene = false;
 
+	int current_volume;
+
 	GuiWindow*	window = nullptr;
 	GuiButton* winquit = nullptr;
 	GuiButton* fullscreen = nullptr;
