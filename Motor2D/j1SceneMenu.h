@@ -36,8 +36,6 @@ public:
 
 	void SceneChange();
 
-	
-	
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event) ;
 
 private:

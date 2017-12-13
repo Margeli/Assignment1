@@ -7,6 +7,7 @@
 class GuiImage;
 class GuiLabel;
 class GuiWindow;
+class GuiButton;
 
 class j1PlayerGui
 {
@@ -41,9 +42,17 @@ private:
 	uint last_sec;
 	uint base_time=0;
 
-	GuiWindow* window;
+	GuiWindow* window = nullptr;
 
-	
+	GuiButton* winquit = nullptr;
+	GuiButton* restart = nullptr;
+	GuiButton* resume = nullptr;
+	GuiButton* menu = nullptr;
+
+	GuiLabel* quitlabel = nullptr;
+	GuiLabel* restartlabel = nullptr;
+	GuiLabel* resumelabel = nullptr;
+	GuiLabel* menulabel = nullptr;
 
 };
 

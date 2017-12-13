@@ -115,11 +115,13 @@ bool j1Scene::PostUpdate()
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		if (paused) {
+		if (paused) 
+		{
 			App->ResumeGame();
 			App->entities->player->playerGui->DestroyESCWindow();
 		}
-		else {
+		else 
+		{
 			App->entities->player->playerGui->CreateESCWindow();
 			App->PauseGame();
 		}

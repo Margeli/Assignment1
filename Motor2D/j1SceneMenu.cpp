@@ -97,11 +97,6 @@ bool j1SceneMenu::Update(float dt)
 
 bool j1SceneMenu::PostUpdate()
 {
-	/*
-	static char title[400];
-	sprintf_s(title, 400, "Current volume: %i", current_volume);
-	App->win->SetTitle(title);*/
-
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) { ret = false; }
 
@@ -151,12 +146,12 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 		}
 		if (elem == credits)
 		{
-			if (evnt == ButtonEvent::LEFT_CLICK){
-				if (!creditswindowcreated)  App->audio->PlayFx(button_sound); CreateCreditsWindow();
-			}
+			if (evnt == ButtonEvent::LEFT_CLICK) { if (!creditswindowcreated)  App->audio->PlayFx(button_sound); CreateCreditsWindow(); }
 		}
 		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) { App->audio->PlayFx(door_sound);  return false; } }		//EXIT
-		if (elem == play){//PLAY		
+
+		if (elem == play)	//PLAY	
+		{	
 			if (evnt == ButtonEvent::LEFT_CLICK) 
 			{
 				App->audio->PlayFx(button_sound);
@@ -164,11 +159,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				toChangeScene = true;
 			}
 		}
-		if (elem == cont) {
-			if (evnt == ButtonEvent::LEFT_CLICK){		
-				LoadGame();
-			}		
-		}
+		if (elem == cont) {if (evnt == ButtonEvent::LEFT_CLICK) { LoadGame(); }}
 
 		switch (evnt) 
 		{
@@ -271,7 +262,6 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				if (elem == winquit) { App->audio->PlayFx(button_sound);  DestroyWindow(); }
 				if (elem == link) 
 				{
-					//code link to github and add image ...
 					ShellExecute(NULL, "open", GITHUB_URL, NULL, NULL, SW_SHOWNORMAL);
 				}
 				elem->StateChanging(PRESSED_L);
@@ -467,8 +457,8 @@ void j1SceneMenu::ShiftFXBarRight()
 		}
 	}
 }
-void j1SceneMenu::LoadGame() {
-
+void j1SceneMenu::LoadGame() 
+{
 	this->active = false;
 	App->scene1->active = true;
 	CleanUp();
