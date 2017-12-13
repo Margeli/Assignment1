@@ -110,7 +110,7 @@ bool j1SceneMenu::CleanUp()
 	background = nullptr;
 	for (p2List_item<j1UI_Elem*>* elem = menu_elems.end; elem != nullptr; elem = elem->prev) { elem->data->CleanUp(); elem->data = nullptr; }
 	menu_elems.clear();
-	if (settingwindowcreated) { DestroySettingWindow(); }
+	if (settingwindowcreated || creditswindowcreated) { DestroyWindow(); }
 
 	return true;
 }
@@ -133,20 +133,26 @@ void j1SceneMenu::SceneChange()
 	toChangeScene = false;
 }
 
-
 bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)  
 {
-	if (!settingwindowcreated) 
+	if (!settingwindowcreated && !creditswindowcreated) 
 	{
-		if (elem == settings)
+		if (elem == settings)		//SETTINGS
 		{
 			if (evnt == ButtonEvent::LEFT_CLICK) 
 			{
 				if (!settingwindowcreated)  App->audio->PlayFx(button_sound); CreateSettingWindow();
 			}
 		}
-		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) { App->audio->PlayFx(door_sound);  return false; } }
-		if (elem == play) 
+		if (elem == credits)
+		{
+			if (evnt == ButtonEvent::LEFT_CLICK)
+			{
+				if (!creditswindowcreated)  App->audio->PlayFx(button_sound); CreateCreditsWindow();
+			}
+		}
+		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) { App->audio->PlayFx(door_sound);  return false; } }		//EXIT
+		if (elem == play)	//PLAY
 		{
 			if (evnt == ButtonEvent::LEFT_CLICK) 
 			{
@@ -178,14 +184,14 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 			break;
 		}
 	}
-	else 
+	else if(settingwindowcreated)		//SETTINGS
 	{
 		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus|| elem== winfxmin || elem == winfxplus || elem == fullscreen)
 		{
 			switch (evnt) 
 			{
 			case ButtonEvent::LEFT_CLICK:
-				if (elem == winquit) { App->audio->PlayFx(button_sound);  DestroySettingWindow(); }
+				if (elem == winquit) { App->audio->PlayFx(button_sound);  DestroyWindow(); }
 
 				if (elem == fullscreen) 
 				{
@@ -247,6 +253,38 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 			}		
 		}
 	}
+	else if (creditswindowcreated)		//CREDITS
+	{
+		if (elem == window || elem == winquit || elem == link)
+		{
+			switch (evnt)
+			{
+			case ButtonEvent::LEFT_CLICK:
+				if (elem == winquit) { App->audio->PlayFx(button_sound);  DestroyWindow(); }
+				if (elem == link) 
+				{
+					//code link to github and add image ...
+				}
+				elem->StateChanging(PRESSED_L);
+				break;
+
+			case ButtonEvent::LEFT_CLICK_UP:
+				elem->StateChanging(UP_L);
+				break;
+
+			case ButtonEvent::MOUSE_INSIDE:
+				elem->StateChanging(HOVER);
+				break;
+
+			case ButtonEvent::MOUSE_OUTSIDE:
+				if (elem == winsoundmin || elem == winsoundplus || elem == winfxmin || elem == winfxplus || elem == fullscreen) { window->can_move = true; }
+
+				elem->StateChanging(IDLE);
+				break;
+			}
+		}
+	}
+
 	return true;
 }
 
@@ -339,9 +377,20 @@ void j1SceneMenu::CreateSettingWindow()
 	settingwindowcreated = true;
 }
 
-void j1SceneMenu::DestroySettingWindow() 
+void j1SceneMenu::CreateCreditsWindow()
+{
+	settings->StateChanging(IDLE);
+
+	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, { 0,20 }, this);
+	window->tex = window->LoadTexture("gui/Settings/window.png");
+	window->rect = { 0,0, 741, 768 };
+
+}
+
+void j1SceneMenu::DestroyWindow() 
 {
 	window->CleanUp();
+	creditswindowcreated = false;
 	settingwindowcreated = false;
 }
 

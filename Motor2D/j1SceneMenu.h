@@ -43,13 +43,15 @@ public:
 private:
 
 	void CreateSettingWindow();
-	void DestroySettingWindow();
+	void CreateCreditsWindow();
+	void DestroyWindow();
 	void ShiftVolumeBarLeft();
 	void ShiftVolumeBarRight();
 	void ShiftFXBarLeft();
 	void ShiftFXBarRight();
 	
 	bool settingwindowcreated = false;
+	bool creditswindowcreated = false;
 	bool toChangeScene = false;
 	bool fullscreenbool = false;
 
@@ -57,6 +59,7 @@ private:
 
 	GuiWindow*	window = nullptr;
 	GuiButton* winquit = nullptr;
+	GuiButton* link = nullptr;
 	GuiButton* fullscreen = nullptr;
 	GuiButton* winsoundplus = nullptr;	
 	GuiButton* winsoundmin = nullptr;
