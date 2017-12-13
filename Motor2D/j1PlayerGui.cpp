@@ -75,6 +75,8 @@ bool j1PlayerGui::CleanUp() {
 	points_text->CleanUp();
 	points_img->CleanUp();
 
+	DestroyESCWindow();
+
 	return true;
 }
 
@@ -111,18 +113,38 @@ bool j1PlayerGui::Save(pugi::xml_node& data) const
 	gui.append_child("time").append_attribute("value") = (int)timer.ReadSec();
 	return true;
 }
+
 void j1PlayerGui::CreateESCWindow()
 {
 	window = App->gui->AddWindow(ALIGN_CENTERED,0, nullptr, { 0,100 }, App->entities);
 	window->tex = window->LoadTexture("gui/Settings/ESC_window.png");
 	window->rect = { 0,0, 348, 384 };
 
-	
-	
+	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -0, 150 }, App->entities);
+	window->AddWindowElement(menu);
+	menulabel = App->gui->AddText(ALIGN_CENTERED, "MENU", { -0, 150 });
+	window->AddWindowElement(menulabel);
+
+	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -0, 200 }, App->entities);
+	window->AddWindowElement(restart);
+	restartlabel = App->gui->AddText(ALIGN_CENTERED, "RESTART", { -0, 200 });
+	window->AddWindowElement(restartlabel);
+
+	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -0, 250 }, App->entities);
+	window->AddWindowElement(resume);
+	resumelabel = App->gui->AddText(ALIGN_CENTERED, "RESUME", { -0, 250 });
+	window->AddWindowElement(resumelabel);
+
+	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 5, 410 }, App->entities);
+	window->AddWindowElement(winquit);
+	quitlabel = App->gui->AddText(ALIGN_CENTERED, "QUIT", { 5, 410 });
+	window->AddWindowElement(quitlabel);
+
 }
 
 void j1PlayerGui::DestroyESCWindow()
 {
+	if (window)
 	window->CleanUp();	//TODO
 }
 
