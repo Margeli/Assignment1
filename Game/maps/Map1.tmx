@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" nextobjectid="31">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" nextobjectid="31">
  <tileset firstgid="1" name="stage1tile1" tilewidth="32" tileheight="32" tilecount="192" columns="8">
   <image source="mylevel1_tiles.png" width="256" height="768"/>
   <terraintypes>
@@ -7891,7 +7891,7 @@
  </layer>
  <objectgroup name="Enemies" opacity="0.97">
   <object id="9" name="troll_spawn" type="Troll" x="246.758" y="477" width="100" height="100"/>
-  <object id="11" name="troll_spawn" type="Troll" x="738" y="378" width="100" height="100"/>
+  <object id="11" name="troll3_spawn" type="Troll3" x="738" y="378" width="100" height="100"/>
   <object id="12" name="troll_spawn" type="Troll" x="1615" y="504" width="100" height="100"/>
   <object id="13" name="troll2_spawn" type="Troll2" x="2642" y="474" width="100" height="100"/>
   <object id="14" name="fly_spawn" type="Fly" x="868" y="90" width="60" height="60"/>

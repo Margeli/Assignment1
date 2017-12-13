@@ -197,7 +197,8 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 					if (elem == restart)
 					{
 							App->audio->PlayFx(App->menu->button_sound);
-							App->entities->player->fposition = { (float)App->scene1->initial_scene_pos.x, (float)App->scene1->initial_scene_pos.y };
+							if (App->scene1->active == true) { App->entities->player->fposition = { (float)App->scene1->initial_scene_pos.x, (float)App->scene1->initial_scene_pos.y }; }
+							if (App->scene2->active == true) { App->entities->player->fposition = { (float)App->scene2->initial_scene_pos.x, (float)App->scene2->initial_scene_pos.y }; }
 							App->render->camera.x = 0;
 							DestroyESCWindow();
 							App->ResumeGame();

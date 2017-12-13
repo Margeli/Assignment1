@@ -76,7 +76,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene1_Update", Profiler::Color::Chocolate);
-	if (paused) 	{ 	App->map->Draw(); return true;	}
+
 	App->entities->player->position.y += GRAVITY;
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
