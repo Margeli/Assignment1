@@ -177,7 +177,7 @@ bool j1EntityManager::Load(pugi::xml_node& data )
 		iPoint troll2pos = { troll2.attribute("x").as_int(), troll2.attribute("y").as_int() };
 		CreateEntity(TROLL2, troll2pos);
 	}
-	for (pugi::xml_node troll3 = data.child("troll2").child("position"); troll3; troll3 = troll3.next_sibling()) {
+	for (pugi::xml_node troll3 = data.child("troll3").child("position"); troll3; troll3 = troll3.next_sibling()) {
 		iPoint troll3pos = { troll3.attribute("x").as_int(), troll3.attribute("y").as_int() };
 		CreateEntity(TROLL3, troll3pos);
 	}
@@ -198,11 +198,15 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 	p2List_item<j1Entity*>* entity_iterator;
 	for (entity_iterator = entities.start; entity_iterator; entity_iterator = entity_iterator->next)	//iterates over all enemies spawned
 	{
-		if (entity_iterator->data->type == TROLL) { entity_iterator->data->Save(trolls); }
+		if (entity_iterator->data->type == TROLL) { 
+			entity_iterator->data->Save(trolls); }
+		if (entity_iterator->data->type == TROLL2) {
+			entity_iterator->data->Save(troll2); }
+		if (entity_iterator->data->type == TROLL3) {
+			entity_iterator->data->Save(troll3); }
 		if (entity_iterator->data->type == FLY) { entity_iterator->data->Save(flies); }
 		if (entity_iterator->data->type == COLLECT) { entity_iterator->data->Save(pickups); }
-		if (entity_iterator->data->type == TROLL2) { entity_iterator->data->Save(troll2); }
-		if (entity_iterator->data->type == TROLL3) { entity_iterator->data->Save(troll3); }
+		
 	}
 	//iterates over all enemies on the spawning queue
 	for (int i = 0; i < MAX_ENTITIES - 1; ++i) 

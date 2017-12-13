@@ -43,7 +43,7 @@ public:
 
 	SDL_Texture* LoadTexture(p2SString path);
 
-	SDL_Texture* tex;
+	SDL_Texture* tex = nullptr;
 	UIType type;
 	ButtonEvent event = ButtonEvent::MOUSE_OUTSIDE;
 	ButtonEvent previous_event = ButtonEvent::MOUSE_OUTSIDE;

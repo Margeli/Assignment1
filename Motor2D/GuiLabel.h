@@ -21,7 +21,7 @@ public:
 private:
 	p2SString text;
 	SDL_Color text_color;
-	_TTF_Font* text_font;
+	_TTF_Font* text_font = nullptr;
 		
 };
 

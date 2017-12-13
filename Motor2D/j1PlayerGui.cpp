@@ -154,8 +154,10 @@ void j1PlayerGui::CreateESCWindow()
 
 void j1PlayerGui::DestroyESCWindow()
 {
-	window->CleanUp();	
+	if (window)
+		window->CleanUp();
 	pauseMenucreated = false;
+
 }
 
 bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) 

@@ -283,8 +283,8 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
-    <Xml Include="..\Game\save_game.xml" />
     <Xml Include="..\Game\animations.xml" />
+    <Xml Include="..\Game\save_game.xml" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Motor 2D.rc" />

@@ -160,8 +160,12 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 				toChangeScene = true;
 			}
 		}
-		if (elem == cont) {if (evnt == ButtonEvent::LEFT_CLICK) { LoadGame(); }}
 
+		if (elem == cont&& cont->active) {
+			if (evnt == ButtonEvent::LEFT_CLICK){		
+				LoadGame();
+			}		
+		}
 		switch (evnt) 
 		{
 		case ButtonEvent::MOUSE_INSIDE:
