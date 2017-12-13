@@ -151,20 +151,23 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 		}
 		if (elem == credits)
 		{
-			if (evnt == ButtonEvent::LEFT_CLICK)
-			{
+			if (evnt == ButtonEvent::LEFT_CLICK){
 				if (!creditswindowcreated)  App->audio->PlayFx(button_sound); CreateCreditsWindow();
 			}
 		}
 		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) { App->audio->PlayFx(door_sound);  return false; } }		//EXIT
-		if (elem == play)	//PLAY
-		{
+		if (elem == play){//PLAY		
 			if (evnt == ButtonEvent::LEFT_CLICK) 
 			{
 				App->audio->PlayFx(button_sound);
 				App->fade->FadeToBlack(this, App->scene1, 0.5f);
 				toChangeScene = true;
 			}
+		}
+		if (elem == cont) {
+			if (evnt == ButtonEvent::LEFT_CLICK){		
+				LoadGame();
+			}		
 		}
 
 		switch (evnt) 
@@ -463,4 +466,19 @@ void j1SceneMenu::ShiftFXBarRight()
 			return;
 		}
 	}
+}
+void j1SceneMenu::LoadGame() {
+
+	this->active = false;
+	App->scene1->active = true;
+	CleanUp();
+
+	App->scene1->Start();
+	App->entities->active = true;
+	App->entities->CreatePlayer();
+	App->entities->Start();
+	App->collis->Start();
+	App->pathfind->Start();
+	App->render->SetCameraInitialPos();
+	App->LoadGame();
 }

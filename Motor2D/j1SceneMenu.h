@@ -42,6 +42,7 @@ public:
 
 private:
 
+	void LoadGame();
 	void CreateSettingWindow();
 	void CreateCreditsWindow();
 	void DestroyWindow();
