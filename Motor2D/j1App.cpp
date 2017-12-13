@@ -467,16 +467,18 @@ bool j1App::SavegameNow() const
 	want_to_save = false;
 	return ret;
 }
+
 void j1App::PauseGame()
 {
 	pathfind->active = false;	
 	fade->active = false;
 	collis->active = false;
-
+	//render->active = false;
 	scene1->paused = true;
 	scene2->paused = true;
 	entities->paused = true;
 }
+
 void j1App::ResumeGame()
 {
 	pathfind->active = true;

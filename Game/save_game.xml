@@ -16,12 +16,12 @@
 	<fonts />
 	<entities>
 		<player>
-			<position x="273.797455" y="219" />
-			<lifes value="5" />
+			<position x="35" y="415.449921" />
+			<lifes value="3" />
 			<gui>
-				<pickups value="1" />
-				<score value="50" />
-				<time value="2" />
+				<pickups value="9" />
+				<score value="570" />
+				<time value="3" />
 			</gui>
 		</player>
 		<troll>
@@ -43,6 +43,7 @@
 			<position x="1004" y="608" />
 			<position x="642" y="159" />
 			<position x="992" y="190" />
+			<position x="289" y="255" />
 			<position x="1742" y="125" />
 			<position x="1682" y="126" />
 			<position x="2096" y="416" />

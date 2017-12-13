@@ -78,7 +78,7 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY("Scene1_Update", Profiler::Color::Chocolate);
 	if (paused) 
 	{ 
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { App->ResumeGame(); App->render->active = true; }
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { App->ResumeGame(); App->render->active = true; App->entities->player->playerGui->DestroyESCWindow(); }
 		App->map->Draw(); return true;
 	}
 	App->entities->player->position.y += GRAVITY;
@@ -119,9 +119,8 @@ bool j1Scene::PostUpdate()
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		App->render->active = false;
-		App->PauseGame();
 		App->entities->player->playerGui->CreateESCWindow();
+		App->PauseGame();
 	}
 
 	return ret;

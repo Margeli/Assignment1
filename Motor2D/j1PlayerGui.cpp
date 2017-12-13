@@ -111,13 +111,19 @@ bool j1PlayerGui::Save(pugi::xml_node& data) const
 	gui.append_child("time").append_attribute("value") = (int)timer.ReadSec();
 	return true;
 }
-void j1PlayerGui::CreateESCWindow() {
-	
+void j1PlayerGui::CreateESCWindow()
+{
 	window = App->gui->AddWindow(ALIGN_CENTERED, 4, nullptr, { 0,100 }, App->entities);
-
+	window->tex = window->LoadTexture("gui/Settings/ESC_window.png");
+	window->rect = { 0,0, 741, 768 };
 }
 
-bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) {
+void j1PlayerGui::DestroyESCWindow()
+{
+	window->CleanUp();	//TODO
+}
 
+bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) 
+{
 	return true;
 }

@@ -83,8 +83,8 @@ bool j1SceneMenu::PreUpdate()
 
 bool j1SceneMenu::Update(float dt)
 {
-	if (active) {
-		
+	if (active) 
+	{
 		App->render->Blit(background, 0, 0, &background_rect);
 		if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
 	}
@@ -344,7 +344,6 @@ void j1SceneMenu::CreateSettingWindow()
 	winsoundtile[9]->draw = false;
 	window->AddWindowElement(winsoundtile[9]);
 
-
 	int winfxbar_y = 490;
 	winfxtxt = App->gui->AddText(ALIGN_CENTERED, "FX", { 0,winfxbar_y });
 	window->AddWindowElement(winfxtxt);
@@ -385,6 +384,15 @@ void j1SceneMenu::CreateCreditsWindow()
 	window->tex = window->LoadTexture("gui/Settings/window.png");
 	window->rect = { 0,0, 741, 768 };
 
+	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -320,120 }, this);
+	winquit->SetButtonTex("gui/Settings/QuitButt.png", "gui/Settings/QuitButtPressed.png");
+	winquit->rect = { 0,0, 61, 72 };
+	window->AddWindowElement(winquit);
+
+	settingsback = App->gui->AddText(ALIGN_CENTERED, "BACK", { -230, 135 });
+	window->AddWindowElement(settingsback);
+
+	creditswindowcreated = true;
 }
 
 void j1SceneMenu::DestroyWindow() 
