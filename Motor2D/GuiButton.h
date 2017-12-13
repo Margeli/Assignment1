@@ -26,9 +26,9 @@ public:
 	bool active = true;
 
 private:
-	SDL_Texture* up;
-	SDL_Texture* down;
-	SDL_Texture* press;
+	SDL_Texture* up = nullptr;
+	SDL_Texture* down = nullptr;
+	SDL_Texture* press = nullptr;
 	
 
 	void AddButtonText();

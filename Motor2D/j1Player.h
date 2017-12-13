@@ -8,7 +8,7 @@
 #include "j1Entity.h"
 
 struct SDL_Texture;
-class GuiImage;
+
 class j1PlayerGui;
 
 #define PLAYERHEIGHT 69

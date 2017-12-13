@@ -120,7 +120,7 @@ bool j1Troll2::CleanUp()
 {
 	LOG("Unloading Troll2.");
 	App->tex->UnLoad(sprites);
-	if (collider != nullptr)
+	if (App->collis->CollidersNum() != 0)
 		collider->to_delete = true;
 
 	//path->Clear();

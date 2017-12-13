@@ -21,7 +21,7 @@ public:
 
 private:
 	void AddCheckText();
-	SDL_Texture* check;
+	SDL_Texture* check = nullptr;
 	GuiLabel* checktxt = nullptr;
 };
 

@@ -34,14 +34,14 @@ private:
 	GuiImage* full_heart[LIFES];
 	GuiImage* empty_heart[LIFES];
 
-	GuiImage* points_img;
-	GuiLabel* points_text;
-	GuiLabel* pickups_text;
-	GuiLabel* timer_text;
+	GuiImage* points_img = nullptr;
+	GuiLabel* points_text = nullptr;
+	GuiLabel* pickups_text = nullptr;
+	GuiLabel* timer_text = nullptr;
 	uint last_sec;
 	uint base_time=0;
 
-	GuiWindow* window;
+	GuiWindow* window = nullptr;
 
 	
 

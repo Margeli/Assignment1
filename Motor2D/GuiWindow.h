@@ -33,7 +33,7 @@ private:
 	p2List<j1UI_Elem*> win_elems;
 	p2List<GuiButton*> win_buttons;
 	p2List<p2SString> win_buttons_txt;
-	GuiLabel* win_text;
+	GuiLabel* win_text = nullptr;
 
 	void Drag();
 	void StartDrag();
