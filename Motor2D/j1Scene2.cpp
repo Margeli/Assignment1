@@ -117,7 +117,6 @@ bool j1Scene2::PostUpdate()
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		App->render->active = false;
 		App->PauseGame();
 		App->entities->player->playerGui->CreateESCWindow();
 	}

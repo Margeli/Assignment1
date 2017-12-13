@@ -68,11 +68,11 @@ private:
 	GuiImage* winsoundbar = nullptr;
 	GuiImage* winfxbar = nullptr;
 	GuiImage* winsetticon = nullptr;
+
 	GuiLabel* winsoundtxt = nullptr;
 	GuiLabel* settingsback = nullptr;
 	GuiLabel* fullscreenlabel = nullptr;
 	GuiLabel* winfxtxt = nullptr;
-	
 
 	GuiImage* winfxtile[10];
 	GuiImage* winsoundtile[10];
@@ -87,11 +87,11 @@ private:
 	SDL_Rect	background_rect;
 
 	Uint32 winfullscr = 0;
+	p2List<j1UI_Elem*> menu_elems;
 
+public:
 	uint button_sound;
 	uint door_sound;
-
-	p2List<j1UI_Elem*> menu_elems;
 };
 
 #endif // __j1SCENE_MENU_H__

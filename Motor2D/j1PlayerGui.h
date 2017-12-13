@@ -28,10 +28,10 @@ public:
 	void DestroyESCWindow();
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
-	
 
 private:
 	j1Timer		timer;
+
 	GuiImage* full_heart[LIFES];
 	GuiImage* empty_heart[LIFES];
 
@@ -39,6 +39,7 @@ private:
 	GuiLabel* points_text;
 	GuiLabel* pickups_text;
 	GuiLabel* timer_text;
+
 	uint last_sec;
 	uint base_time=0;
 
@@ -53,6 +54,8 @@ private:
 	GuiLabel* restartlabel = nullptr;
 	GuiLabel* resumelabel = nullptr;
 	GuiLabel* menulabel = nullptr;
+
+	bool pauseMenucreated = false;
 
 };
 

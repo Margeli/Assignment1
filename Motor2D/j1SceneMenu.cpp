@@ -148,6 +148,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 		{
 			if (evnt == ButtonEvent::LEFT_CLICK) { if (!creditswindowcreated)  App->audio->PlayFx(button_sound); CreateCreditsWindow(); }
 		}
+
 		if (elem == exit) { if (evnt == ButtonEvent::LEFT_CLICK) { App->audio->PlayFx(door_sound);  return false; } }		//EXIT
 
 		if (elem == play)	//PLAY	

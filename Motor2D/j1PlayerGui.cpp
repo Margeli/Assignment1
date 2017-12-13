@@ -2,6 +2,13 @@
 #include "j1Gui.h"
 #include "j1App.h"
 #include "j1Collectables.h"
+#include "j1SceneMenu.h"
+#include "j1Audio.h"
+#include "j1Scene.h"
+#include "j1Scene2.h"
+#include "j1Player.h"
+#include "j1FadeToBlack.h"
+#include "j1UI_Elem.h"
 
 #define HEART_POS 20
 #define BANANA_POS_Y 10
@@ -63,19 +70,20 @@ bool j1PlayerGui::Update(float dt)
 	return true;
 }
 
-bool j1PlayerGui::CleanUp() {
-	for (int i = 0; i < LIFES; i++) {
+bool j1PlayerGui::CleanUp()
+{
+	for (int i = 0; i < LIFES; i++) 
+	{
 		full_heart[i]->CleanUp();
 		empty_heart[i]->CleanUp();		
 	}
 
 	timer_text->CleanUp();
-
 	pickups_text->CleanUp();
 	points_text->CleanUp();
 	points_img->CleanUp();
 
-	DestroyESCWindow();
+	if (pauseMenucreated) { DestroyESCWindow(); }
 
 	return true;
 }
@@ -140,14 +148,93 @@ void j1PlayerGui::CreateESCWindow()
 	quitlabel = App->gui->AddText(ALIGN_CENTERED, "QUIT", { 5, 410 });
 	window->AddWindowElement(quitlabel);
 
+
+	pauseMenucreated = true;
 }
 
 void j1PlayerGui::DestroyESCWindow()
 {
-	window->CleanUp();	//TODO
+	window->CleanUp();	
+	pauseMenucreated = false;
 }
 
 bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) 
 {
+	if (pauseMenucreated)
+	{
+			switch (event)
+			{
+			case ButtonEvent::MOUSE_INSIDE:
+				elem->StateChanging(HOVER);
+				break;
+			case ButtonEvent::MOUSE_OUTSIDE:
+				elem->StateChanging(IDLE);
+				break;
+			case ButtonEvent::RIGHT_CLICK:
+				elem->StateChanging(PRESSED_R);
+				break;
+			case ButtonEvent::LEFT_CLICK:
+				elem->StateChanging(PRESSED_L);
+				break;
+			case ButtonEvent::LEFT_CLICK_UP:
+				elem->StateChanging(UP_L);
+				break;
+			case ButtonEvent::RIGHT_CLICK_UP:
+				elem->StateChanging(UP_R);
+				break;
+			}
+
+			if (elem == window || elem == winquit || elem == restart || elem == resume || elem == menu)
+			{
+				switch (event)
+				{
+				case ButtonEvent::LEFT_CLICK:
+
+					if (elem == winquit) { App->audio->PlayFx(App->menu->button_sound); return false; }		//This should exit, but it does not
+
+					if (elem == restart)
+					{
+							App->audio->PlayFx(App->menu->button_sound);
+							App->entities->player->fposition = { (float)App->scene1->initial_scene_pos.x, (float)App->scene1->initial_scene_pos.y };
+							App->render->camera.x = 0;
+							DestroyESCWindow();
+							App->ResumeGame();
+					}
+
+					if (elem == resume) 
+					{ 
+						App->audio->PlayFx(App->menu->button_sound);
+						DestroyESCWindow(); 
+						App->ResumeGame(); 
+					}
+
+					if (elem == menu)
+					{ 
+						App->audio->PlayFx(App->menu->button_sound);
+						DestroyESCWindow();  
+						App->fade->FadeToBlack(App->entities, App->menu, 0.8f); 
+						App->scene1->SceneChangeMenu(); 
+					}
+
+					elem->StateChanging(PRESSED_L);
+					break;
+
+				case ButtonEvent::LEFT_CLICK_UP:
+					elem->StateChanging(UP_L);
+					break;
+
+				case ButtonEvent::MOUSE_INSIDE:
+					elem->StateChanging(HOVER);
+					break;
+
+				case ButtonEvent::MOUSE_OUTSIDE:
+					if (elem == restart || elem == resume || elem == menu || elem == winquit) { window->can_move = true; }
+
+					elem->StateChanging(IDLE);
+					break;
+				}
+			}
+	}
+
 	return true;
 }
