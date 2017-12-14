@@ -52,7 +52,7 @@ bool j1SceneMenu::Start()
 
 		//---Buttons
 		play = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,200 }, this);
-		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png");
+		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png", "gui/Buttons/PlayButtonPressed.png");
 		play->rect= { 0,0,195, 63 };
 		menu_elems.add(play);
 
@@ -62,16 +62,16 @@ bool j1SceneMenu::Start()
 		menu_elems.add(cont);
 
 		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);
-		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png");
+		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png","gui/Buttons/SettingsButtonPressed.png" );
 		menu_elems.add(settings);
 
 		credits = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,500 }, this);
-		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png");
+		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png","gui/Buttons/CreditsButtonPressed.png" );
 		credits->rect = { 0,0,280, 63 };
 		menu_elems.add(credits);
 
 		exit = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,600 }, this);
-		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png");
+		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png","gui/Buttons/ExitButtonPressed.png" );
 		exit->rect = { 0,0,180, 63 };
 		menu_elems.add(exit);
 
@@ -192,6 +192,8 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 	}
 	else if(settingwindowcreated)		//SETTINGS
 	{
+		if (elem == settings && evnt == LEFT_CLICK_UP) { elem->StateChanging(UP_L); }
+	
 		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus|| elem== winfxmin || elem == winfxplus || elem == fullscreen)
 		{
 			switch (evnt) 
@@ -272,6 +274,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 	}
 	else if (creditswindowcreated)		//CREDITS
 	{
+		if (elem == credits && evnt == LEFT_CLICK_UP) { elem->StateChanging(UP_L); }
 		if (elem == window || elem == winquit || elem == link)
 		{
 			switch (evnt)
@@ -389,6 +392,8 @@ void j1SceneMenu::CreateSettingWindow()
 	winfxtile[9] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winfxbar_y + 57 });
 	winfxtile[9]->draw = false;
 	window->AddWindowElement(winfxtile[9]);
+
+	
 	
 	settingwindowcreated = true;
 }
