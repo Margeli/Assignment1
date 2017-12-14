@@ -140,24 +140,30 @@ void j1PlayerGui::CreateESCWindow()
 	window->tex = window->LoadTexture("gui/Settings/ESC_window.png");
 	window->rect = { 0,0, 509, 562 };
 
-	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 160 }, App->entities);
+	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 200 }, App->entities);
 	menu->SetButtonTex("gui/Settings/menu.png", "gui/Settings/menu_pressed.png");
+	menu_label = App->gui->AddText(ALIGN_CENTERED, "MENU", { -80, 200 });
+	window->AddWindowElement(menu_label);
 	menu->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(menu);
 
-	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 260 }, App->entities);
+	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 300 }, App->entities);
 	restart->SetButtonTex("gui/Settings/restart.png", "gui/Settings/restart_pressed.png");
+	restart_label = App->gui->AddText(ALIGN_CENTERED, "RESTART", { -55, 305 });
+	window->AddWindowElement(restart_label);
 	restart->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(restart);
 	
-	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 360 }, App->entities);
+	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 400 }, App->entities);
 	resume->SetButtonTex("gui/Settings/play.png", "gui/Settings/play_pressed.png");
+	resume_label = App->gui->AddText(ALIGN_CENTERED, "RESUME", { -60, 400 });
+	window->AddWindowElement(resume_label);
 	resume->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(resume);
 
-	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 500 }, App->entities);
-	winquit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png", "gui/Buttons/ExitButtonPressed.png");
-	winquit->rect = { 0,0,180, 63 };
+	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 10, 565 }, App->entities);
+	winquit->SetButtonTex("gui/Buttons/ExitButtonPause.png", "gui/Buttons/ExitButtonPauseHover.png", "gui/Buttons/ExitPausePressed.png");
+	winquit->rect = { 0, 0, 89, 30 };
 	window->AddWindowElement(winquit);
 
 	pauseMenucreated = true;
