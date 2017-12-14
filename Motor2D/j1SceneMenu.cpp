@@ -21,6 +21,8 @@ j1SceneMenu::j1SceneMenu() : j1Module()
 {
 	name.create("menu");
 	for (int i = 0; i < 10; i++) { winsoundtile[i] = nullptr; winfxtile[i] = nullptr; }
+	sound_bar_length = DEFAULT_BAR_LENGHT;
+	fx_bar_length = DEFAULT_BAR_LENGHT;
 }
 
 j1SceneMenu::~j1SceneMenu()
@@ -357,7 +359,8 @@ void j1SceneMenu::CreateSettingWindow()
 
 	for (int i = 1; i < 9; i++) {
 		winsoundtile[i] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Midbar.png", { 0,0,45,75 }, { -235 + 52 * i,winsoundbar_y + 57 });
-		if (i >= DEFAULT_BAR_LENGHT) { winsoundtile[i]->draw = false; }
+		if (i >= sound_bar_length) {
+			winsoundtile[i]->draw = false; }
 		window->AddWindowElement(winsoundtile[i]);
 	}
 	winsoundtile[9] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winsoundbar_y + 57 });
@@ -386,7 +389,7 @@ void j1SceneMenu::CreateSettingWindow()
 
 	for (int i = 1; i < 9; i++) {
 		winfxtile[i] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Midbar.png", { 0,0,45,75 }, { -235 + 52 * i,winfxbar_y + 57 });
-		if (i >= DEFAULT_BAR_LENGHT) { winfxtile[i]->draw = false; }
+		if (i >= fx_bar_length) { winfxtile[i]->draw = false; }
 		window->AddWindowElement(winfxtile[i]);
 	}
 	winfxtile[9] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winfxbar_y + 57 });
@@ -434,6 +437,7 @@ void j1SceneMenu::DestroyWindow()
 
 void j1SceneMenu::ShiftVolumeBarLeft() 
 {
+	sound_bar_length--;
 	for (int i = 0; i < 10; i++) 
 	{
 		if (winsoundtile[i]->draw == false) 
@@ -442,11 +446,12 @@ void j1SceneMenu::ShiftVolumeBarLeft()
 			return;
 		}
 	}
-	winsoundtile[9]->draw = false;
+	winsoundtile[9]->draw = false;	
 }
 
 void j1SceneMenu::ShiftVolumeBarRight() 
 {
+	sound_bar_length++;
 	for (int i = 0; i < 10; i++) 
 	{
 		if (winsoundtile[i]->draw == false) 
@@ -454,10 +459,12 @@ void j1SceneMenu::ShiftVolumeBarRight()
 			winsoundtile[i]->draw = true;
 			return;
 		}
-	}
+	}	
 }
+
 void j1SceneMenu::ShiftFXBarLeft()
 {
+	fx_bar_length--;
 	for (int i = 0; i < 10; i++)
 	{
 		if (winfxtile[i]->draw == false)
@@ -471,6 +478,7 @@ void j1SceneMenu::ShiftFXBarLeft()
 
 void j1SceneMenu::ShiftFXBarRight()
 {
+	fx_bar_length++;
 	for (int i = 0; i < 10; i++)
 	{
 		if (winfxtile[i]->draw == false)
