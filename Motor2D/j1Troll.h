@@ -28,9 +28,8 @@ public:
 	bool Update(float dt);
 	
 	bool CleanUp();
-
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&)override;
+	bool Save(pugi::xml_node&) const override;
 
 	void Move(Pathfinding& _path, float dt);
 

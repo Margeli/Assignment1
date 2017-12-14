@@ -37,7 +37,7 @@ bool j1SceneMenu::Awake(pugi::xml_node&)
 
 bool j1SceneMenu::Start()
 {
-	current_volume = MIX_MAX_VOLUME/2;
+	current_volume = (float)MIX_MAX_VOLUME/2;
 
 	if (App->scene1->active == true) { active = false; }
 	else if (App->scene2->active == true) { active = false; }
@@ -232,7 +232,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					ShiftVolumeBarRight(); 
 					window->can_move = false; 
 					current_volume += 12.8f;
-					if (current_volume > 128) { current_volume = MIX_MAX_VOLUME; }
+					if (current_volume > MIX_MAX_VOLUME) { current_volume = MIX_MAX_VOLUME; }
 					Mix_VolumeMusic(current_volume );
 				}
 
@@ -489,4 +489,21 @@ void j1SceneMenu::LoadGame()
 	App->pathfind->Start();
 	App->render->SetCameraInitialPos();
 	App->LoadGame();
+}
+
+bool j1SceneMenu::Load(pugi::xml_node& data) {
+
+	pugi::xml_node pos = data.child("volume");
+
+	current_volume = pos.attribute("value").as_float();
+
+	Mix_VolumeMusic(current_volume);
+	return true;
+}
+bool j1SceneMenu::Save(pugi::xml_node& data)const {
+
+	pugi::xml_node pos = data.append_child("volume");
+
+	pos.append_attribute("value") = current_volume;
+	return true;
 }

@@ -254,7 +254,7 @@ bool j1Troll2::Save(pugi::xml_node& data) const {
 	return true;
 }
 
-bool j1Troll2::Load(pugi::xml_node&) {
+bool j1Troll2::Load(pugi::xml_node& data ) {
 
 	return true;
 }

@@ -8,6 +8,7 @@
 
 j1FadeToBlack::j1FadeToBlack()
 {
+	name.create("fade");
 	screen = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 }
 

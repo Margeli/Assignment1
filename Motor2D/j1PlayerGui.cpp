@@ -81,10 +81,11 @@ bool j1PlayerGui::CleanUp()
 	
 	timer_text->CleanUp();
 	pickups_text->CleanUp();
-	points_text->CleanUp();///	
+	points_text->CleanUp();	
 	points_img->CleanUp();
 
-	if (pauseMenucreated) { DestroyESCWindow(); }
+	if (pauseMenucreated) { 
+		DestroyESCWindow(); }
 
 	return true;
 }
@@ -159,8 +160,7 @@ void j1PlayerGui::CreateESCWindow()
 
 void j1PlayerGui::DestroyESCWindow()
 {
-	if (window)
-		window->CleanUp();
+	window->CleanUp();
 	pauseMenucreated = false;
 
 }
@@ -196,7 +196,9 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 		{
 		case ButtonEvent::LEFT_CLICK:
 
-			if (elem == winquit) { App->audio->PlayFx(App->menu->button_sound); return false; }		//This should exit, but it does not
+			if (elem == winquit) {
+				App->audio->PlayFx(App->menu->button_sound);
+				return false; }		
 
 			if (elem == restart)
 			{

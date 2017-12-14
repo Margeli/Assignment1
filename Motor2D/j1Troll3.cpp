@@ -240,3 +240,18 @@ void j1Troll3::Move(Pathfinding& _path, float dt)
 	}
 }
 
+
+bool j1Troll3::Save(pugi::xml_node& data) const {
+
+	pugi::xml_node pos = data.append_child("position");
+
+	pos.append_attribute("x") = position.x;
+	pos.append_attribute("y") = position.y;
+
+	return true;
+}
+
+bool j1Troll3::Load(pugi::xml_node&) {
+
+	return true;
+}
