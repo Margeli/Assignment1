@@ -15,6 +15,7 @@
 
 #define DEFAULT_BAR_LENGHT 5
 #define GITHUB_URL "www.github.com/Margeli/Assignment2"
+//should be a link to the webpage
 
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
@@ -36,7 +37,11 @@ bool j1SceneMenu::Awake(pugi::xml_node&)
 
 bool j1SceneMenu::Start()
 {
+<<<<<<< HEAD
 	current_volume = fx_volume = MIX_MAX_VOLUME/2;
+=======
+	current_volume = (float)MIX_MAX_VOLUME/2;
+>>>>>>> 385f66170d1b4dca81d8f5319639b99752d6eb06
 
 	if (App->scene1->active == true) { active = false; }
 	else if (App->scene2->active == true) { active = false; }
@@ -51,7 +56,7 @@ bool j1SceneMenu::Start()
 
 		//---Buttons
 		play = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,200 }, this);
-		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png");
+		play->SetButtonTex( "gui/Buttons/PlayButton.png", "gui/Buttons/PlayButtonHover.png", "gui/Buttons/PlayButtonPressed.png");
 		play->rect= { 0,0,195, 63 };
 		menu_elems.add(play);
 
@@ -61,16 +66,16 @@ bool j1SceneMenu::Start()
 		menu_elems.add(cont);
 
 		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);
-		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png");
+		settings->SetButtonTex("gui/Buttons/SettingsButton.png", "gui/Buttons/SettingsButtonHover.png","gui/Buttons/SettingsButtonPressed.png" );
 		menu_elems.add(settings);
 
 		credits = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,500 }, this);
-		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png");
+		credits->SetButtonTex("gui/Buttons/CreditsButton.png", "gui/Buttons/CreditsButtonHover.png","gui/Buttons/CreditsButtonPressed.png" );
 		credits->rect = { 0,0,280, 63 };
 		menu_elems.add(credits);
 
 		exit = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,600 }, this);
-		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png");
+		exit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png","gui/Buttons/ExitButtonPressed.png" );
 		exit->rect = { 0,0,180, 63 };
 		menu_elems.add(exit);
 
@@ -90,7 +95,8 @@ bool j1SceneMenu::Update(float dt)
 	if (active) 
 	{
 		App->render->Blit(background, 0, 0, &background_rect);
-		if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
+		if (toChangeScene && !App->fade->IsFading()) {
+			SceneChange(); }
 	}
 	return true;
 }
@@ -190,6 +196,8 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 	}
 	else if(settingwindowcreated)		//SETTINGS
 	{
+		if (elem == settings && evnt == LEFT_CLICK_UP) { elem->StateChanging(UP_L); }
+	
 		if(elem == window || elem == winquit || elem == winsoundmin || elem == winsoundplus|| elem== winfxmin || elem == winfxplus || elem == fullscreen)
 		{
 			switch (evnt) 
@@ -230,11 +238,12 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					ShiftVolumeBarRight(); 
 					window->can_move = false; 
 					current_volume += 12.8f;
-					if (current_volume > 128) { current_volume = MIX_MAX_VOLUME; }
+					if (current_volume > MIX_MAX_VOLUME) { current_volume = MIX_MAX_VOLUME; }
 					Mix_VolumeMusic(current_volume );
 				}
 
 				if (elem == winfxplus)
+<<<<<<< HEAD
 				{
 					App->audio->PlayFx(button_sound);
 					ShiftFXBarRight(); 
@@ -242,6 +251,13 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					fx_volume += 12.8f;
 					sample->volume = fx_volume;
 					Mix_VolumeChunk(sample, fx_volume);
+=======
+				{ 
+					App->audio->PlayFx(button_sound);
+					ShiftFXBarRight(); 
+					window->can_move = false; 
+					Mix_Chunk fxvolume;
+>>>>>>> 385f66170d1b4dca81d8f5319639b99752d6eb06
 				}
 
 				if (elem == winfxmin) 
@@ -249,9 +265,12 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					App->audio->PlayFx(button_sound);
 					ShiftFXBarLeft(); 
 					window->can_move = false; 
+<<<<<<< HEAD
 					fx_volume -= 12.8f;
 					sample->volume = fx_volume;
 					Mix_VolumeChunk(sample, fx_volume);
+=======
+>>>>>>> 385f66170d1b4dca81d8f5319639b99752d6eb06
 				}
 
 				elem->StateChanging(PRESSED_L);
@@ -275,6 +294,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 	}
 	else if (creditswindowcreated)		//CREDITS
 	{
+		if (elem == credits && evnt == LEFT_CLICK_UP) { elem->StateChanging(UP_L); }
 		if (elem == window || elem == winquit || elem == link)
 		{
 			switch (evnt)
@@ -392,6 +412,8 @@ void j1SceneMenu::CreateSettingWindow()
 	winfxtile[9] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winfxbar_y + 57 });
 	winfxtile[9]->draw = false;
 	window->AddWindowElement(winfxtile[9]);
+
+	
 	
 	settingwindowcreated = true;
 }
@@ -492,4 +514,21 @@ void j1SceneMenu::LoadGame()
 	App->pathfind->Start();
 	App->render->SetCameraInitialPos();
 	App->LoadGame();
+}
+
+bool j1SceneMenu::Load(pugi::xml_node& data) {
+
+	pugi::xml_node pos = data.child("volume");
+
+	current_volume = pos.attribute("value").as_float();
+
+	Mix_VolumeMusic(current_volume);
+	return true;
+}
+bool j1SceneMenu::Save(pugi::xml_node& data)const {
+
+	pugi::xml_node pos = data.append_child("volume");
+
+	pos.append_attribute("value") = current_volume;
+	return true;
 }

@@ -55,6 +55,7 @@ bool j1Player::Start()
 	lose_fx = App->audio->LoadFx("audio/fx/lose.wav");
 	die_fx = App->audio->LoadFx("audio/fx/player_death.wav");
 	troll_death = App->audio->LoadFx("audio/fx/troll_death.wav");
+	win_live = App->audio->LoadFx("audio/fx/win.wav");
 
 	if (sword_sound == 0)
 		sword_sound = App->audio->LoadFx("audio/fx/sword_attack.wav");
@@ -70,7 +71,6 @@ bool j1Player::Start()
 	playerGui = new j1PlayerGui();
 	playerGui->Start();
 	
-
 	return ret;
 }
 
@@ -90,7 +90,14 @@ bool j1Player::Update(float dt)
 {	
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
 	speed = SPEED + SPEED *dt;
-	if (paused) { Draw(); return true; }
+	if (points >= 100)
+	{ 
+		App->audio->PlayFx(win_live);
+		App->entities->player->points = 0;
+		lifes++;
+		playerGui->DrawHearts(lifes);
+	}
+	if (paused) { playerGui->PauseTime(); Draw(); return true; }
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
 	//else 	if (godmode == true) { fposition.y; }
 	if (use_input) 
@@ -383,8 +390,9 @@ void j1Player::LittleJump() {
 }
 
 bool j1Player::OnEventChange(j1UI_Elem* elem, ButtonEvent event) {
+	bool ret = true;
 	if (playerGui) {
-		playerGui->OnEventChange(elem, event);
+		ret= playerGui->OnEventChange(elem, event);
 	}
-	return true;
+	return ret;
 }

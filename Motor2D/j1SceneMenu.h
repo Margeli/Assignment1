@@ -39,6 +39,9 @@ public:
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event) ;
 
+	bool Load(pugi::xml_node&)override;
+	bool Save(pugi::xml_node&)const override;
+
 private:
 
 	void LoadGame();
@@ -55,8 +58,12 @@ private:
 	bool toChangeScene = false;
 	bool fullscreenbool = false;
 
+<<<<<<< HEAD
 	int current_volume;
 	int fx_volume;
+=======
+	float current_volume;
+>>>>>>> 385f66170d1b4dca81d8f5319639b99752d6eb06
 
 	GuiWindow*	window = nullptr;
 	GuiButton* winquit = nullptr;

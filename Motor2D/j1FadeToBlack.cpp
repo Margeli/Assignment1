@@ -8,6 +8,7 @@
 
 j1FadeToBlack::j1FadeToBlack()
 {
+	name.create("fade");
 	screen = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 }
 
@@ -76,5 +77,6 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_ff, j1Module* module_n, float t
 }
 bool j1FadeToBlack::IsFading() const
 {
-	return (current_step == fade_step::fade_to_black);
+	bool ret = current_step == fade_step::fade_to_black;
+	return ret;
 }

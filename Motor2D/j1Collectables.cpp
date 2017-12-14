@@ -51,7 +51,7 @@ void j1Collectables::OnCollision(Collider* c1, Collider* c2)
 	CollisionDirection direction;
 	if (c2->type == COLLIDER_PLAYER)
 	{
-		App->entities->player->points += 50;
+		App->entities->player->points += 20;
 		found = true;
 		collider->to_delete = true;
 		App->entities->player->pickups_counter++;

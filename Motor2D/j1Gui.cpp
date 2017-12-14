@@ -76,14 +76,15 @@ bool j1Gui::CleanUp()
 {
 	App->tex->UnLoad(atlas);
 	LOG("Freeing GUI");
-	p2List_item<j1UI_Elem*>* elem;
-
-	for (elem = elements.start; elem != NULL; elem = elem->next)
-	{
-		elem->data->CleanUp();
-		DestroyElement(elem->data);
+	p2List_item<j1UI_Elem*>* elem = elements.start;
+	if (elem != NULL) {
+		for (; elem != NULL; elem = elem->next)
+		{
+			elem->data->CleanUp();
+			DestroyElement(elem->data);
+		}
+		elements.clear();
 	}
-	elements.clear();
 	return true;
 }
 

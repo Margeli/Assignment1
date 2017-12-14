@@ -96,7 +96,7 @@ private:
 	uint hurt_fx;
 	uint die_fx;
 	uint troll_death;
-
+	uint win_live;
 	
 };
 

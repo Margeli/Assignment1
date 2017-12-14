@@ -47,7 +47,7 @@ bool j1PlayerGui::Start()
 
 	//------TIME----
 	//------COINS----
-
+	pausetime.SetZero();
 	return true;
 }
 
@@ -59,6 +59,12 @@ bool j1PlayerGui::Update(float dt)
 	pickups_text->ChangeText(player_pickups);		
 	points_text->ChangeText(player_score);//update the same label or change it itereatively
 
+	
+	if (!pausetime.IsZero()) {
+		timer.SubstractTime(pausetime);
+		pausetime.SetZero();
+		start_pause = true;
+	}
 	int sec = timer.ReadSec();
 	if (sec > last_sec) {
 		sec += base_time;
@@ -72,33 +78,39 @@ bool j1PlayerGui::Update(float dt)
 
 bool j1PlayerGui::CleanUp()
 {
-	for (int i = 0; i < LIFES; i++) 
+	for (int i = 0; i < LIFES; i++)
 	{
 		full_heart[i]->CleanUp();
-		empty_heart[i]->CleanUp();		
+		empty_heart[i]->CleanUp();
 	}
 
+	
 	timer_text->CleanUp();
 	pickups_text->CleanUp();
-	points_text->CleanUp();
+	points_text->CleanUp();	
 	points_img->CleanUp();
 
-	if (pauseMenucreated) { DestroyESCWindow(); }
+	if (pauseMenucreated) { 
+		DestroyESCWindow(); }
 
 	return true;
 }
 
-void j1PlayerGui::DrawHearts(int current_lifes) {
-	for (int i = 0; i < LIFES; i++) {
+void j1PlayerGui::DrawHearts(int current_lifes) 
+{
+	for (int i = 0; i < LIFES; i++) 
+	{
 		full_heart[i]->draw = false;
 		empty_heart[i]->draw = false;
 	}
 
-	for (int i = 0; i < current_lifes; i++) {
+	for (int i = 0; i < current_lifes; i++) 
+	{
 		full_heart[i]->draw = true;
 	}
 
-	for (int i = LIFES-1; i >= current_lifes; i--) {
+	for (int i = LIFES-1; i >= current_lifes; i--) 
+	{
 		empty_heart[i]->draw = true;
 	}
 }
@@ -154,8 +166,8 @@ void j1PlayerGui::CreateESCWindow()
 
 void j1PlayerGui::DestroyESCWindow()
 {
-	if (window)
-		window->CleanUp();
+	window->CleanUp();
+	window = nullptr;
 	pauseMenucreated = false;
 
 }
@@ -164,80 +176,91 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 {
 	if (pauseMenucreated)
 	{
-			switch (event)
+		switch (event)
+		{
+		case ButtonEvent::MOUSE_INSIDE:
+			elem->StateChanging(HOVER);
+			break;
+		case ButtonEvent::MOUSE_OUTSIDE:
+			elem->StateChanging(IDLE);
+			break;
+		case ButtonEvent::RIGHT_CLICK:
+			elem->StateChanging(PRESSED_R);
+			break;
+		case ButtonEvent::LEFT_CLICK:
+			elem->StateChanging(PRESSED_L);
+			break;
+		case ButtonEvent::LEFT_CLICK_UP:
+			elem->StateChanging(UP_L);
+			break;
+		case ButtonEvent::RIGHT_CLICK_UP:
+			elem->StateChanging(UP_R);
+			break;
+		}
+
+
+		switch (event)
+		{
+		case ButtonEvent::LEFT_CLICK:
+
+			if (elem == winquit) {
+				App->audio->PlayFx(App->menu->button_sound);
+				return false; }		
+
+			if (elem == restart)
 			{
-			case ButtonEvent::MOUSE_INSIDE:
-				elem->StateChanging(HOVER);
-				break;
-			case ButtonEvent::MOUSE_OUTSIDE:
-				elem->StateChanging(IDLE);
-				break;
-			case ButtonEvent::RIGHT_CLICK:
-				elem->StateChanging(PRESSED_R);
-				break;
-			case ButtonEvent::LEFT_CLICK:
-				elem->StateChanging(PRESSED_L);
-				break;
-			case ButtonEvent::LEFT_CLICK_UP:
-				elem->StateChanging(UP_L);
-				break;
-			case ButtonEvent::RIGHT_CLICK_UP:
-				elem->StateChanging(UP_R);
-				break;
+				App->audio->PlayFx(App->menu->button_sound);
+				if (App->scene1->active == true) { App->scene2->SceneChange(); }
+				if (App->scene2->active == true) { App->scene1->SceneChange(); }
+						
+				DestroyESCWindow();
+				App->ResumeGame();
 			}
 
-			if (elem == window || elem == winquit || elem == restart || elem == resume || elem == menu)
+			if (elem == resume)
 			{
-				switch (event)
-				{
-				case ButtonEvent::LEFT_CLICK:
-
-					if (elem == winquit) { App->audio->PlayFx(App->menu->button_sound); return false; }		//This should exit, but it does not
-
-					if (elem == restart)
-					{
-							App->audio->PlayFx(App->menu->button_sound);
-							if (App->scene1->active == true) { App->entities->player->fposition = { (float)App->scene1->initial_scene_pos.x, (float)App->scene1->initial_scene_pos.y }; }
-							if (App->scene2->active == true) { App->entities->player->fposition = { (float)App->scene2->initial_scene_pos.x, (float)App->scene2->initial_scene_pos.y }; }
-							App->render->camera.x = 0;
-							DestroyESCWindow();
-							App->ResumeGame();
-					}
-
-					if (elem == resume) 
-					{ 
-						App->audio->PlayFx(App->menu->button_sound);
-						DestroyESCWindow(); 
-						App->ResumeGame(); 
-					}
-
-					if (elem == menu)
-					{ 
-						App->audio->PlayFx(App->menu->button_sound);
-						DestroyESCWindow();  
-						App->fade->FadeToBlack(App->entities, App->menu, 0.8f); 
-						App->scene1->SceneChangeMenu(); 
-					}
-
-					elem->StateChanging(PRESSED_L);
-					break;
-
-				case ButtonEvent::LEFT_CLICK_UP:
-					elem->StateChanging(UP_L);
-					break;
-
-				case ButtonEvent::MOUSE_INSIDE:
-					elem->StateChanging(HOVER);
-					break;
-
-				case ButtonEvent::MOUSE_OUTSIDE:
-					if (elem == restart || elem == resume || elem == menu || elem == winquit) { window->can_move = true; }
-
-					elem->StateChanging(IDLE);
-					break;
-				}
+				App->audio->PlayFx(App->menu->button_sound);
+				DestroyESCWindow();
+				App->ResumeGame();
 			}
+
+			if (elem == menu)
+			{
+				App->audio->PlayFx(App->menu->button_sound);
+				DestroyESCWindow();
+				App->fade->FadeToBlack(App->entities, App->menu, 0.8f);
+				if (App->scene1->active == true) {
+					App->scene1->SceneChangeMenu(); }
+				if (App->scene2->active == true) { 
+					App->scene2->SceneChangeMenu(); }
+			}
+
+			elem->StateChanging(PRESSED_L);
+			break;
+
+		case ButtonEvent::LEFT_CLICK_UP:
+			elem->StateChanging(UP_L);
+			break;
+
+		case ButtonEvent::MOUSE_INSIDE:
+			elem->StateChanging(HOVER);
+			break;
+
+		case ButtonEvent::MOUSE_OUTSIDE:
+			if (elem == restart || elem == resume || elem == menu || elem == winquit) { window->can_move = true; }
+
+			elem->StateChanging(IDLE);
+			break;
+		}
+
 	}
 
 	return true;
+}
+
+void j1PlayerGui::PauseTime() {
+	if (start_pause) {
+		pausetime.Start();
+		start_pause = false;
+	}
 }

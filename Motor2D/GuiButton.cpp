@@ -99,6 +99,9 @@ void GuiButton::StateChanging(ButtonState status)
 		tex = press;
 		state = status;
 		break;
+	case UP_L:
+		tex = up;
+		break;
 	}
 }
 

@@ -10,9 +10,9 @@ public:
 
 	GuiLabel(Alignment alignment = NO_ALIGN);
 	virtual ~GuiLabel();
-	bool Start();
-	bool CleanUp();
-	bool Update(float dt);
+	bool Start() override;
+	bool CleanUp() override;
+	bool Update(float dt) override;
 	
 	void CreateText(p2SString txt, SDL_Color color, FontType font);
 	void ChangeText(p2SString newtext);

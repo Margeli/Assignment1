@@ -59,8 +59,7 @@ public:
 	bool paused = false;
 	
 	virtual void Draw();
-	virtual void OnCollision(Collider* c1, Collider* c2)
-	{};
+	virtual void OnCollision(Collider* c1, Collider* c2){};
 	virtual void SetInitialPos();
 	
 };

@@ -12,6 +12,9 @@ public:
 	void Start();
 	uint32 Read() const;
 	float ReadSec() const;
+	void SetZero();
+	bool IsZero()const;
+	void SubstractTime(j1Timer timer_to_copy_from);
 
 private:
 	uint32	started_at;
