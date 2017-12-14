@@ -47,7 +47,7 @@ bool j1PlayerGui::Start()
 
 	//------TIME----
 	//------COINS----
-
+	pausetime.SetZero();
 	return true;
 }
 
@@ -59,6 +59,12 @@ bool j1PlayerGui::Update(float dt)
 	pickups_text->ChangeText(player_pickups);		
 	points_text->ChangeText(player_score);//update the same label or change it itereatively
 
+	
+	if (!pausetime.IsZero()) {
+		timer.SubstractTime(pausetime);
+		pausetime.SetZero();
+		start_pause = true;
+	}
 	int sec = timer.ReadSec();
 	if (sec > last_sec) {
 		sec += base_time;
@@ -161,6 +167,7 @@ void j1PlayerGui::CreateESCWindow()
 void j1PlayerGui::DestroyESCWindow()
 {
 	window->CleanUp();
+	window = nullptr;
 	pauseMenucreated = false;
 
 }
@@ -249,4 +256,11 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 	}
 
 	return true;
+}
+
+void j1PlayerGui::PauseTime() {
+	if (start_pause) {
+		pausetime.Start();
+		start_pause = false;
+	}
 }

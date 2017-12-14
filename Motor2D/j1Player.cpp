@@ -97,7 +97,7 @@ bool j1Player::Update(float dt)
 		lifes++;
 		playerGui->DrawHearts(lifes);
 	}
-	if (paused) { Draw(); return true; }
+	if (paused) { playerGui->PauseTime(); Draw(); return true; }
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
 	//else 	if (godmode == true) { fposition.y; }
 	if (use_input) 

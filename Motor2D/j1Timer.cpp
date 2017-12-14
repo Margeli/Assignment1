@@ -20,3 +20,18 @@ float j1Timer::ReadSec() const
 {
 	return float(SDL_GetTicks() - started_at) / 1000.0f;
 }
+
+void j1Timer::SetZero()
+{
+	started_at = 0;
+}
+
+bool j1Timer::IsZero() const{
+
+	return(started_at == 0);
+}
+void j1Timer::SubstractTime(j1Timer nwtime) {
+
+	started_at += nwtime.Read();
+
+}

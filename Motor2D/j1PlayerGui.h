@@ -26,6 +26,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 	void CreateESCWindow();
 	void DestroyESCWindow();
+	void PauseTime();
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
 
@@ -36,6 +37,7 @@ public:
 
 private:
 	j1Timer		timer;
+	j1Timer		pausetime;
 
 	GuiImage* full_heart[LIFES];
 	GuiImage* empty_heart[LIFES];
@@ -58,7 +60,7 @@ private:
 	GuiLabel* menulabel = nullptr;
 
 	bool pauseMenucreated = false;
-
+	bool start_pause = true;
 };
 
 #endif //__j1PLAYERGUI_H__
