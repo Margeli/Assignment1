@@ -89,17 +89,21 @@ bool j1PlayerGui::CleanUp()
 	return true;
 }
 
-void j1PlayerGui::DrawHearts(int current_lifes) {
-	for (int i = 0; i < LIFES; i++) {
+void j1PlayerGui::DrawHearts(int current_lifes) 
+{
+	for (int i = 0; i < LIFES; i++) 
+	{
 		full_heart[i]->draw = false;
 		empty_heart[i]->draw = false;
 	}
 
-	for (int i = 0; i < current_lifes; i++) {
+	for (int i = 0; i < current_lifes; i++) 
+	{
 		full_heart[i]->draw = true;
 	}
 
-	for (int i = LIFES-1; i >= current_lifes; i--) {
+	for (int i = LIFES-1; i >= current_lifes; i--) 
+	{
 		empty_heart[i]->draw = true;
 	}
 }

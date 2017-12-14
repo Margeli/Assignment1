@@ -70,7 +70,6 @@ bool j1Player::Start()
 	playerGui = new j1PlayerGui();
 	playerGui->Start();
 	
-
 	return ret;
 }
 
@@ -90,6 +89,12 @@ bool j1Player::Update(float dt)
 {	
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
 	speed = SPEED + SPEED *dt;
+	if (points >= 100)
+	{
+		App->entities->player->points = 0;
+		lifes++;
+		playerGui->DrawHearts(lifes);
+	}
 	if (paused) { Draw(); return true; }
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
 	//else 	if (godmode == true) { fposition.y; }

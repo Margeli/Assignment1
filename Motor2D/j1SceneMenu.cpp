@@ -236,10 +236,20 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					Mix_VolumeMusic(current_volume );
 				}
 
-				if (elem == winfxplus) { App->audio->PlayFx(button_sound); ShiftFXBarRight(); window->can_move = false; }
-				if (elem == winfxmin) { App->audio->PlayFx(button_sound); ShiftFXBarLeft(); window->can_move = false; }
-				
-				
+				if (elem == winfxplus)
+				{ 
+					App->audio->PlayFx(button_sound);
+					ShiftFXBarRight(); 
+					window->can_move = false; 
+					Mix_Chunk fxvolume;
+				}
+
+				if (elem == winfxmin) 
+				{ 
+					App->audio->PlayFx(button_sound);
+					ShiftFXBarLeft(); 
+					window->can_move = false; 
+				}
 
 				elem->StateChanging(PRESSED_L);
 				break;
