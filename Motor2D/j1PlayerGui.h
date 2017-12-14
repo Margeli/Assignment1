@@ -29,16 +29,18 @@ public:
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
 
+	GuiImage* points_img = nullptr;
+	GuiLabel* points_text = nullptr;
+	GuiLabel* pickups_text = nullptr;
+	GuiLabel* timer_text = nullptr;
+
 private:
 	j1Timer		timer;
 
 	GuiImage* full_heart[LIFES];
 	GuiImage* empty_heart[LIFES];
 
-	GuiImage* points_img = nullptr;
-	GuiLabel* points_text = nullptr;
-	GuiLabel* pickups_text = nullptr;
-	GuiLabel* timer_text = nullptr;
+	
 
 	uint last_sec;
 	uint base_time=0;

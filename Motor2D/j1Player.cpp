@@ -383,8 +383,9 @@ void j1Player::LittleJump() {
 }
 
 bool j1Player::OnEventChange(j1UI_Elem* elem, ButtonEvent event) {
+	bool ret = true;
 	if (playerGui) {
-		playerGui->OnEventChange(elem, event);
+		ret= playerGui->OnEventChange(elem, event);
 	}
-	return true;
+	return ret;
 }

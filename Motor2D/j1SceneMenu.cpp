@@ -15,6 +15,7 @@
 
 #define DEFAULT_BAR_LENGHT 5
 #define GITHUB_URL "www.github.com/Margeli/Assignment2"
+//should be a link to the webpage
 
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
@@ -90,7 +91,8 @@ bool j1SceneMenu::Update(float dt)
 	if (active) 
 	{
 		App->render->Blit(background, 0, 0, &background_rect);
-		if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
+		if (toChangeScene && !App->fade->IsFading()) {
+			SceneChange(); }
 	}
 	return true;
 }

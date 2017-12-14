@@ -111,9 +111,18 @@ bool j1Scene2::PostUpdate()
 	bool ret = true;
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		App->PauseGame();
-		App->entities->player->playerGui->CreateESCWindow();
+		if (paused)
+		{
+			App->ResumeGame();
+			App->entities->player->playerGui->DestroyESCWindow();
+		}
+		else
+		{
+			App->entities->player->playerGui->CreateESCWindow();
+			App->PauseGame();
+		}
 	}
+
 	return ret;
 }
 
@@ -177,6 +186,9 @@ void j1Scene2::SceneChangeMenu()
 	App->entities->CleanUp();
 	App->entities->active = false;
 	App->menu->Start();
+
+	if (paused)
+		App->ResumeGame();
 }
 
 void j1Scene2::PlaceEnemies() const

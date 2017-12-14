@@ -288,9 +288,9 @@ void j1EntityManager::CreatePlayer() {
 }
 
 bool j1EntityManager::OnEventChange(j1UI_Elem* elem, ButtonEvent event) {
-
+	bool ret = true;
 	if (player) {
-		player->OnEventChange(elem, event);
+		ret = player->OnEventChange(elem, event);
 		}
-	return true;
+	return ret;
 }

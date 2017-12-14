@@ -188,6 +188,8 @@ void j1Scene::SceneChangeMenu()
 	App->entities->CleanUp();
 	App->entities->active = false;
 	App->menu->Start();
+	if (paused)
+		App->ResumeGame();
 }
 
 void j1Scene::PlaceEnemies() const
