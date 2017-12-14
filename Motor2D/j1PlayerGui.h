@@ -54,11 +54,6 @@ private:
 	GuiButton* resume = nullptr;
 	GuiButton* menu = nullptr;
 
-	GuiLabel* quitlabel = nullptr;
-	GuiLabel* restartlabel = nullptr;
-	GuiLabel* resumelabel = nullptr;
-	GuiLabel* menulabel = nullptr;
-
 	bool pauseMenucreated = false;
 	bool start_pause = true;
 };

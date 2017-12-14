@@ -138,28 +138,27 @@ void j1PlayerGui::CreateESCWindow()
 {
 	window = App->gui->AddWindow(ALIGN_CENTERED,0, nullptr, { 0,100 }, App->entities);
 	window->tex = window->LoadTexture("gui/Settings/ESC_window.png");
-	window->rect = { 0,0, 348, 384 };
+	window->rect = { 0,0, 509, 562 };
 
-	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -0, 150 }, App->entities);
+	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 160 }, App->entities);
+	menu->SetButtonTex("gui/Settings/menu.png", "gui/Settings/menu_pressed.png");
+	menu->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(menu);
-	menulabel = App->gui->AddText(ALIGN_CENTERED, "MENU", { -0, 150 });
-	window->AddWindowElement(menulabel);
 
-	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -0, 200 }, App->entities);
+	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 260 }, App->entities);
+	restart->SetButtonTex("gui/Settings/restart.png", "gui/Settings/restart_pressed.png");
+	restart->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(restart);
-	restartlabel = App->gui->AddText(ALIGN_CENTERED, "RESTART", { -0, 200 });
-	window->AddWindowElement(restartlabel);
-
-	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -0, 250 }, App->entities);
+	
+	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 360 }, App->entities);
+	resume->SetButtonTex("gui/Settings/play.png", "gui/Settings/play_pressed.png");
+	resume->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(resume);
-	resumelabel = App->gui->AddText(ALIGN_CENTERED, "RESUME", { -0, 250 });
-	window->AddWindowElement(resumelabel);
 
-	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 5, 410 }, App->entities);
+	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 500 }, App->entities);
+	winquit->SetButtonTex("gui/Buttons/ExitButton.png", "gui/Buttons/ExitButtonHover.png", "gui/Buttons/ExitButtonPressed.png");
+	winquit->rect = { 0,0,180, 63 };
 	window->AddWindowElement(winquit);
-	quitlabel = App->gui->AddText(ALIGN_CENTERED, "QUIT", { 5, 410 });
-	window->AddWindowElement(quitlabel);
-
 
 	pauseMenucreated = true;
 }
@@ -169,7 +168,6 @@ void j1PlayerGui::DestroyESCWindow()
 	window->CleanUp();
 	window = nullptr;
 	pauseMenucreated = false;
-
 }
 
 bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) 
@@ -197,7 +195,6 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 			elem->StateChanging(UP_R);
 			break;
 		}
-
 
 		switch (event)
 		{
@@ -229,10 +226,8 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 				App->audio->PlayFx(App->menu->button_sound);
 				DestroyESCWindow();
 				App->fade->FadeToBlack(App->entities, App->menu, 0.8f);
-				if (App->scene1->active == true) {
-					App->scene1->SceneChangeMenu(); }
-				if (App->scene2->active == true) { 
-					App->scene2->SceneChangeMenu(); }
+				if (App->scene1->active == true) { App->scene1->SceneChangeMenu(); }
+				if (App->scene2->active == true) { App->scene2->SceneChangeMenu(); }	
 			}
 
 			elem->StateChanging(PRESSED_L);
@@ -252,15 +247,11 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 			elem->StateChanging(IDLE);
 			break;
 		}
-
 	}
-
 	return true;
 }
 
-void j1PlayerGui::PauseTime() {
-	if (start_pause) {
-		pausetime.Start();
-		start_pause = false;
-	}
+void j1PlayerGui::PauseTime() 
+{
+	if (start_pause) { pausetime.Start(); start_pause = false; }
 }

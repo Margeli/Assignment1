@@ -152,6 +152,5 @@ void GuiWindow::PushButtonName( p2SString txt) {
 	}
 	win_buttons_txt.add(txt);
 }
-void GuiWindow::AddWindowElement(j1UI_Elem* elem){
-	win_elems.add(elem);
-}
+
+void GuiWindow::AddWindowElement(j1UI_Elem* elem) { win_elems.add(elem); }
