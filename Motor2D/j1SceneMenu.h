@@ -53,6 +53,7 @@ private:
 	void ShiftFXBarLeft();
 	void ShiftFXBarRight();
 	
+	
 	bool settingwindowcreated = false;
 	bool creditswindowcreated = false;
 	bool toChangeScene = false;
@@ -95,6 +96,8 @@ private:
 	p2List<j1UI_Elem*> menu_elems;
 
 public:
+	uint sound_bar_length;
+	uint fx_bar_length;
 	uint button_sound;
 	uint door_sound;
 };
