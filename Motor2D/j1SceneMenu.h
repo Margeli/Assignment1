@@ -6,6 +6,7 @@
 #include "p2List.h"
 
 struct SDL_Texture;
+struct Mix_Chunk;
 class SDL_Rect;
 class GuiWindow;
 class GuiButton;
@@ -55,6 +56,7 @@ private:
 	bool fullscreenbool = false;
 
 	int current_volume;
+	int fx_volume;
 
 	GuiWindow*	window = nullptr;
 	GuiButton* winquit = nullptr;
@@ -85,7 +87,7 @@ private:
 
 	SDL_Texture* background = nullptr;
 	SDL_Rect	background_rect;
-
+	Mix_Chunk* sample;
 	Uint32 winfullscr = 0;
 	p2List<j1UI_Elem*> menu_elems;
 

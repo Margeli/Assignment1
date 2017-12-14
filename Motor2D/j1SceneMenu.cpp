@@ -36,7 +36,7 @@ bool j1SceneMenu::Awake(pugi::xml_node&)
 
 bool j1SceneMenu::Start()
 {
-	current_volume = MIX_MAX_VOLUME/2;
+	current_volume = fx_volume = MIX_MAX_VOLUME/2;
 
 	if (App->scene1->active == true) { active = false; }
 	else if (App->scene2->active == true) { active = false; }
@@ -234,9 +234,25 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					Mix_VolumeMusic(current_volume );
 				}
 
-				if (elem == winfxplus) { App->audio->PlayFx(button_sound); ShiftFXBarRight(); window->can_move = false; }
-				if (elem == winfxmin) { App->audio->PlayFx(button_sound); ShiftFXBarLeft(); window->can_move = false; }
-				
+				if (elem == winfxplus)
+				{
+					App->audio->PlayFx(button_sound);
+					ShiftFXBarRight(); 
+					window->can_move = false; 
+					fx_volume += 12.8f;
+					sample->volume = fx_volume;
+					Mix_VolumeChunk(sample, fx_volume);
+				}
+
+				if (elem == winfxmin) 
+				{ 
+					App->audio->PlayFx(button_sound);
+					ShiftFXBarLeft(); 
+					window->can_move = false; 
+					fx_volume -= 12.8f;
+					sample->volume = fx_volume;
+					Mix_VolumeChunk(sample, fx_volume);
+				}
 
 				elem->StateChanging(PRESSED_L);
 				break;
