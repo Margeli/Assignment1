@@ -245,16 +245,8 @@ void j1App::FinishUpdate()
 	}
 	else { cap = "OFF"; }
 	if (render->vsync == true) { state = "ON"; }	else { state = "OFF"; }
+	if (entities->player && delay_time) { static char title[50]; sprintf_s(title, 50, "CAVE KNIGHT"); App->win->SetTitle(title); }
 
-	if (entities->player && delay_time ) {
-		static char title[400];
-		sprintf_s(title, 400, "CAVE KNIGHT | Lives: %d  Points: %d  Max Score: %d  |  FPS: %.2f Last Frame Ms: %02u  Last second frames: %i Vsync: %s Cap: %s",
-			App->entities->player->lifes, App->entities->player->points, App->entities->player->max_score,
-			FPS, last_frame_ms, frames_on_last_update, state.GetString(), cap.GetString());
-		App->win->SetTitle(title);
-	}
-	
-	
 }
 
 // Call modules before each loop iteration
