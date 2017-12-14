@@ -60,8 +60,9 @@ bool j1Scene::Start()
 		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
 			App->map->data.layers.At(2)->data->properties.Get("ypos")}; //Gets the player position from the last layer loaded from Tiled
 		// Should have the initial pos of enemies in a XML
-				
-		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
+		
+		mainsong = App->audio->PlayMusic("audio/music/main_song.ogg");
+
 		PlaceEnemies();
 		
 	}
