@@ -1,15 +1,13 @@
-# Game Development Assignment 2
+# Game Development Assignment 3
 
 **[GitHub](https://github.com/Margeli/Assignment1)**
 
 **[@Margeli](https://github.com/Margeli) & [@RogerJimbo](https://github.com/RogerJimbo)**
 
-Map tiles and character sprites art are from  [Open Art](https://opengameart.org/)  , both free without copyright. 
+Map tiles and character sprites art are from  [Open Art](https://opengameart.org/), both free without copyright. 
 
 ## Innovation
-
-- Loading the enemies from Tiled.
-- Loading animations from XML.
+-Pause menu
 
 ## Features
 
@@ -31,10 +29,18 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Pick-ups.
 - Despawn of the enemies.
 - Enemies can be killed by jumping above them.
+- Loading the enemies from Tiled.
+- Loading animations from XML.
+- Main menu with buttons (Play, Continue, Settings, Credits, Exit).
+- Music and sound effects volume regulation.
+- Fullscreen.
+- Player UI(Hearts, time, pick-ups, points).
 
 ## Controlls
 
-- "RETURN" to attack.
+- "ESC" to exit the game from the menu.
+- "ESC" to acces the pause menu from the game.
+- "M" to go back to the menu.
 - "ASWD" or "LEFT,DOWN,UP,RIGHT" arrows to move the character.
 - "SPACE" bar to jump. Press it twice and you'll get a double jump.
 - "LEFT SHIFT" key to sprint.
