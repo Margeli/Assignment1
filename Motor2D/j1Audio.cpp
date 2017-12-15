@@ -7,10 +7,15 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
+#define DEFAULT_VOLUME_LEVEL MIX_MAX_VOLUME/2
+
 j1Audio::j1Audio() : j1Module()
 {
 	music = NULL;
 	name.create("audio");
+
+	currentfxvolume = DEFAULT_VOLUME_LEVEL;
+	currentmusicvolume = DEFAULT_VOLUME_LEVEL;
 }
 
 j1Audio::~j1Audio()
@@ -174,5 +179,58 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 bool j1Audio::CleanFx()
 {
 	fx.clear();
+	return true;
+}
+void j1Audio::SetMusicVolume(float volume) {
+
+	if (volume > MIX_MAX_VOLUME) { volume = MIX_MAX_VOLUME; }
+
+	Mix_VolumeMusic(volume);
+	currentmusicvolume = volume;
+}
+
+void j1Audio::SetFxVolume(float volume) {
+
+	if (volume > MIX_MAX_VOLUME) { volume = MIX_MAX_VOLUME; }
+
+	p2List_item<Mix_Chunk*>* item;
+	for (item = fx.start; item != NULL; item = item->next) {
+		Mix_VolumeChunk(item->data, volume);	
+	}
+	currentfxvolume = volume;
+}
+
+float j1Audio::GetFxVolume() const {
+
+	return currentfxvolume;
+}
+
+float j1Audio::GetMusicVolume() const {
+
+	return currentmusicvolume;
+}
+
+bool j1Audio::Load(pugi::xml_node& data) {
+
+	pugi::xml_node music = data.child("music");
+
+	float volume = music.attribute("volume").as_float();
+	SetMusicVolume(volume);
+
+	pugi::xml_node fx = data.child("fx");
+
+	volume = fx.attribute("volume").as_float();
+	SetFxVolume(volume);
+	
+	return true;
+}
+bool j1Audio::Save(pugi::xml_node& data)const {
+
+	pugi::xml_node music = data.append_child("music");
+	music.append_attribute("volume") = GetMusicVolume();
+
+	pugi::xml_node fx = data.append_child("fx");
+	fx.append_attribute("volume") = GetFxVolume();
+
 	return true;
 }

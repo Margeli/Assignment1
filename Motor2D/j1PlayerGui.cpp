@@ -171,6 +171,7 @@ void j1PlayerGui::CreateESCWindow()
 
 void j1PlayerGui::DestroyESCWindow()
 {
+	
 	window->CleanUp();
 	window = nullptr;
 	pauseMenucreated = false;
@@ -212,12 +213,13 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 
 			if (elem == restart)
 			{
-				App->audio->PlayFx(App->menu->button_sound);
+				App->audio->PlayFx(App->menu->button_sound);				
 				if (App->scene1->active == true) { App->scene2->SceneChange(); }
 				if (App->scene2->active == true) { App->scene1->SceneChange(); }
 						
-				DestroyESCWindow();
+				
 				App->ResumeGame();
+				return true;
 			}
 
 			if (elem == resume)
@@ -225,15 +227,16 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 				App->audio->PlayFx(App->menu->button_sound);
 				DestroyESCWindow();
 				App->ResumeGame();
+				return true;
 			}
 
 			if (elem == menu)
 			{
-				App->audio->PlayFx(App->menu->button_sound);
-				DestroyESCWindow();
+				App->audio->PlayFx(App->menu->button_sound);				
 				App->fade->FadeToBlack(App->entities, App->menu, 0.8f);
 				if (App->scene1->active == true) { App->scene1->SceneChangeMenu(); }
-				if (App->scene2->active == true) { App->scene2->SceneChangeMenu(); }	
+				if (App->scene2->active == true) { App->scene2->SceneChangeMenu(); }
+				return true;
 			}
 
 			elem->StateChanging(PRESSED_L);

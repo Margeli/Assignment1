@@ -10,8 +10,8 @@
 #include "j1Audio.h"
 
 #define FLY_SPEED 2
-#define FLY_HEIGHT 50
-#define FLY_WIDTH 40
+#define FLY_HEIGHT 32
+#define FLY_WIDTH 32
 #define FLYING_ENEMY_DETECION_RANGE 500
 #define COLLIDER_POS_X 5
 #define COLLIDER_POS_Y 15

@@ -36,7 +36,21 @@ public:
 
 	bool CleanFx();
 
+	bool Load(pugi::xml_node&)override;
+	bool Save(pugi::xml_node&)const override;
+
+	void SetMusicVolume(float volume);
+	float GetMusicVolume()const;
+
+	void SetFxVolume(float volume);
+	float GetFxVolume()const;
+
+
+
 private:
+	float currentmusicvolume;
+	float currentfxvolume;
+
 
 	_Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;

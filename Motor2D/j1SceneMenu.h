@@ -5,6 +5,9 @@
 #include "j1Render.h"
 #include "p2List.h"
 
+#define NUM_BAR_TILES 10
+#define DEFAULT_BAR_LENGHT 5
+
 struct SDL_Texture;
 struct Mix_Chunk;
 class SDL_Rect;
@@ -39,8 +42,7 @@ public:
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event) ;
 
-	bool Load(pugi::xml_node&)override;
-	bool Save(pugi::xml_node&)const override;
+	
 
 private:
 
@@ -80,8 +82,8 @@ private:
 	GuiLabel* fullscreenlabel = nullptr;
 	GuiLabel* winfxtxt = nullptr;
 
-	GuiImage* winfxtile[10];
-	GuiImage* winsoundtile[10];
+	GuiImage* winfxtile[NUM_BAR_TILES];
+	GuiImage* winsoundtile[NUM_BAR_TILES];
 
 	GuiButton*	play = nullptr;
 	GuiButton*	cont = nullptr;

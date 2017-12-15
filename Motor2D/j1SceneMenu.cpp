@@ -13,14 +13,14 @@
 #include "j1FadeToBlack.h"
 #include "j1Window.h"
 
-#define DEFAULT_BAR_LENGHT 5
+
 #define GITHUB_URL "www.github.com/Margeli/Assignment2"
 //should be a link to the webpage
 
 j1SceneMenu::j1SceneMenu() : j1Module()
 {
 	name.create("menu");
-	for (int i = 0; i < 10; i++) { winsoundtile[i] = nullptr; winfxtile[i] = nullptr; }
+	for (int i = 0; i < NUM_BAR_TILES; i++) { winsoundtile[i] = nullptr; winfxtile[i] = nullptr; }
 	sound_bar_length = DEFAULT_BAR_LENGHT;
 	fx_bar_length = DEFAULT_BAR_LENGHT;
 }
@@ -225,9 +225,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					App->audio->PlayFx(button_sound);
 					ShiftVolumeBarLeft(); 
 					window->can_move = false;
-					current_volume -= 12.8f;
-					if (current_volume <= 0) { current_volume = 0; }
-					Mix_VolumeMusic(current_volume);					
+					App->audio->SetMusicVolume(MIX_MAX_VOLUME / NUM_BAR_TILES *sound_bar_length);
 				}
 
 				if (elem == winsoundplus)
@@ -235,9 +233,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					App->audio->PlayFx(button_sound);
 					ShiftVolumeBarRight(); 
 					window->can_move = false; 
-					current_volume += 12.8f;
-					if (current_volume > MIX_MAX_VOLUME) { current_volume = MIX_MAX_VOLUME; }
-					Mix_VolumeMusic(current_volume );
+					App->audio->SetMusicVolume(MIX_MAX_VOLUME / NUM_BAR_TILES *sound_bar_length);
 				}
 
 				if (elem == winfxplus)
@@ -245,9 +241,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					App->audio->PlayFx(button_sound);
 					ShiftFXBarRight(); 
 					window->can_move = false; 
-					fx_volume += 12.8f;
-					sample->volume = fx_volume;
-					Mix_VolumeChunk(sample, fx_volume);
+					App->audio->SetFxVolume(MIX_MAX_VOLUME/ NUM_BAR_TILES *fx_bar_length);
 				}
 
 				if (elem == winfxmin) 
@@ -255,9 +249,7 @@ bool j1SceneMenu::OnEventChange(j1UI_Elem* elem, ButtonEvent evnt)
 					App->audio->PlayFx(button_sound);
 					ShiftFXBarLeft(); 
 					window->can_move = false; 
-					fx_volume -= 12.8f;
-					sample->volume = fx_volume;
-					Mix_VolumeChunk(sample, fx_volume);
+					App->audio->SetFxVolume(MIX_MAX_VOLUME / NUM_BAR_TILES *fx_bar_length);
 				}
 
 				elem->StateChanging(PRESSED_L);
@@ -362,15 +354,15 @@ void j1SceneMenu::CreateSettingWindow()
 	winsoundtile[0] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Leftbar.png", { 0,0,48,75 }, { -235,winsoundbar_y+ 57 });
 	window->AddWindowElement(winsoundtile[0]);
 
-	for (int i = 1; i < 9; i++) {
+	for (int i = 1; i < NUM_BAR_TILES-1; i++) {
 		winsoundtile[i] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Midbar.png", { 0,0,45,75 }, { -235 + 52 * i,winsoundbar_y + 57 });
 		if (i >= sound_bar_length) {
 			winsoundtile[i]->draw = false; }
 		window->AddWindowElement(winsoundtile[i]);
 	}
-	winsoundtile[9] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winsoundbar_y + 57 });
-	winsoundtile[9]->draw = false;
-	window->AddWindowElement(winsoundtile[9]);
+	winsoundtile[NUM_BAR_TILES-1] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winsoundbar_y + 57 });
+	winsoundtile[NUM_BAR_TILES-1]->draw = false;
+	window->AddWindowElement(winsoundtile[NUM_BAR_TILES-1]);
 
 	int winfxbar_y = 490;
 	winfxtxt = App->gui->AddText(ALIGN_CENTERED, "FX", { 0,winfxbar_y });
@@ -392,13 +384,13 @@ void j1SceneMenu::CreateSettingWindow()
 	winfxtile[0] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Leftbar.png", { 0,0,48,75 }, { -235,winfxbar_y + 57 });
 	window->AddWindowElement(winfxtile[0]);
 
-	for (int i = 1; i < 9; i++) {
+	for (int i = 1; i <NUM_BAR_TILES-1; i++) {
 		winfxtile[i] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Midbar.png", { 0,0,45,75 }, { -235 + 52 * i,winfxbar_y + 57 });
 		if (i >= fx_bar_length) { winfxtile[i]->draw = false; }
 		window->AddWindowElement(winfxtile[i]);
 	}
-	winfxtile[9] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winfxbar_y + 57 });
-	winfxtile[9]->draw = false;
+	winfxtile[NUM_BAR_TILES - 1] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Rightbar.png", { 0,0,48,75 }, { 235,winfxbar_y + 57 });
+	winfxtile[NUM_BAR_TILES - 1]->draw = false;
 	window->AddWindowElement(winfxtile[9]);
 
 	
@@ -443,7 +435,7 @@ void j1SceneMenu::DestroyWindow()
 void j1SceneMenu::ShiftVolumeBarLeft() 
 {
 	sound_bar_length--;
-	for (int i = 0; i < 10; i++) 
+	for (int i = 0; i < NUM_BAR_TILES; i++) 
 	{
 		if (winsoundtile[i]->draw == false) 
 		{
@@ -457,7 +449,7 @@ void j1SceneMenu::ShiftVolumeBarLeft()
 void j1SceneMenu::ShiftVolumeBarRight() 
 {
 	sound_bar_length++;
-	for (int i = 0; i < 10; i++) 
+	for (int i = 0; i < NUM_BAR_TILES; i++)
 	{
 		if (winsoundtile[i]->draw == false) 
 		{
@@ -470,7 +462,7 @@ void j1SceneMenu::ShiftVolumeBarRight()
 void j1SceneMenu::ShiftFXBarLeft()
 {
 	fx_bar_length--;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < NUM_BAR_TILES; i++)
 	{
 		if (winfxtile[i]->draw == false)
 		{
@@ -484,7 +476,7 @@ void j1SceneMenu::ShiftFXBarLeft()
 void j1SceneMenu::ShiftFXBarRight()
 {
 	fx_bar_length++;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < NUM_BAR_TILES; i++)
 	{
 		if (winfxtile[i]->draw == false)
 		{
@@ -509,19 +501,3 @@ void j1SceneMenu::LoadGame()
 	App->LoadGame();
 }
 
-bool j1SceneMenu::Load(pugi::xml_node& data) {
-
-	pugi::xml_node pos = data.child("volume");
-
-	current_volume = pos.attribute("value").as_float();
-
-	Mix_VolumeMusic(current_volume);
-	return true;
-}
-bool j1SceneMenu::Save(pugi::xml_node& data)const {
-
-	pugi::xml_node pos = data.append_child("volume");
-
-	pos.append_attribute("value") = current_volume;
-	return true;
-}

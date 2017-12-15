@@ -3,7 +3,10 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
+	<audio>
+		<music volume="0" />
+		<fx volume="0" />
+	</audio>
 	<map />
 	<scene1>
 		<activated true="true" />
@@ -11,9 +14,7 @@
 	<scene2>
 		<activated true="false" />
 	</scene2>
-	<menu>
-		<volume value="1.90734863e-06" />
-	</menu>
+	<menu />
 	<pathfinding />
 	<fonts />
 	<entities>
@@ -23,11 +24,11 @@
 			<gui>
 				<pickups value="0" />
 				<score value="0" />
-				<time value="6" />
+				<time value="4" />
 			</gui>
 		</player>
 		<troll>
-			<position x="181" y="477" />
+			<position x="202" y="477" />
 			<position x="1615" y="509" />
 		</troll>
 		<troll2>
