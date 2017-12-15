@@ -20,7 +20,8 @@ bool GuiButton::Start()
 {
 	
 	rect = { 0,0, 339, 63 };
-	//AddButtonText();
+	if (text == nullptr)
+		AddButtonText();
 	tex = up;
 
 	return true;
@@ -36,6 +37,7 @@ bool GuiButton::CleanUp()
 	App->tex->UnLoad(up);
 	App->tex->UnLoad(down);
 	App->tex->UnLoad(press);
+	if(buttontext)
 	buttontext->CleanUp();
 
 
@@ -43,7 +45,7 @@ bool GuiButton::CleanUp()
 }
 bool GuiButton::PreUpdate() {
 
-	if (to_delete)
+	if (to_delete&&buttontext)
 	{
 		buttontext->to_delete= true;
 	}
@@ -121,6 +123,7 @@ void GuiButton::Drag(iPoint displace)
 
 void GuiButton::DragButtonElements(iPoint displace)
 {
+	if(buttontext)
 	buttontext->Drag(displace);
 }
 
