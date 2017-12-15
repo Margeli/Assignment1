@@ -14,7 +14,7 @@
 #include "j1Window.h"
 
 
-#define GITHUB_URL "www.github.com/Margeli/Assignment2"
+#define GITHUB_URL "https://margeli.github.io/Assignment3/"
 //should be a link to the webpage
 
 j1SceneMenu::j1SceneMenu() : j1Module()
@@ -322,7 +322,7 @@ void j1SceneMenu::CreateSettingWindow()
 	winsetticon = App->gui->AddImage(ALIGN_CENTERED, "gui/Menu/Settings/SettingsIcon.png", { 0,0,68,82 }, { 0,100 });
 	window->AddWindowElement(winsetticon);
 
-	fullscreen = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -315, 215 }, this);
+	fullscreen = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -315, 225 }, this);
 	fullscreen->SetButtonTex("gui/Menu/Settings/fullscreen.png", "gui/Menu/Settings/fullscreenII.png");
 	fullscreen->rect = { 0,0, 50, 50 };
 	window->AddWindowElement(fullscreen);
@@ -330,7 +330,7 @@ void j1SceneMenu::CreateSettingWindow()
 	settingsback = App->gui->AddText(ALIGN_CENTERED, "BACK", { -230, 135 });
 	window->AddWindowElement(settingsback);
 
-	fullscreenlabel = App->gui->AddText(ALIGN_CENTERED, "FULLSCREEN", { -170, 215 });
+	fullscreenlabel = App->gui->AddText(ALIGN_CENTERED, "FULLSCREEN", { -170, 225 });
 	window->AddWindowElement(fullscreenlabel);
 
 	int winsoundbar_y = 300;
