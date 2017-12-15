@@ -213,12 +213,13 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 
 			if (elem == restart)
 			{
-				App->audio->PlayFx(App->menu->button_sound);				
-				if (App->scene1->active == true) { App->scene2->SceneChange(); }
-				if (App->scene2->active == true) { App->scene1->SceneChange(); }
-						
-				
+				App->audio->PlayFx(App->menu->button_sound);
 				App->ResumeGame();
+				if (App->scene1->active == true) { 
+					App->scene2->SceneChange(); }
+				if (App->scene2->active == true) { 
+					App->scene1->SceneChange(); }			
+				
 				return true;
 			}
 

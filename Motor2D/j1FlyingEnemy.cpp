@@ -14,7 +14,7 @@
 #define FLY_WIDTH 32
 #define FLYING_ENEMY_DETECION_RANGE 500
 #define COLLIDER_POS_X 5
-#define COLLIDER_POS_Y 15
+#define COLLIDER_POS_Y 10
 #define ORIGIN_POSITION 30
 
 j1FlyingEnemy::j1FlyingEnemy(iPoint pos) : j1Entity(EntityTypes::FLY) 
@@ -73,12 +73,13 @@ void j1FlyingEnemy::OnCollision(Collider* c1, Collider* c2)
 			fposition.y = c2->rect.y + c2->rect.h;
 			break;
 		case ENTITY_RIGHT:
-			fposition.x = c2->rect.x + c2->rect.w ;
+			fposition.x = c2->rect.x + c2->rect.w;
 			break;
 		case ENTITY_LEFT:
 			fposition.x = c2->rect.x - FLY_WIDTH;
 			break;
-		}*/
+		}
+	}*/
 	
 }
 
@@ -102,7 +103,7 @@ bool j1FlyingEnemy::Update(float dt)
 {
 	BROFILER_CATEGORY("EntityFLYUpdate", Profiler::Color::Bisque);
 	if (paused) { Draw(); return true; }
-	iPoint origin = { position.x + ORIGIN_POSITION, position.y + ORIGIN_POSITION+10 };
+	iPoint origin = { position.x+FLY_WIDTH/2, position.y + FLY_HEIGHT / 2 };
 	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };
 	if (IsPointInCircle(App->entities->player->position, position, FLYING_ENEMY_DETECION_RANGE)) {
 		

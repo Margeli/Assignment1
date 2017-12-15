@@ -6,6 +6,7 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Textures.h"
+#include "Brofiler\Brofiler.h"
 
 GuiButton::GuiButton(Alignment alignment) : j1UI_Elem(UIType::BUTTON, Alignment::NO_ALIGN)
 {
@@ -51,6 +52,7 @@ bool GuiButton::PreUpdate() {
 
 bool GuiButton::Update(float dt) 
 {
+	BROFILER_CATEGORY("GuiButton_Update", Profiler::Color::OrangeRed);
 	if (active == false) {
 		
 		tex = press;//texture pressed and disable its the same

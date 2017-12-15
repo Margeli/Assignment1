@@ -5,6 +5,7 @@
 #include "j1Fonts.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "Brofiler\Brofiler.h"
 
 GuiLabel::GuiLabel(Alignment alignment) : j1UI_Elem(UIType::LABEL, Alignment::NO_ALIGN) 
 {
@@ -66,6 +67,7 @@ void GuiLabel::CreateText(p2SString txt, SDL_Color color, FontType font)
 
 bool GuiLabel::Update(float dt) 
 {
+	BROFILER_CATEGORY("GuiLabel_Update", Profiler::Color::OrangeRed);
 	UpdateAlignment();
 	App->render->Blit(tex, position.x+ displacement.x, position.y+ displacement.y);
 	return true;

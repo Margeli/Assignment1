@@ -6,6 +6,7 @@
 #include "j1Input.h"
 #include "p2Log.h"
 #include "j1Textures.h"
+#include "Brofiler\Brofiler.h"
 
 GuiWindow::GuiWindow(Alignment alignment) : j1UI_Elem(UIType::INPUTBOX, Alignment::NO_ALIGN) 
 {
@@ -54,6 +55,7 @@ bool GuiWindow::CleanUp()
 
 bool GuiWindow::Update(float dt) 
 {
+	BROFILER_CATEGORY("GuiWindow_Update", Profiler::Color::OrangeRed);
 	if (moving && can_move) { Drag(); }
 	UpdateAlignment();
 	App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect);

@@ -4,6 +4,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "Brofiler\Brofiler.h"
 
 GuiImage::GuiImage(Alignment alignment): j1UI_Elem(UIType::IMAGE, Alignment::NO_ALIGN)
 {
@@ -30,6 +31,8 @@ bool GuiImage::CleanUp()
 
 bool GuiImage::Update(float dt) 
 {
+	BROFILER_CATEGORY("GuiImage_Update", Profiler::Color::OrangeRed);
+
 	UpdateAlignment();
 	if (draw) { App->render->Blit(tex, position.x + displacement.x, position.y + displacement.y, &rect); }
 		
