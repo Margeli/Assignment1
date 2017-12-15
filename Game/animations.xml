@@ -424,21 +424,21 @@
     
     <fly>
       <fly_right loop="true" speed="0.3f">
-      <animation x="0" y="0" w="47" h="65"/>
-      <animation x="53" y="0" w="50" h="65"/>
-      <animation x="107" y="0" w="55" h="65"/>
-      <animation x="167" y="0" w="59" h="65"/>
-      <animation x="107" y="0" w="55" h="65"/>
-      <animation x="53" y="0" w="50" h="65"/>
+      <animation x="0" y="0" w="48" h="48"/>
+      <animation x="48" y="0" w="48" h="48"/>
+      <animation x="96" y="0" w="48" h="48"/>
+      <animation x="144" y="0" w="48" h="48"/>
+      <animation x="192" y="0" w="48" h="48"/>
+      <animation x="240" y="0" w="48" h="48"/>
       </fly_right>
 
       <fly_left loop="true" speed="0.3f">
-        <animation x="0" y="69" w="60" h="60"/>
-        <animation x="63" y="69" w="60" h="60"/>
-        <animation x="123" y="69" w="50" h="60"/>
-        <animation x="180" y="69" w="50" h="60"/>
-        <animation x="123" y="69" w="50" h="60"/>
-        <animation x="63" y="69" w="60" h="60"/>
+        <animation x="0" y="48" w="48" h="48"/>
+        <animation x="48" y="48" w="48" h="48"/>
+        <animation x="96" y="48" w="48" h="48"/>
+        <animation x="144" y="48" w="48" h="48"/>
+        <animation x="192" y="48" w="48" h="48"/>
+        <animation x="240" y="48" w="48" h="48"/>
       </fly_left>
 
       </fly>
