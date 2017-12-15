@@ -147,12 +147,14 @@ unsigned int j1Audio::LoadFx(const char* path)
 
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
 
+
 	if(chunk == NULL)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
 	else
 	{
+		Mix_VolumeChunk(chunk, currentfxvolume);
 		fx.add(chunk);
 		ret = fx.count();
 	}

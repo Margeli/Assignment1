@@ -21,8 +21,7 @@ j1SceneMenu::j1SceneMenu() : j1Module()
 {
 	name.create("menu");
 	for (int i = 0; i < NUM_BAR_TILES; i++) { winsoundtile[i] = nullptr; winfxtile[i] = nullptr; }
-	sound_bar_length = DEFAULT_BAR_LENGHT;
-	fx_bar_length = DEFAULT_BAR_LENGHT;
+	
 }
 
 j1SceneMenu::~j1SceneMenu()
@@ -354,6 +353,8 @@ void j1SceneMenu::CreateSettingWindow()
 	winsoundtile[0] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Leftbar.png", { 0,0,48,75 }, { -235,winsoundbar_y+ 57 });
 	window->AddWindowElement(winsoundtile[0]);
 
+	UpdateBarWithCurrentVolume(sound_bar_length);
+
 	for (int i = 1; i < NUM_BAR_TILES-1; i++) {
 		winsoundtile[i] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Midbar.png", { 0,0,45,75 }, { -235 + 52 * i,winsoundbar_y + 57 });
 		if (i >= sound_bar_length) {
@@ -383,6 +384,8 @@ void j1SceneMenu::CreateSettingWindow()
 
 	winfxtile[0] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Leftbar.png", { 0,0,48,75 }, { -235,winfxbar_y + 57 });
 	window->AddWindowElement(winfxtile[0]);
+
+	UpdateBarWithCurrentVolume(fx_bar_length);
 
 	for (int i = 1; i <NUM_BAR_TILES-1; i++) {
 		winfxtile[i] = App->gui->AddImage(ALIGN_CENTERED, "gui/Settings/Midbar.png", { 0,0,45,75 }, { -235 + 52 * i,winfxbar_y + 57 });
@@ -434,6 +437,7 @@ void j1SceneMenu::DestroyWindow()
 
 void j1SceneMenu::ShiftVolumeBarLeft() 
 {
+	if (sound_bar_length == 0) { return; }
 	sound_bar_length--;
 	for (int i = 0; i < NUM_BAR_TILES; i++) 
 	{
@@ -461,6 +465,7 @@ void j1SceneMenu::ShiftVolumeBarRight()
 
 void j1SceneMenu::ShiftFXBarLeft()
 {
+	if (fx_bar_length == 0) { return; }
 	fx_bar_length--;
 	for (int i = 0; i < NUM_BAR_TILES; i++)
 	{
@@ -501,3 +506,15 @@ void j1SceneMenu::LoadGame()
 	App->LoadGame();
 }
 
+void j1SceneMenu::UpdateBarWithCurrentVolume(uint &bar) {
+
+	if (&bar == &sound_bar_length) {
+		float volume = App->audio->GetMusicVolume();
+		bar = ((10 * volume) / MIX_MAX_VOLUME);
+	}
+	if (&bar == &fx_bar_length) {
+		float volume = App->audio->GetFxVolume();
+		bar = ((10 * volume) / MIX_MAX_VOLUME);
+	}
+
+}

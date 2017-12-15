@@ -6,7 +6,7 @@
 #include "p2List.h"
 
 #define NUM_BAR_TILES 10
-#define DEFAULT_BAR_LENGHT 5
+
 
 struct SDL_Texture;
 struct Mix_Chunk;
@@ -54,6 +54,7 @@ private:
 	void ShiftVolumeBarRight();
 	void ShiftFXBarLeft();
 	void ShiftFXBarRight();
+	void UpdateBarWithCurrentVolume(uint &bar);
 	
 	
 	bool settingwindowcreated = false;
