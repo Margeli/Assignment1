@@ -45,8 +45,7 @@ bool j1PlayerGui::Start()
 	pickups_text = App->gui->AddText(ALIGN_CENTERED, "0", { 190, 20 }, SKURRI, bananacolor);
 	timer_text = App->gui->AddText(ALIGN_CENTERED, "000", { 0, 20 }, SKURRI, bananacolor);
 
-	//------TIME----
-	//------COINS----
+	
 	pausetime.SetZero();
 	return true;
 }
@@ -58,20 +57,37 @@ bool j1PlayerGui::Update(float dt)
 	
 	pickups_text->ChangeText(player_pickups);		
 	points_text->ChangeText(player_score);//update the same label or change it itereatively
+	if (App->scene1->active) {
+		if (!pausetime.IsZero()) {
+			App->scene1->time.SubstractTime(pausetime);
+			pausetime.SetZero();
+			start_pause = true;
+		}
+		int sec = App->scene1->time.ReadSec();
+		if (sec > last_sec) {
+			sec += App->scene1->saved_time;
+			if (sec > 999) { sec = 999; }
+			p2SString time_txt = { "%03i", sec };
+			timer_text->ChangeText(time_txt);
+		}
+	}
+	if (App->scene2->active) {
+		if (!pausetime.IsZero()) {
+			App->scene2->time.SubstractTime(pausetime);
+			pausetime.SetZero();
+			start_pause = true;
+		}
+		int sec = App->scene2->time.ReadSec();
+		if (sec > last_sec) {
+			sec += App->scene2->saved_time;
+			
+			if (sec > 999) { sec = 999; }
+			p2SString time_txt = { "%03i", sec };
+			timer_text->ChangeText(time_txt);
+		}
+	}
 
 	
-	if (!pausetime.IsZero()) {
-		timer.SubstractTime(pausetime);
-		pausetime.SetZero();
-		start_pause = true;
-	}
-	int sec = timer.ReadSec();
-	if (sec > last_sec) {
-		sec += base_time;
-		if (sec > 999) { sec = 999; }
-		p2SString time_txt = { "%03i", sec };
-		timer_text->ChangeText(time_txt);
-	}
 
 	return true;
 }
@@ -120,7 +136,7 @@ bool j1PlayerGui::Load(pugi::xml_node& data)
 	pugi::xml_node gui = data; 
 	App->entities->player->pickups_counter = data.child("pickups").attribute("value").as_int();
 	App->entities->player->points = data.child("score").attribute("value").as_int();
-	base_time = data.child("time").attribute("value").as_int();
+	
 	return true;
 }
 
@@ -130,7 +146,7 @@ bool j1PlayerGui::Save(pugi::xml_node& data) const
 
 	gui.append_child("pickups").append_attribute("value") = App->entities->player->pickups_counter;
 	gui.append_child("score").append_attribute("value") = App->entities->player->points;
-	gui.append_child("time").append_attribute("value") = (int)timer.ReadSec();
+	
 	return true;
 }
 
@@ -216,8 +232,10 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 				App->audio->PlayFx(App->menu->button_sound);
 				App->ResumeGame();
 				if (App->scene1->active == true) { 
+					App->scene1->CleanUp();
 					App->scene2->SceneChange(); }
-				if (App->scene2->active == true) { 
+				if (App->scene2->active == true) {
+					App->scene2->CleanUp();
 					App->scene1->SceneChange(); }			
 				
 				return true;

@@ -14,10 +14,11 @@ public:
 	float ReadSec() const;
 	void SetZero();
 	bool IsZero()const;
-	void SubstractTime(j1Timer timer_to_copy_from);
+	void SubstractTime(j1Timer timer_to_substract_from);
+	void AddTime(j1Timer timer_to_add_from);
 
 private:
-	uint32	started_at;
+	uint32	started_at=0;
 };
 
 #endif //__j1TIMER_H__

@@ -35,3 +35,8 @@ void j1Timer::SubstractTime(j1Timer nwtime) {
 	started_at += nwtime.Read();
 
 }
+void j1Timer::AddTime(j1Timer nwtime) {	
+
+	started_at -= nwtime.Read();
+
+}

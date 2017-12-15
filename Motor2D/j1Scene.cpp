@@ -19,6 +19,7 @@
 #include "j1PlayerGui.h"
 
 
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene1");
@@ -64,6 +65,8 @@ bool j1Scene::Start()
 		mainsong = App->audio->PlayMusic("audio/music/main_song.ogg");
 
 		PlaceEnemies();
+		time.Start();
+		
 		
 	}
 	return true;
@@ -142,16 +145,25 @@ bool j1Scene::CleanUp()
 	if (App->entities->player)
 	App->entities->player->CleanUp();
 	App->pathfind->CleanUp();
-
+	finish_time = time.ReadSec()+saved_time;
+	time.SetZero();
+	saved_time = 0;
+	
 	return true;
 }
 
 bool j1Scene::Load(pugi::xml_node& data)
 {
+	
+
 	pugi::xml_node activated = data.child("activated");
 	bool scene_active = activated.attribute("true").as_bool();
-	if ((scene_active == false) && active) { SceneChange(); }			
+	if (active) {
+		pugi::xml_node time = data.child("time");
+		saved_time = time.attribute("value").as_uint();
 
+		if (scene_active == false)  { SceneChange(); }
+	}
 	return true;
 }
 
@@ -160,6 +172,11 @@ bool j1Scene::Save(pugi::xml_node& data) const
 	pugi::xml_node activated = data.append_child("activated");
 	activated.append_attribute("true") = active;
 
+	uint currenttime = 0;
+	if (active) currenttime = time.ReadSec()+saved_time;
+	pugi::xml_node _time = data.append_child("time");
+	_time.append_attribute("value") =currenttime ;
+
 	return true;
 }
 
@@ -167,6 +184,8 @@ void j1Scene::SceneChange()
 {
 	App->scene2->active = true;
 	App->scene1->active = false;
+
+	App->scene2->time.AddTime(time);
 
 	CleanUp();	
 	App->entities->Start();

@@ -3,8 +3,10 @@
 
 #include "j1Module.h"
 #include "j1Render.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
+
 
 class j1Scene2 : public j1Module
 {
@@ -36,6 +38,10 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	bool paused = false;
+
+	j1Timer time;
+	uint saved_time=0;
+
 
 private:
 	void PlaceEnemies() const;

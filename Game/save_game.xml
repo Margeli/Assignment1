@@ -9,42 +9,61 @@
 	</audio>
 	<map />
 	<scene1>
-		<activated true="true" />
+		<activated true="false" />
+		<time value="0" />
 	</scene1>
 	<scene2>
-		<activated true="false" />
+		<activated true="true" />
+		<time value="22" />
 	</scene2>
 	<menu />
 	<pathfinding />
 	<fonts />
 	<entities>
 		<player>
-			<position x="3066.71582" y="91" />
-			<lifes value="5" />
+			<position x="69.0899963" y="251" />
+			<lifes value="6" />
 			<gui>
-				<pickups value="3" />
-				<score value="90" />
-				<time value="76" />
+				<pickups value="6" />
+				<score value="20" />
 			</gui>
 		</player>
 		<troll />
 		<troll2>
-			<position x="1209" y="381" />
-			<position x="2644" y="477" />
+			<position x="735" y="541" />
 		</troll2>
-		<troll3 />
+		<troll3>
+			<position x="1420" y="573" />
+			<position x="2483" y="506" />
+		</troll3>
 		<fly>
-			<position x="2729" y="286" />
+			<position x="1295" y="205" />
+			<position x="2026" y="189" />
+			<position x="149" y="463" />
+			<position x="2216" y="633" />
+			<position x="2814" y="107" />
+			<position x="3052" y="675" />
 		</fly>
 		<collect>
-			<position x="1742" y="125" />
-			<position x="1682" y="126" />
+			<position x="286" y="417" />
+			<position x="933" y="126" />
+			<position x="1465" y="126" />
+			<position x="1341" y="703" />
+			<position x="1537" y="704" />
+			<position x="1951" y="381" />
+			<position x="1473" y="347" />
+			<position x="2545" y="319" />
+			<position x="2501" y="256" />
+			<position x="2337" y="574" />
+			<position x="3164" y="126" />
+			<position x="3129" y="126" />
+			<position x="3147" y="92" />
 		</collect>
 	</entities>
 	<gui />
 	<fade />
 	<collisions />
 	<renderer>
-		<camera x="-2175" y="0" />
+		<camera x="-6" y="0" />
 	</renderer>
 </game_state>

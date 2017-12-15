@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "j1Render.h"
+#include "j1Timer.h"
 
 
 #define BOTTOM_SCENE_LIMIT 750
@@ -10,7 +11,7 @@
 #define RIGHT_SCENE_LIMIT 3152
 
 struct SDL_Texture;
-class Pathfinding;
+
 
 
 
@@ -46,6 +47,11 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	uint mainsong;
+
+	j1Timer time;
+	uint saved_time = 0;
+	uint finish_time=0;
+	
 
 private:
 	void PlaceEnemies() const;

@@ -45,7 +45,7 @@ private:
 	
 
 	uint last_sec;
-	uint base_time=0;
+	
 
 	GuiWindow* window = nullptr;
 
