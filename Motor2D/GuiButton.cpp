@@ -20,7 +20,7 @@ bool GuiButton::Start()
 {
 	
 	rect = { 0,0, 339, 63 };
-	AddButtonText();
+	//AddButtonText();
 	tex = up;
 
 	return true;

@@ -32,15 +32,15 @@ bool j1PlayerGui::Start()
 	last_sec = 0;
 	for (int i = 0; i < LIFES; i++) 
 	{
-		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts.png", { 0,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS }); 
-		empty_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/Hearts.png", { 32,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS });
+		full_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/PlayerGui/Hearts.png", { 0,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS }); 
+		empty_heart[i] = App->gui->AddImage(ALIGN_LEFT, "gui/PlayerGui/Hearts.png", { 32,0,32, 35 }, { 40 * i + HEART_POS, HEART_POS });
 	}
 
 	DrawHearts(App->entities->player->lifes);
 	
 	SDL_Color bananacolor = { 255, 255, 0, 255 };
 
-	points_img = App->gui->AddImage(ALIGN_CENTERED, "gui/banapoints.png", { 0, 0, 43, 40 }, { 150, 20 } );
+	points_img = App->gui->AddImage(ALIGN_CENTERED, "gui/PlayerGui/banapoints.png", { 0, 0, 43, 40 }, { 150, 20 } );
 	points_text = App->gui->AddText(ALIGN_RIGHT, "0", {-150, 20 }, SKURRI, bananacolor);
 	pickups_text = App->gui->AddText(ALIGN_CENTERED, "0", { 190, 20 }, SKURRI, bananacolor);
 	timer_text = App->gui->AddText(ALIGN_CENTERED, "000", { 0, 20 }, SKURRI, bananacolor);
@@ -153,33 +153,32 @@ bool j1PlayerGui::Save(pugi::xml_node& data) const
 void j1PlayerGui::CreateESCWindow()
 {
 	window = App->gui->AddWindow(ALIGN_CENTERED,0, nullptr, { 0,100 }, App->entities);
-	window->tex = window->LoadTexture("gui/Settings/ESC_window.png");
+	window->tex = window->LoadTexture("gui/PauseMenu/ESC_window.png");
 	window->rect = { 0,0, 509, 562 };
 
 	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 200 }, App->entities);
-	menu->SetButtonTex("gui/Settings/menu.png", "gui/Settings/menu_pressed.png");
+	menu->SetButtonTex("gui/PauseMenu/menu.png", "gui/PauseMenu/menu_pressed.png");
 	menu_label = App->gui->AddText(ALIGN_CENTERED, "MENU", { -80, 200 });
 	window->AddWindowElement(menu_label);
 	menu->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(menu);
 
 	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 300 }, App->entities);
-	restart->SetButtonTex("gui/Settings/restart.png", "gui/Settings/restart_pressed.png");
+	restart->SetButtonTex("gui/PauseMenu/restart.png", "gui/PauseMenu/restart_pressed.png");
 	restart_label = App->gui->AddText(ALIGN_CENTERED, "RESTART", { -55, 305 });
 	window->AddWindowElement(restart_label);
 	restart->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(restart);
 	
 	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 400 }, App->entities);
-	resume->SetButtonTex("gui/Settings/play.png", "gui/Settings/play_pressed.png");
+	resume->SetButtonTex("gui/PauseMenu/play.png", "gui/PauseMenu/play_pressed.png");
 	resume_label = App->gui->AddText(ALIGN_CENTERED, "RESUME", { -60, 400 });
 	window->AddWindowElement(resume_label);
 	resume->rect = { 0, 0, 46, 46 };
 	window->AddWindowElement(resume);
-
 	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 10, 565 }, App->entities);
-	winquit->SetButtonTex("gui/Buttons/ExitButtonPause.png", "gui/Buttons/ExitButtonPauseHover.png", "gui/Buttons/ExitPausePressed.png");
-	winquit->rect = { 0, 0, 89, 30 };
+	winquit->SetButtonTex("gui/PauseMenu/ExitButtESC.png", "gui/PauseMenu/ExitButtESCHover.png");
+	winquit->rect = { 0, 0,111,41 };
 	window->AddWindowElement(winquit);
 
 	pauseMenucreated = true;
