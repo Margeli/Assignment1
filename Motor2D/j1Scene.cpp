@@ -18,8 +18,6 @@
 #include "j1FadeToBlack.h"
 #include "j1PlayerGui.h"
 
-
-
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene1");
@@ -45,29 +43,29 @@ bool j1Scene::Start()
 	
 	if (active) 
 	{
-		if (App->map->Load("Map1.tmx")) {
+		if (App->map->Load("Map1.tmx")) 
+		{
 			int w, h;
 			uchar* data = NULL;			
-			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::FLY)) {//creates walkabilty map for flying enemies
+			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::FLY))
+			{
 				App->pathfind->SetMap(w, h, data, EntityTypes::FLY);
 				RELEASE_ARRAY(data);
 			}
 			
-			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::TROLL)) {//creates walkability map for ground enemies
+			if (App->map->CreateWalkabilityMap(w, h, &data, EntityTypes::TROLL)) 
+			{
 				App->pathfind->SetMap(w, h, data, EntityTypes::TROLL);
 				RELEASE_ARRAY(data);
 			}
 		}
 		initial_scene_pos = { App->map->data.layers.At(2)->data->properties.Get("xpos"),
-			App->map->data.layers.At(2)->data->properties.Get("ypos")}; //Gets the player position from the last layer loaded from Tiled
-		// Should have the initial pos of enemies in a XML
+		App->map->data.layers.At(2)->data->properties.Get("ypos")}; //Gets the player position from the last layer loaded from Tiled
 		
 		mainsong = App->audio->PlayMusic("audio/music/main_song.ogg");
 
 		PlaceEnemies();
 		time.Start();
-		
-		
 	}
 	return true;
 }
@@ -101,10 +99,10 @@ bool j1Scene::Update(float dt)
 
 	if (App->entities->player->position.y >= BOTTOM_SCENE_LIMIT  && App->entities->player->player_hurted == false) {App->entities->player->LoseOneLife(); }
 	
-	if (App->entities->player->position.x >= RIGHT_SCENE_LIMIT)
+	if (App->entities->player->position.x >= RIGHT_SCENE_LIMIT && App->scene2->active != true)
 	{ 
 		LOG("End of level 1!");
-		App->fade->FadeToBlack(this, App->scene2, 0.8f); 
+		App->fade->FadeToBlack(App->scene1, App->scene2, 0.8f); 
 		SceneChange(); 
 	}
 	App->map->Draw();

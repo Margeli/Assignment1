@@ -18,6 +18,8 @@
 #include "j1FadeToBlack.h"
 #include "j1PlayerGui.h"
 
+#define RIGHT_SCENE_LIMIT_2 3168
+#define WIN_IMAGE_MARGIN 995
 
 j1Scene2::j1Scene2() : j1Module()
 {
@@ -42,6 +44,9 @@ bool j1Scene2::Awake(pugi::xml_node&)
 bool j1Scene2::Start()
 {
 	if (active) {
+		winning = App->tex->Load("textures/winning.png");
+		winning_rect = { 0, 0, 1024, 770 };
+
 		if (paused) { App->map->Draw(); return true; }
 		if (App->map->Load("Map2.tmx")) {
 			int w, h;
@@ -76,7 +81,7 @@ bool j1Scene2::PreUpdate()
 bool j1Scene2::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene2_Update", Profiler::Color::Azure);
-	App->entities->player->position.y += GRAVITY;
+	if (win == false) { App->entities->player->position.y += GRAVITY; }
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) { App->LoadGame(); }
 
@@ -106,6 +111,27 @@ bool j1Scene2::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) { App->fade->FadeToBlack(this, App->menu, 0.8f); SceneChangeMenu(); }
 
+	if (App->entities->player->position.x >= RIGHT_SCENE_LIMIT_2 && !App->scene1->active)
+	{
+		LOG("End of level 2!");
+
+		win = true;
+
+		App->entities->player->animation = &App->entities->player->winning_anim;
+		App->render->Blit(winning, RIGHT_SCENE_LIMIT_2 , 0, &winning_rect);	
+		App->render->camera.x = -RIGHT_SCENE_LIMIT_2;
+		App->entities->player->fposition = { RIGHT_SCENE_LIMIT_2 + 600, 255 };
+
+		//Hide UI!
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			App->fade->FadeToBlack(App->scene2, App->menu, 0.8f);
+			SceneChangeMenu();
+
+			//delete save_game.xml in here!
+		}
+	}
 
 	return true;
 }

@@ -41,10 +41,8 @@ public:
 	void Reset() {current_frame = 0; loops = 0;}
 
 	void LoadPlayerAnimations(p2SString name);
-	
 	void LoadEnemyAnimations(p2SString name, p2SString enemy);
 	
-
 private:
 	pugi::xml_document	anim_file;
 };

@@ -38,10 +38,12 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	bool paused = false;
+	bool win = false;
 
 	j1Timer time;
 	uint saved_time=0;
-
+	SDL_Texture* winning = nullptr;
+	SDL_Rect winning_rect;
 
 private:
 	void PlaceEnemies() const;

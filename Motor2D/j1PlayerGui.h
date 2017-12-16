@@ -26,6 +26,8 @@ public:
 	bool Save(pugi::xml_node&) const;
 	void CreateESCWindow();
 	void DestroyESCWindow();
+	void CreateENDWindow();
+	void DestroyENDWindow();
 	void PauseTime();
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
