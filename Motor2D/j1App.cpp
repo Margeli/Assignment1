@@ -246,7 +246,6 @@ void j1App::FinishUpdate()
 	else { cap = "OFF"; }
 	if (render->vsync == true) { state = "ON"; }	else { state = "OFF"; }
 	if (entities->player && delay_time) { static char title[50]; sprintf_s(title, 50, "CAVE KNIGHT"); App->win->SetTitle(title); }
-
 }
 
 // Call modules before each loop iteration

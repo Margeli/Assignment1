@@ -45,50 +45,46 @@ bool j1PlayerGui::Start()
 	pickups_text = App->gui->AddText(ALIGN_CENTERED, "0", { 190, 20 }, SKURRI, bananacolor);
 	timer_text = App->gui->AddText(ALIGN_CENTERED, "000", { 0, 20 }, SKURRI, bananacolor);
 
-	
 	pausetime.SetZero();
 	return true;
 }
 
 bool j1PlayerGui::Update(float dt) 
 {
-	p2SString player_pickups = { "%i", App->entities->player->pickups_counter };
-	p2SString player_score = { " %i", App->entities->player->points };
-	
-	pickups_text->ChangeText(player_pickups);		
-	points_text->ChangeText(player_score);//update the same label or change it itereatively
-	if (App->scene1->active) {
-		if (!pausetime.IsZero()) {
-			App->scene1->time.SubstractTime(pausetime);
-			pausetime.SetZero();
-			start_pause = true;
-		}
-		int sec = App->scene1->time.ReadSec();
-		if (sec > last_sec) {
-			sec += App->scene1->saved_time;
-			if (sec > 999) { sec = 999; }
-			p2SString time_txt = { "%03i", sec };
-			timer_text->ChangeText(time_txt);
-		}
-	}
-	if (App->scene2->active) {
-		if (!pausetime.IsZero()) {
-			App->scene2->time.SubstractTime(pausetime);
-			pausetime.SetZero();
-			start_pause = true;
-		}
-		int sec = App->scene2->time.ReadSec();
-		if (sec > last_sec) {
-			sec += App->scene2->saved_time;
-			
-			if (sec > 999) { sec = 999; }
-			p2SString time_txt = { "%03i", sec };
-			timer_text->ChangeText(time_txt);
-		}
-	}
+		p2SString player_pickups = { "%i", App->entities->player->pickups_counter };
+		p2SString player_score = { " %i", App->entities->player->points };
 
-	
+		pickups_text->ChangeText(player_pickups);
+		points_text->ChangeText(player_score);//update the same label or change it itereatively
+		if (App->scene1->active) {
+			if (!pausetime.IsZero()) {
+				App->scene1->time.SubstractTime(pausetime);
+				pausetime.SetZero();
+				start_pause = true;
+			}
+			int sec = App->scene1->time.ReadSec();
+			if (sec > last_sec) {
+				sec += App->scene1->saved_time;
+				if (sec > 999) { sec = 999; }
+				p2SString time_txt = { "%03i", sec };
+				timer_text->ChangeText(time_txt);
+			}
+		}
+		if (App->scene2->active) {
+			if (!pausetime.IsZero()) {
+				App->scene2->time.SubstractTime(pausetime);
+				pausetime.SetZero();
+				start_pause = true;
+			}
+			int sec = App->scene2->time.ReadSec();
+			if (sec > last_sec) {
+				sec += App->scene2->saved_time;
 
+				if (sec > 999) { sec = 999; }
+				p2SString time_txt = { "%03i", sec };
+				timer_text->ChangeText(time_txt);
+			}
+		}
 	return true;
 }
 
@@ -186,11 +182,25 @@ void j1PlayerGui::CreateESCWindow()
 
 void j1PlayerGui::DestroyESCWindow()
 {
-	
 	window->CleanUp();
 	window = nullptr;
 	pauseMenucreated = false;
 }
+
+void j1PlayerGui::CreateENDWindow()
+{
+	App->fade->FadeToBlack(App->scene2, App->scene2, 2.0f);
+
+	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, { 0,100 }, App->entities);
+	window->tex = window->LoadTexture("gui/PauseMenu/ESC_window.png");
+	window->rect = { 0,0, 509, 562 };
+}
+
+void j1PlayerGui::DestroyENDWindow()
+{
+
+}
+
 
 bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) 
 {

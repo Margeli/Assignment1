@@ -100,7 +100,7 @@ bool j1Player::Update(float dt)
 	if (paused) { playerGui->PauseTime(); Draw(); return true; }
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
 	//else 	if (godmode == true) { fposition.y; }
-	if (use_input) 
+	if (use_input && !App->scene2->win) 
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) //----------------ATTACK MOVEMENT
 		{
@@ -221,7 +221,7 @@ bool j1Player::Update(float dt)
 
 	if (fposition.y >= BOTTOM_SCENE_LIMIT && lifes < 1) { App->audio->PlayFx(lose_fx, 0); }
 
-	playerGui->Update(dt);
+	if(!App->scene2->win)playerGui->Update(dt);
 
 	Draw();
 
@@ -373,6 +373,7 @@ void j1Player::LoadPlayerAnimations()
 	walk_right.LoadPlayerAnimations("walk_right");
 	walk_left.LoadPlayerAnimations("walk_left");
 	run_right.LoadPlayerAnimations("run_right");
+	winning_anim.LoadPlayerAnimations("win");
 }
 
 void j1Player::InitialPlayerPos() {

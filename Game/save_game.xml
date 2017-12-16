@@ -14,56 +14,40 @@
 	</scene1>
 	<scene2>
 		<activated true="true" />
-		<time value="22" />
+		<time value="68" />
 	</scene2>
 	<menu />
 	<pathfinding />
 	<fonts />
 	<entities>
 		<player>
-			<position x="69.0899963" y="251" />
+			<position x="2923.01465" y="256" />
 			<lifes value="6" />
 			<gui>
 				<pickups value="6" />
-				<score value="20" />
+				<score value="80" />
 			</gui>
 		</player>
 		<troll />
-		<troll2>
-			<position x="735" y="541" />
-		</troll2>
+		<troll2 />
 		<troll3>
 			<position x="1420" y="573" />
-			<position x="2483" y="506" />
 		</troll3>
-		<fly>
-			<position x="1295" y="205" />
-			<position x="2026" y="189" />
-			<position x="149" y="463" />
-			<position x="2216" y="633" />
-			<position x="2814" y="107" />
-			<position x="3052" y="675" />
-		</fly>
+		<fly />
 		<collect>
-			<position x="286" y="417" />
-			<position x="933" y="126" />
 			<position x="1465" y="126" />
-			<position x="1341" y="703" />
 			<position x="1537" y="704" />
 			<position x="1951" y="381" />
 			<position x="1473" y="347" />
-			<position x="2545" y="319" />
-			<position x="2501" y="256" />
 			<position x="2337" y="574" />
-			<position x="3164" y="126" />
-			<position x="3129" y="126" />
-			<position x="3147" y="92" />
+			<position x="2501" y="256" />
+			<position x="2545" y="319" />
 		</collect>
 	</entities>
 	<gui />
 	<fade />
 	<collisions />
 	<renderer>
-		<camera x="-6" y="0" />
+		<camera x="-2175" y="0" />
 	</renderer>
 </game_state>

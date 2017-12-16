@@ -66,6 +66,8 @@ public:
 	Animation attack_left;
 	Animation death_left;
 
+	Animation winning_anim;
+
 	p2SString name;
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
