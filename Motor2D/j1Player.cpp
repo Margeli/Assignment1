@@ -94,6 +94,7 @@ bool j1Player::Update(float dt)
 	{ 
 		App->audio->PlayFx(win_live);
 		points_index++;
+		if( lifes<LIFES)
 		lifes++;
 		playerGui->DrawHearts(lifes);
 	}

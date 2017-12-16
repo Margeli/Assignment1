@@ -6,7 +6,7 @@
 #include "j1Timer.h"
 
 
-#define BOTTOM_SCENE_LIMIT 750
+#define BOTTOM_SCENE_LIMIT 800
 #define HIGH_LIMIT -15
 #define RIGHT_SCENE_LIMIT 3152
 
