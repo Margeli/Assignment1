@@ -8,7 +8,9 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 
 ## Innovation
 
--Pause menu
+- Loading the enemies from Tiled.
+- Loading animations from XML.
+- In-game pause menu with functional buttons (Resume, Restart, Save, Menu & Exit)
 
 ## New Features
 
@@ -40,8 +42,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Pick-ups.
 - Despawn of the enemies.
 - Enemies can be killed by jumping above them.
-- Loading the enemies from Tiled.
-- Loading animations from XML.
+
 
 ## Controlls
 
