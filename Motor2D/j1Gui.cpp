@@ -97,6 +97,8 @@ void j1Gui::UpdateElemEvent() const
 {
 	iPoint pos;
 	App->input->GetMousePosition(pos.x, pos.y);
+	pos.x -= App->render->camera.x;
+	
 
 	p2List_item<j1UI_Elem*>* elem;
 	for (elem = elements.start; elem != NULL; elem = elem->next)
@@ -118,7 +120,8 @@ void j1Gui::UpdateElemEvent() const
 				elem->data->event = ButtonEvent::LEFT_CLICK_UP;
 				break;
 			}
-			else { elem->data->event = ButtonEvent::MOUSE_INSIDE; }
+			else {
+				elem->data->event = ButtonEvent::MOUSE_INSIDE; }
 		}
 		else { elem->data->event = ButtonEvent::MOUSE_OUTSIDE; }
 	}

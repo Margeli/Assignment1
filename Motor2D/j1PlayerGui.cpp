@@ -132,7 +132,7 @@ bool j1PlayerGui::Load(pugi::xml_node& data)
 	pugi::xml_node gui = data; 
 	App->entities->player->pickups_counter = data.child("pickups").attribute("value").as_int();
 	App->entities->player->points = data.child("score").attribute("value").as_int();
-	
+	App->entities->player->points_index = (uint)App->entities->player->points / 100;
 	return true;
 }
 

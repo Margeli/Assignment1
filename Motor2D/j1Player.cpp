@@ -90,10 +90,10 @@ bool j1Player::Update(float dt)
 {	
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
 	speed = SPEED + SPEED *dt;
-	if (points >= 100)
+	if (points >= 100*points_index)
 	{ 
 		App->audio->PlayFx(win_live);
-		App->entities->player->points = 0;
+		points_index++;
 		lifes++;
 		playerGui->DrawHearts(lifes);
 	}
@@ -238,6 +238,7 @@ void j1Player::Dead()
 	App->audio->PlayFx(lose_fx, 0);
 	lifes = LIFES;
 	points = 0;	
+	points_index = 1;
 	pickups_counter = 0;
 	if (App->scene1->active) { App->scene1->SceneChangeMenu(); }
 	else if (App->scene2->active) { App->scene2->SceneChangeMenu(); }
@@ -335,6 +336,8 @@ bool j1Player::Load(pugi::xml_node& data)
 {
 	fposition.x = data.child("position").attribute("x").as_float();
 	fposition.y = data.child("position").attribute("y").as_float();
+
+	lifes = data.child("lifes").attribute("value").as_int();
 
 	if (playerGui) {
 		playerGui->Load(data.child("gui"));

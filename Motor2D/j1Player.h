@@ -35,10 +35,11 @@ public:
 
 	int lifes;
 	int points = 0;
+	uint points_index = 1;
 	int max_score = 0;
 	int pickups_counter = 0;
 	
-	j1PlayerGui* playerGui;
+	j1PlayerGui* playerGui=nullptr;
 
 	Uint32 hit_time;
 
