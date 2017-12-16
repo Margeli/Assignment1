@@ -152,26 +152,26 @@ void j1PlayerGui::CreateESCWindow()
 	window->tex = window->LoadTexture("gui/PauseMenu/ESC_window.png");
 	window->rect = { 0,0, 509, 562 };
 
-	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 200 }, App->entities);
-	menu->SetButtonTex("gui/PauseMenu/menu.png", "gui/PauseMenu/menu_pressed.png");
-	menu_label = App->gui->AddText(ALIGN_CENTERED, "MENU", { -80, 200 });
-	window->AddWindowElement(menu_label);
-	menu->rect = { 0, 0, 46, 46 };
+	menu = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0, 425 }, App->entities);
+	menu->SetButtonTex("gui/PauseMenu/MenuButt.png", "gui/PauseMenu/MenuButtHover.png");
+	menu->rect = { 0,0,141, 41 };
 	window->AddWindowElement(menu);
+	
+	save = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0, 275 }, App->entities);
+	save->SetButtonTex("gui/PauseMenu/SaveButt.png", "gui/PauseMenu/SaveButtHover.png");
+	save->rect = { 0,0,127, 41 };
+	window->AddWindowElement(save);
 
-	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 300 }, App->entities);
-	restart->SetButtonTex("gui/PauseMenu/restart.png", "gui/PauseMenu/restart_pressed.png");
-	restart_label = App->gui->AddText(ALIGN_CENTERED, "RESTART", { -55, 305 });
-	window->AddWindowElement(restart_label);
-	restart->rect = { 0, 0, 46, 46 };
+	restart = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0, 350 }, App->entities);
+	restart->SetButtonTex("gui/PauseMenu/RestartButt.png", "gui/PauseMenu/RestartButtHover.png");
+	restart->rect = { 0, 0, 221, 41 };
 	window->AddWindowElement(restart);
 	
-	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { -180, 400 }, App->entities);
-	resume->SetButtonTex("gui/PauseMenu/play.png", "gui/PauseMenu/play_pressed.png");
-	resume_label = App->gui->AddText(ALIGN_CENTERED, "RESUME", { -60, 400 });
-	window->AddWindowElement(resume_label);
-	resume->rect = { 0, 0, 46, 46 };
+	resume = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 0, 200 }, App->entities);
+	resume->SetButtonTex("gui/PauseMenu/ResumeButt.png", "gui/PauseMenu/ResumeButtHover.png");
+	resume->rect = { 0, 0, 198, 41 };
 	window->AddWindowElement(resume);
+
 	winquit = App->gui->AddButton(ALIGN_CENTERED, nullptr, { 10, 565 }, App->entities);
 	winquit->SetButtonTex("gui/PauseMenu/ExitButtESC.png", "gui/PauseMenu/ExitButtESCHover.png");
 	winquit->rect = { 0, 0,111,41 };
@@ -245,8 +245,15 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 					App->scene2->SceneChange(); }
 				if (App->scene2->active == true) {
 					App->scene2->CleanUp();
-					App->scene1->SceneChange(); }			
-				
+					App->scene1->SceneChange(); }							
+				return true;
+			}
+			if (elem == save)
+			{
+				App->audio->PlayFx(App->menu->button_sound);
+				App->SaveGame();
+				DestroyESCWindow();
+				App->ResumeGame();
 				return true;
 			}
 
