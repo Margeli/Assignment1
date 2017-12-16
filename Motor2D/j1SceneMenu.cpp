@@ -12,6 +12,8 @@
 #include "j1Pathfinding.h"
 #include "j1FadeToBlack.h"
 #include "j1Window.h"
+#include "j1Map.h"
+#include "j1Gui.h"
 
 
 #define GITHUB_URL "https://margeli.github.io/Assignment3/"
@@ -21,7 +23,6 @@ j1SceneMenu::j1SceneMenu() : j1Module()
 {
 	name.create("menu");
 	for (int i = 0; i < NUM_BAR_TILES; i++) { winsoundtile[i] = nullptr; winfxtile[i] = nullptr; }
-	
 }
 
 j1SceneMenu::~j1SceneMenu()
@@ -53,8 +54,8 @@ bool j1SceneMenu::Start()
 
 		//---Buttons
 		play = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,200 }, this);
-		play->SetButtonTex( "gui/Menu/PlayButton.png", "gui/Menu/PlayButtonHover.png", "gui/Menu/PlayButtonPressed.png");
-		play->rect= { 0,0,195, 63 };
+		play->SetButtonTex("gui/Menu/PlayButton.png", "gui/Menu/PlayButtonHover.png", "gui/Menu/PlayButtonPressed.png");
+		play->rect = { 0,0,195, 63 };
 		menu_elems.add(play);
 
 		cont = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,300 }, this);
@@ -63,27 +64,29 @@ bool j1SceneMenu::Start()
 		menu_elems.add(cont);
 
 		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);
-		settings->SetButtonTex("gui/Menu/SettingsButton.png", "gui/Menu/SettingsButtonHover.png","gui/Menu/SettingsButtonPressed.png" );
+		settings->SetButtonTex("gui/Menu/SettingsButton.png", "gui/Menu/SettingsButtonHover.png", "gui/Menu/SettingsButtonPressed.png");
 		menu_elems.add(settings);
 
 		credits = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,500 }, this);
-		credits->SetButtonTex("gui/Menu/CreditsButton.png", "gui/Menu/CreditsButtonHover.png","gui/Menu/CreditsButtonPressed.png" );
+		credits->SetButtonTex("gui/Menu/CreditsButton.png", "gui/Menu/CreditsButtonHover.png", "gui/Menu/CreditsButtonPressed.png");
 		credits->rect = { 0,0,280, 63 };
 		menu_elems.add(credits);
 
 		exit = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,600 }, this);
-		exit->SetButtonTex("gui/Menu/ExitButton.png", "gui/Menu/ExitButtonHover.png","gui/Menu/ExitButtonPressed.png" );
+		exit->SetButtonTex("gui/Menu/ExitButton.png", "gui/Menu/ExitButtonHover.png", "gui/Menu/ExitButtonPressed.png");
 		exit->rect = { 0,0,180, 63 };
 		menu_elems.add(exit);
 
 		App->audio->PlayMusic("audio/music/music_sadpiano.ogg");
-
 	}
 	return true;
 }
 
 bool j1SceneMenu::PreUpdate()
 {
+	App->input->GetMousePosition(mouse_x, mouse_y);
+	iPoint pos = { mouse_x, mouse_y };
+
 	return true;
 }
 
@@ -91,9 +94,11 @@ bool j1SceneMenu::Update(float dt)
 {
 	if (active) 
 	{
+		HCURSOR mouse = LoadCursorFromFileA("gui/PlayerGui/cursor1.cur");
+		SetCursor(mouse);
+
 		App->render->Blit(background, 0, 0, &background_rect);
-		if (toChangeScene && !App->fade->IsFading()) {
-			SceneChange(); }
+		if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
 	}
 	return true;
 }
@@ -396,8 +401,6 @@ void j1SceneMenu::CreateSettingWindow()
 	winfxtile[NUM_BAR_TILES - 1]->draw = false;
 	window->AddWindowElement(winfxtile[9]);
 
-	
-	
 	settingwindowcreated = true;
 }
 

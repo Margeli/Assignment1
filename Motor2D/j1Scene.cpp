@@ -109,6 +109,9 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {  App->fade->FadeToBlack(this, App->menu, 0.8f); SceneChangeMenu(); }
 
+	HCURSOR mouse = LoadCursorFromFileA("gui/PlayerGui/cursor1.cur");
+	SetCursor(mouse);
+
 	return true;
 }
 
@@ -121,6 +124,7 @@ bool j1Scene::PostUpdate()
 		{
 			App->ResumeGame();
 			App->entities->player->playerGui->DestroyESCWindow();
+			//while (ShowCursor(false) >= 0);
 		}
 		else 
 		{
@@ -128,7 +132,6 @@ bool j1Scene::PostUpdate()
 			App->PauseGame();
 		}
 	}
-
 	return ret;
 }
 

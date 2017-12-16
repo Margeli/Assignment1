@@ -43,6 +43,7 @@ bool j1Scene2::Awake(pugi::xml_node&)
 
 bool j1Scene2::Start()
 {
+
 	if (active) {
 		winning = App->tex->Load("textures/winning.png");
 		winning_rect = { 0, 0, 1024, 770 };
@@ -128,10 +129,13 @@ bool j1Scene2::Update(float dt)
 		{
 			App->fade->FadeToBlack(App->scene2, App->menu, 0.8f);
 			SceneChangeMenu();
-
+			win = false;
 			//delete save_game.xml in here!
 		}
 	}
+
+	HCURSOR mouse = LoadCursorFromFileA("gui/PlayerGui/cursor1.cur");
+	SetCursor(mouse);
 
 	return true;
 }

@@ -16,8 +16,8 @@
 #include "j1PlayerGui.h"
 #include "SDL/include/SDL_timer.h"
 
-#define SPEED 3
-#define JUMP_SPEED 15.0f
+#define SPEED 3.5f
+#define JUMP_SPEED 17.0f
 #define JUMP_LIMIT 30.0f
 #define LITTLEJUMPHIGH 5
 
@@ -89,7 +89,7 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt)
 {	
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
-	speed = SPEED + SPEED *dt;
+	speed = (SPEED + SPEED *dt) * 1.30f;
 	if (points >= 100*points_index)
 	{ 
 		App->audio->PlayFx(win_live);
@@ -137,7 +137,8 @@ bool j1Player::Update(float dt)
 		if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) //RUNING RIGHT
 		{
 			walking = true;
-			fposition.x += speed * 1.25f;
+			fposition.x += speed *  1.05f;
+			animation = &run_right;
 			facing = Facing::RIGHT;
 
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
@@ -163,7 +164,8 @@ bool j1Player::Update(float dt)
 		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) 	//RUNNING LEFT
 		{
 			walking = true;
-			fposition.x -= speed * 1.25f;
+			fposition.x -= speed * 1.05f;
+			animation = &run_left;
 			facing = Facing::LEFT;
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
 			if (animation != &jump_right) { animation = &run_right; }
@@ -379,6 +381,7 @@ void j1Player::LoadPlayerAnimations()
 	walk_right.LoadPlayerAnimations("walk_right");
 	walk_left.LoadPlayerAnimations("walk_left");
 	run_right.LoadPlayerAnimations("run_right");
+	run_left.LoadPlayerAnimations("run_left");
 	winning_anim.LoadPlayerAnimations("win");
 	pause_right.LoadPlayerAnimations("pause_right");
 	pause_left.LoadPlayerAnimations("pause_left");

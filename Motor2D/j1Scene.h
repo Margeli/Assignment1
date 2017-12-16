@@ -12,9 +12,6 @@
 
 struct SDL_Texture;
 
-
-
-
 class j1Scene : public j1Module
 {
 public:
@@ -55,8 +52,6 @@ public:
 
 private:
 	void PlaceEnemies() const;
-	
-
 };
 
 #endif // __j1SCENE_H__
