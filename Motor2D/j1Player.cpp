@@ -11,12 +11,15 @@
 #include "j1Player.h"
 #include "p2Defs.h"
 #include "j1Animation.h"
+#include "j1FadeToBlack.h"
+#include "j1SceneMenu.h"
 #include "Brofiler/Brofiler.h"
 #include "j1EntityManager.h"
 #include "j1PlayerGui.h"
 #include "SDL/include/SDL_timer.h"
 
-#define SPEED 3.5f
+
+#define SPEED 2.5f
 #define JUMP_SPEED 17.0f
 #define JUMP_LIMIT 30.0f
 #define LITTLEJUMPHIGH 5
@@ -70,6 +73,9 @@ bool j1Player::Start()
 
 	playerGui = new j1PlayerGui();
 	playerGui->Start();
+
+	dying = App->tex->Load("textures/you_lose.png");
+	dying_rect = { 0, 0, 1025, 770 };
 	
 	return ret;
 }
@@ -216,9 +222,7 @@ bool j1Player::Update(float dt)
 	if (littlejump) {
 		fposition.y -= jump_speed;
 		littlejumphigh++;
-		if (littlejumphigh == LITTLEJUMPHIGH) {
-			littlejump = false;
-		}
+		if (littlejumphigh == LITTLEJUMPHIGH) { littlejump = false; }
 	}
 
 	if (hitted && hit_time - SDL_GetTicks() > 1000) { hitted = false; } // 1 second of invulnerability  if hitted. 
@@ -236,8 +240,17 @@ bool j1Player::Update(float dt)
 
 	Draw();
 
-	//----DEAD
 	if (lifes < 1) { Dead(); }
+	if(death_image == true) 
+	{
+		App->render->Blit(dying, RIGHT_SCENE_LIMIT, 0, &dying_rect);
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (App->scene1->active) { App->scene1->SceneChangeMenu(); 	App->fade->FadeToBlack(App->scene1, App->menu, 0.8f); }
+			else if (App->scene2->active) { App->scene2->SceneChangeMenu(); App->fade->FadeToBlack(App->scene2, App->menu, 0.8f); }
+		}
+	}
 
 	return true;
 }
@@ -249,8 +262,10 @@ void j1Player::Dead()
 	points = 0;	
 	points_index = 1;
 	pickups_counter = 0;
-	if (App->scene1->active) { App->scene1->SceneChangeMenu(); }
-	else if (App->scene2->active) { App->scene2->SceneChangeMenu(); }
+
+	death_image = true;
+	App->render->camera.x = -RIGHT_SCENE_LIMIT;
+	App->entities->EnemiesCleanUp();
 }
 
 void j1Player::PlayerHurted() 

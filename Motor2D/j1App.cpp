@@ -19,8 +19,6 @@
 
 #define ONE_TIME_UNIT 1000
 
-
-
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
@@ -299,6 +297,9 @@ bool j1App::DoUpdate()
 // Call modules after each loop iteration
 bool j1App::PostUpdate()
 {
+	HCURSOR mouse = LoadCursorFromFileA("gui/PlayerGui/cursor1.cur");
+	SetCursor(mouse);
+
 	BROFILER_CATEGORY("App_PostUpdate", Profiler::Color::Brown);
 	bool ret = true;
 	p2List_item<j1Module*>* item;

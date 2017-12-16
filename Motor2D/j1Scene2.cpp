@@ -122,6 +122,7 @@ bool j1Scene2::Update(float dt)
 		App->render->Blit(winning, RIGHT_SCENE_LIMIT_2 , 0, &winning_rect);	
 		App->render->camera.x = -RIGHT_SCENE_LIMIT_2;
 		App->entities->player->fposition = { RIGHT_SCENE_LIMIT_2 + 600, 255 };
+		App->entities->EnemiesCleanUp();
 
 		//Hide UI!
 
@@ -130,12 +131,10 @@ bool j1Scene2::Update(float dt)
 			App->fade->FadeToBlack(App->scene2, App->menu, 0.8f);
 			SceneChangeMenu();
 			win = false;
+
 			//delete save_game.xml in here!
 		}
 	}
-
-	HCURSOR mouse = LoadCursorFromFileA("gui/PlayerGui/cursor1.cur");
-	SetCursor(mouse);
 
 	return true;
 }

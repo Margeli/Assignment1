@@ -78,12 +78,16 @@ private:
 
 	Facing facing = Facing::RIGHT;
 
+	SDL_Texture* dying = nullptr;
+	SDL_Rect dying_rect;
+
 	void InitialPlayerPos();
 
 	float jump_limit;
 	float jump_pos;
 	float jump_speed;
 	bool walking = false;
+	bool death_image = false;
 	bool landing = false;
 	bool can_jump = false;
 	bool jumping = false;

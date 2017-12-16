@@ -70,7 +70,6 @@ bool j1EntityManager::Update(float dt)
 	{
 		entity_iterator->data->paused = paused;
 		entity_iterator->data->Update(dt);
-		
 	}
 	return true;
 }
@@ -87,8 +86,9 @@ bool j1EntityManager::CleanUp()
 {
 	SpawnListReset();
 	for (p2List_item<j1Entity*>* entity_iterator = entities.start; entity_iterator != nullptr; entity_iterator = entity_iterator->next)
-	{entity_iterator->data->CleanUp();
-	DestroyEntity(entity_iterator->data);
+	{
+		entity_iterator->data->CleanUp();
+		DestroyEntity(entity_iterator->data);
 	}
 	player = nullptr;
 	return true;

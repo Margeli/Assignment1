@@ -7,7 +7,7 @@
 #include "j1Input.h"
 #include "Brofiler/Brofiler.h"	
 
-#define CAMERA_SPEED 5
+#define CAMERA_SPEED 3
 
 j1Render::j1Render() : j1Module()
 {

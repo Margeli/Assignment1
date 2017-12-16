@@ -94,9 +94,6 @@ bool j1SceneMenu::Update(float dt)
 {
 	if (active) 
 	{
-		HCURSOR mouse = LoadCursorFromFileA("gui/PlayerGui/cursor1.cur");
-		SetCursor(mouse);
-
 		App->render->Blit(background, 0, 0, &background_rect);
 		if (toChangeScene && !App->fade->IsFading()) { SceneChange(); }
 	}
