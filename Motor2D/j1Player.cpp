@@ -120,15 +120,19 @@ bool j1Player::Update(float dt)
 			if (animation == &attack_right) { attack_right.Reset(); animation = &idle_right; }
 			else if (animation == &attack_left) { attack_left.Reset(); animation = &idle_left; }
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) { godmode = true; }	//------------------GODMODE
-		if (godmode)
+		//------------------GODMODE
+		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) 
+		{ 
+			if (godmode) { godmode = false; }
+			else { godmode = true; }
+		}
+		if(godmode)
 		{
-			if (facing == Facing::RIGHT) { animation = &walk_right; } else if (facing == Facing::LEFT) { animation = &walk_left; }
+			if (facing == Facing::RIGHT) { animation = &walk_right; }
+			else if (facing == Facing::LEFT) { animation = &walk_left; }
 			if ((App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)) { fposition.y -= speed * 1.40f; }
 			if ((App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) { fposition.y += speed * 1.40f; }
 		}
-		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) { godmode = false; }
 
 		if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) //RUNING RIGHT
 		{
@@ -179,7 +183,6 @@ bool j1Player::Update(float dt)
 			if (animation == &walk_left) { animation = &idle_left; }	
 			else if (animation == &walk_right) { animation = &idle_right; }
 		}			
-
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
@@ -233,14 +236,12 @@ bool j1Player::Update(float dt)
 
 	//----DEAD
 	if (lifes < 1) { Dead(); }
-	
 
 	return true;
 }
 
 void j1Player::Dead()
 {
-	
 	App->audio->PlayFx(lose_fx, 0);
 	lifes = LIFES;
 	points = 0;	
@@ -248,12 +249,10 @@ void j1Player::Dead()
 	pickups_counter = 0;
 	if (App->scene1->active) { App->scene1->SceneChangeMenu(); }
 	else if (App->scene2->active) { App->scene2->SceneChangeMenu(); }
-	
 }
 
 void j1Player::PlayerHurted() 
 {
-	
 	player_hurted = true;
 	hit_time = SDL_GetTicks();
 	use_input = false;
@@ -270,8 +269,6 @@ void j1Player::LoseOneLife()
 		if (App->scene2->active) { position = App->scene2->initial_scene_pos; }
 
 		InitialPlayerPos();
-		
-		
 		App->entities->SetEnemiesInitialPos();
 		App->render->camera.x = 0;
 		animation->Reset();

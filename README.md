@@ -7,11 +7,23 @@
 Map tiles and character sprites art are from  [Open Art](https://opengameart.org/), both free without copyright. 
 
 ## Innovation
+
 -Pause menu
+
+## New Features
+
+- New enemies (Two new trolls).
+- Winning scene at the end of level 2.
+- Player UI(Hearts, time, pick-ups, points).
+- Fullscreen.
+- Main menu with buttons (Play, Continue, Settings, Credits, Exit).
+- Music and sound effects volume regulation.
+- UML for UI.
+- Fixed enemies problems (Fly size).
 
 ## Features
 
-- Two levels (improved).
+- Two levels.
 - Save and load.
 - Moving character with jump and run habilities.
 - Parallax effect.
@@ -25,16 +37,11 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Pathfinding (A*) for enemies AI.
 - Sound effects.
 - FPS handler.
-- UML of the Entities system.
 - Pick-ups.
 - Despawn of the enemies.
 - Enemies can be killed by jumping above them.
 - Loading the enemies from Tiled.
 - Loading animations from XML.
-- Main menu with buttons (Play, Continue, Settings, Credits, Exit).
-- Music and sound effects volume regulation.
-- Fullscreen.
-- Player UI(Hearts, time, pick-ups, points).
 
 ## Controlls
 
@@ -50,8 +57,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - "F6" to load the previous state.
 - "F7" to see FPS and other info (hold key).
 - "F8" to show colliders and enemie's path to the player.
-- "F9" to activate god mode.
-- "F10" to desactivate god mode.
+- "F9" to acble and disable god mode.
 - "F11" to cap FPS to 30.
 
 

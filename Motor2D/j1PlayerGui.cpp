@@ -187,21 +187,6 @@ void j1PlayerGui::DestroyESCWindow()
 	pauseMenucreated = false;
 }
 
-void j1PlayerGui::CreateENDWindow()
-{
-	App->fade->FadeToBlack(App->scene2, App->scene2, 2.0f);
-
-	window = App->gui->AddWindow(ALIGN_CENTERED, 0, nullptr, { 0,100 }, App->entities);
-	window->tex = window->LoadTexture("gui/PauseMenu/ESC_window.png");
-	window->rect = { 0,0, 509, 562 };
-}
-
-void j1PlayerGui::DestroyENDWindow()
-{
-
-}
-
-
 bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event) 
 {
 	if (pauseMenucreated)
