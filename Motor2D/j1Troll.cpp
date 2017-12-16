@@ -104,6 +104,8 @@ void j1Troll::OnCollision(Collider* c1, Collider* c2)
 
 void j1Troll::LoadTrollAnimations()		
 {
+	pause_right.LoadEnemyAnimations("pause_right", "troll");
+	pause_left.LoadEnemyAnimations("pause_left", "troll");
 	idle_right.LoadEnemyAnimations("idle_right", "troll");
 	idle_left.LoadEnemyAnimations("idle_left", "troll");
 	walk_right.LoadEnemyAnimations("walk_right", "troll");
@@ -134,10 +136,9 @@ bool j1Troll::Update(float dt)
 	
 	if (paused) {
 		if (facing == LEFT)		
-			animation = &idle_left;
+			animation = &pause_left;
 		else
-			animation = &idle_right;
-
+			animation = &pause_right;
 		Draw();
 		return true;
 	}
@@ -164,7 +165,8 @@ bool j1Troll::Update(float dt)
 			}
 		}
 	}
-	
+	if (facing == LEFT) { animation = &idle_left; }
+	else if (facing == RIGHT) { animation = &idle_right; }
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
 		

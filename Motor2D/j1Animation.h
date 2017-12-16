@@ -37,7 +37,8 @@ public:
 		}
 	}
 
-	bool Finished() const {return loops > 0;}
+	bool Finished() const {
+		return loops > 0;}
 	void Reset() {current_frame = 0; loops = 0;}
 
 	void LoadPlayerAnimations(p2SString name);

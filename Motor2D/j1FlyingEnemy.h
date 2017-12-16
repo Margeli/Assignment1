@@ -40,6 +40,8 @@ public:
 	
 	Animation fly_right;
 	Animation fly_left;
+	Animation pause_left;
+	Animation pause_right;
 
 	uint fly_death;
 	uint fly_attack;

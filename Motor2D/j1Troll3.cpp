@@ -113,6 +113,8 @@ void j1Troll3::LoadTrollAnimations()
 	attack_left.LoadEnemyAnimations("attack_left", "troll3");
 	death_right.LoadEnemyAnimations("death_right", "troll3");
 	death_left.LoadEnemyAnimations("death_left", "troll3");
+	pause_right.LoadEnemyAnimations("pause_right", "troll3");
+	pause_left.LoadEnemyAnimations("pause_left", "troll3");
 }
 
 bool j1Troll3::CleanUp()
@@ -131,11 +133,10 @@ bool j1Troll3::Update(float dt)
 
 	BROFILER_CATEGORY("EntityTroll3 Update", Profiler::Color::Bisque);
 	if (paused) {
-		if (facing == LEFT)		
-			animation = &idle_left;
+		if (facing == LEFT)
+			animation = &pause_left;
 		else
-			animation = &idle_right;
-
+			animation = &pause_right;
 		Draw();
 		return true;
 	}
@@ -162,7 +163,8 @@ bool j1Troll3::Update(float dt)
 			}
 		}
 	}
-
+	if (facing == LEFT) { animation = &idle_left; }
+	else if (facing == RIGHT) { animation = &idle_right; }
 	if (IsPointInCircle(App->entities->player->position.x, App->entities->player->position.y, position.x, position.y, TROLL_DETECTION_RANGE))
 	{
 		iPoint origin = { (int)(position.x + PATH_DISPLACEMENT_x),(int)(position.y + PATH_DISPLACEMENT_y) };

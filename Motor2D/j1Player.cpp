@@ -98,7 +98,12 @@ bool j1Player::Update(float dt)
 		lifes++;
 		playerGui->DrawHearts(lifes);
 	}
-	if (paused) { playerGui->PauseTime(); Draw(); return true; }
+	if (paused) { 
+		playerGui->PauseTime(); 
+		if (facing == RIGHT) { animation = &pause_right; }
+		else { animation = &pause_left; }
+		Draw(); 
+		return true; }
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
 	//else 	if (godmode == true) { fposition.y; }
 	if (use_input && !App->scene2->win) 
@@ -378,6 +383,8 @@ void j1Player::LoadPlayerAnimations()
 	walk_left.LoadPlayerAnimations("walk_left");
 	run_right.LoadPlayerAnimations("run_right");
 	winning_anim.LoadPlayerAnimations("win");
+	pause_right.LoadPlayerAnimations("pause_right");
+	pause_left.LoadPlayerAnimations("pause_left");
 }
 
 void j1Player::InitialPlayerPos() {

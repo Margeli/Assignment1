@@ -2,6 +2,12 @@
 
 <animations>
   <player>
+    <pause_right loop="false" speed="0.3f">
+      <animation x="0" y="0" w="46" h="65"/>
+    </pause_right>
+    <pause_left loop="false" speed="0.3f">
+      <animation x="0" y="195" w="46" h="65"/>
+    </pause_left>
     <win loop ="true" speed ="0.3f">
       <animation x="512" y="0" w="335" h="459"/>
       <animation x="847" y="0" w="335" h="459"/>
@@ -164,6 +170,12 @@
     </collect>
     
     <troll>
+      <pause_right loop="false" speed="0.3f">
+        <animation x="0" y="0" w="100" h="100"/>        
+      </pause_right>
+      <pause_left loop="false" speed="0.3f">
+        <animation x="0" y="100" w="100" h="100"/>
+      </pause_left>
       <idle_right loop="true" speed="0.3f">
         <animation x="0" y="0" w="100" h="100"/>
         <animation x="100" y="0" w="100" h="100"/>
@@ -268,6 +280,12 @@
     </troll>
 
     <troll2>
+      <pause_right loop="false" speed="0.3f">
+        <animation x="0" y="0" w="100" h="100"/>
+      </pause_right>
+      <pause_left loop="false" speed="0.3f">
+        <animation x="0" y="100" w="100" h="100"/>
+      </pause_left>
         <idle_right loop="true" speed="0.3f">
           <animation x="0" y="0" w="100" h="100"/>
           <animation x="100" y="0" w="100" h="100"/>
@@ -352,6 +370,12 @@
     </troll2>
 
     <troll3>
+      <pause_right loop="false" speed="0.3f">
+        <animation x="0" y="0" w="100" h="100"/>
+      </pause_right>
+      <pause_left loop="false" speed="0.3f">
+        <animation x="0" y="100" w="100" h="100"/>
+      </pause_left>
       <idle_right loop="true" speed="0.3f">
         <animation x="0" y="0" w="100" h="100"/>
         <animation x="100" y="0" w="100" h="100"/>
@@ -436,6 +460,12 @@
     </troll3>
     
     <fly>
+      <pause_right loop="false" speed="0.3f">
+        <animation x="0" y="0" w="41" h="41"/>
+      </pause_right>
+      <pause_left loop="false" speed="0.3f">
+        <animation x="0" y="41" w="41" h="41"/>
+      </pause_left>
       <fly_right loop="true" speed="0.3f">
       <animation x="0" y="0" w="41" h="41"/>
       <animation x="41" y="0" w="41" h="41"/>

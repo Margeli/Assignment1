@@ -42,12 +42,14 @@ public:
 	Animation jump_right;
 	Animation attack_right;
 	Animation death_right;
+	Animation pause_right;
 
 	Animation idle_left;
 	Animation walk_left;
 	Animation jump_left;
 	Animation attack_left;
 	Animation death_left;
+	Animation pause_left;
 
 	uint troll_death;
 	uint troll_attack;

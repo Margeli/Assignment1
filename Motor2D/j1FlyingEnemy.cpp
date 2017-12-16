@@ -87,6 +87,8 @@ void j1FlyingEnemy::LoadFlyAnimations()
 {
 	fly_right.LoadEnemyAnimations("fly_right", "fly");
 	fly_left.LoadEnemyAnimations("fly_left", "fly");
+	pause_right.LoadEnemyAnimations("pause_right", "fly");
+	pause_left.LoadEnemyAnimations("pause_left", "fly");
 }
 
 bool j1FlyingEnemy::CleanUp()
@@ -102,7 +104,16 @@ bool j1FlyingEnemy::CleanUp()
 bool j1FlyingEnemy::Update(float dt)	
 {
 	BROFILER_CATEGORY("EntityFLYUpdate", Profiler::Color::Bisque);
-	if (paused) { Draw(); return true; }
+	if (paused) {
+		if (facing == LEFT)
+			animation = &pause_left;
+		else
+			animation = &pause_right;
+		Draw();
+		return true;
+	}
+	if (facing == Facing::RIGHT) { animation = &fly_right; }
+	else if (facing == Facing::LEFT) { animation = &fly_left; }
 	iPoint origin = { position.x+FLY_WIDTH/2, position.y + FLY_HEIGHT / 2 };
 	iPoint destination = { App->entities->player->position.x + PLAYERWIDTH / 2, App->entities->player->position.y + PLAYERHEIGHT - 20, };
 	if (IsPointInCircle(App->entities->player->position, position, FLYING_ENEMY_DETECION_RANGE)) {
@@ -115,10 +126,6 @@ bool j1FlyingEnemy::Update(float dt)
 		}
 		else { path->Clear(); }
 	}
-	
-	if (facing == Facing::RIGHT) { animation = &fly_right; }
-	else if (facing == Facing::LEFT) { animation = &fly_left; }
-
 	if (collider != nullptr)
 		collider->SetPos(fposition.x + COLLIDER_POS_X, fposition.y + COLLIDER_POS_Y);
 	Draw();

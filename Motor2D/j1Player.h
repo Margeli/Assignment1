@@ -59,6 +59,7 @@ public:
 	Animation run_right;
 	Animation attack_right;
 	Animation death_right;
+	Animation pause_right;
 
 	Animation idle_left;
 	Animation walk_left;
@@ -66,6 +67,7 @@ public:
 	Animation run_left;
 	Animation attack_left;
 	Animation death_left;
+	Animation pause_left;
 
 	Animation winning_anim;
 
