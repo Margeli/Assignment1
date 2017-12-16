@@ -377,23 +377,23 @@
         <animation x="0" y="100" w="100" h="100"/>
       </pause_left>
       <idle_right loop="true" speed="0.3f">
-        <animation x="0" y="0" w="100" h="100"/>
-        <animation x="100" y="0" w="100" h="100"/>
-        <animation x="200" y="0" w="100" h="100"/>
-        <animation x="300" y="0" w="100" h="100"/>
-        <animation x="400" y="0" w="100" h="100"/>
-        <animation x="500" y="0" w="100" h="100"/>
-        <animation x="600" y="0" w="100" h="100"/>
+        <animation x="0" y="29" w="90" h="68"/>
+        <animation x="90" y="29"w="90" h="68"/>
+        <animation x="180" y="29" w="90" h="68"/>
+        <animation x="270" y="29"w="90" h="68"/>
+        <animation x="360" y="29" w="90" h="68"/>
+        <animation x="450" y="29" w="90" h="68"/>
+        <animation x="540" y="29" w="90" h="68"/>
       </idle_right>
 
       <idle_left loop="true" speed="0.3f">
-        <animation x="0" y="100" w="100" h="100"/>
-        <animation x="100" y="100" w="100" h="100"/>
-        <animation x="200" y="100" w="100" h="100"/>
-        <animation x="300" y="100" w="100" h="100"/>
-        <animation x="400" y="100" w="100" h="100"/>
-        <animation x="500" y="100" w="100" h="100"/>
-        <animation x="600" y="100" w="100" h="100"/>
+        <animation x="0" y="130" w="90" h="68"/>
+        <animation x="90" y="130" w="90" h="68"/>
+        <animation x="180" y="130" w="90" h="68"/>
+        <animation x="270" y="130" w="90" h="68"/>
+        <animation x="360" y="130" w="90" h="68"/>
+        <animation x="450" y="130" w="90" h="68"/>
+        <animation x="540" y="130" w="90" h="68"/>
       </idle_left>
 
       <walk_right loop="true" speed="0.3f">
