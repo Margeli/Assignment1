@@ -152,8 +152,6 @@ bool j1Scene::CleanUp()
 
 bool j1Scene::Load(pugi::xml_node& data)
 {
-	
-
 	pugi::xml_node activated = data.child("activated");
 	bool scene_active = activated.attribute("true").as_bool();
 	if (active) {
