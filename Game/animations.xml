@@ -8,6 +8,7 @@
     <pause_left loop="false" speed="0.3f">
       <animation x="0" y="195" w="46" h="65"/>
     </pause_left>
+    
     <win loop ="true" speed ="0.3f">
       <animation x="512" y="0" w="335" h="459"/>
       <animation x="847" y="0" w="335" h="459"/>
@@ -149,7 +150,7 @@
       <animation x="430" y="589" w="62" h="65"/>
     </death_left>
 
-    <run loop="true" speed ="0.2f">
+    <run loop="true" speed ="0.4f">
       <animation x="0" y="130" w="46" h="65"/>
       <animation x="47" y="130" w="46" h="65"/>
       <animation x="94" y="130" w="46" h="65"/>

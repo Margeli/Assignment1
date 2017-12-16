@@ -45,9 +45,7 @@ bool j1Gui::PreUpdate()
 		elem->data->PreUpdate();
 		if (elem->data->to_delete)
 			DestroyElement(elem->data);
-		
 	}
-
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {	debug = !debug;}	
 	UpdateElemEvent();
@@ -104,24 +102,27 @@ void j1Gui::UpdateElemEvent() const
 	for (elem = elements.start; elem != NULL; elem = elem->next)
 	{
 		iPoint elem_pos = { elem->data->position.x + elem->data->displacement.x,elem->data->position.y + elem->data->displacement.y };
-		if ((pos.x > elem_pos.x && pos.x < elem_pos.x + elem->data->rect.w) && (pos.y > elem_pos.y && pos.y < elem_pos.y + elem->data->rect.h)) {
-			if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+		if ((pos.x > elem_pos.x && pos.x < elem_pos.x + elem->data->rect.w) && (pos.y > elem_pos.y && pos.y < elem_pos.y + elem->data->rect.h)) 
+		{
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_REPEAT) 
+			{
 				elem->data->event = ButtonEvent::RIGHT_CLICK;
 			}	
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP) {
+			else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP) 
+			{
 				elem->data->event = ButtonEvent::RIGHT_CLICK_UP;
 				break;
 			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) 
+			{
 				elem->data->event = ButtonEvent::LEFT_CLICK;
-				
 			}	
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) 
+			{
 				elem->data->event = ButtonEvent::LEFT_CLICK_UP;
 				break;
 			}
-			else {
-				elem->data->event = ButtonEvent::MOUSE_INSIDE; }
+			else { elem->data->event = ButtonEvent::MOUSE_INSIDE; }
 		}
 		else { elem->data->event = ButtonEvent::MOUSE_OUTSIDE; }
 	}

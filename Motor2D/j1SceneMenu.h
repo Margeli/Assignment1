@@ -65,6 +65,8 @@ private:
 	float fx_volume;
 	float current_volume;
 
+	int mouse_x, mouse_y;
+
 	GuiWindow*	window = nullptr;
 	GuiButton* winquit = nullptr;
 	GuiButton* link = nullptr;
@@ -77,6 +79,7 @@ private:
 	GuiImage* winsoundbar = nullptr;
 	GuiImage* winfxbar = nullptr;
 	GuiImage* winsetticon = nullptr;
+	GuiImage* sword = nullptr;
 
 	GuiLabel* winsoundtxt = nullptr;
 	GuiLabel* settingsback = nullptr;
@@ -93,7 +96,7 @@ private:
 	GuiButton*	exit = nullptr;
 
 	SDL_Texture* background = nullptr;
-	SDL_Rect	background_rect;
+	SDL_Rect	 background_rect;
 	Mix_Chunk* sample;
 	Uint32 winfullscr = 0;
 	p2List<j1UI_Elem*> menu_elems;

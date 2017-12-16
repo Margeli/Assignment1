@@ -47,6 +47,8 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 	void SetCameraInitialPos();
 
+	iPoint ScreenToWorld(int x, int y) const;
+
 public:
 
 	SDL_Renderer*	renderer = nullptr;

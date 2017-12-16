@@ -27,6 +27,7 @@ public:
 	void CreateESCWindow();
 	void DestroyESCWindow();
 	void PauseTime();
+	bool pauseMenucreated = false;
 
 	bool OnEventChange(j1UI_Elem* elem, ButtonEvent event);
 
@@ -42,11 +43,8 @@ private:
 	GuiImage* full_heart[LIFES];
 	GuiImage* empty_heart[LIFES];
 
-	
-
 	uint last_sec;
 	
-
 	GuiWindow* window = nullptr;
 
 	GuiButton* winquit = nullptr;
@@ -55,7 +53,6 @@ private:
 	GuiButton* menu = nullptr;
 	GuiButton* save = nullptr;
 
-	bool pauseMenucreated = false;
 	bool start_pause = true;
 };
 

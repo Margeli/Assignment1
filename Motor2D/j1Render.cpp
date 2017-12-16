@@ -7,7 +7,7 @@
 #include "j1Input.h"
 #include "Brofiler/Brofiler.h"	
 
-#define CAMERA_SPEED 3
+#define CAMERA_SPEED 5
 
 j1Render::j1Render() : j1Module()
 {
@@ -248,8 +248,20 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
-void j1Render::SetCameraInitialPos() {
+void j1Render::SetCameraInitialPos()
+{
 
 	camera.y = 0;
 	camera.x = 0;
+}
+
+iPoint j1Render::ScreenToWorld(int x, int y) const
+{
+	iPoint ret;
+	int scale = App->win->GetScale();
+
+	ret.x = (x - camera.x / scale);
+	ret.y = (y - camera.y / scale);
+
+	return ret;
 }
