@@ -9,6 +9,7 @@ Killing enemies and picking bananas gives points. Every 100 points the player wi
 There is a main menu with credits, and settings. Two levels with increasing dificulty. 
 
 Watch a trayler of our game in [here](https://www.youtube.com/watch?v=xaFCDj6aXv8&feature=youtu.be).
+Check our website in [here](https://margeli.github.io/Assignment3/).
 
 ## Team members
 **[@RogerJimbo](https://github.com/RogerJimbo)**
