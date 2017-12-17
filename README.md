@@ -10,11 +10,11 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 
 ## Our Characters
 - The Kinght
-<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/Attack%20(8).png" width = "200" height = "200" alt="Error loading img"><br>
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/Attack%20(8).png?raw=true" width = "200" height = "200" alt="Error loading img"><br>
 - The Trolls
-<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/ATTAK_000.png" width = "250" height = "200" alt="Error loading img"><br>
-<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/DIE_006.png" width = "300" height = "150" alt="Error loading img"><br>
-<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/WALK_000.png" width = "200" height = "150" alt="Error loading img"><br>
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/ATTAK_000.png?raw=true" width = "250" height = "200" alt="Error loading img"><br>
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/DIE_006.png?raw=true" width = "300" height = "150" alt="Error loading img"><br>
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/WALK_000.png?raw=true" width = "200" height = "150" alt="Error loading img"><br>
 
 ## Innovation
 
@@ -33,6 +33,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Music and sound effects volume regulation.
 - UML for UI.
 - Fixed enemies problems (Fly size).
+- Link to the repository from ingame.
 
 ## Features
 
