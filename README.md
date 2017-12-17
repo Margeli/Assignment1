@@ -5,19 +5,16 @@ This game has been developed for game developement subject by Carles Margelí an
 The game main goal is to reach the end of the levels collecting as many bananas as possible and trying to achieve a high score. 
 In the way, the player will find three diferent types of trolls and some anoying flyes that will try to kill you. 
 The player will have five hearts or health points. Once those hearts are over, the player will die and lose his current puntuation and bananas.
-Killing enemies and picking bananas gives points. Every 100 points the player will recieve an extra life. 
-There is a main menu with credits, and settings. Two levels with increased dificulty
+Killing enemies and picking bananas gives points. Every 100 points the player will recover an extra life. 
+There is a main menu with credits, and settings. Two levels with increasing dificulty. 
+
+Watch a trayler of our game in [here](https://www.youtube.com/watch?v=xaFCDj6aXv8&feature=youtu.be).
 
 ## Team members
 **[@RogerJimbo](https://github.com/RogerJimbo)**
 <br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/DSC_7968.JPG?raw=true" width = "300" height = "250" alt="Error loading img"><br>
 **[@Margeli](https://github.com/Margeli)**
 <br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/foto_carnet.jpg?raw=true" width = "300" height = "300" alt="Error loading img"><br>
-
-## Trayler
-<video width="320" height="240" controls>
-  <source src="https://www.youtube.com/watch?v=xaFCDj6aXv8&feature=youtu.be?raw=true" type="video/avi">
-  <\video>
 
 ## Our Characters
 - The Kinght
