@@ -1,10 +1,20 @@
 # Game Development Assignment 3
 
-**[GitHub](https://github.com/Margeli/Assignment1)**
-
-**[@Margeli](https://github.com/Margeli) & [@RogerJimbo](https://github.com/RogerJimbo)**
-
 Map tiles and character sprites art are from  [Open Art](https://opengameart.org/), both free without copyright. 
+
+## Team members
+**[@RogerJimbo](https://github.com/RogerJimbo)**
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/DSC_7968.JPG?raw=true" width = "300" height = "250" alt="Error loading img"><br>
+**[@Margeli](https://github.com/Margeli)**
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/foto_carnet.jpg?raw=true" width = "300" height = "300" alt="Error loading img"><br>
+
+## Our Characters
+- The Kinght
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/Attack%20(8).png?raw=true" width = "200" height = "200" alt="Error loading img"><br>
+- The Trolls
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/ATTAK_000.png?raw=true" width = "250" height = "200" alt="Error loading img"><br>
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/DIE_006.png?raw=true" width = "300" height = "150" alt="Error loading img"><br>
+<br><img src="https://github.com/Margeli/Assignment3/blob/master/assets/WALK_000.png?raw=true" width = "200" height = "150" alt="Error loading img"><br>
 
 ## Innovation
 
@@ -14,6 +24,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 
 ## New Features
 
+- After a 100 points, the character gets one extra heart.
 - New enemies (Two new trolls).
 - Winning scene at the end of level 2.
 - Player UI(Hearts, time, pick-ups, points).
@@ -22,6 +33,7 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Music and sound effects volume regulation.
 - UML for UI.
 - Fixed enemies problems (Fly size).
+- Link to the repository from ingame.
 
 ## Features
 
@@ -42,7 +54,6 @@ Map tiles and character sprites art are from  [Open Art](https://opengameart.org
 - Pick-ups.
 - Despawn of the enemies.
 - Enemies can be killed by jumping above them.
-
 
 ## Controlls
 
