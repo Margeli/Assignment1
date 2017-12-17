@@ -1,10 +1,8 @@
 # Game Development Assignment 3
 
-**[GitHub](https://github.com/Margeli/Assignment1)**
+## Team members
 
-**[@Margeli](https://github.com/Margeli) & [@RogerJimbo](https://github.com/RogerJimbo)**
-
-Map tiles and character sprites art are from  [Open Art](https://opengameart.org/), both free without copyright. 
+<img src="https://github.com/Margeli/Assignment3/blob/master/assets/DSC_7968.JPG">
 
 ## Innovation
 
