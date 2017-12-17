@@ -1,6 +1,6 @@
 ﻿# UPC School Game Development Project 
 
-- Watch a trayler of our game in [here](https://www.youtube.com/watch?v=xaFCDj6aXv8&feature=youtu.be).
+- Watch a trayler of our game in [here](https://www.youtube.com/watch?v=AS5iwZ5keO8&feature=youtu.be).
 - Check our website in [here](https://margeli.github.io/Assignment3/).
 - You can download our game in [here](https://github.com/Margeli/Assignment3/releases/tag/v1.5).
 
@@ -41,7 +41,8 @@ The code has been developed by both of the team members, so has the music and au
 
 - Loading the enemies from Tiled.
 - Loading animations from XML.
-- In-game pause menu with functional buttons (Resume, Restart, Save, Menu & Exit)
+- In-game pause menu with functional buttons (Resume, Restart, Save, Menu & Exit).
+- Sword cursor.
 
 ## New Features
 
