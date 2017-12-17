@@ -67,6 +67,8 @@ bool j1Scene2::Start()
 
 		App->audio->PlayMusic("audio/music/main_song.ogg"); 
 		PlaceEnemies();
+		App->entities->player->pickups_counter = saved_pickups;
+		App->entities->player->points = saved_points;
 		saved_time += App->scene1->finish_time;
 		time.Start();
 		

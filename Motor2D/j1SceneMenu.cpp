@@ -45,6 +45,13 @@ bool j1SceneMenu::Start()
 
 	button_sound = App->audio->LoadFx("audio/fx/button_sound.wav");
 	door_sound = App->audio->LoadFx("audio/fx/door_sound.wav");
+	pugi::xml_document	config_file;
+	pugi::xml_parse_result result = config_file.load_file("save_game.xml");
+	if (result)
+	{
+		LOG("save_game.xml loaded succesfully");
+		App->savefilefound = true;
+	}
 
 	if (active) 
 	{
@@ -59,7 +66,7 @@ bool j1SceneMenu::Start()
 
 		cont = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,300 }, this);
 		cont->SetButtonTex("gui/Menu/ContinueButton.png", "gui/Menu/ContinueButtonHover.png", "gui/Menu/ContinueButtonPressed.png");
-		if (!App->savefilefound)cont->active = false;
+	if (!App->savefilefound)cont->active = false;
 		menu_elems.add(cont);
 
 		settings = App->gui->AddButton(ALIGN_LEFT, nullptr, { 30,400 }, this);

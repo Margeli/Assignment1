@@ -137,12 +137,16 @@ bool j1Scene::CleanUp()
 {
 	LOG("Unloading scene 1.");
 
+
 	App->map->CleanUp();
 	App->collis->CleanUp();
 	App->tex->CleanUp();
 	App->entities->EnemiesCleanUp();
-	if (App->entities->player)
-	App->entities->player->CleanUp();
+	if (App->entities->player) {
+		App->entities->player->points = 0;
+		App->entities->player->pickups_counter = 0;
+		App->entities->player->CleanUp();
+	}
 	App->pathfind->CleanUp();
 	finish_time = time.ReadSec()+saved_time;
 	time.SetZero();
@@ -183,7 +187,8 @@ void j1Scene::SceneChange()
 	App->scene1->active = false;
 
 	App->scene2->time.AddTime(time);
-
+	App->scene2->saved_pickups = App->entities->player->pickups_counter;
+	App->scene2->saved_points = App->entities->player->points;
 	CleanUp();	
 	App->entities->Start();
 	App->scene2->Start();

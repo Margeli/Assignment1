@@ -41,7 +41,9 @@ public:
 	bool win = false;
 
 	j1Timer time;
-	uint saved_time=0;
+	uint saved_time = 0;	
+	uint saved_points = 0;
+	uint saved_pickups = 0;
 	SDL_Texture* winning = nullptr;
 	SDL_Rect winning_rect;
 

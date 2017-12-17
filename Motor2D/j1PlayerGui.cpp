@@ -216,6 +216,7 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 
 			if (elem == restart)
 			{
+
 				App->audio->PlayFx(App->menu->button_sound);
 				App->ResumeGame();
 				if (App->scene1->active == true) { 

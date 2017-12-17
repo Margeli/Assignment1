@@ -297,8 +297,7 @@ bool j1App::DoUpdate()
 // Call modules after each loop iteration
 bool j1App::PostUpdate()
 {
-	HCURSOR mouse = LoadCursorFromFileA("gui/PlayerGui/cursor1.cur");
-	SetCursor(mouse);
+	
 
 	BROFILER_CATEGORY("App_PostUpdate", Profiler::Color::Brown);
 	bool ret = true;
