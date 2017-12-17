@@ -228,7 +228,9 @@ bool j1Player::Update(float dt)
 		
 	if (points > max_score) { max_score = points; }
 
-	if (fposition.y >= BOTTOM_SCENE_LIMIT && lifes < 1) { App->audio->PlayFx(lose_fx, 0); }
+	
+if (fposition.y >= BOTTOM_SCENE_LIMIT*2 || fposition.x >= RIGHT_SCENE_LIMIT * 1.5) { 
+	InitialPlayerPos(); }
 
 	if(!App->scene2->win)playerGui->Update(dt);
 
