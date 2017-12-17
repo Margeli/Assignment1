@@ -18,7 +18,6 @@
 #include "j1PlayerGui.h"
 #include "SDL/include/SDL_timer.h"
 
-
 #define SPEED 2.5f
 #define JUMP_SPEED 17.0f
 #define JUMP_LIMIT 30.0f
@@ -95,7 +94,9 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt)
 {	
 	BROFILER_CATEGORY("Player_Update", Profiler::Color::Azure);
+
 	speed = (SPEED + SPEED *dt) * 1.30f;
+
 	if (points >= 100*points_index)
 	{ 
 		App->audio->PlayFx(win_live);
@@ -104,28 +105,20 @@ bool j1Player::Update(float dt)
 		lifes++;
 		playerGui->DrawHearts(lifes);
 	}
-	if (paused) { 
+	if (paused) 
+	{ 
 		playerGui->PauseTime(); 
 		if (facing == RIGHT) { animation = &pause_right; }
 		else { animation = &pause_left; }
 		Draw(); 
-		return true; }
+		return true;
+	}
+
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
-	//else 	if (godmode == true) { fposition.y; }
+
 	if (use_input && !App->scene2->win) 
 	{
-		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) //----------------ATTACK MOVEMENT
-		{
-			App->audio->PlayFx(sword_sound);
 
-			if (facing == Facing::LEFT) { animation = &attack_left; }
-			else if (facing == Facing::RIGHT) { animation = &attack_right; }
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP )
-		{
-			if (animation == &attack_right) { attack_right.Reset(); animation = &idle_right; }
-			else if (animation == &attack_left) { attack_left.Reset(); animation = &idle_left; }
-		}
 		//------------------GODMODE
 		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) 
 		{ 
@@ -143,7 +136,7 @@ bool j1Player::Update(float dt)
 		if (((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)) //RUNING RIGHT
 		{
 			walking = true;
-			fposition.x += speed *  1.05f;
+			fposition.x += speed *  1.15f;	//RUN
 			animation = &run_right;
 			facing = Facing::RIGHT;
 
@@ -154,7 +147,7 @@ bool j1Player::Update(float dt)
 		if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)) //-----------WALKING RIGHT
 		{
 			walking = true;
-			fposition.x += speed;
+			fposition.x += speed * 1.05f;		//WALK
 			facing = Facing::RIGHT;
 
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
@@ -170,7 +163,7 @@ bool j1Player::Update(float dt)
 		if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) && App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) 	//RUNNING LEFT
 		{
 			walking = true;
-			fposition.x -= speed * 1.05f;
+			fposition.x -= speed * 1.15f;		//RUN
 			animation = &run_left;
 			facing = Facing::LEFT;
 			if (camera_movement) { App->render->camera.x -= App->render->camera_speed; }
@@ -180,7 +173,7 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) //------------WALKING LEFT
 		{
 			walking = true;
-			fposition.x -= speed;
+			fposition.x -= speed * 1.05f;		//WALK
 			facing = Facing::LEFT;
 			if (animation != &jump_right) { animation = &walk_left; }
 		}
@@ -219,7 +212,8 @@ bool j1Player::Update(float dt)
 			else { landing = true; }
 		}
 	}
-	if (littlejump) {
+	if (littlejump) 
+	{
 		fposition.y -= jump_speed;
 		littlejumphigh++;
 		if (littlejumphigh == LITTLEJUMPHIGH) { littlejump = false; }
@@ -229,8 +223,7 @@ bool j1Player::Update(float dt)
 	
 	if (collider != nullptr) { collider->SetPos(fposition.x, fposition.y + 5); }
 
-	if (player_hurted && animation->Finished() == true) {
-		LoseOneLife(); }	
+	if (player_hurted && animation->Finished() == true) { LoseOneLife(); }	
 		
 	if (points > max_score) { max_score = points; }
 
@@ -241,14 +234,24 @@ bool j1Player::Update(float dt)
 	Draw();
 
 	if (lifes < 1) { Dead(); }
-	if(death_image == true) 
+	if(death_image == true && !App->scene2->active) 
 	{
 		App->render->Blit(dying, RIGHT_SCENE_LIMIT, 0, &dying_rect);
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
-			if (App->scene1->active) { App->scene1->SceneChangeMenu(); 	App->fade->FadeToBlack(App->scene1, App->menu, 0.8f); }
-			else if (App->scene2->active) { App->scene2->SceneChangeMenu(); App->fade->FadeToBlack(App->scene2, App->menu, 0.8f); }
+			if (App->scene1->active == true)
+			{
+				App->fade->FadeToBlack(App->scene1, App->menu, 0.8f);
+				App->scene1->CleanUp();
+				App->scene2->SceneChange();
+			}
+			if (App->scene2->active == true) 
+			{
+				App->fade->FadeToBlack(App->scene2, App->menu, 0.8f);
+				App->scene2->CleanUp();
+				App->scene1->SceneChange();
+			}
 		}
 	}
 
@@ -262,10 +265,9 @@ void j1Player::Dead()
 	points = 0;	
 	points_index = 1;
 	pickups_counter = 0;
-
-	death_image = true;
 	App->render->camera.x = -RIGHT_SCENE_LIMIT;
 	App->entities->EnemiesCleanUp();
+	death_image = true;
 }
 
 void j1Player::PlayerHurted() 

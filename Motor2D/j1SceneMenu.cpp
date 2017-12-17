@@ -15,7 +15,6 @@
 #include "j1Map.h"
 #include "j1Gui.h"
 
-
 #define GITHUB_URL "https://margeli.github.io/Assignment3/"
 //should be a link to the webpage
 

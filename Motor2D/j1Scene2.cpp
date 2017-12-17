@@ -117,7 +117,7 @@ bool j1Scene2::Update(float dt)
 		LOG("End of level 2!");
 
 		win = true;
-
+		App->entities->player->godmode = false;
 		App->entities->player->animation = &App->entities->player->winning_anim;
 		App->render->Blit(winning, RIGHT_SCENE_LIMIT_2 , 0, &winning_rect);	
 		App->render->camera.x = -RIGHT_SCENE_LIMIT_2;
@@ -126,7 +126,7 @@ bool j1Scene2::Update(float dt)
 
 		//Hide UI!
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
 			App->fade->FadeToBlack(App->scene2, App->menu, 0.8f);
 			SceneChangeMenu();

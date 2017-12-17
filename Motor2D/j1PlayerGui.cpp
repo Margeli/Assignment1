@@ -96,14 +96,12 @@ bool j1PlayerGui::CleanUp()
 		empty_heart[i]->CleanUp();
 	}
 
-	
 	timer_text->CleanUp();
 	pickups_text->CleanUp();
 	points_text->CleanUp();	
 	points_img->CleanUp();
 
-	if (pauseMenucreated) { 
-		DestroyESCWindow(); }
+	if (pauseMenucreated) { DestroyESCWindow(); }
 
 	return true;
 }
@@ -116,15 +114,8 @@ void j1PlayerGui::DrawHearts(int current_lifes)
 		empty_heart[i]->draw = false;
 	}
 
-	for (int i = 0; i < current_lifes; i++) 
-	{
-		full_heart[i]->draw = true;
-	}
-
-	for (int i = LIFES-1; i >= current_lifes; i--) 
-	{
-		empty_heart[i]->draw = true;
-	}
+	for (int i = 0; i < current_lifes; i++) { full_heart[i]->draw = true; }
+	for (int i = LIFES-1; i >= current_lifes; i--) { empty_heart[i]->draw = true; }
 }
 
 bool j1PlayerGui::Load(pugi::xml_node& data)
@@ -217,9 +208,11 @@ bool j1PlayerGui::OnEventChange(j1UI_Elem* elem, ButtonEvent event)
 		{
 		case ButtonEvent::LEFT_CLICK:
 
-			if (elem == winquit) {
+			if (elem == winquit)
+			{
 				App->audio->PlayFx(App->menu->button_sound);
-				return false; }		
+				return false;
+			}		
 
 			if (elem == restart)
 			{
