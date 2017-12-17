@@ -2,7 +2,7 @@
 
 ## Team members
 
-<img src="https://github.com/Margeli/Assignment3/blob/master/assets/DSC_7968.JPG">
+<img src="https://github.com/Margeli/Assignment3/blob/master/assets/DSC_7968.JPG" height="42" width="42">
 
 ## Innovation
 
