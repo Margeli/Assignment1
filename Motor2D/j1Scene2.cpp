@@ -118,12 +118,13 @@ bool j1Scene2::Update(float dt)
 
 		win = true;
 		App->entities->player->godmode = false;
+		App->entities->player->use_input = false;
 		App->entities->player->animation = &App->entities->player->winning_anim;
 		App->render->Blit(winning, RIGHT_SCENE_LIMIT_2 , 0, &winning_rect);	
 		App->render->camera.x = -RIGHT_SCENE_LIMIT_2;
 		App->entities->player->fposition = { RIGHT_SCENE_LIMIT_2 + 600, 255 };
 		App->entities->EnemiesCleanUp();
-
+		App->entities->player->playerGui->CleanUp();
 		//Hide UI!
 
 		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)

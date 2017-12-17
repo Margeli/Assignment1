@@ -165,7 +165,7 @@
   </player>
   <enemies>
     <collect>
-      <idle loop="true" speed ="1.0f">
+      <idle loop="false" speed ="1.0f">
         <animation x="0" y="0" w="31" h="32"/>
       </idle>
     </collect>

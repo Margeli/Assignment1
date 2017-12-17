@@ -18,7 +18,7 @@
 #include "j1PlayerGui.h"
 #include "SDL/include/SDL_timer.h"
 
-#define SPEED 2.5f
+#define SPEED 2.3f
 #define JUMP_SPEED 17.0f
 #define JUMP_LIMIT 30.0f
 #define LITTLEJUMPHIGH 5
@@ -47,6 +47,7 @@ bool j1Player::Start()
 	
 	animation = &idle_right;
 	fposition = {(float) position.x, (float)position.y };
+	use_input = true;
 	InitialPlayerPos();
 
 	collider = App->collis->AddCollider({ position.x, position.y, 46, 60 }, COLLIDER_PLAYER, App->entities);	
@@ -116,7 +117,7 @@ bool j1Player::Update(float dt)
 
 	if(godmode == false) { fposition.y += GRAVITY + GRAVITY*dt; }
 
-	if (use_input && !App->scene2->win) 
+	if (use_input ) 
 	{
 
 		//------------------GODMODE
@@ -234,27 +235,7 @@ bool j1Player::Update(float dt)
 	Draw();
 
 	if (lifes < 1) { Dead(); }
-	if(death_image == true && !App->scene2->active) 
-	{
-		App->render->Blit(dying, RIGHT_SCENE_LIMIT, 0, &dying_rect);
-
-		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		{
-			if (App->scene1->active == true)
-			{
-				App->fade->FadeToBlack(App->scene1, App->menu, 0.8f);
-				App->scene1->CleanUp();
-				App->scene2->SceneChange();
-			}
-			if (App->scene2->active == true) 
-			{
-				App->fade->FadeToBlack(App->scene2, App->menu, 0.8f);
-				App->scene2->CleanUp();
-				App->scene1->SceneChange();
-			}
-		}
-	}
-
+	
 	return true;
 }
 
@@ -267,7 +248,7 @@ void j1Player::Dead()
 	pickups_counter = 0;
 	App->render->camera.x = -RIGHT_SCENE_LIMIT;
 	App->entities->EnemiesCleanUp();
-	death_image = true;
+	
 }
 
 void j1Player::PlayerHurted() 

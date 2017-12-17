@@ -86,8 +86,7 @@ private:
 	float jump_limit;
 	float jump_pos;
 	float jump_speed;
-	bool walking = false;
-	bool death_image = false;
+	bool walking = false;	
 	bool landing = false;
 	bool can_jump = false;
 	bool jumping = false;
