@@ -15,6 +15,7 @@ public:
 	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
 
+
 private:
 	float current_frame = 0;
 	int last_frame = 0;
