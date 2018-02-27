@@ -8,5 +8,5 @@ build:
   verbosity: minimal
   publish_wap: true
   
-  install:
+install:
   - SET PATH=C:\Program Files (x86)\MSBuild\12.0\bin\;%PATH%
