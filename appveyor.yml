@@ -6,7 +6,7 @@ before_build:
   
 build:
   verbosity: minimal
-  publish_wap: true
+  publish_wap: false
 
 image:
   - Visual Studio 2017
