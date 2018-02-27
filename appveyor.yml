@@ -7,6 +7,6 @@ before_build:
 build:
   verbosity: minimal
   publish_wap: true
-  
-install:
-  - SET PATH=C:\Program Files (x86)\MSBuild\12.0\bin\;%PATH%
+
+image:
+  - Visual Studio 2017
