@@ -3,10 +3,11 @@ configuration: Release
 
 before_build:
   - nuget restore
+
   
 build:
-  verbosity: minimal
-  publish_wap: false
+  verbosity: minimal  
+  project: Cave Knight.sln
 
 image:
   - Visual Studio 2017
